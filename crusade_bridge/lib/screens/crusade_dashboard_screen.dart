@@ -1,0 +1,271 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../models/crusade_models.dart';
+import '../providers/crusade_provider.dart';
+import '../providers/sync_provider.dart';
+import '../services/sync_service.dart';
+import '../widgets/army_avatar.dart';
+import '../utils/snackbar_utils.dart';
+import '../widgets/sync_conflict_dialog.dart';
+
+class CrusadeDashboardScreen extends ConsumerWidget {
+  const CrusadeDashboardScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentCrusade = ref.watch(currentCrusadeNotifierProvider);
+    final syncState = ref.watch(syncNotifierProvider);
+    final syncNotifier = ref.read(syncNotifierProvider.notifier);
+
+    // Listen for sync state changes
+    ref.listen<SyncState>(syncNotifierProvider, (_, state) {
+      if (state.successMessage != null) {
+        SnackBarUtils.showMessage(context, state.successMessage!);
+        // Reset sync state after showing message
+        Future.delayed(const Duration(seconds: 2), () {
+          syncNotifier.reset();
+        });
+      } else if (state.errorMessage != null) {
+        SnackBarUtils.showError(context, state.errorMessage!);
+        syncNotifier.reset();
+      } else if (state.conflict != null && currentCrusade != null) {
+        _showConflictDialog(context, state.conflict!, ref, syncNotifier, currentCrusade);
+      }
+    });
+
+    if (currentCrusade == null) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Crusade Dashboard')),
+        body: const Center(child: Text('No Crusade loaded. Please select one from the home screen.')),
+      );
+    }
+
+    final isSyncing = syncState.isSyncing;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(currentCrusade.name),
+        actions: [
+          if (isSyncing)
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              ),
+            )
+          else
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ArmyAvatar(
+                factionAsset: currentCrusade.factionIconAsset,
+                customPath: currentCrusade.armyIconPath,
+              ),
+            ),
+        ],
+      ),
+      body: Column(
+        children: [
+          // Crusade Summary Header
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surfaceContainerHighest,
+              border: Border(
+                bottom: BorderSide(
+                  color: Theme.of(context).dividerColor,
+                  width: 1,
+                ),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  currentCrusade.faction,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(fontSize: 24),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  currentCrusade.detachment,
+                  style: const TextStyle(fontSize: 14, color: Colors.grey),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '${currentCrusade.totalOobPoints}/${currentCrusade.supplyLimit} pts',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: currentCrusade.remainingPoints < 0 ? Colors.red : const Color(0xFFFFB6C1),
+                      ),
+                    ),
+                    Text(
+                      '${currentCrusade.rp} RP',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFFFF59D),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          // Action Tiles Grid
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+                childAspectRatio: 1.2,
+                children: [
+                  _ActionTile(
+                    icon: Icons.list_alt,
+                    label: 'Modify OOB',
+                    color: Colors.blue,
+                    onTap: () => context.go('/oob'),
+                  ),
+                  _ActionTile(
+                    icon: Icons.groups,
+                    label: 'Assemble Roster',
+                    color: Colors.green,
+                    onTap: () {
+                      SnackBarUtils.showMessage(context, 'Roster assembly coming soon');
+                    },
+                  ),
+                  _ActionTile(
+                    icon: Icons.play_arrow,
+                    label: 'Play Game',
+                    color: Colors.orange,
+                    onTap: () {
+                      SnackBarUtils.showMessage(context, 'Play mode coming soon');
+                    },
+                  ),
+                  _ActionTile(
+                    icon: Icons.build,
+                    label: 'Maintenance',
+                    color: Colors.purple,
+                    onTap: () {
+                      SnackBarUtils.showMessage(context, 'Maintenance coming soon');
+                    },
+                  ),
+                  _ActionTile(
+                    icon: Icons.cloud_upload,
+                    label: 'Save to Drive',
+                    color: const Color(0xFFC2185B),
+                    onTap: isSyncing
+                        ? null
+                        : () async {
+                            await syncNotifier.pushCrusade(currentCrusade);
+                          },
+                  ),
+                  _ActionTile(
+                    icon: Icons.menu_book,
+                    label: 'Resources',
+                    color: Colors.teal,
+                    onTap: () {
+                      SnackBarUtils.showMessage(context, 'Resources coming soon');
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ActionTile extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final Color color;
+  final VoidCallback? onTap;
+
+  const _ActionTile({
+    required this.icon,
+    required this.label,
+    required this.color,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
+        child: Opacity(
+          opacity: onTap != null ? 1.0 : 0.5,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(icon, size: 48, color: color),
+                const SizedBox(height: 12),
+                Text(
+                  label,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+void _showConflictDialog(
+  BuildContext context,
+  SyncConflict conflict,
+  WidgetRef ref,
+  SyncNotifier syncNotifier,
+  Crusade currentCrusade,
+) {
+  showDialog(
+    context: context,
+    builder: (context) => SyncConflictDialog(
+      conflict: conflict,
+      onResolve: (overwrite) async {
+        switch (conflict.type) {
+          case ConflictType.pushingOlderLocal:
+            await syncNotifier.resolvePushConflict(
+              currentCrusade,
+              overwriteRemote: overwrite,
+            );
+          case ConflictType.pullingOlderRemote:
+            // For pull conflicts, this would need the remote data
+            // For now, just handle the local decision
+            await syncNotifier.resolvePullConflict(
+              conflict.crusadeId,
+              {},
+              acceptRemote: overwrite,
+            );
+        }
+      },
+    ),
+  );
+}

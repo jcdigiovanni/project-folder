@@ -1,0 +1,9 @@
+{
+  "powershell.profiles.windows": [
+    {
+      "name": "PowerShell",
+      "path": "pwsh.exe",
+      "args": ["-NoExit", "-Command", ". $PROFILE"]
+    }
+  ]
+}

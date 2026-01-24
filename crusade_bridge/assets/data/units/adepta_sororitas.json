@@ -1,0 +1,178 @@
+{
+  "faction": "Adepta Sororitas",
+  "version": "1.0",
+  "lastUpdated": "2025-01-23",
+  "units": [
+    {
+      "name": "Canoness",
+      "role": "Character",
+      "keywords": ["Infantry", "Character", "Grenades", "Imperium", "Canoness"],
+      "sizeOptions": [1],
+      "pointsOptions": [50],
+      "isEpicHero": false,
+      "notes": "HQ choice. Can be made Warlord."
+    },
+    {
+      "name": "Morvenn Vahl",
+      "role": "Character",
+      "keywords": ["Vehicle", "Character", "Epic Hero", "Imperium", "Morvenn Vahl"],
+      "sizeOptions": [1],
+      "pointsOptions": [125],
+      "isEpicHero": true,
+      "notes": "Epic Hero. Cannot gain XP or be marked Out of Action."
+    },
+    {
+      "name": "Triumph of Saint Katherine",
+      "role": "Character",
+      "keywords": ["Infantry", "Character", "Epic Hero", "Imperium", "Triumph of Saint Katherine"],
+      "sizeOptions": [1],
+      "pointsOptions": [200],
+      "isEpicHero": true,
+      "notes": "Epic Hero. Cannot gain XP or be marked Out of Action."
+    },
+    {
+      "name": "Celestine",
+      "role": "Character",
+      "keywords": ["Infantry", "Character", "Epic Hero", "Fly", "Imperium", "Celestine"],
+      "sizeOptions": [1],
+      "pointsOptions": [150],
+      "isEpicHero": true,
+      "notes": "Epic Hero. Cannot gain XP or be marked Out of Action."
+    },
+    {
+      "name": "Missionary",
+      "role": "Character",
+      "keywords": ["Infantry", "Character", "Grenades", "Imperium", "Missionary"],
+      "sizeOptions": [1],
+      "pointsOptions": [50],
+      "isEpicHero": false,
+      "notes": "HQ choice."
+    },
+    {
+      "name": "Palatine",
+      "role": "Character",
+      "keywords": ["Infantry", "Character", "Grenades", "Imperium", "Palatine"],
+      "sizeOptions": [1],
+      "pointsOptions": [50],
+      "isEpicHero": false,
+      "notes": "HQ choice."
+    },
+    {
+      "name": "Battle Sisters Squad",
+      "role": "Battleline",
+      "keywords": ["Infantry", "Battleline", "Grenades", "Imperium", "Battle Sisters Squad"],
+      "sizeOptions": [10, 20],
+      "pointsOptions": [100, 200],
+      "isEpicHero": false,
+      "notes": "Core troop choice. Can take special weapons."
+    },
+    {
+      "name": "Seraphim Squad",
+      "role": "Infantry",
+      "keywords": ["Infantry", "Fly", "Jump Pack", "Grenades", "Imperium", "Seraphim"],
+      "sizeOptions": [5, 10],
+      "pointsOptions": [90, 180],
+      "isEpicHero": false,
+      "notes": "Fast attack unit with jump packs."
+    },
+    {
+      "name": "Dominion Squad",
+      "role": "Infantry",
+      "keywords": ["Infantry", "Grenades", "Imperium", "Dominion Squad"],
+      "sizeOptions": [10],
+      "pointsOptions": [120],
+      "isEpicHero": false,
+      "notes": "Elite unit with special weapons."
+    },
+    {
+      "name": "Retributor Squad",
+      "role": "Infantry",
+      "keywords": ["Infantry", "Grenades", "Imperium", "Retributor Squad"],
+      "sizeOptions": [10],
+      "pointsOptions": [130],
+      "isEpicHero": false,
+      "notes": "Heavy support unit with heavy weapons."
+    },
+    {
+      "name": "Celestian Sacresants",
+      "role": "Infantry",
+      "keywords": ["Infantry", "Grenades", "Imperium", "Celestian Sacresants"],
+      "sizeOptions": [5, 10],
+      "pointsOptions": [75, 150],
+      "isEpicHero": false,
+      "notes": "Elite melee-focused unit."
+    },
+    {
+      "name": "Repentia Squad",
+      "role": "Infantry",
+      "keywords": ["Infantry", "Imperium", "Repentia"],
+      "sizeOptions": [5, 10],
+      "pointsOptions": [70, 140],
+      "isEpicHero": false,
+      "notes": "Melee specialist unit."
+    },
+    {
+      "name": "Zephyrim Squad",
+      "role": "Infantry",
+      "keywords": ["Infantry", "Fly", "Jump Pack", "Grenades", "Imperium", "Zephyrim"],
+      "sizeOptions": [5, 10],
+      "pointsOptions": [85, 170],
+      "isEpicHero": false,
+      "notes": "Melee jump pack unit."
+    },
+    {
+      "name": "Rhino",
+      "role": "Dedicated Transport",
+      "keywords": ["Vehicle", "Transport", "Smoke", "Imperium", "Rhino"],
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "notes": "Transport capacity: 12 Infantry models."
+    },
+    {
+      "name": "Immolator",
+      "role": "Dedicated Transport",
+      "keywords": ["Vehicle", "Transport", "Smoke", "Imperium", "Immolator"],
+      "sizeOptions": [1],
+      "pointsOptions": [110],
+      "isEpicHero": false,
+      "notes": "Armed transport. Transport capacity: 6 Infantry models."
+    },
+    {
+      "name": "Exorcist",
+      "role": "Heavy Support",
+      "keywords": ["Vehicle", "Smoke", "Imperium", "Exorcist"],
+      "sizeOptions": [1],
+      "pointsOptions": [170],
+      "isEpicHero": false,
+      "notes": "Heavy support artillery tank."
+    },
+    {
+      "name": "Penitent Engines",
+      "role": "Heavy Support",
+      "keywords": ["Vehicle", "Walker", "Imperium", "Penitent Engines"],
+      "sizeOptions": [2],
+      "pointsOptions": [150],
+      "isEpicHero": false,
+      "notes": "Melee walkers. Unit of 2."
+    },
+    {
+      "name": "Castigator",
+      "role": "Heavy Support",
+      "keywords": ["Vehicle", "Smoke", "Imperium", "Castigator"],
+      "sizeOptions": [1],
+      "pointsOptions": [155],
+      "isEpicHero": false,
+      "notes": "Battle tank."
+    },
+    {
+      "name": "Mortifier",
+      "role": "Heavy Support",
+      "keywords": ["Vehicle", "Walker", "Imperium", "Mortifier"],
+      "sizeOptions": [2],
+      "pointsOptions": [140],
+      "isEpicHero": false,
+      "notes": "Heavy walker support. Unit of 2."
+    }
+  ]
+}

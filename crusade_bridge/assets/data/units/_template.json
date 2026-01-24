@@ -1,0 +1,16 @@
+{
+  "faction": "FACTION_NAME_HERE",
+  "version": "1.0",
+  "lastUpdated": "YYYY-MM-DD",
+  "units": [
+    {
+      "name": "Unit Name",
+      "role": "Character | Battleline | Infantry | Heavy Support | Fast Attack | Dedicated Transport | Elites | etc.",
+      "keywords": ["Keyword1", "Keyword2", "Infantry", "Vehicle", "etc."],
+      "sizeOptions": [5, 10],
+      "pointsOptions": [100, 200],
+      "isEpicHero": false,
+      "notes": "Optional notes about the unit, restrictions, transport capacity, etc."
+    }
+  ]
+}

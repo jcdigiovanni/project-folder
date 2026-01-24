@@ -1,0 +1,59 @@
+name: crusade_bridge
+description: A cross-platform Warhammer 40K 10th Edition Crusade tracker with modular groups.
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State management
+  riverpod: ^2.5.1
+  flutter_riverpod: ^2.5.1
+
+  # Navigation
+  go_router: ^14.2.7
+
+  # Storage (Hive for local persistence)
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  path_provider: ^2.1.4
+
+  # Google Drive sync
+  google_sign_in: ^6.2.1
+  googleapis: ^13.2.0
+  http: ^1.2.2
+
+  # Image picker for army icon
+  image_picker: ^1.1.2
+
+  # Fonts (Google Fonts package)
+  google_fonts: ^6.2.1
+
+  # Date formatting & UUID for IDs
+  intl: ^0.20.2
+  uuid: ^4.4.2
+
+  # URL launcher for Resources links
+  url_launcher: ^6.3.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/icons/factions/
+    - assets/data/factions_and_detachments.json
+    - assets/data/units/
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  build_runner: ^2.4.13
+  hive_generator: ^2.0.1

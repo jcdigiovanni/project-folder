@@ -1,0 +1,183 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2025-01-23",
+  "factions": {
+    "Adepta Sororitas": {
+      "icon": "assets/icons/factions/adepta_sororitas.png",
+      "detachments": [
+        "Army of Faith","Bringers of Flame","Champions of Faith","Hallowed Martyrs","Penitent Host"
+      ]
+    },
+    "Adeptus Astartes": {
+      "icon": "assets/icons/factions/space_marines.png",
+      "detachments": [
+        "1st Company Task Force","Anvil Siege Force","Bastion Task Force","Blade of Ultramar","Emperor's Shield","Firestorm Assault Force","Forgefather's Seekers","Gladius Task Force","Hammer of Avernii","Ironstorm Spearhead","Librarius Conclave","Orbital Assault Force","Reclamation Force","Shadowmark Talon","Spearpoint Task Force","Vanguard Spearhead"
+      ]
+    },
+    "Adeptus Custodes": {
+      "icon": "assets/icons/factions/adeptus_custodes.png",
+      "detachments": [
+        "Auric Champions","Lions of the Emperor","Null Maiden Vigil","Shield Host","Solar Spearhead","Talons of the Emperor"
+      ]
+    },
+    "Adeptus Mechanicus": {
+      "icon": "assets/icons/factions/adeptus_mechanicus.png",
+      "detachments": [
+        "Cohort Cybernetica","Data-Psalm Conclave","Explorator Maniple","Haloscreed Battle Clade","Rad-zone Corps","Skitarii Hunter Cohort"
+        ]
+    },
+    "Aeldari": {
+      "icon": "assets/icons/factions/aeldari.png",
+      "detachments": [
+        "Armoured Warhost","Aspect Host","Devoted of Ynnead","Ghosts of the Webway","Guardian Battlehost","Seer Council","Spirit Conclave","Serpent's Brood","Warhost","Windrider Host"
+      ]
+    },
+    "Astra Militarum": {
+      "icon": "assets/icons/factions/astra_militarum.png",
+      "detachments": [
+        "Bridgehead Strike","Combined Arms","Grizzled Company","Hammer of the Emperor","Mechanised Assault","Recon Element","Siege Regiment"
+      ]
+    },
+    "Black Templars": {
+      "icon": "assets/icons/factions/black_templars.png",
+      "detachments": [
+        "Champions of Vehemence","Godhammer Assault Force","Vindication Task Force","Wrathful Procession"
+      ]
+    },
+    "Blood Angels": {
+      "icon": "assets/icons/factions/blood_angels.png",
+      "detachments": [
+        "Angelic Inheritors","Liberator Assault Group","Rage-crusted Onslaught","The Angelic Host","The Lost Brethren"
+      ]
+    },
+    "Chaos Daemons": {
+      "icon": "assets/icons/factions/chaos_daemons.png",
+      "detachments": [
+        "Blood Legion","Daemonic Incursion","Legion of Excess","Plague Legion","Scintillating Legion","Shadow Legion"
+      ]
+    },
+    "Chaos Knights": {
+      "icon": "assets/icons/factions/chaos_knights.png",
+      "detachments": [
+        "Houndpack Lance","Infernal Lance","Iconoclast Fiefdom","Lords of Dread","Traitoris Lance"
+      ]
+    },
+    "Chaos Space Marines": {
+      "icon": "assets/icons/factions/chaos_space_marines.png",
+      "detachments": [
+        "Cabal of Chaos","Chaos Cult","Creations of Bile","Deceptors","Dread Talons","Felhammer Siege-host","Nightmare Hunt","Pactbound Zealots","Renegade Raiders","Soulforged Warpack","Veterans of the Long War"
+      ]
+    },
+    "Dark Angels": {
+      "icon": "assets/icons/factions/dark_angels.png",
+      "detachments": [
+        "Company of Hunters","Inner Circle Task Force","Lion's Blade Task Force","Unforgiven Task Force","Wrath of the Rock"
+      ]
+    },
+    "Death Guard": {
+      "icon": "assets/icons/factions/death_guard.png",
+      "detachments": [
+        "Champions of Contagion","Death Lord's Chosen","Flyblown Host","Mortarion's Hammer","Shamblerot Vectorium","Tallyband Summoners","Virulent Vectorium"
+      ]
+    },
+    "Deathwatch": {
+      "icon": "assets/icons/factions/deathwatch.png",
+      "detachments": [
+        "Black Spear Task Force"
+      ]
+    },
+    "Drukhari": {
+      "icon": "assets/icons/factions/drukhari.png",
+      "detachments": [
+        "Covenite Coterie","Kabalite Cartel","Realspace Raiders","Reaper's Wager","Skysplinter Assault","Spectacle of Spite"
+      ]
+    },
+    "Emperor's Children": {
+      "icon": "assets/icons/factions/emperors_children.png",
+      "detachments": [
+        "Carnival of Excess","Coterie of the Conceited","Court of the Phoenician","Mecurial Host","Peerless Bladesmen","Rapid Evisceration","Slaanesh's Chosen"
+      ]
+    },
+    "Genestealer Cults": {
+      "icon": "assets/icons/factions/genestealer_cults.png",
+      "detachments": [
+        "Biosanctic Broodsurge","Brood Brother Auxilia","Final Day","Host of Ascension","Outlander Claw","Xenocreed Congregation"
+      ]
+    },
+    "Grey Knights": {
+      "icon": "assets/icons/factions/grey_knights.png",
+      "detachments": [
+        "Augurium Task Force","Banishers","Brotherhood Strike","Hallowed Conclave","Sanctic Spearhead","Warpbane Task Force"
+      ]
+    },
+    "Imperial Agents": {
+      "icon": "assets/icons/factions/imperial_agents.png",
+      "detachments": [
+        "Alien Hunters","Daemon Hunters","Imperialis Fleet","Purgation Force","Veiled Blade Elimination Force"
+      ]
+    },
+    "Imperial Knights": {
+      "icon": "assets/icons/factions/imperial_knights.png",
+      "detachments": [
+        "Gate Warden Lance","Questor Forgepact","Questoris Companions","Spearhead-At-Arms","Valourstrike Lance"
+      ]
+    },
+    "Leagues of Votann": {
+      "icon": "assets/icons/factions/leagues_of_votann.png",
+      "detachments": [
+        "Brandfast Oathband","Delve Assault Shift","Hearthband","Hearthfyre Arsenal","Needgaard Oathband","Persecution Prospect"
+      ]
+    },
+    "Necrons": {
+      "icon": "assets/icons/factions/necrons.png",
+      "detachments": [
+        "Annihilation Legion","Awakened Dynasty","Canoptek Court","Cryptek Conclave","Cursed Legion","Hypercrypt Legion","Obeisance Phalanx","Pantheon of Woe","Starshatter Arsenal"
+      ]
+    },
+    "Thousand Sons": {
+      "icon": "assets/icons/factions/thousand_sons.png",
+      "detachments": [
+        "Cult of Magic",
+        "Cabbalistic Ritualists",
+        "Custom"
+      ]
+    },
+    "World Eaters": {
+      "icon": "assets/icons/factions/world_eaters.png",
+      "detachments": [
+        "Berzerker Warband",
+        "Custom"
+      ]
+    },
+    "Orks": {
+      "icon": "assets/icons/factions/orks.png",
+      "detachments": [
+        "Green Tide",
+        "Dread Mob",
+        "Speed Freeks",
+        "War Horde",
+        "Custom"
+      ]
+    },
+    "T'au Empire": {
+      "icon": "assets/icons/factions/tau_empire.png",
+      "detachments": [
+        "Kauyon",
+        "Mont'ka",
+        "Retaliation Cadre",
+        "Kroot Hunting Pack",
+        "Custom"
+      ]
+    },
+    "Tyranids": {
+      "icon": "assets/icons/factions/tyranids.png",
+      "detachments": [
+        "Invasion Fleet",
+        "Synaptic Nexus",
+        "Crusher Stampede",
+        "Unending Swarm",
+        "Custom"
+      ]
+    }
+  }
+}
