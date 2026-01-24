@@ -1,14 +1,38 @@
 {
   "faction": "World Eaters",
-  "version": "1.0",
-  "lastUpdated": "2026-01-23",
+  "version": "1.1",
+  "lastUpdated": "2026-01-24",
   "units": [
     {
       "name": "Angron",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [340],
+      "pointsOptions": [385],
       "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Bloodletters",
+      "role": "Troops",
+      "sizeOptions": [10],
+      "pointsOptions": [110],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Bloodmaster",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [65],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Bloodthirster",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [305],
+      "isEpicHero": false,
       "isCharacter": true
     },
     {
@@ -20,26 +44,10 @@
       "isCharacter": false
     },
     {
-      "name": "Chaos Predator Annihilator",
-      "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [145],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
-      "name": "Chaos Predator Destructor",
-      "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [145],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
       "name": "Chaos Rhino",
       "role": "Dedicated Transport",
       "sizeOptions": [1],
-      "pointsOptions": [85],
+      "pointsOptions": [80],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -47,39 +55,7 @@
       "name": "Chaos Spawn",
       "role": "Elites",
       "sizeOptions": [2],
-      "pointsOptions": [90],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
-      "name": "Chaos Terminators",
-      "role": "Elites",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [175, 350],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
-      "name": "Daemon Prince of Khorne",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [200],
-      "isEpicHero": false,
-      "isCharacter": true
-    },
-    {
-      "name": "Daemon Prince of Khorne with Wings",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [180],
-      "isEpicHero": false,
-      "isCharacter": true
-    },
-    {
-      "name": "Defiler",
-      "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [180],
+      "pointsOptions": [70],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -87,7 +63,7 @@
       "name": "Eightbound",
       "role": "Elites",
       "sizeOptions": [3, 6],
-      "pointsOptions": [135, 270],
+      "pointsOptions": [150, 300],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -95,71 +71,31 @@
       "name": "Exalted Eightbound",
       "role": "Elites",
       "sizeOptions": [3, 6],
-      "pointsOptions": [140, 280],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
-      "name": "Forgefiend",
-      "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [170],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
-      "name": "Goremongers",
-      "role": "Elites",
-      "sizeOptions": [8],
-      "pointsOptions": [75],
+      "pointsOptions": [170, 340],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Helbrute",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [130],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Jackhals",
       "role": "Elites",
-      "sizeOptions": [1],
-      "pointsOptions": [120],
+      "sizeOptions": [5, 10],
+      "pointsOptions": [65, 130],
       "isEpicHero": false,
       "isCharacter": false
-    },
-    {
-      "name": "Heldrake",
-      "role": "Fast Attack",
-      "sizeOptions": [1],
-      "pointsOptions": [200],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
-      "name": "Jakhals",
-      "role": "Troops",
-      "sizeOptions": [10, 20],
-      "pointsOptions": [65, 140],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
-      "name": "Khârn the Betrayer",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [100],
-      "isEpicHero": true,
-      "isCharacter": true
     },
     {
       "name": "Khorne Berzerkers",
       "role": "Troops",
-      "sizeOptions": [10, 20],
-      "pointsOptions": [180, 360],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
-      "name": "Khorne Lord of Skulls",
-      "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [505],
+      "sizeOptions": [10],
+      "pointsOptions": [180],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -167,72 +103,56 @@
       "name": "Lord Invocatus",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [110],
-      "isEpicHero": false,
-      "isCharacter": true
-    },
-    {
-      "name": "Lord on Juggernaut",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [105],
-      "isEpicHero": false,
+      "pointsOptions": [140],
+      "isEpicHero": true,
       "isCharacter": true
     },
     {
       "name": "Master of Executions",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [60],
+      "pointsOptions": [80],
       "isEpicHero": false,
       "isCharacter": true
     },
     {
-      "name": "Maulerfiend",
+      "name": "Skull Altar",
       "role": "Heavy Support",
       "sizeOptions": [1],
-      "pointsOptions": [150],
+      "pointsOptions": [105],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
-      "name": "Bloodcrushers",
-      "role": "Elites",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [110, 220],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
-      "name": "Bloodletters",
-      "role": "Troops",
-      "sizeOptions": [10],
-      "pointsOptions": [90],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
-      "name": "Bloodthirster",
+      "name": "Skulltaker",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [305],
+      "pointsOptions": [85],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "World Eaters Daemon Prince",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [190],
       "isEpicHero": false,
       "isCharacter": true
     },
     {
-      "name": "Flesh Hounds",
-      "role": "Fast Attack",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [75, 150],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
-      "name": "Skarbrand",
+      "name": "World Eaters Daemon Prince with Wings",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [305],
-      "isEpicHero": true,
+      "pointsOptions": [180],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "World Eaters Lord on Juggernaut",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [100],
+      "isEpicHero": false,
       "isCharacter": true
     }
   ]

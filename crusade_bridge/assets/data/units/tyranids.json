@@ -1,0 +1,271 @@
+{
+  "faction": "Tyranids",
+  "version": "1.0",
+  "lastUpdated": "2026-01-24",
+  "units": [
+    {
+      "name": "Barbgaunts",
+      "role": "Troops",
+      "sizeOptions": [5],
+      "pointsOptions": [55],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Biovores",
+      "role": "Heavy Support",
+      "sizeOptions": [1, 2, 3],
+      "pointsOptions": [50, 100, 150],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Broodlord",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Deathleaper",
+      "role": "Elites",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Exocrine",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [170],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Gargoyles",
+      "role": "Fast Attack",
+      "sizeOptions": [10],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Genestealers",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [85, 170],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Haruspex",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [125],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Hierodule",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [300],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Hive Guard",
+      "role": "Heavy Support",
+      "sizeOptions": [3],
+      "pointsOptions": [90],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Hive Tyrant",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [210],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Hive Tyrant with Wings",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [235],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Hormagaunts",
+      "role": "Troops",
+      "sizeOptions": [10, 20],
+      "pointsOptions": [65, 130],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Lictor",
+      "role": "Elites",
+      "sizeOptions": [1],
+      "pointsOptions": [60],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Maleceptor",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [170],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Mawloc",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [145],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Neurogaunts",
+      "role": "Troops",
+      "sizeOptions": [11],
+      "pointsOptions": [45],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Neurotyrant",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [105],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Norn Emissary",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [275],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Old One Eye",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [140],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Psychophage",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [95],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Pyrovore",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [30],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Ripper Swarms",
+      "role": "Troops",
+      "sizeOptions": [3],
+      "pointsOptions": [30],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Screamer-Killer",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [145],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Termagants",
+      "role": "Troops",
+      "sizeOptions": [10, 20],
+      "pointsOptions": [70, 140],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Tervigon",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [210],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Toxicrenes",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [180],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Trygon",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [170],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Tyranid Prime",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Tyranid Warriors",
+      "role": "Elites",
+      "sizeOptions": [3],
+      "pointsOptions": [65],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Tyrannofex",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [190],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Von Ryan's Leapers",
+      "role": "Elites",
+      "sizeOptions": [3],
+      "pointsOptions": [75],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Zoanthropes",
+      "role": "Heavy Support",
+      "sizeOptions": [3],
+      "pointsOptions": [100],
+      "isEpicHero": false,
+      "isCharacter": false
+    }
+  ]
+}
