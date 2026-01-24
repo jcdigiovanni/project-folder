@@ -30,23 +30,37 @@ class CurrentCrusadeNotifier extends StateNotifier<Crusade?> {
     }
   }
 
-  void addUnitOrGroup(UnitOrGroup newItem) {
-    if (state == null) return;
-
-    // Create a new Crusade instance with updated OOB
-    state = Crusade(
+  /// Helper to create a new Crusade with updated fields while preserving all existing data
+  Crusade _copyWith({
+    List<UnitOrGroup>? oob,
+    List<UnitOrGroup>? templates,
+    int? rp,
+    bool? usedFirstCharacterEnhancement,
+    List<CrusadeEvent>? history,
+    List<Roster>? rosters,
+  }) {
+    return Crusade(
       id: state!.id,
       name: state!.name,
       faction: state!.faction,
       detachment: state!.detachment,
       supplyLimit: state!.supplyLimit,
-      rp: state!.rp,
+      rp: rp ?? state!.rp,
       armyIconPath: state!.armyIconPath,
       factionIconAsset: state!.factionIconAsset,
-      oob: [...state!.oob, newItem],
-      templates: state!.templates,
+      oob: oob ?? state!.oob,
+      templates: templates ?? state!.templates,
       lastModified: DateTime.now().millisecondsSinceEpoch,
+      usedFirstCharacterEnhancement: usedFirstCharacterEnhancement ?? state!.usedFirstCharacterEnhancement,
+      history: history ?? state!.history,
+      rosters: rosters ?? state!.rosters,
     );
+  }
+
+  void addUnitOrGroup(UnitOrGroup newItem) {
+    if (state == null) return;
+
+    state = _copyWith(oob: [...state!.oob, newItem]);
 
     // Persist the updated Crusade
     StorageService.saveCrusade(state!);
@@ -57,19 +71,7 @@ class CurrentCrusadeNotifier extends StateNotifier<Crusade?> {
 
     final updatedOob = List<UnitOrGroup>.from(state!.oob)..removeAt(index);
 
-    state = Crusade(
-      id: state!.id,
-      name: state!.name,
-      faction: state!.faction,
-      detachment: state!.detachment,
-      supplyLimit: state!.supplyLimit,
-      rp: state!.rp,
-      armyIconPath: state!.armyIconPath,
-      factionIconAsset: state!.factionIconAsset,
-      oob: updatedOob,
-      templates: state!.templates,
-      lastModified: DateTime.now().millisecondsSinceEpoch,
-    );
+    state = _copyWith(oob: updatedOob);
 
     // Persist the updated Crusade
     StorageService.saveCrusade(state!);
@@ -84,19 +86,7 @@ class CurrentCrusadeNotifier extends StateNotifier<Crusade?> {
     // Add the new group
     updatedOob.add(group);
 
-    state = Crusade(
-      id: state!.id,
-      name: state!.name,
-      faction: state!.faction,
-      detachment: state!.detachment,
-      supplyLimit: state!.supplyLimit,
-      rp: state!.rp,
-      armyIconPath: state!.armyIconPath,
-      factionIconAsset: state!.factionIconAsset,
-      oob: updatedOob,
-      templates: state!.templates,
-      lastModified: DateTime.now().millisecondsSinceEpoch,
-    );
+    state = _copyWith(oob: updatedOob);
 
     // Persist the updated Crusade
     StorageService.saveCrusade(state!);
@@ -108,25 +98,81 @@ class CurrentCrusadeNotifier extends StateNotifier<Crusade?> {
     final updatedOob = List<UnitOrGroup>.from(state!.oob);
     updatedOob[index] = updatedItem;
 
-    state = Crusade(
-      id: state!.id,
-      name: state!.name,
-      faction: state!.faction,
-      detachment: state!.detachment,
-      supplyLimit: state!.supplyLimit,
-      rp: state!.rp,
-      armyIconPath: state!.armyIconPath,
-      factionIconAsset: state!.factionIconAsset,
-      oob: updatedOob,
-      templates: state!.templates,
-      lastModified: DateTime.now().millisecondsSinceEpoch,
-    );
+    state = _copyWith(oob: updatedOob);
 
     // Persist the updated Crusade
     StorageService.saveCrusade(state!);
   }
 
-  // Add more methods later (set warlord, etc.)
+  /// Update a unit by ID (searches through OOB)
+  void updateUnitById(String unitId, UnitOrGroup updatedUnit) {
+    if (state == null) return;
+
+    final index = state!.oob.indexWhere((u) => u.id == unitId);
+    if (index != -1) {
+      updateUnitOrGroup(index, updatedUnit);
+    }
+  }
+
+  /// Update RP amount
+  void updateRp(int newRp) {
+    if (state == null) return;
+
+    state = _copyWith(rp: newRp);
+    StorageService.saveCrusade(state!);
+  }
+
+  /// Add event to history
+  void addEvent(CrusadeEvent event) {
+    if (state == null) return;
+
+    state = _copyWith(history: [...state!.history, event]);
+    StorageService.saveCrusade(state!);
+  }
+
+  /// Mark first character enhancement as used
+  void setFirstCharacterEnhancementUsed() {
+    if (state == null) return;
+
+    state = _copyWith(usedFirstCharacterEnhancement: true);
+    StorageService.saveCrusade(state!);
+  }
+
+  // ========== Roster Management ==========
+
+  /// Add a new roster to the crusade
+  void addRoster(Roster roster) {
+    if (state == null) return;
+
+    state = _copyWith(rosters: [...state!.rosters, roster]);
+    StorageService.saveCrusade(state!);
+  }
+
+  /// Update an existing roster
+  void updateRoster(Roster updatedRoster) {
+    if (state == null) return;
+
+    final updatedRosters = state!.rosters.map((r) {
+      return r.id == updatedRoster.id ? updatedRoster : r;
+    }).toList();
+
+    state = _copyWith(rosters: updatedRosters);
+    StorageService.saveCrusade(state!);
+  }
+
+  /// Delete a roster by ID
+  void deleteRoster(String rosterId) {
+    if (state == null) return;
+
+    final updatedRosters = state!.rosters.where((r) => r.id != rosterId).toList();
+    state = _copyWith(rosters: updatedRosters);
+    StorageService.saveCrusade(state!);
+  }
+
+  /// Get a roster by ID
+  Roster? getRoster(String rosterId) {
+    return state?.rosters.where((r) => r.id == rosterId).firstOrNull;
+  }
 }
 
 final currentCrusadeNotifierProvider = StateNotifierProvider<CurrentCrusadeNotifier, Crusade?>(

@@ -182,7 +182,14 @@ class CrusadeDashboardScreen extends ConsumerWidget {
                       SnackBarUtils.showMessage(context, 'Post-game updates coming soon');
                     },
                   ),
-                  // 6. Resources
+                  // 6. History
+                  _ActionTile(
+                    icon: Icons.history,
+                    label: 'History',
+                    color: Colors.indigo,
+                    onTap: () => context.go('/history'),
+                  ),
+                  // 7. Resources
                   _ActionTile(
                     icon: Icons.menu_book,
                     label: 'Resources',
@@ -191,7 +198,7 @@ class CrusadeDashboardScreen extends ConsumerWidget {
                       SnackBarUtils.showMessage(context, 'Resources coming soon');
                     },
                   ),
-                  // 7. Save to GDrive
+                  // 8. Save to GDrive
                   _ActionTile(
                     icon: Icons.cloud_upload,
                     label: 'Save to Drive',
@@ -202,7 +209,7 @@ class CrusadeDashboardScreen extends ConsumerWidget {
                             await syncNotifier.pushCrusade(currentCrusade);
                           },
                   ),
-                  // 8. Disband Crusade
+                  // 9. Disband Crusade
                   _ActionTile(
                     icon: Icons.delete_forever,
                     label: 'Disband Crusade',

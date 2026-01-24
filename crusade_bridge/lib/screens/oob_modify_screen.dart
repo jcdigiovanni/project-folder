@@ -535,6 +535,8 @@ class OOBModifyScreen extends ConsumerWidget {
         String customName = '';
         bool isWarlord = false;
         int? selectedSizeIndex;
+        bool addEnhancement = false; // For first character enhancement option
+        Map<String, dynamic>? selectedEnhancement;
 
       return StatefulBuilder(
         builder: (context, setModalState) => Padding(
@@ -658,6 +660,80 @@ class OOBModifyScreen extends ConsumerWidget {
                   },
                 ),
 
+              // First Character Enhancement option (Renowned Heroes requisition)
+              if (selectedUnit != null && selectedFaction != null && currentCrusade != null)
+                Builder(
+                  builder: (context) {
+                    final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, selectedUnit!);
+                    final isEpicHeroUnit = unitData['isEpicHero'] as bool? ?? false;
+                    final isCharacterUnit = unitData['isCharacter'] as bool? ?? false;
+
+                    // Check if eligible for first character enhancement
+                    final canUseFirstCharacterEnhancement =
+                        isCharacterUnit &&
+                        !isEpicHeroUnit &&
+                        !currentCrusade.usedFirstCharacterEnhancement &&
+                        currentCrusade.rp >= 1;
+
+                    if (!canUseFirstCharacterEnhancement) {
+                      return const SizedBox.shrink();
+                    }
+
+                    // Get all enhancements from all detachments
+                    final allEnhancements = ReferenceDataService.getAllEnhancementsForFaction(currentCrusade.faction);
+                    if (allEnhancements.isEmpty) {
+                      return const SizedBox.shrink();
+                    }
+
+                    // Flatten enhancements for dropdown
+                    final flatEnhancements = <Map<String, dynamic>>[];
+                    for (final entry in allEnhancements.entries) {
+                      for (final enh in entry.value) {
+                        flatEnhancements.add({...enh, 'detachment': entry.key});
+                      }
+                    }
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Divider(),
+                        SwitchListTile(
+                          title: const Text('Add Enhancement (Renowned Heroes)'),
+                          subtitle: Text(
+                            'First character bonus! Costs 1 RP (${currentCrusade.rp} available)',
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                          value: addEnhancement,
+                          onChanged: (value) => setModalState(() {
+                            addEnhancement = value;
+                            if (!value) selectedEnhancement = null;
+                          }),
+                        ),
+                        if (addEnhancement)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: DropdownButtonFormField<Map<String, dynamic>>(
+                              decoration: const InputDecoration(
+                                labelText: 'Select Enhancement',
+                                border: OutlineInputBorder(),
+                              ),
+                              items: flatEnhancements.map((enh) {
+                                return DropdownMenuItem(
+                                  value: enh,
+                                  child: Text(
+                                    '${enh['name']} (+${enh['points']} pts)',
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (value) => setModalState(() => selectedEnhancement = value),
+                            ),
+                          ),
+                      ],
+                    );
+                  },
+                ),
+
               const SizedBox(height: 32),
 
               // Add button
@@ -669,28 +745,92 @@ class OOBModifyScreen extends ConsumerWidget {
                       return;
                     }
 
+                    // Validate enhancement selection if enabled
+                    if (addEnhancement && selectedEnhancement == null) {
+                      SnackBarUtils.showError(context, 'Select an enhancement or disable the option');
+                      return;
+                    }
+
                     // Get unit data to check for Epic Hero and Character flags
                     final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, selectedUnit!);
                     final isEpicHero = unitData['isEpicHero'] as bool? ?? false;
                     final isCharacter = unitData['isCharacter'] as bool? ?? false;
+
+                    // Calculate final points (base + enhancement if applicable)
+                    final enhancementPoints = addEnhancement && selectedEnhancement != null
+                        ? (selectedEnhancement!['points'] as int)
+                        : 0;
+                    final enhancementName = addEnhancement && selectedEnhancement != null
+                        ? selectedEnhancement!['name'] as String
+                        : null;
 
                     final newUnit = UnitOrGroup(
                       id: const Uuid().v4(),
                       type: 'unit',
                       name: selectedUnit!,
                       customName: customName.isNotEmpty ? customName : null,
-                      points: points,
+                      points: points + enhancementPoints,
                       modelsCurrent: models,
                       modelsMax: models,
                       isWarlord: isWarlord,
                       isEpicHero: isEpicHero,
                       isCharacter: isCharacter,
+                      enhancements: enhancementName != null ? [enhancementName] : null,
                     );
 
-                    ref.read(currentCrusadeNotifierProvider.notifier).addUnitOrGroup(newUnit);
-                    Navigator.pop(context);
+                    // Add unit and update crusade state if enhancement was used
+                    if (addEnhancement && currentCrusade != null) {
+                      // Create history events for the addition and enhancement
+                      final unitAddedEvent = CrusadeEvent.create(
+                        type: CrusadeEventType.unitAdded,
+                        description: 'Added ${newUnit.customName ?? newUnit.name} to Order of Battle',
+                        unitId: newUnit.id,
+                        unitName: newUnit.customName ?? newUnit.name,
+                        metadata: {'points': newUnit.points - enhancementPoints},
+                      );
+
+                      final enhancementEvent = CrusadeEvent.create(
+                        type: CrusadeEventType.requisition,
+                        description: 'Renowned Heroes: Added $enhancementName to ${newUnit.customName ?? newUnit.name}',
+                        unitId: newUnit.id,
+                        unitName: newUnit.customName ?? newUnit.name,
+                        metadata: {
+                          'requisition': 'Renowned Heroes',
+                          'enhancement': enhancementName,
+                          'enhancementPoints': enhancementPoints,
+                          'rpCost': 1,
+                          'firstCharacter': true,
+                        },
+                      );
+
+                      // Create updated crusade with enhancement flag, RP deduction, and history
+                      final updatedCrusade = Crusade(
+                        id: currentCrusade.id,
+                        name: currentCrusade.name,
+                        faction: currentCrusade.faction,
+                        detachment: currentCrusade.detachment,
+                        supplyLimit: currentCrusade.supplyLimit,
+                        rp: currentCrusade.rp - 1,
+                        armyIconPath: currentCrusade.armyIconPath,
+                        factionIconAsset: currentCrusade.factionIconAsset,
+                        oob: [...currentCrusade.oob, newUnit],
+                        templates: currentCrusade.templates,
+                        usedFirstCharacterEnhancement: true,
+                        history: [...currentCrusade.history, unitAddedEvent, enhancementEvent],
+                      );
+                      ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
+
+                      Navigator.pop(context);
+                      SnackBarUtils.showSuccess(
+                        context,
+                        'Added ${newUnit.customName ?? newUnit.name} with $enhancementName enhancement!',
+                      );
+                    } else {
+                      ref.read(currentCrusadeNotifierProvider.notifier).addUnitOrGroup(newUnit);
+                      Navigator.pop(context);
+                    }
                   },
-                  child: const Text('Add'),
+                  child: Text(addEnhancement ? 'Add (1 RP)' : 'Add'),
                 ),
               ),
             ],
@@ -1034,7 +1174,7 @@ class OOBModifyScreen extends ConsumerWidget {
               ListTile(
                 leading: const Icon(Icons.workspace_premium, color: Colors.amber),
                 title: const Text('Renowned Heroes'),
-                subtitle: const Text('Add an enhancement to a character unit (1 RP)'),
+                subtitle: const Text('Add an enhancement when a unit gains a rank (1 RP)'),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () {
                   Navigator.pop(context);
@@ -1058,6 +1198,9 @@ class OOBModifyScreen extends ConsumerWidget {
   }
 
   /// Applies the Renowned Heroes requisition (add enhancement to character)
+  /// Per rules: Can only be used when a unit gains a rank (instead of Battle Honour)
+  /// Unit must be CHARACTER, not EPIC HERO, no existing enhancement,
+  /// and cannot have Disgraced or Mark of Shame battle scars
   static void _applyRenownedHeroes(BuildContext context, WidgetRef ref) {
     final currentCrusade = ref.read(currentCrusadeNotifierProvider);
     if (currentCrusade == null) return;
@@ -1068,27 +1211,49 @@ class OOBModifyScreen extends ConsumerWidget {
       return;
     }
 
-    // Get all eligible character units (isCharacter=true, isEpicHero=false, no existing enhancement)
+    // Get all eligible character units with full validation
     final eligibleUnits = <MapEntry<int, UnitOrGroup>>[];
     for (var i = 0; i < currentCrusade.oob.length; i++) {
       final item = currentCrusade.oob[i];
       // Only ungrouped units are eligible (groups can't have enhancements)
-      if (item.type == 'unit' && item.isCharacter == true && item.isEpicHero != true && item.enhancements.isEmpty) {
-        eligibleUnits.add(MapEntry(i, item));
-      }
+      if (item.type != 'unit') continue;
+      if (item.isCharacter != true) continue;
+      if (item.isEpicHero == true) continue;
+      if (item.enhancements.isNotEmpty) continue;
+      // Check for disqualifying battle scars
+      if (item.scars.any((scar) =>
+          scar.toLowerCase().contains('disgraced') ||
+          scar.toLowerCase().contains('mark of shame'))) continue;
+
+      eligibleUnits.add(MapEntry(i, item));
     }
 
     if (eligibleUnits.isEmpty) {
-      SnackBarUtils.showError(context, 'No eligible characters! Characters must not be Epic Heroes and must not already have an enhancement.');
+      SnackBarUtils.showError(
+        context,
+        'No eligible characters! Must be CHARACTER, not Epic Hero, no existing enhancement, and no Disgraced/Mark of Shame scars.',
+      );
       return;
     }
 
-    // Get available enhancements for the detachment
-    final enhancements = ReferenceDataService.getEnhancements(currentCrusade.faction, currentCrusade.detachment);
+    // Get ALL available enhancements from ALL detachments for the faction
+    final allEnhancements = ReferenceDataService.getAllEnhancementsForFaction(currentCrusade.faction);
 
-    if (enhancements.isEmpty) {
-      SnackBarUtils.showError(context, 'No enhancements available for ${currentCrusade.detachment} detachment.');
+    if (allEnhancements.isEmpty) {
+      SnackBarUtils.showError(context, 'No enhancements available for ${currentCrusade.faction} faction.');
       return;
+    }
+
+    // Flatten enhancements for dropdown (include detachment name for clarity)
+    final flatEnhancements = <Map<String, dynamic>>[];
+    for (final entry in allEnhancements.entries) {
+      final detachmentName = entry.key;
+      for (final enh in entry.value) {
+        flatEnhancements.add({
+          ...enh,
+          'detachment': detachmentName,
+        });
+      }
     }
 
     // Show unit selection dialog
@@ -1144,16 +1309,16 @@ class OOBModifyScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 16),
 
-                  // Enhancement selection dropdown
+                  // Enhancement selection dropdown (shows all detachment enhancements)
                   DropdownButtonFormField<Map<String, dynamic>>(
                     decoration: const InputDecoration(
                       labelText: 'Enhancement',
                       border: OutlineInputBorder(),
                     ),
-                    items: enhancements.map((enh) {
+                    items: flatEnhancements.map((enh) {
                       return DropdownMenuItem(
                         value: enh,
-                        child: Text('${enh['name']} (+${enh['points']} pts)'),
+                        child: Text('${enh['name']} (+${enh['points']} pts) - ${enh['detachment']}'),
                       );
                     }).toList(),
                     onChanged: (value) {
@@ -1187,6 +1352,7 @@ class OOBModifyScreen extends ConsumerWidget {
                                 statsText: unit.statsText,
                                 isWarlord: unit.isWarlord,
                                 isEpicHero: unit.isEpicHero,
+                                isCharacter: unit.isCharacter,
                                 xp: unit.xp,
                                 honours: unit.honours,
                                 scars: unit.scars,
@@ -1199,7 +1365,22 @@ class OOBModifyScreen extends ConsumerWidget {
                               final updatedOob = List<UnitOrGroup>.from(currentCrusade.oob);
                               updatedOob[unitIndex] = updatedUnit;
 
-                              // Create updated crusade with -1 RP
+                              // Create history event for the requisition
+                              final enhancementEvent = CrusadeEvent.create(
+                                type: CrusadeEventType.requisition,
+                                description: 'Renowned Heroes: Added $enhName to ${unit.customName ?? unit.name}',
+                                unitId: unit.id,
+                                unitName: unit.customName ?? unit.name,
+                                metadata: {
+                                  'requisition': 'Renowned Heroes',
+                                  'enhancement': enhName,
+                                  'enhancementPoints': enhPoints,
+                                  'rpCost': 1,
+                                  'onRankUp': true,
+                                },
+                              );
+
+                              // Create updated crusade with -1 RP and history event
                               final updatedCrusade = Crusade(
                                 id: currentCrusade.id,
                                 name: currentCrusade.name,
@@ -1211,6 +1392,8 @@ class OOBModifyScreen extends ConsumerWidget {
                                 factionIconAsset: currentCrusade.factionIconAsset,
                                 oob: updatedOob,
                                 templates: currentCrusade.templates,
+                                usedFirstCharacterEnhancement: currentCrusade.usedFirstCharacterEnhancement,
+                                history: [...currentCrusade.history, enhancementEvent],
                               );
 
                               ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);

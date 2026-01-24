@@ -65,6 +65,31 @@ class ReferenceDataService {
     return enhancements.map((e) => e as Map<String, dynamic>).toList();
   }
 
+  /// Get ALL enhancements from ALL detachments for a faction
+  /// Returns a map of detachment name -> list of enhancements
+  /// Used for Renowned Heroes requisition which allows choosing from any detachment
+  static Map<String, List<Map<String, dynamic>>> getAllEnhancementsForFaction(String faction) {
+    final factions = _factionsData?['factions'] as Map<String, dynamic>?;
+    final factionData = factions?[faction] as Map<String, dynamic>?;
+    final detachmentsData = factionData?['detachments'] as Map<String, dynamic>?;
+
+    if (detachmentsData == null) return {};
+
+    final result = <String, List<Map<String, dynamic>>>{};
+
+    for (final entry in detachmentsData.entries) {
+      final detachmentName = entry.key;
+      final detachmentData = entry.value as Map<String, dynamic>?;
+      final enhancements = detachmentData?['enhancements'] as List<dynamic>?;
+
+      if (enhancements != null && enhancements.isNotEmpty) {
+        result[detachmentName] = enhancements.map((e) => e as Map<String, dynamic>).toList();
+      }
+    }
+
+    return result;
+  }
+
   /// Get faction icon asset path
   static String? getFactionIcon(String faction) {
     final factions = _factionsData?['factions'] as Map<String, dynamic>?;

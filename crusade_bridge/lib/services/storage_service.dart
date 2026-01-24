@@ -9,6 +9,8 @@ class StorageService {
     await Hive.initFlutter();
     Hive.registerAdapter(CrusadeAdapter());
     Hive.registerAdapter(UnitOrGroupAdapter());
+    Hive.registerAdapter(CrusadeEventAdapter());
+    Hive.registerAdapter(RosterAdapter());
 
     crusadeBox = await Hive.openBox<Crusade>('crusades');
   }

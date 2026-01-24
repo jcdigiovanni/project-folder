@@ -28,13 +28,16 @@ class CrusadeAdapter extends TypeAdapter<Crusade> {
       oob: (fields[8] as List?)?.cast<UnitOrGroup>(),
       templates: (fields[9] as List?)?.cast<UnitOrGroup>(),
       lastModified: fields[10] as int?,
+      usedFirstCharacterEnhancement: fields[11] as bool?,
+      history: (fields[12] as List?)?.cast<CrusadeEvent>(),
+      rosters: (fields[13] as List?)?.cast<Roster>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Crusade obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(14)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -56,7 +59,13 @@ class CrusadeAdapter extends TypeAdapter<Crusade> {
       ..writeByte(9)
       ..write(obj.templates)
       ..writeByte(10)
-      ..write(obj.lastModified);
+      ..write(obj.lastModified)
+      ..writeByte(11)
+      ..write(obj.usedFirstCharacterEnhancement)
+      ..writeByte(12)
+      ..write(obj.history)
+      ..writeByte(13)
+      ..write(obj.rosters);
   }
 
   @override
@@ -154,6 +163,116 @@ class UnitOrGroupAdapter extends TypeAdapter<UnitOrGroup> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is UnitOrGroupAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class CrusadeEventAdapter extends TypeAdapter<CrusadeEvent> {
+  @override
+  final int typeId = 2;
+
+  @override
+  CrusadeEvent read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return CrusadeEvent(
+      id: fields[0] as String,
+      timestamp: fields[1] as int,
+      type: fields[2] as String,
+      description: fields[3] as String,
+      unitId: fields[4] as String?,
+      unitName: fields[5] as String?,
+      metadata: (fields[6] as Map?)?.cast<String, dynamic>(),
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, CrusadeEvent obj) {
+    writer
+      ..writeByte(7)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.timestamp)
+      ..writeByte(2)
+      ..write(obj.type)
+      ..writeByte(3)
+      ..write(obj.description)
+      ..writeByte(4)
+      ..write(obj.unitId)
+      ..writeByte(5)
+      ..write(obj.unitName)
+      ..writeByte(6)
+      ..write(obj.metadata);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CrusadeEventAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class RosterAdapter extends TypeAdapter<Roster> {
+  @override
+  final int typeId = 3;
+
+  @override
+  Roster read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return Roster(
+      id: fields[0] as String,
+      name: fields[1] as String,
+      unitIds: (fields[2] as List?)?.cast<String>(),
+      createdAt: fields[3] as int?,
+      lastModified: fields[4] as int?,
+      timesDeployed: fields[5] as int,
+      wins: fields[6] as int,
+      losses: fields[7] as int,
+      draws: fields[8] as int,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, Roster obj) {
+    writer
+      ..writeByte(9)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.name)
+      ..writeByte(2)
+      ..write(obj.unitIds)
+      ..writeByte(3)
+      ..write(obj.createdAt)
+      ..writeByte(4)
+      ..write(obj.lastModified)
+      ..writeByte(5)
+      ..write(obj.timesDeployed)
+      ..writeByte(6)
+      ..write(obj.wins)
+      ..writeByte(7)
+      ..write(obj.losses)
+      ..writeByte(8)
+      ..write(obj.draws);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is RosterAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
