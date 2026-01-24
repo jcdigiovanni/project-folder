@@ -133,12 +133,21 @@ class CrusadeDashboardScreen extends ConsumerWidget {
                 mainAxisSpacing: 16,
                 childAspectRatio: 1.2,
                 children: [
+                  // 1. Modify Order of Battle
                   _ActionTile(
                     icon: Icons.list_alt,
                     label: 'Modify OOB',
                     color: Colors.blue,
                     onTap: () => context.go('/oob'),
                   ),
+                  // 2. Spend Requisition
+                  _ActionTile(
+                    icon: Icons.stars,
+                    label: 'Requisitions',
+                    color: Colors.purple,
+                    onTap: () => context.go('/requisition'),
+                  ),
+                  // 3. Assemble Roster
                   _ActionTile(
                     icon: Icons.groups,
                     label: 'Assemble Roster',
@@ -147,6 +156,7 @@ class CrusadeDashboardScreen extends ConsumerWidget {
                       SnackBarUtils.showMessage(context, 'Roster assembly coming soon');
                     },
                   ),
+                  // 4. Play Game
                   _ActionTile(
                     icon: Icons.play_arrow,
                     label: 'Play Game',
@@ -155,14 +165,25 @@ class CrusadeDashboardScreen extends ConsumerWidget {
                       SnackBarUtils.showMessage(context, 'Play mode coming soon');
                     },
                   ),
+                  // 5. Post-Game Update
                   _ActionTile(
-                    icon: Icons.build,
-                    label: 'Maintenance',
-                    color: Colors.purple,
+                    icon: Icons.update,
+                    label: 'Post-Game Update',
+                    color: Colors.amber,
                     onTap: () {
-                      SnackBarUtils.showMessage(context, 'Maintenance coming soon');
+                      SnackBarUtils.showMessage(context, 'Post-game updates coming soon');
                     },
                   ),
+                  // 6. Resources
+                  _ActionTile(
+                    icon: Icons.menu_book,
+                    label: 'Resources',
+                    color: Colors.teal,
+                    onTap: () {
+                      SnackBarUtils.showMessage(context, 'Resources coming soon');
+                    },
+                  ),
+                  // 7. Save to GDrive
                   _ActionTile(
                     icon: Icons.cloud_upload,
                     label: 'Save to Drive',
@@ -173,14 +194,7 @@ class CrusadeDashboardScreen extends ConsumerWidget {
                             await syncNotifier.pushCrusade(currentCrusade);
                           },
                   ),
-                  _ActionTile(
-                    icon: Icons.menu_book,
-                    label: 'Resources',
-                    color: Colors.teal,
-                    onTap: () {
-                      SnackBarUtils.showMessage(context, 'Resources coming soon');
-                    },
-                  ),
+                  // 8. Disband Crusade
                   _ActionTile(
                     icon: Icons.delete_forever,
                     label: 'Disband Crusade',

@@ -129,11 +129,13 @@ class OOBModifyScreen extends ConsumerWidget {
                               ? const Icon(Icons.star, color: Colors.yellow, size: 18)
                               : const Icon(Icons.subdirectory_arrow_right, size: 18, color: Colors.grey),
                           title: Text(
-                            component.customName ?? component.name,
+                            component.customName != null
+                                ? '${component.customName} (${component.name})'
+                                : component.name,
                             style: const TextStyle(fontSize: 14), // Smaller text for nested items
                           ),
                           subtitle: Text(
-                            '${component.points} pts • ${component.modelsCurrent}/${component.modelsMax} models',
+                            '${component.rank} • ${component.xp} XP • ${component.points} pts • ${component.modelsCurrent}/${component.modelsMax} models',
                             style: const TextStyle(fontSize: 12), // Even smaller for subtitle
                           ),
                           dense: true, // More compact display
@@ -170,11 +172,15 @@ class OOBModifyScreen extends ConsumerWidget {
 
                 return ExpansionTile(
                   leading: leadingIcon,
-                  title: Text(item.customName ?? item.name),
+                  title: Text(
+                    item.customName != null
+                        ? '${item.customName} (${item.name})'
+                        : item.name
+                  ),
                   subtitle: Text(
                     item.type == 'group'
                         ? '${item.points} pts • ${item.components?.length ?? 0} units • ${item.modelsCurrent}/${item.modelsMax} models'
-                        : '${item.points} pts • ${item.modelsCurrent}/${item.modelsMax} models'
+                        : '${item.rank} • ${item.xp} XP • ${item.points} pts • ${item.modelsCurrent}/${item.modelsMax} models'
                   ),
                   children: expansionChildren,
                 );
@@ -356,11 +362,19 @@ class OOBModifyScreen extends ConsumerWidget {
   }
 
   void _addUnit(BuildContext context, WidgetRef ref) {
+    final currentCrusade = ref.read(currentCrusadeNotifierProvider);
+    final crusadeFaction = currentCrusade?.faction;
+
+    // Preload units for the crusade's faction
+    if (crusadeFaction != null) {
+      ReferenceDataService.getUnits(crusadeFaction);
+    }
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       builder: (context) {
-        String? selectedFaction;
+        String? selectedFaction = crusadeFaction; // Pre-populate with crusade faction
         String? selectedUnit;
         int points = 0;
         int models = 1;

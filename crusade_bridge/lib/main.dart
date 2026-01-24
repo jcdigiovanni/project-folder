@@ -7,6 +7,7 @@ import 'screens/landing_screen.dart';
 import 'screens/new_crusade_screen.dart';
 import 'screens/crusade_dashboard_screen.dart';
 import 'screens/oob_modify_screen.dart';
+import 'screens/requisition_screen.dart';
 import 'screens/settings_screen.dart';
 import 'services/storage_service.dart';
 import 'services/google_drive_service.dart';
@@ -64,6 +65,10 @@ class _MyAppState extends ConsumerState<MyApp> {
           GoRoute(
             path: '/oob',
             builder: (context, state) => const OOBModifyScreen(),
+          ),
+          GoRoute(
+            path: '/requisition',
+            builder: (context, state) => const RequisitionScreen(),
           ),
           GoRoute(
             path: '/settings',

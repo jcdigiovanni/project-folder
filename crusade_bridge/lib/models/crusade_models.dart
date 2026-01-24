@@ -150,6 +150,9 @@ class UnitOrGroup {
   @HiveField(16)
   bool? isEpicHero;
 
+  @HiveField(17)
+  List<String> enhancements = [];
+
   UnitOrGroup({
     required this.id,
     required this.type,
@@ -166,13 +169,25 @@ class UnitOrGroup {
     int? xp,
     List<String>? honours,
     List<String>? scars,
+    List<String>? enhancements,
     int? crusadePoints,
     Map<String, int>? tallies,
   })  : xp = xp ?? 0,
         honours = honours ?? [],
         scars = scars ?? [],
+        enhancements = enhancements ?? [],
         crusadePoints = crusadePoints ?? 0,
         tallies = tallies ?? {'played': 0, 'survived': 0, 'destroyed': 0};
+
+  // Calculate rank based on XP (Epic Heroes don't gain XP)
+  String get rank {
+    if (isEpicHero == true) return 'Epic Hero';
+    if (xp <= 5) return 'Battle-ready';
+    if (xp <= 15) return 'Blooded';
+    if (xp <= 30) return 'Battle-hardened';
+    if (xp <= 50) return 'Heroic';
+    return 'Legendary';
+  }
 
   // JSON serialization
   Map<String, dynamic> toJson() {
@@ -188,6 +203,7 @@ class UnitOrGroup {
       'xp': xp,
       'honours': honours,
       'scars': scars,
+      'enhancements': enhancements,
       'crusadePoints': crusadePoints,
       'tallies': tallies,
       'notes': notes,
@@ -216,6 +232,7 @@ class UnitOrGroup {
       xp: json['xp'] as int?,
       honours: (json['honours'] as List<dynamic>?)?.cast<String>(),
       scars: (json['scars'] as List<dynamic>?)?.cast<String>(),
+      enhancements: (json['enhancements'] as List<dynamic>?)?.cast<String>(),
       crusadePoints: json['crusadePoints'] as int?,
       tallies: (json['tallies'] as Map<String, dynamic>?)?.cast<String, int>(),
     );
