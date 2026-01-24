@@ -24,4 +24,8 @@ class StorageService {
   static List<Crusade> loadAllCrusades() {
     return crusadeBox.values.toList();
   }
+
+  static Future<void> deleteCrusade(String id) async {
+    await crusadeBox.delete(id);
+  }
 }

@@ -388,7 +388,11 @@ class OOBModifyScreen extends ConsumerWidget {
                 initialValue: selectedFaction,
                 decoration: const InputDecoration(labelText: 'Faction'),
                 items: ReferenceDataService.getFactions().map((f) => DropdownMenuItem(value: f, child: Text(f))).toList(),
-                onChanged: (value) {
+                onChanged: (value) async {
+                  if (value != null) {
+                    // Preload units for this faction
+                    await ReferenceDataService.getUnits(value);
+                  }
                   setModalState(() {
                     selectedFaction = value;
                     selectedUnit = null;
@@ -402,7 +406,7 @@ class OOBModifyScreen extends ConsumerWidget {
                 DropdownButtonFormField<String>(
                   initialValue: selectedUnit,
                   decoration: const InputDecoration(labelText: 'Unit Name'),
-                  items: ReferenceDataService.getUnits(selectedFaction!).map((unitData) {
+                  items: ReferenceDataService.getUnitsSync(selectedFaction!).map((unitData) {
                     final unitName = (unitData as Map<String, dynamic>)['name'] as String? ?? 'Unknown Unit';
                     return DropdownMenuItem<String>(
                       value: unitName,
@@ -424,7 +428,7 @@ class OOBModifyScreen extends ConsumerWidget {
                   initialValue: selectedSizeIndex,
                   decoration: const InputDecoration(labelText: 'Size'),
                   items: () {
-                    final unitData = ReferenceDataService.getUnitData(selectedFaction!, selectedUnit!);
+                    final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, selectedUnit!);
                     final sizeOptions = unitData['sizeOptions'] as List? ?? [];
                     final pointsOptions = unitData['pointsOptions'] as List? ?? [];
                     return sizeOptions.asMap().entries.map((entry) {
@@ -443,7 +447,7 @@ class OOBModifyScreen extends ConsumerWidget {
                     setModalState(() {
                       selectedSizeIndex = value;
                       if (value != null) {
-                        final unitData = ReferenceDataService.getUnitData(selectedFaction!, selectedUnit!);
+                        final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, selectedUnit!);
                         final sizeOptions = unitData['sizeOptions'] as List? ?? [];
                         final pointsOptions = unitData['pointsOptions'] as List? ?? [];
                         if (value < sizeOptions.length) {
@@ -471,7 +475,7 @@ class OOBModifyScreen extends ConsumerWidget {
               if (selectedUnit != null && selectedFaction != null)
                 Builder(
                   builder: (context) {
-                    final unitData = ReferenceDataService.getUnitData(selectedFaction!, selectedUnit!);
+                    final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, selectedUnit!);
                     final role = unitData['role'] as String? ?? '';
                     final isEpicHeroUnit = unitData['isEpicHero'] as bool? ?? false;
 
@@ -498,7 +502,7 @@ class OOBModifyScreen extends ConsumerWidget {
                     }
 
                     // Get unit data to check for Epic Hero flag
-                    final unitData = ReferenceDataService.getUnitData(selectedFaction!, selectedUnit!);
+                    final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, selectedUnit!);
                     final isEpicHero = unitData['isEpicHero'] as bool? ?? false;
 
                     final newUnit = UnitOrGroup(

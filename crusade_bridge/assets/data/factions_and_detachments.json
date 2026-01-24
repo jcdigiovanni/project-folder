@@ -134,49 +134,40 @@
         "Annihilation Legion","Awakened Dynasty","Canoptek Court","Cryptek Conclave","Cursed Legion","Hypercrypt Legion","Obeisance Phalanx","Pantheon of Woe","Starshatter Arsenal"
       ]
     },
-    "Thousand Sons": {
-      "icon": "assets/icons/factions/thousand_sons.png",
-      "detachments": [
-        "Cult of Magic",
-        "Cabbalistic Ritualists",
-        "Custom"
-      ]
-    },
-    "World Eaters": {
-      "icon": "assets/icons/factions/world_eaters.png",
-      "detachments": [
-        "Berzerker Warband",
-        "Custom"
-      ]
-    },
     "Orks": {
       "icon": "assets/icons/factions/orks.png",
       "detachments": [
-        "Green Tide",
-        "Dread Mob",
-        "Speed Freeks",
-        "War Horde",
-        "Custom"
+        "Bully Boyz","Da Big Hunt","Dread Mob","Green Tide","Kult of Speed","More Dakka!","Taktikal Brigade","War Horde"
+      ]
+    },
+    "Space Wolves": {
+      "icon": "assets/icons/factions/space_wolves.png",
+      "detachments": [
+        "Champions of Fenris","Saga of the Beastslayer","Saga of the Bold","Saga of the Great Wolf","Saga of the Hunter"
       ]
     },
     "T'au Empire": {
       "icon": "assets/icons/factions/tau_empire.png",
       "detachments": [
-        "Kauyon",
-        "Mont'ka",
-        "Retaliation Cadre",
-        "Kroot Hunting Pack",
-        "Custom"
+        "Auxiliary Cadre","Experimental Prototype Cadre","Kauyon","Kroot Hunting Pack","Mont'ka","Retaliation Cadre"
+      ]
+    },
+    "Thousand Sons": {
+      "icon": "assets/icons/factions/thousand_sons.png",
+      "detachments": [
+        "Changehost of Deceit","Grand Coven","Rubicae Phalanx","Warpforged Cabal","Warpmeld Pact","Hexwarp Thrallband"
       ]
     },
     "Tyranids": {
       "icon": "assets/icons/factions/tyranids.png",
       "detachments": [
-        "Invasion Fleet",
-        "Synaptic Nexus",
-        "Crusher Stampede",
-        "Unending Swarm",
-        "Custom"
+        "Assimilation Swarm","Crusher Stampede","Invasion Fleet","Subterranean Assault","Synaptic Nexus","Unending Swarm","Vanguard Onslaught","Warrior Bioform Onslaught"
+      ]
+    },
+    "World Eaters": {
+      "icon": "assets/icons/factions/world_eaters.png",
+      "detachments": [
+        "Berzerker Warband","Cult of Blood","Khorne Daemonkin","Possessed Slaughterband","Goretrack Onslaught","Vessels of Wrath"
       ]
     }
   }

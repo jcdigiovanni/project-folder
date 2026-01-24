@@ -22,6 +22,14 @@ class CurrentCrusadeNotifier extends StateNotifier<Crusade?> {
     state = null;
   }
 
+  Future<void> deleteCrusade(String crusadeId) async {
+    await StorageService.deleteCrusade(crusadeId);
+    // If the deleted crusade is the current one, clear it
+    if (state?.id == crusadeId) {
+      state = null;
+    }
+  }
+
   void addUnitOrGroup(UnitOrGroup newItem) {
     if (state == null) return;
 

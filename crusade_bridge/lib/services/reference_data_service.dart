@@ -79,9 +79,30 @@ class ReferenceDataService {
     }
   }
 
+  /// Get units for a specific faction synchronously from cache
+  /// Returns empty list if not yet loaded. Call getUnits() first to load.
+  static List<dynamic> getUnitsSync(String faction) {
+    return _unitsCache[faction] ?? [];
+  }
+
   /// Get detailed data for a specific unit within a faction
   static Future<Map<String, dynamic>> getUnitData(String faction, String unitName) async {
     final units = await getUnits(faction);
+
+    for (final unit in units) {
+      final unitMap = unit as Map<String, dynamic>;
+      if (unitMap['name'] == unitName) {
+        return unitMap;
+      }
+    }
+
+    return {};
+  }
+
+  /// Get detailed data for a specific unit within a faction synchronously from cache
+  /// Returns empty map if not yet loaded. Call getUnits() first to load.
+  static Map<String, dynamic> getUnitDataSync(String faction, String unitName) {
+    final units = _unitsCache[faction] ?? [];
 
     for (final unit in units) {
       final unitMap = unit as Map<String, dynamic>;

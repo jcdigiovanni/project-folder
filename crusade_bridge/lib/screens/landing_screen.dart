@@ -52,19 +52,9 @@ class _LandingScreenState extends ConsumerState<LandingScreen> with WidgetsBindi
         // Recent Crusades section
         Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Recent Crusades',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              IconButton(
-                icon: const Icon(Icons.refresh),
-                tooltip: 'Refresh',
-                onPressed: _loadCrusades,
-              ),
-            ],
+          child: Text(
+            'Recent Crusades',
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
         ),
         Expanded(

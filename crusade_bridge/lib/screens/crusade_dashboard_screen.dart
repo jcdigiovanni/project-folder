@@ -181,6 +181,14 @@ class CrusadeDashboardScreen extends ConsumerWidget {
                       SnackBarUtils.showMessage(context, 'Resources coming soon');
                     },
                   ),
+                  _ActionTile(
+                    icon: Icons.delete_forever,
+                    label: 'Disband Crusade',
+                    color: Colors.red,
+                    onTap: () {
+                      _showDisbandConfirmation(context, ref, currentCrusade);
+                    },
+                  ),
                 ],
               ),
             ),
@@ -266,6 +274,46 @@ void _showConflictDialog(
             );
         }
       },
+    ),
+  );
+}
+
+void _showDisbandConfirmation(
+  BuildContext context,
+  WidgetRef ref,
+  Crusade crusade,
+) {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text('Disband Crusade?'),
+      content: Text(
+        'Are you sure you want to disband "${crusade.name}"?\n\nThis will permanently delete all data for this crusade. This action cannot be undone.',
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () async {
+            // Close the dialog
+            Navigator.pop(context);
+
+            // Navigate to landing screen first
+            context.go('/landing');
+
+            // Then delete the crusade
+            await ref.read(currentCrusadeNotifierProvider.notifier).deleteCrusade(crusade.id);
+
+            // Show confirmation
+            if (context.mounted) {
+              SnackBarUtils.showSuccess(context, 'Crusade "${crusade.name}" has been disbanded');
+            }
+          },
+          child: const Text('Disband', style: TextStyle(color: Colors.red)),
+        ),
+      ],
     ),
   );
 }
