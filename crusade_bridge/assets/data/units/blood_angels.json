@@ -1,0 +1,832 @@
+{
+  "faction": "Blood Angels",
+  "version": "1.0",
+  "lastUpdated": "2026-01-23",
+  "units": [
+    {
+        "name": "Apothecary",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [50],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Apothecary Biologis",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [55],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Assault Intercessors with Jump Packs",
+        "role": "Fast Attack",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [90, 180],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Assault Squad",
+        "role": "Fast Attack",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [90, 180],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Astorath",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [125],
+        "isEpicHero": true,
+        "isCharacter": true
+    },
+    {
+        "name": "Baal Predator",
+        "role": "Heavy Support",
+        "sizeOptions": [1],
+        "pointsOptions": [125],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Bladeguard Veteran Squad",
+        "role": "Elites",
+        "sizeOptions": [3, 6],
+        "pointsOptions": [90, 180],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Brother Corbulo",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [75],
+        "isEpicHero": true,
+        "isCharacter": true
+    },
+    {
+        "name": "Brutalis Dreadnought",
+        "role": "Elites",
+        "sizeOptions": [1],
+        "pointsOptions": [190],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Captain",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [80],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Captain in Gravis Armour",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [80],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Captain in Phobos Armour",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [80],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Captain in Terminator Armour",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [95],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Captain on Bike",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [90],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Captain Sicarius",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [90],
+        "isEpicHero": true,
+        "isCharacter": true
+    },
+    {
+        "name": "Captain with Jump Pack",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [90],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Centurion Assault Squad",
+        "role": "Elites",
+        "sizeOptions": [3, 6],
+        "pointsOptions": [165, 330],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Centurion Devastator Squad",
+        "role": "Heavy Support",
+        "sizeOptions": [3, 6],
+        "pointsOptions": [180, 360],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Chaplain",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [70],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Chaplain Cassius",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [75],
+        "isEpicHero": true,
+        "isCharacter": true
+    },
+    {
+        "name": "Chaplain in Terminator Armour",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [85],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Chaplain on Bike",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [85],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Chaplain with Jump Pack",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [85],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Chief Librarian Mephiston",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [100],
+        "isEpicHero": true,
+        "isCharacter": true
+    },
+    {
+        "name": "Chief Librarian Tigurius",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [90],
+        "isEpicHero": true,
+        "isCharacter": true
+    },
+    {
+        "name": "Company Heroes",
+        "role": "Elites",
+        "sizeOptions": [1],
+        "pointsOptions": [130],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Commander Dante",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [120],
+        "isEpicHero": true,
+        "isCharacter": true
+    },
+    {
+        "name": "Death Company Dreadnought",
+        "role": "Elites",
+        "sizeOptions": [1],
+        "pointsOptions": [140],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Death Company Intercessors",
+        "role": "Elites",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [145, 290],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Death Company Marines",
+        "role": "Elites",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [120, 240],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Death Company Marines with Jump Packs",
+        "role": "Fast Attack",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [125, 250],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Desolation Squad",
+        "role": "Heavy Support",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [170, 340],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Devastator Squad",
+        "role": "Heavy Support",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [100, 200],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Dreadnought",
+        "role": "Elites",
+        "sizeOptions": [1],
+        "pointsOptions": [140],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Drop Pod",
+        "role": "Dedicated Transport",
+        "sizeOptions": [1],
+        "pointsOptions": [70],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Eradicator Squad",
+        "role": "Heavy Support",
+        "sizeOptions": [3, 6],
+        "pointsOptions": [95, 190],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Furioso Dreadnought",
+        "role": "Elites",
+        "sizeOptions": [1],
+        "pointsOptions": [140],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Gladiator Lancer",
+        "role": "Heavy Support",
+        "sizeOptions": [1],
+        "pointsOptions": [160],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Gladiator Reaper",
+        "role": "Heavy Support",
+        "sizeOptions": [1],
+        "pointsOptions": [150],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Gladiator Valiant",
+        "role": "Heavy Support",
+        "sizeOptions": [1],
+        "pointsOptions": [160],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Hammerfall Bunker",
+        "role": "Heavy Support",
+        "sizeOptions": [1],
+        "pointsOptions": [150],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Heavy Intercessor Squad",
+        "role": "Troops",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [100, 200],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Hellblaster Squad",
+        "role": "Heavy Support",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [115, 230],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Hunter",
+        "role": "Heavy Support",
+        "sizeOptions": [1],
+        "pointsOptions": [95],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Impulsor",
+        "role": "Dedicated Transport",
+        "sizeOptions": [1],
+        "pointsOptions": [85],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Inceptor Squad",
+        "role": "Fast Attack",
+        "sizeOptions": [3, 6],
+        "pointsOptions": [110, 220],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Incursor Squad",
+        "role": "Troops",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [85, 170],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Infernus Squad",
+        "role": "Troops",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [80, 160],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Infiltrator Squad",
+        "role": "Troops",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [90, 180],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Intercessor Squad",
+        "role": "Troops",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [85, 170],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Invader ATV",
+        "role": "Fast Attack",
+        "sizeOptions": [1, 3],
+        "pointsOptions": [70, 210],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Invictor Tactical Warsuit",
+        "role": "Elites",
+        "sizeOptions": [1],
+        "pointsOptions": [140],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Land Raider",
+        "role": "Heavy Support",
+        "sizeOptions": [1],
+        "pointsOptions": [240],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Land Raider Crusader",
+        "role": "Heavy Support",
+        "sizeOptions": [1],
+        "pointsOptions": [220],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Land Raider Redeemer",
+        "role": "Heavy Support",
+        "sizeOptions": [1],
+        "pointsOptions": [260],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Lemartes",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [100],
+        "isEpicHero": true,
+        "isCharacter": true
+    },
+    {
+        "name": "Librarian",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [85],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Librarian Dreadnought",
+        "role": "Elites",
+        "sizeOptions": [1],
+        "pointsOptions": [175],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Librarian in Phobos Armour",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [85],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Librarian in Terminator Armour",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [95],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Lieutenant",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [65],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Lieutenant in Phobos Armour",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [65],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Lieutenant in Reiver Armour",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [65],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Lieutenant with Combi-weapon",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [70],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Marneus Calgar",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [185],
+        "modelsNote": "with Victrix Honour Guard",
+        "isEpicHero": true,
+        "isCharacter": true
+    },
+    {
+        "name": "Outrider Squad",
+        "role": "Fast Attack",
+        "sizeOptions": [3, 6],
+        "pointsOptions": [105, 210],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Predator Annihilator",
+        "role": "Heavy Support",
+        "sizeOptions": [1],
+        "pointsOptions": [130],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Predator Destructor",
+        "role": "Heavy Support",
+        "sizeOptions": [1],
+        "pointsOptions": [130],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Primaris Ancient",
+        "role": "Elites",
+        "sizeOptions": [1],
+        "pointsOptions": [55],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Primaris Apothecary",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [55],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Primaris Chaplain",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [75],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Primaris Chaplain on Bike",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [95],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Primaris Librarian",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [90],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Primaris Lieutenant",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [70],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Primaris Techmarine",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [70],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Razorback",
+        "role": "Dedicated Transport",
+        "sizeOptions": [1],
+        "pointsOptions": [85],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Redemptor Dreadnought",
+        "role": "Elites",
+        "sizeOptions": [1],
+        "pointsOptions": [210],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Reiver Squad",
+        "role": "Elites",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [80, 160],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Repulsor",
+        "role": "Heavy Support",
+        "sizeOptions": [1],
+        "pointsOptions": [180],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Repulsor Executioner",
+        "role": "Heavy Support",
+        "sizeOptions": [1],
+        "pointsOptions": [220],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Rhino",
+        "role": "Dedicated Transport",
+        "sizeOptions": [1],
+        "pointsOptions": [75],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Roboute Guilliman",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [400],
+        "isEpicHero": true,
+        "isCharacter": true
+    },
+    {
+        "name": "Sanguinary Guard",
+        "role": "Elites",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [200, 400],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Sanguinary Priest",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [80],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Scout Squad",
+        "role": "Troops",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [55, 110],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Scout Sniper Squad",
+        "role": "Elites",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [70, 140],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Sergeant Chronus",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [50],
+        "isEpicHero": true,
+        "isCharacter": true
+    },
+    {
+        "name": "Sergeant Telion",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [55],
+        "isEpicHero": true,
+        "isCharacter": true
+    },
+    {
+        "name": "Sternguard Veteran Squad",
+        "role": "Elites",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [90, 180],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Storm Speeder Hammerstrike",
+        "role": "Fast Attack",
+        "sizeOptions": [1],
+        "pointsOptions": [130],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Storm Speeder Thunderstrike",
+        "role": "Fast Attack",
+        "sizeOptions": [1],
+        "pointsOptions": [130],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Storm Speeder Hailstrike",
+        "role": "Fast Attack",
+        "sizeOptions": [1],
+        "pointsOptions": [130],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Suppressor Squad",
+        "role": "Fast Attack",
+        "sizeOptions": [3],
+        "pointsOptions": [90],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Tactical Squad",
+        "role": "Troops",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [80, 160],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Techmarine",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [55],
+        "isEpicHero": false,
+        "isCharacter": true
+    },
+    {
+        "name": "Terminator Assault Squad",
+        "role": "Elites",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [180, 360],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Terminator Squad",
+        "role": "Elites",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [175, 350],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "The Sanguinor",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [140],
+        "isEpicHero": true,
+        "isCharacter": true
+    },
+    {
+        "name": "Uriel Ventris",
+        "role": "HQ",
+        "sizeOptions": [1],
+        "pointsOptions": [80],
+        "isEpicHero": true,
+        "isCharacter": true
+    },
+    {
+        "name": "Vanguard Veteran Squad",
+        "role": "Elites",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [100, 200],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Vanguard Veteran Squad with Jump Packs",
+        "role": "Elites",
+        "sizeOptions": [5, 10],
+        "pointsOptions": [110, 220],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Vindicator",
+        "role": "Heavy Support",
+        "sizeOptions": [1],
+        "pointsOptions": [190],
+        "isEpicHero": false,
+        "isCharacter": false
+    },
+    {
+        "name": "Whirlwind",
+        "role": "Heavy Support",
+        "sizeOptions": [1],
+        "pointsOptions": [150],
+        "isEpicHero": false,
+        "isCharacter": false
+    }
+  ]
+}
