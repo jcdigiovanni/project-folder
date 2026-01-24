@@ -1,11 +1,11 @@
 {
   "faction": "Astra Militarum",
-  "version": "1.0",
-  "lastUpdated": "2026-01-23",
+  "version": "1.1",
+  "lastUpdated": "2026-01-24",
   "units": [
     {
       "name": "Aegis Defence Line",
-      "role": "Heavy Support",
+      "role": "Fortification",
       "sizeOptions": [1],
       "pointsOptions": [145],
       "isEpicHero": false,
@@ -193,7 +193,7 @@
       "sizeOptions": [6],
       "pointsOptions": [100],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": false
     },
     {
       "name": "Hellhammer",
@@ -261,11 +261,11 @@
     },
     {
       "name": "Leman Russ Commander",
-      "role": "HQ",
+      "role": "Heavy Support",
       "sizeOptions": [1],
       "pointsOptions": [235],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": false
     },
     {
       "name": "Leman Russ Demolisher",
@@ -320,7 +320,7 @@
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [100],
-      "isEpicHero": false,
+      "isEpicHero": true,
       "isCharacter": true
     },
     {
@@ -357,15 +357,15 @@
     },
     {
       "name": "Nork Deddog",
-      "role": "Elites",
+      "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [60],
-      "isEpicHero": false,
+      "isEpicHero": true,
       "isCharacter": true
     },
     {
       "name": "Ogryn Bodyguard",
-      "role": "Elites",
+      "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [40],
       "isEpicHero": false,
@@ -405,11 +405,11 @@
     },
     {
       "name": "Rogal Dorn Commander",
-      "role": "HQ",
+      "role": "Heavy Support",
       "sizeOptions": [1],
       "pointsOptions": [275],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": false
     },
     {
       "name": "Scout Sentinels",
@@ -429,7 +429,7 @@
     },
     {
       "name": "Sly Marbo",
-      "role": "Elites",
+      "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [55],
       "isEpicHero": true,
@@ -485,7 +485,7 @@
     },
     {
       "name": "Tempestus Scions",
-      "role": "Elites",
+      "role": "Troops",
       "sizeOptions": [5, 10],
       "pointsOptions": [70, 140],
       "isEpicHero": false,
@@ -501,7 +501,7 @@
     },
     {
       "name": "Valkyrie",
-      "role": "Fast Attack",
+      "role": "Flyer",
       "sizeOptions": [1],
       "pointsOptions": [190],
       "isEpicHero": false,

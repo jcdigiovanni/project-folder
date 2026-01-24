@@ -1,53 +1,85 @@
 {
   "faction": "Imperial Agents",
-  "version": "1.0",
-  "lastUpdated": "2026-01-23",
+  "version": "1.1",
+  "lastUpdated": "2026-01-24",
   "units": [
     {
-      "name": "Callidus Assassin",
+      "name": "Aquila Kill Team",
       "role": "Elites",
-      "sizeOptions": [1],
-      "pointsOptions": [90],
+      "sizeOptions": [5, 10],
+      "pointsOptions": [100, 200],
       "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Callidus Assassin",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [100],
+      "isEpicHero": true,
       "isCharacter": true
+    },
+    {
+      "name": "Corvus Blackstar",
+      "role": "Flyer",
+      "sizeOptions": [1],
+      "pointsOptions": [180],
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Culexus Assassin",
-      "role": "Elites",
+      "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [85],
-      "isEpicHero": false,
+      "isEpicHero": true,
       "isCharacter": true
+    },
+    {
+      "name": "Deathwatch Kill Team",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [100, 190],
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Eversor Assassin",
-      "role": "Elites",
+      "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [95],
-      "isEpicHero": false,
-      "isCharacter": true
-    },
-    {
-      "name": "Vindicare Assassin",
-      "role": "Elites",
-      "sizeOptions": [1],
-      "pointsOptions": [90],
-      "isEpicHero": false,
+      "pointsOptions": [110],
+      "isEpicHero": true,
       "isCharacter": true
     },
     {
       "name": "Exaction Squad",
       "role": "Elites",
-      "sizeOptions": [5],
-      "pointsOptions": [35],
+      "sizeOptions": [11],
+      "pointsOptions": [90],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
-      "name": "Inquisitorial Henchmen",
+      "name": "Grey Knights Terminator Squad",
       "role": "Elites",
+      "sizeOptions": [5],
+      "pointsOptions": [190],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Imperial Navy Breachers",
+      "role": "Elites",
+      "sizeOptions": [10],
+      "pointsOptions": [90],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Imperial Rhino",
+      "role": "Dedicated Transport",
       "sizeOptions": [1],
-      "pointsOptions": [40],
+      "pointsOptions": [75],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -68,52 +100,132 @@
       "isCharacter": true
     },
     {
+      "name": "Inquisitor Draxus",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
       "name": "Inquisitor Greyfax",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [75],
+      "pointsOptions": [65],
       "isEpicHero": true,
       "isCharacter": true
     },
     {
-      "name": "Inquisitor Karamazov",
+      "name": "Inquisitorial Agents",
+      "role": "Elites",
+      "sizeOptions": [6, 12],
+      "pointsOptions": [50, 100],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Inquisitorial Chimera",
+      "role": "Dedicated Transport",
+      "sizeOptions": [1],
+      "pointsOptions": [70],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Ministorum Priest",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [100],
-      "isEpicHero": true,
+      "pointsOptions": [40],
+      "isEpicHero": false,
       "isCharacter": true
     },
     {
-      "name": "Lord Inquisitor Kyria Draxus",
+      "name": "Navigator",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [75],
-      "isEpicHero": true,
+      "pointsOptions": [60],
+      "isEpicHero": false,
       "isCharacter": true
     },
     {
       "name": "Rogue Trader Entourage",
       "role": "Elites",
+      "sizeOptions": [4],
+      "pointsOptions": [75],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Sanctifiers",
+      "role": "Elites",
+      "sizeOptions": [9],
+      "pointsOptions": [100],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Sisters of Battle Immolator",
+      "role": "Dedicated Transport",
       "sizeOptions": [1],
-      "pointsOptions": [80],
+      "pointsOptions": [100],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Sisters of Battle Squad",
+      "role": "Troops",
+      "sizeOptions": [10],
+      "pointsOptions": [100],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Subductor Squad",
       "role": "Elites",
-      "sizeOptions": [5],
-      "pointsOptions": [70],
+      "sizeOptions": [11],
+      "pointsOptions": [85],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Vigilant Squad",
       "role": "Elites",
-      "sizeOptions": [5],
-      "pointsOptions": [70],
+      "sizeOptions": [11],
+      "pointsOptions": [85],
       "isEpicHero": false,
       "isCharacter": false
+    },
+    {
+      "name": "Vindicare Assassin",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [110],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Voidsmen-at-Arms",
+      "role": "Elites",
+      "sizeOptions": [6],
+      "pointsOptions": [50],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Watch Captain Artemis",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [65],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Watch Master",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [95],
+      "isEpicHero": false,
+      "isCharacter": true
     }
   ]
 }

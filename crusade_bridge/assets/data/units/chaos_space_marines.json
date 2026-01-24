@@ -1,21 +1,21 @@
 {
   "faction": "Chaos Space Marines",
-  "version": "1.0",
-  "lastUpdated": "2026-01-23",
+  "version": "1.1",
+  "lastUpdated": "2026-01-24",
   "units": [
     {
       "name": "Abaddon the Despoiler",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [310],
+      "pointsOptions": [270],
       "isEpicHero": true,
       "isCharacter": true
     },
     {
       "name": "Accursed Cultists",
-      "role": "Troops",
-      "sizeOptions": [16],
-      "pointsOptions": [70],
+      "role": "Elites",
+      "sizeOptions": [8, 16],
+      "pointsOptions": [90, 195],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -23,15 +23,15 @@
       "name": "Chaos Bikers",
       "role": "Fast Attack",
       "sizeOptions": [3, 6],
-      "pointsOptions": [70, 140],
+      "pointsOptions": [70, 130],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
-      "name": "Chaos Cultists",
-      "role": "Troops",
-      "sizeOptions": [10, 20],
-      "pointsOptions": [55, 110],
+      "name": "Chaos Land Raider",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [220],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -39,7 +39,7 @@
       "name": "Chaos Lord",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [75],
+      "pointsOptions": [90],
       "isEpicHero": false,
       "isCharacter": true
     },
@@ -47,17 +47,33 @@
       "name": "Chaos Lord in Terminator Armour",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [95],
+      "pointsOptions": [85],
       "isEpicHero": false,
       "isCharacter": true
     },
     {
-      "name": "Chaos Lord on Juggernaut of Khorne",
+      "name": "Chaos Lord with Jump Pack",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [105],
+      "pointsOptions": [80],
       "isEpicHero": false,
       "isCharacter": true
+    },
+    {
+      "name": "Chaos Predator Annihilator",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [135],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Chaos Predator Destructor",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [140],
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Chaos Rhino",
@@ -68,10 +84,10 @@
       "isCharacter": false
     },
     {
-      "name": "Chaos Space Marines",
-      "role": "Troops",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [90, 180],
+      "name": "Chaos Spawn",
+      "role": "Elites",
+      "sizeOptions": [2],
+      "pointsOptions": [70],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -79,7 +95,15 @@
       "name": "Chaos Terminator Squad",
       "role": "Elites",
       "sizeOptions": [5, 10],
-      "pointsOptions": [190, 380],
+      "pointsOptions": [180, 360],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Chaos Vindicator",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [185],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -92,33 +116,57 @@
       "isCharacter": false
     },
     {
+      "name": "Cultist Firebrand",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [45],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Cultist Mob",
+      "role": "Troops",
+      "sizeOptions": [10, 20],
+      "pointsOptions": [50, 100],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
       "name": "Cypher",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [80],
+      "pointsOptions": [90],
       "isEpicHero": true,
       "isCharacter": true
     },
     {
       "name": "Dark Apostle",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [75],
+      "sizeOptions": [3],
+      "pointsOptions": [65],
       "isEpicHero": false,
       "isCharacter": true
     },
     {
       "name": "Dark Commune",
       "role": "HQ",
+      "sizeOptions": [5],
+      "pointsOptions": [90],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Defiler",
+      "role": "Heavy Support",
       "sizeOptions": [1],
-      "pointsOptions": [55],
+      "pointsOptions": [190],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Fabius Bile",
       "role": "HQ",
-      "sizeOptions": [1],
+      "sizeOptions": [2],
       "pointsOptions": [100],
       "isEpicHero": true,
       "isCharacter": true
@@ -127,7 +175,7 @@
       "name": "Forgefiend",
       "role": "Heavy Support",
       "sizeOptions": [1],
-      "pointsOptions": [135],
+      "pointsOptions": [170],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -135,7 +183,7 @@
       "name": "Haarken Worldclaimer",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [110],
+      "pointsOptions": [90],
       "isEpicHero": true,
       "isCharacter": true
     },
@@ -143,13 +191,13 @@
       "name": "Havocs",
       "role": "Heavy Support",
       "sizeOptions": [5],
-      "pointsOptions": [130],
+      "pointsOptions": [125],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Helbrute",
-      "role": "Elites",
+      "role": "Heavy Support",
       "sizeOptions": [1],
       "pointsOptions": [130],
       "isEpicHero": false,
@@ -157,54 +205,62 @@
     },
     {
       "name": "Heldrake",
-      "role": "Fast Attack",
+      "role": "Flyer",
       "sizeOptions": [1],
-      "pointsOptions": [200],
+      "pointsOptions": [205],
       "isEpicHero": false,
       "isCharacter": false
+    },
+    {
+      "name": "Heretic Astartes Daemon Prince",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [165],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Heretic Astartes Daemon Prince with Wings",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [180],
+      "isEpicHero": false,
+      "isCharacter": true
     },
     {
       "name": "Huron Blackheart",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [90],
+      "pointsOptions": [80],
       "isEpicHero": true,
       "isCharacter": true
     },
     {
-      "name": "Jump Pack Lord",
-      "role": "HQ",
+      "name": "Khorne Lord of Skulls",
+      "role": "Heavy Support",
       "sizeOptions": [1],
-      "pointsOptions": [90],
+      "pointsOptions": [450],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": false
     },
     {
       "name": "Legionaries",
       "role": "Troops",
       "sizeOptions": [5, 10],
-      "pointsOptions": [90, 180],
+      "pointsOptions": [90, 170],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
-      "name": "Lucius the Eternal",
+      "name": "Lord Discordant on Helstalker",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [115],
-      "isEpicHero": true,
-      "isCharacter": true
-    },
-    {
-      "name": "Master of Executions",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [85],
+      "pointsOptions": [160],
       "isEpicHero": false,
       "isCharacter": true
     },
     {
-      "name": "Master of Possession",
+      "name": "Master of Executions",
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [80],
@@ -212,10 +268,82 @@
       "isCharacter": true
     },
     {
+      "name": "Master of Possession",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [60],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Maulerfiend",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [130],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Noctilith Crown",
+      "role": "Fortification",
+      "sizeOptions": [1],
+      "pointsOptions": [125],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Obliterators",
+      "role": "Heavy Support",
+      "sizeOptions": [2],
+      "pointsOptions": [160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
       "name": "Possessed",
       "role": "Elites",
       "sizeOptions": [5, 10],
-      "pointsOptions": [140, 280],
+      "pointsOptions": [120, 240],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Raptors",
+      "role": "Fast Attack",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [110, 210],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Sorcerer",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [60],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Sorcerer in Terminator Armour",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Traitor Enforcer",
+      "role": "HQ",
+      "sizeOptions": [2],
+      "pointsOptions": [55],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Traitor Guardsmen Squad",
+      "role": "Troops",
+      "sizeOptions": [10],
+      "pointsOptions": [70],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -223,7 +351,7 @@
       "name": "Vashtorr the Arkifane",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [215],
+      "pointsOptions": [175],
       "isEpicHero": true,
       "isCharacter": true
     },
@@ -231,15 +359,23 @@
       "name": "Venomcrawler",
       "role": "Heavy Support",
       "sizeOptions": [1],
-      "pointsOptions": [120],
+      "pointsOptions": [175],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
+      "name": "Warpsmith",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [70],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
       "name": "Warp Talons",
       "role": "Fast Attack",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [100, 200],
+      "sizeOptions": [5],
+      "pointsOptions": [125],
       "isEpicHero": false,
       "isCharacter": false
     }

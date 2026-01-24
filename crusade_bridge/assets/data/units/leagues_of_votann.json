@@ -1,58 +1,58 @@
 {
   "faction": "Leagues of Votann",
-  "version": "1.0",
-  "lastUpdated": "2026-01-23",
+  "version": "1.1",
+  "lastUpdated": "2026-01-24",
   "units": [
     {
-      "name": "Brôkhyr",
+      "name": "Arkanyst Evaluator",
       "role": "HQ",
       "sizeOptions": [1],
+      "pointsOptions": [65],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Brökhyr Iron-master",
+      "role": "HQ",
+      "sizeOptions": [5],
       "pointsOptions": [75],
       "isEpicHero": false,
       "isCharacter": true
     },
     {
-      "name": "Brôkhyr Iron-master",
-      "role": "HQ",
-      "sizeOptions": [1],
+      "name": "Brökhyr Thunderkyn",
+      "role": "Heavy Support",
+      "sizeOptions": [3],
       "pointsOptions": [80],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": false
     },
     {
-      "name": "Einhyr Champion",
+      "name": "Buri Aegnirssen",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [85],
-      "isEpicHero": false,
+      "pointsOptions": [95],
+      "isEpicHero": true,
       "isCharacter": true
-    },
-    {
-      "name": "Einhyr Hearthguard",
-      "role": "Elites",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [140, 280],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
-      "name": "Hearthkyn Warriors",
-      "role": "Troops",
-      "sizeOptions": [10, 20],
-      "pointsOptions": [110, 220],
-      "isEpicHero": false,
-      "isCharacter": false
     },
     {
       "name": "Cthonian Beserks",
       "role": "Elites",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [130, 260],
+      "sizeOptions": [5],
+      "pointsOptions": [100],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
-      "name": "Grimnyr",
+      "name": "Cthonian Earthshakers",
+      "role": "Heavy Support",
+      "sizeOptions": [2],
+      "pointsOptions": [110],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Einhyr Champion",
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [70],
@@ -60,34 +60,114 @@
       "isCharacter": true
     },
     {
-      "name": "Hekaton Land Fortress",
-      "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [340],
+      "name": "Einhyr Hearthguard",
+      "role": "Elites",
+      "sizeOptions": [5],
+      "pointsOptions": [135],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
-      "name": "Kâhl",
+      "name": "Grimnyr",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [90],
+      "sizeOptions": [3],
+      "pointsOptions": [65],
       "isEpicHero": false,
       "isCharacter": true
     },
     {
-      "name": "Sagitaur",
-      "role": "Fast Attack",
-      "sizeOptions": [1],
+      "name": "Hearthkyn Warriors",
+      "role": "Troops",
+      "sizeOptions": [10],
       "pointsOptions": [100],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
-      "name": "Ûthar the Destined",
+      "name": "Hekaton Land Fortress",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [240],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Hernkyn Pioneers",
+      "role": "Fast Attack",
+      "sizeOptions": [3],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Hernkyn Yaegirs",
+      "role": "Fast Attack",
+      "sizeOptions": [10],
+      "pointsOptions": [90],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Ironkin Steeljacks with Heavy Volkanite Disintegrators",
+      "role": "Elites",
+      "sizeOptions": [3],
+      "pointsOptions": [85],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Ironkin Steeljacks with Melee Weapons",
+      "role": "Elites",
+      "sizeOptions": [3],
+      "pointsOptions": [85],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Kähl",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [120],
+      "pointsOptions": [65],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Kapricus Carrier",
+      "role": "Dedicated Transport",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Kapricus Defenders",
+      "role": "Elites",
+      "sizeOptions": [1],
+      "pointsOptions": [70],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Mennyr Strategist",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [45],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Sagitaur",
+      "role": "Dedicated Transport",
+      "sizeOptions": [1],
+      "pointsOptions": [90],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Uthar the Destined",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [95],
       "isEpicHero": true,
       "isCharacter": true
     }

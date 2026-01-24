@@ -1,69 +1,21 @@
 {
   "faction": "Adeptus Mechanicus",
-  "version": "1.0",
-  "lastUpdated": "2026-01-23",
+  "version": "1.1",
+  "lastUpdated": "2026-01-24",
   "units": [
     {
-      "name": "Belisarius Cawl",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [165],
-      "isEpicHero": true,
-      "isCharacter": true
-    },
-    {
-      "name": "Cybernetica Datasmith",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [40],
-      "isEpicHero": false,
-      "isCharacter": true
-    },
-    {
-      "name": "Tech-Priest Dominus",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [75],
-      "isEpicHero": false,
-      "isCharacter": true
-    },
-    {
-      "name": "Tech-Priest Manipulus",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [60],
-      "isEpicHero": false,
-      "isCharacter": true
-    },
-    {
-      "name": "Technoarchaeologist",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [45],
-      "isEpicHero": false,
-      "isCharacter": true
-    },
-    {
-      "name": "Skitarii Marshal",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [45],
-      "isEpicHero": false,
-      "isCharacter": true
-    },
-    {
       "name": "Archaeopter Fusilave",
-      "role": "Fast Attack",
+      "role": "Flyer",
       "sizeOptions": [1],
-      "pointsOptions": [130],
+      "pointsOptions": [160],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Archaeopter Stratoraptor",
-      "role": "Fast Attack",
+      "role": "Flyer",
       "sizeOptions": [1],
-      "pointsOptions": [140],
+      "pointsOptions": [185],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -76,7 +28,15 @@
       "isCharacter": false
     },
     {
-      "name": "Electro-Priests (Corpuscarii)",
+      "name": "Belisarius Cawl",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [210],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Corpuscarii Electro-Priests",
       "role": "Elites",
       "sizeOptions": [5, 10],
       "pointsOptions": [65, 130],
@@ -84,7 +44,15 @@
       "isCharacter": false
     },
     {
-      "name": "Electro-Priests (Fulgurite)",
+      "name": "Cybernetica Datasmith",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [35],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Fulgurite Electro-Priests",
       "role": "Elites",
       "sizeOptions": [5, 10],
       "pointsOptions": [70, 140],
@@ -92,10 +60,26 @@
       "isCharacter": false
     },
     {
+      "name": "Ironstrider Ballistarii",
+      "role": "Fast Attack",
+      "sizeOptions": [1, 2, 3],
+      "pointsOptions": [85, 120, 255],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Kastelan Robots",
+      "role": "Heavy Support",
+      "sizeOptions": [2, 4],
+      "pointsOptions": [180, 360],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
       "name": "Kataphron Breachers",
       "role": "Heavy Support",
       "sizeOptions": [3, 6],
-      "pointsOptions": [90, 180],
+      "pointsOptions": [160, 320],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -108,10 +92,10 @@
       "isCharacter": false
     },
     {
-      "name": "Kastelan Robots",
+      "name": "Onager Dunecrawler",
       "role": "Heavy Support",
-      "sizeOptions": [2, 4],
-      "pointsOptions": [190, 380],
+      "sizeOptions": [1],
+      "pointsOptions": [155],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -119,7 +103,7 @@
       "name": "Pteraxii Skystalkers",
       "role": "Fast Attack",
       "sizeOptions": [5, 10],
-      "pointsOptions": [95, 190],
+      "pointsOptions": [75, 150],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -127,15 +111,15 @@
       "name": "Pteraxii Sterylizors",
       "role": "Fast Attack",
       "sizeOptions": [5, 10],
-      "pointsOptions": [85, 170],
+      "pointsOptions": [80, 160],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Serberys Raiders",
       "role": "Fast Attack",
-      "sizeOptions": [3, 6, 9],
-      "pointsOptions": [60, 120, 180],
+      "sizeOptions": [3, 6],
+      "pointsOptions": [60, 120],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -143,15 +127,23 @@
       "name": "Serberys Sulphurhounds",
       "role": "Fast Attack",
       "sizeOptions": [3, 6],
-      "pointsOptions": [70, 140],
+      "pointsOptions": [55, 110],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Servitor Battleclade",
+      "role": "Elites",
+      "sizeOptions": [9],
+      "pointsOptions": [60],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Sicarian Infiltrators",
-      "role": "Fast Attack",
+      "role": "Elites",
       "sizeOptions": [5, 10],
-      "pointsOptions": [70, 140],
+      "pointsOptions": [75, 155],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -159,25 +151,105 @@
       "name": "Sicarian Ruststalkers",
       "role": "Elites",
       "sizeOptions": [5, 10],
-      "pointsOptions": [90, 180],
+      "pointsOptions": [80, 165],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
+      "name": "Skitarii Marshal",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [35],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
       "name": "Skitarii Rangers",
       "role": "Troops",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [90, 180],
+      "sizeOptions": [10],
+      "pointsOptions": [85],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Skitarii Vanguard",
       "role": "Troops",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [90, 180],
+      "sizeOptions": [10],
+      "pointsOptions": [95],
       "isEpicHero": false,
       "isCharacter": false
+    },
+    {
+      "name": "Skorpius Disintegrator",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [165],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Skorpius Dunerider",
+      "role": "Dedicated Transport",
+      "sizeOptions": [1],
+      "pointsOptions": [85],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Sydonian Dragoons with Radium Jezzails",
+      "role": "Fast Attack",
+      "sizeOptions": [1, 2, 3],
+      "pointsOptions": [55, 100, 150],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Sydonian Dragoons with Taser Lances",
+      "role": "Fast Attack",
+      "sizeOptions": [1, 2, 3],
+      "pointsOptions": [65, 130, 195],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Sydonian Skatros",
+      "role": "Elites",
+      "sizeOptions": [1],
+      "pointsOptions": [50],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Tech-Priest Dominus",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [65],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Tech-Priest Enginseer",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [55],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Tech-Priest Manipulus",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [60],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Technoarcheologist",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [45],
+      "isEpicHero": false,
+      "isCharacter": true
     }
   ]
 }

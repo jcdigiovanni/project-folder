@@ -1,11 +1,11 @@
 {
   "faction": "Orks",
-  "version": "1.0",
-  "lastUpdated": "2026-01-23",
+  "version": "1.1",
+  "lastUpdated": "2026-01-24",
   "units": [
     {
       "name": "Battlewagon",
-      "role": "Dedicated Transport",
+      "role": "Heavy Support",
       "sizeOptions": [1],
       "pointsOptions": [160],
       "isEpicHero": false,
@@ -23,7 +23,7 @@
       "name": "Beastboss",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [90],
+      "pointsOptions": [80],
       "isEpicHero": false,
       "isCharacter": true
     },
@@ -31,7 +31,15 @@
       "name": "Beastboss on Squigosaur",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [135],
+      "pointsOptions": [110],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Big Mek",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [70],
       "isEpicHero": false,
       "isCharacter": true
     },
@@ -39,7 +47,7 @@
       "name": "Big Mek in Mega Armour",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [80],
+      "pointsOptions": [90],
       "isEpicHero": false,
       "isCharacter": true
     },
@@ -52,10 +60,26 @@
       "isCharacter": true
     },
     {
-      "name": "Boomdakka Snazzwagon",
+      "name": "Big'ed Bossbunka",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [135],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Blitza-bommer",
+      "role": "Flyer",
+      "sizeOptions": [1],
+      "pointsOptions": [115],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "BoonDakka Snazzwagon",
       "role": "Fast Attack",
       "sizeOptions": [1],
-      "pointsOptions": [90],
+      "pointsOptions": [70],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -63,7 +87,7 @@
       "name": "Boss Snikrot",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [85],
+      "pointsOptions": [75],
       "isEpicHero": true,
       "isCharacter": true
     },
@@ -71,56 +95,103 @@
       "name": "Boyz",
       "role": "Troops",
       "sizeOptions": [10, 20],
-      "pointsOptions": [85, 170],
+      "pointsOptions": [80, 170],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Breaka Boyz",
+      "role": "Elites",
+      "sizeOptions": [6],
+      "pointsOptions": [140],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Burna Boyz",
       "role": "Elites",
-      "sizeOptions": [10],
-      "pointsOptions": [100],
+      "sizeOptions": [5, 10],
+      "pointsOptions": [60, 120],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Burna-bommer",
+      "role": "Flyer",
+      "sizeOptions": [1],
+      "pointsOptions": [125],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Dakkajet",
+      "role": "Flyer",
+      "sizeOptions": [1],
+      "pointsOptions": [135],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Deff Dread",
-      "role": "Elites",
+      "role": "Heavy Support",
       "sizeOptions": [1],
-      "pointsOptions": [130],
+      "pointsOptions": [120],
       "isEpicHero": false,
       "isCharacter": false
+    },
+    {
+      "name": "Deffkilla Wartrike",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": true
     },
     {
       "name": "Deffkoptas",
       "role": "Fast Attack",
       "sizeOptions": [3, 6],
-      "pointsOptions": [100, 200],
+      "pointsOptions": [80, 160],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Flash Gitz",
       "role": "Elites",
-      "sizeOptions": [10],
-      "pointsOptions": [140],
+      "sizeOptions": [5, 10],
+      "pointsOptions": [80, 160],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Ghazghkull Thraka",
       "role": "HQ",
-      "sizeOptions": [1],
+      "sizeOptions": [2],
       "pointsOptions": [235],
-      "modelsNote": "with Makari",
       "isEpicHero": true,
       "isCharacter": true
     },
     {
+      "name": "Gorkanaut",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [265],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
       "name": "Gretchin",
       "role": "Troops",
-      "sizeOptions": [10, 20],
+      "sizeOptions": [11, 22],
       "pointsOptions": [40, 80],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Hunta Rig",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [135],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -128,15 +199,23 @@
       "name": "Kill Rig",
       "role": "Heavy Support",
       "sizeOptions": [1],
-      "pointsOptions": [160],
+      "pointsOptions": [155],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
-      "name": "Kommandoz",
+      "name": "Killa Kans",
+      "role": "Heavy Support",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [125, 250],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Kommandos",
       "role": "Elites",
       "sizeOptions": [10],
-      "pointsOptions": [110],
+      "pointsOptions": [120],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -144,31 +223,23 @@
       "name": "Kustom Boosta-blasta",
       "role": "Fast Attack",
       "sizeOptions": [1],
-      "pointsOptions": [85],
+      "pointsOptions": [70],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Lootas",
-      "role": "Elites",
-      "sizeOptions": [5],
-      "pointsOptions": [50],
+      "role": "Heavy Support",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [50, 100],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
-      "name": "Mek",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [40],
-      "isEpicHero": false,
-      "isCharacter": true
-    },
-    {
-      "name": "Mek Gunz",
-      "role": "Heavy Support",
-      "sizeOptions": [1, 3],
-      "pointsOptions": [55, 165],
+      "name": "Meganobz",
+      "role": "Elites",
+      "sizeOptions": [2, 3, 5, 6],
+      "pointsOptions": [65, 95, 160, 190],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -176,15 +247,31 @@
       "name": "Megatrakk Scrapjet",
       "role": "Fast Attack",
       "sizeOptions": [1],
-      "pointsOptions": [85],
+      "pointsOptions": [75],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
-      "name": "Meganobz",
-      "role": "Elites",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [105, 210],
+      "name": "Mek",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [45],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Mek Gunz",
+      "role": "Heavy Support",
+      "sizeOptions": [1, 2, 3],
+      "pointsOptions": [50, 100, 150],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Morkanaut",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [280],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -192,23 +279,15 @@
       "name": "Mozrog Skragbad",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [170],
+      "pointsOptions": [145],
       "isEpicHero": true,
       "isCharacter": true
-    },
-    {
-      "name": "Nob on Smasha Squig",
-      "role": "Elites",
-      "sizeOptions": [1],
-      "pointsOptions": [65],
-      "isEpicHero": false,
-      "isCharacter": false
     },
     {
       "name": "Nobz",
       "role": "Elites",
       "sizeOptions": [5, 10],
-      "pointsOptions": [100, 200],
+      "pointsOptions": [105, 210],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -216,7 +295,7 @@
       "name": "Painboss",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [60],
+      "pointsOptions": [70],
       "isEpicHero": false,
       "isCharacter": true
     },
@@ -224,7 +303,7 @@
       "name": "Painboy",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [55],
+      "pointsOptions": [80],
       "isEpicHero": false,
       "isCharacter": true
     },
@@ -232,7 +311,7 @@
       "name": "Rukkatrukk Squigbuggy",
       "role": "Fast Attack",
       "sizeOptions": [1],
-      "pointsOptions": [90],
+      "pointsOptions": [95],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -240,31 +319,39 @@
       "name": "Shokkjump Dragsta",
       "role": "Fast Attack",
       "sizeOptions": [1],
-      "pointsOptions": [85],
+      "pointsOptions": [70],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Squighog Boyz",
       "role": "Fast Attack",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [100, 200],
+      "sizeOptions": [4, 8],
+      "pointsOptions": [150, 300],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Stompa",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [800],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Stormboyz",
-      "role": "Elites",
-      "sizeOptions": [10],
-      "pointsOptions": [100],
+      "role": "Fast Attack",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [65, 130],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Tankbustas",
       "role": "Elites",
-      "sizeOptions": [10],
-      "pointsOptions": [100],
+      "sizeOptions": [6],
+      "pointsOptions": [140],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -272,7 +359,7 @@
       "name": "Trukk",
       "role": "Dedicated Transport",
       "sizeOptions": [1],
-      "pointsOptions": [65],
+      "pointsOptions": [70],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -280,7 +367,7 @@
       "name": "Warbikers",
       "role": "Fast Attack",
       "sizeOptions": [3, 6],
-      "pointsOptions": [70, 140],
+      "pointsOptions": [65, 130],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -296,23 +383,39 @@
       "name": "Warboss in Mega Armour",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [95],
+      "pointsOptions": [80],
       "isEpicHero": false,
       "isCharacter": true
+    },
+    {
+      "name": "Wazbom Blastajet",
+      "role": "Flyer",
+      "sizeOptions": [1],
+      "pointsOptions": [175],
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Weirdboy",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [55],
+      "pointsOptions": [65],
       "isEpicHero": false,
       "isCharacter": true
     },
     {
-      "name": "Zagstruk",
+      "name": "Wurrboy",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [80],
+      "pointsOptions": [60],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Zodgrod Wortsnagga",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [90],
       "isEpicHero": true,
       "isCharacter": true
     }

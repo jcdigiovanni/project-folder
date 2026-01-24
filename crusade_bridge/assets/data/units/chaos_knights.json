@@ -1,35 +1,75 @@
 {
   "faction": "Chaos Knights",
-  "version": "1.0",
-  "lastUpdated": "2026-01-23",
+  "version": "1.1",
+  "lastUpdated": "2026-01-24",
   "units": [
     {
-      "name": "War Dog Autocannon",
-      "role": "Fast Attack",
+      "name": "Knight Abominant",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [355],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Knight Desecrator",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [355],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Knight Despoiler",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [390],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Knight Rampager",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [365],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Knight Ruinator",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [355],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Knight Tyrant",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [410],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "War Dog Brigand",
+      "role": "Heavy Support",
       "sizeOptions": [1],
       "pointsOptions": [140],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
-      "name": "War Dog Brigand",
-      "role": "Fast Attack",
-      "sizeOptions": [1],
-      "pointsOptions": [150],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
       "name": "War Dog Executioner",
-      "role": "Fast Attack",
+      "role": "Heavy Support",
       "sizeOptions": [1],
-      "pointsOptions": [160],
+      "pointsOptions": [130],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "War Dog Huntsman",
-      "role": "Fast Attack",
+      "role": "Heavy Support",
       "sizeOptions": [1],
       "pointsOptions": [140],
       "isEpicHero": false,
@@ -37,51 +77,19 @@
     },
     {
       "name": "War Dog Karnivore",
-      "role": "Fast Attack",
-      "sizeOptions": [1],
-      "pointsOptions": [140],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
-      "name": "War Dog Stalker",
-      "role": "Fast Attack",
+      "role": "Heavy Support",
       "sizeOptions": [1],
       "pointsOptions": [150],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
-      "name": "Knight Abominant",
+      "name": "War Dog Stalker",
       "role": "Heavy Support",
       "sizeOptions": [1],
-      "pointsOptions": [410],
+      "pointsOptions": [140],
       "isEpicHero": false,
-      "isCharacter": true
-    },
-    {
-      "name": "Knight Desecrator",
-      "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [390],
-      "isEpicHero": false,
-      "isCharacter": true
-    },
-    {
-      "name": "Knight Rampager",
-      "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [380],
-      "isEpicHero": false,
-      "isCharacter": true
-    },
-    {
-      "name": "Knight Tyrant",
-      "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [480],
-      "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": false
     }
   ]
 }

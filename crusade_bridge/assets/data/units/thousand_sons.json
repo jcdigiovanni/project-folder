@@ -1,7 +1,7 @@
 {
   "faction": "Thousand Sons",
-  "version": "1.0",
-  "lastUpdated": "2026-01-23",
+  "version": "1.1",
+  "lastUpdated": "2026-01-24",
   "units": [
     {
       "name": "Ahriman",
@@ -10,22 +10,6 @@
       "pointsOptions": [100],
       "isEpicHero": true,
       "isCharacter": true
-    },
-    {
-      "name": "Ahriman on Disc of Tzeentch",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [120],
-      "isEpicHero": true,
-      "isCharacter": true
-    },
-    {
-      "name": "Blue Horrors",
-      "role": "Troops",
-      "sizeOptions": [10],
-      "pointsOptions": [90],
-      "isEpicHero": false,
-      "isCharacter": false
     },
     {
       "name": "Chaos Land Raider",
@@ -116,14 +100,6 @@
       "isCharacter": true
     },
     {
-      "name": "Flamers",
-      "role": "Elites",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [65, 130],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
       "name": "Forgefiend",
       "role": "Heavy Support",
       "sizeOptions": [1],
@@ -133,7 +109,7 @@
     },
     {
       "name": "Heldrake",
-      "role": "Fast Attack",
+      "role": "Flyer",
       "sizeOptions": [1],
       "pointsOptions": [215],
       "isEpicHero": false,
@@ -141,7 +117,7 @@
     },
     {
       "name": "Helbrute",
-      "role": "Elites",
+      "role": "Heavy Support",
       "sizeOptions": [1],
       "pointsOptions": [110],
       "isEpicHero": false,
@@ -152,22 +128,6 @@
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [95],
-      "isEpicHero": false,
-      "isCharacter": true
-    },
-    {
-      "name": "Kairos Fateweaver",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [285],
-      "isEpicHero": true,
-      "isCharacter": true
-    },
-    {
-      "name": "Lord of Change",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [270],
       "isEpicHero": false,
       "isCharacter": true
     },
@@ -196,14 +156,6 @@
       "isCharacter": false
     },
     {
-      "name": "Pink Horrors",
-      "role": "Troops",
-      "sizeOptions": [10],
-      "pointsOptions": [115],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
       "name": "Rubric Marines",
       "role": "Troops",
       "sizeOptions": [5, 10],
@@ -216,14 +168,6 @@
       "role": "Elites",
       "sizeOptions": [5, 10],
       "pointsOptions": [180, 360],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
-      "name": "Screamers",
-      "role": "Fast Attack",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [80, 160],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -280,6 +224,54 @@
       "role": "Troops",
       "sizeOptions": [10, 20],
       "pointsOptions": [70, 160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Blue Horrors",
+      "role": "Troops",
+      "sizeOptions": [10],
+      "pointsOptions": [90],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Flamers",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [65, 130],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Kairos Fateweaver",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [285],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Lord of Change",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [270],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Pink Horrors",
+      "role": "Troops",
+      "sizeOptions": [10],
+      "pointsOptions": [115],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Screamers",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [80, 160],
       "isEpicHero": false,
       "isCharacter": false
     }

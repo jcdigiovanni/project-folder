@@ -1,13 +1,13 @@
 {
   "faction": "Adeptus Custodes",
-  "version": "1.0",
-  "lastUpdated": "2026-01-23",
+  "version": "1.1",
+  "lastUpdated": "2026-01-24",
   "units": [
     {
       "name": "Allarus Custodians",
       "role": "Elites",
-      "sizeOptions": [3, 5, 6],
-      "pointsOptions": [165, 275, 330],
+      "sizeOptions": [3],
+      "pointsOptions": [165],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -15,39 +15,39 @@
       "name": "Blade Champion",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [75],
+      "pointsOptions": [110],
       "isEpicHero": false,
       "isCharacter": true
     },
     {
       "name": "Custodian Guard",
       "role": "Troops",
-      "sizeOptions": [3, 5],
-      "pointsOptions": [135, 225],
+      "sizeOptions": [5],
+      "pointsOptions": [225],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Custodian Wardens",
       "role": "Elites",
-      "sizeOptions": [3, 5],
-      "pointsOptions": [150, 250],
+      "sizeOptions": [3],
+      "pointsOptions": [150],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
-      "name": "Knight Centura",
+      "name": "Knight-Centura",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [55],
+      "pointsOptions": [80],
       "isEpicHero": false,
       "isCharacter": true
     },
     {
       "name": "Prosecutors",
-      "role": "Troops",
+      "role": "Elites",
       "sizeOptions": [5, 10],
-      "pointsOptions": [50, 100],
+      "pointsOptions": [55, 110],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -63,7 +63,7 @@
       "name": "Shield-Captain in Allarus Terminator Armour",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [130],
+      "pointsOptions": [145],
       "isEpicHero": false,
       "isCharacter": true
     },
@@ -71,7 +71,7 @@
       "name": "Shield-Captain on Dawneagle Jetbike",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [150],
+      "pointsOptions": [140],
       "isEpicHero": false,
       "isCharacter": true
     },
@@ -79,16 +79,8 @@
       "name": "Trajann Valoris",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [140],
+      "pointsOptions": [160],
       "isEpicHero": true,
-      "isCharacter": true
-    },
-    {
-      "name": "Valerian",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [110],
-      "isEpicHero": false,
       "isCharacter": true
     },
     {
@@ -110,14 +102,14 @@
     {
       "name": "Vertus Praetors",
       "role": "Fast Attack",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [225, 450],
+      "sizeOptions": [3],
+      "pointsOptions": [225],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Vigilators",
-      "role": "Troops",
+      "role": "Elites",
       "sizeOptions": [5, 10],
       "pointsOptions": [65, 130],
       "isEpicHero": false,
@@ -125,7 +117,7 @@
     },
     {
       "name": "Witchseekers",
-      "role": "Troops",
+      "role": "Elites",
       "sizeOptions": [5, 10],
       "pointsOptions": [55, 110],
       "isEpicHero": false,

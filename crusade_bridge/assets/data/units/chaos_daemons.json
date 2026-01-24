@@ -1,29 +1,37 @@
 {
   "faction": "Chaos Daemons",
-  "version": "1.0",
-  "lastUpdated": "2026-01-23",
+  "version": "1.1",
+  "lastUpdated": "2026-01-24",
   "units": [
+    {
+      "name": "Beasts of Nurgle",
+      "role": "Elites",
+      "sizeOptions": [1, 2],
+      "pointsOptions": [65, 130],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
     {
       "name": "Be'lakor",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [350],
+      "pointsOptions": [375],
       "isEpicHero": true,
       "isCharacter": true
     },
     {
       "name": "Bloodcrushers",
-      "role": "Elites",
+      "role": "Fast Attack",
       "sizeOptions": [3, 6],
-      "pointsOptions": [120, 240],
+      "pointsOptions": [110, 220],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Bloodletters",
       "role": "Troops",
-      "sizeOptions": [10, 20],
-      "pointsOptions": [120, 240],
+      "sizeOptions": [10],
+      "pointsOptions": [110],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -31,7 +39,7 @@
       "name": "Bloodmaster",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [70],
+      "pointsOptions": [65],
       "isEpicHero": false,
       "isCharacter": true
     },
@@ -39,31 +47,111 @@
       "name": "Bloodthirster",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [310],
+      "pointsOptions": [305],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Blue Horrors",
+      "role": "Troops",
+      "sizeOptions": [10],
+      "pointsOptions": [125],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Burning Chariot",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [115],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Changecaster",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [60],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Contorted Epitome",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [100],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Daemon Prince of Chaos",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [190],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Daemon Prince of Chaos with Wings",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [180],
       "isEpicHero": false,
       "isCharacter": true
     },
     {
       "name": "Daemonettes",
       "role": "Troops",
-      "sizeOptions": [10, 20],
-      "pointsOptions": [110, 220],
+      "sizeOptions": [10],
+      "pointsOptions": [100],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
-      "name": "Exalted Flamer",
-      "role": "Elites",
+      "name": "Epidemius",
+      "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [75],
+      "pointsOptions": [80],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Exalted Flamer",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [65],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Fateskimmer",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [95],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Feculent Gnarlmaw",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [100],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Fiends",
+      "role": "Elites",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [95, 190],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Flamers",
-      "role": "Elites",
+      "role": "Fast Attack",
       "sizeOptions": [3, 6],
-      "pointsOptions": [80, 160],
+      "pointsOptions": [65, 130],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -71,23 +159,55 @@
       "name": "Flesh Hounds",
       "role": "Fast Attack",
       "sizeOptions": [5, 10],
-      "pointsOptions": [70, 140],
+      "pointsOptions": [75, 150],
       "isEpicHero": false,
       "isCharacter": false
+    },
+    {
+      "name": "Fluxmaster",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [60],
+      "isEpicHero": false,
+      "isCharacter": true
     },
     {
       "name": "Great Unclean One",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [260],
+      "pointsOptions": [250],
       "isEpicHero": false,
       "isCharacter": true
+    },
+    {
+      "name": "Hellflayers",
+      "role": "Fast Attack",
+      "sizeOptions": [1, 2],
+      "pointsOptions": [80, 160],
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Horticulous Slimux",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [200],
+      "pointsOptions": [120],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Infernal Enraptress",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [60],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Kairos Fateweaver",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [285],
       "isEpicHero": true,
       "isCharacter": true
     },
@@ -95,7 +215,7 @@
       "name": "Karanak",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [90],
+      "pointsOptions": [75],
       "isEpicHero": true,
       "isCharacter": true
     },
@@ -103,7 +223,7 @@
       "name": "Keeper of Secrets",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [290],
+      "pointsOptions": [240],
       "isEpicHero": false,
       "isCharacter": true
     },
@@ -111,7 +231,7 @@
       "name": "Lord of Change",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [285],
+      "pointsOptions": [270],
       "isEpicHero": false,
       "isCharacter": true
     },
@@ -119,31 +239,47 @@
       "name": "Nurglings",
       "role": "Troops",
       "sizeOptions": [3, 6],
-      "pointsOptions": [45, 90],
+      "pointsOptions": [40, 70],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Pink Horrors",
+      "role": "Troops",
+      "sizeOptions": [10],
+      "pointsOptions": [140],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Plague Drones",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [110, 220],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Plaguebearers",
       "role": "Troops",
-      "sizeOptions": [10, 20],
-      "pointsOptions": [120, 240],
+      "sizeOptions": [10],
+      "pointsOptions": [110],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
-      "name": "Plague Drones",
-      "role": "Elites",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [90, 180],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
-      "name": "Rendmaster on Foot",
+      "name": "Poxbringer",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [80],
+      "pointsOptions": [55],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Rendmaster on Blood Throne",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [165],
       "isEpicHero": false,
       "isCharacter": true
     },
@@ -151,15 +287,31 @@
       "name": "Rotigus",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [280],
+      "pointsOptions": [265],
       "isEpicHero": true,
       "isCharacter": true
+    },
+    {
+      "name": "Screamers",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [80, 160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Seekers",
+      "role": "Fast Attack",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [80, 160],
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Shalaxi Helbane",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [400],
+      "pointsOptions": [340],
       "isEpicHero": true,
       "isCharacter": true
     },
@@ -167,39 +319,79 @@
       "name": "Skarbrand",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [300],
+      "pointsOptions": [305],
       "isEpicHero": true,
       "isCharacter": true
     },
     {
-      "name": "Skullmaster",
-      "role": "HQ",
+      "name": "Skull Altar",
+      "role": "Heavy Support",
       "sizeOptions": [1],
-      "pointsOptions": [80],
+      "pointsOptions": [105],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": false
     },
     {
       "name": "Skull Cannon",
       "role": "Heavy Support",
       "sizeOptions": [1],
-      "pointsOptions": [110],
+      "pointsOptions": [95],
       "isEpicHero": false,
       "isCharacter": false
+    },
+    {
+      "name": "Skullmaster",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [100],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Skulltaker",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [85],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Sloppity Bilepiper",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [55],
+      "isEpicHero": false,
+      "isCharacter": true
     },
     {
       "name": "Soul Grinder",
       "role": "Heavy Support",
       "sizeOptions": [1],
-      "pointsOptions": [170],
+      "pointsOptions": [180],
       "isEpicHero": false,
       "isCharacter": false
+    },
+    {
+      "name": "Spoilpox Scrivener",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [60],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Syl'esske",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [120],
+      "isEpicHero": true,
+      "isCharacter": true
     },
     {
       "name": "The Blue Scribes",
       "role": "HQ",
       "sizeOptions": [1],
-      "pointsOptions": [80],
+      "pointsOptions": [75],
       "isEpicHero": true,
       "isCharacter": true
     },
@@ -209,6 +401,30 @@
       "sizeOptions": [1],
       "pointsOptions": [90],
       "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "The Masque of Slaanesh",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [95],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Tormentbringer",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [140],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Tranceweaver",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [60],
+      "isEpicHero": false,
       "isCharacter": true
     }
   ]

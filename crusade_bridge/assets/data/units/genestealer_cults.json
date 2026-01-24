@@ -1,7 +1,7 @@
 {
   "faction": "Genestealer Cults",
-  "version": "1.0",
-  "lastUpdated": "2026-01-23",
+  "version": "1.1",
+  "lastUpdated": "2026-01-24",
   "units": [
     {
       "name": "Aberrants",
@@ -21,7 +21,7 @@
     },
     {
       "name": "Achilles Ridgerunners",
-      "role": "Fast Attack",
+      "role": "Heavy Support",
       "sizeOptions": [1, 2],
       "pointsOptions": [95, 120],
       "isEpicHero": false,
@@ -117,10 +117,10 @@
     },
     {
       "name": "Kelermorph",
-      "role": "Elites",
+      "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [60],
-      "isEpicHero": false,
+      "isEpicHero": true,
       "isCharacter": true
     },
     {
@@ -160,7 +160,7 @@
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [75],
-      "isEpicHero": false,
+      "isEpicHero": true,
       "isCharacter": true
     },
     {
@@ -181,7 +181,7 @@
     },
     {
       "name": "Reductus Saboteur",
-      "role": "Elites",
+      "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [65],
       "isEpicHero": false,
@@ -189,7 +189,7 @@
     },
     {
       "name": "Sanctus",
-      "role": "Elites",
+      "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [50],
       "isEpicHero": false,

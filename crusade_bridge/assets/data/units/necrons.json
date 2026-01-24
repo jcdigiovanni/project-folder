@@ -1,15 +1,23 @@
 {
   "faction": "Necrons",
-  "version": "1.0",
-  "lastUpdated": "2026-01-23",
+  "version": "1.1",
+  "lastUpdated": "2026-01-24",
   "units": [
     {
       "name": "Annihilation Barge",
-      "role": "Fast Attack",
+      "role": "Heavy Support",
       "sizeOptions": [1],
       "pointsOptions": [105],
       "isEpicHero": false,
       "isCharacter": false
+    },
+    {
+      "name": "Catacomb Command Barge",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [120],
+      "isEpicHero": false,
+      "isCharacter": true
     },
     {
       "name": "Canoptek Doomstalker",
@@ -21,7 +29,7 @@
     },
     {
       "name": "Canoptek Reanimator",
-      "role": "Heavy Support",
+      "role": "Elites",
       "sizeOptions": [1],
       "pointsOptions": [75],
       "isEpicHero": false,
@@ -30,8 +38,8 @@
     {
       "name": "Canoptek Scarab Swarms",
       "role": "Fast Attack",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [40, 80],
+      "sizeOptions": [3],
+      "pointsOptions": [40],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -46,18 +54,10 @@
     {
       "name": "Canoptek Wraiths",
       "role": "Fast Attack",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [110, 220],
+      "sizeOptions": [3],
+      "pointsOptions": [110],
       "isEpicHero": false,
       "isCharacter": false
-    },
-    {
-      "name": "Catacomb Command Barge",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [120],
-      "isEpicHero": false,
-      "isCharacter": true
     },
     {
       "name": "Chronomancer",
@@ -69,9 +69,9 @@
     },
     {
       "name": "Convergence of Dominion",
-      "role": "Heavy Support",
-      "sizeOptions": [3],
-      "pointsOptions": [180],
+      "role": "Fortification",
+      "sizeOptions": [1],
+      "pointsOptions": [60],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -88,7 +88,7 @@
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [285],
-      "isEpicHero": false,
+      "isEpicHero": true,
       "isCharacter": true
     },
     {
@@ -96,7 +96,7 @@
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [315],
-      "isEpicHero": false,
+      "isEpicHero": true,
       "isCharacter": true
     },
     {
@@ -104,20 +104,20 @@
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [310],
-      "isEpicHero": false,
+      "isEpicHero": true,
       "isCharacter": true
     },
     {
       "name": "Deathmarks",
-      "role": "Fast Attack",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [60, 120],
+      "role": "Elites",
+      "sizeOptions": [5],
+      "pointsOptions": [60],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Doom Scythe",
-      "role": "Fast Attack",
+      "role": "Flyer",
       "sizeOptions": [1],
       "pointsOptions": [230],
       "isEpicHero": false,
@@ -134,8 +134,8 @@
     {
       "name": "Flayed Ones",
       "role": "Elites",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [60, 120],
+      "sizeOptions": [5],
+      "pointsOptions": [60],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -161,7 +161,7 @@
       "sizeOptions": [1],
       "pointsOptions": [75],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": false
     },
     {
       "name": "Illuminor Szeras",
@@ -174,8 +174,8 @@
     {
       "name": "Immortals",
       "role": "Troops",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [70, 140],
+      "sizeOptions": [5],
+      "pointsOptions": [70],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -190,16 +190,16 @@
     {
       "name": "Lokhust Destroyers",
       "role": "Fast Attack",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [120, 240],
+      "sizeOptions": [1],
+      "pointsOptions": [40],
       "isEpicHero": false,
       "isCharacter": false
     },
     {
       "name": "Lokhust Heavy Destroyers",
       "role": "Heavy Support",
-      "sizeOptions": [1, 3],
-      "pointsOptions": [55, 165],
+      "sizeOptions": [1],
+      "pointsOptions": [55],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -214,8 +214,8 @@
     {
       "name": "Lychguard",
       "role": "Elites",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [85, 170],
+      "sizeOptions": [5],
+      "pointsOptions": [85],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -230,8 +230,8 @@
     {
       "name": "Necron Warriors",
       "role": "Troops",
-      "sizeOptions": [10, 20],
-      "pointsOptions": [90, 180],
+      "sizeOptions": [10],
+      "pointsOptions": [90],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -245,9 +245,9 @@
     },
     {
       "name": "Ophydian Destroyers",
-      "role": "Fast Attack",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [80, 160],
+      "role": "Elites",
+      "sizeOptions": [3],
+      "pointsOptions": [80],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -302,8 +302,8 @@
     {
       "name": "Skorpekh Destroyers",
       "role": "Elites",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [90, 180],
+      "sizeOptions": [3],
+      "pointsOptions": [90],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -324,6 +324,14 @@
       "isCharacter": true
     },
     {
+      "name": "Tesseract Vault",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [425],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
       "name": "The Silent King",
       "role": "HQ",
       "sizeOptions": [3],
@@ -334,8 +342,8 @@
     {
       "name": "Tomb Blades",
       "role": "Fast Attack",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [75, 150],
+      "sizeOptions": [3],
+      "pointsOptions": [75],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -358,8 +366,8 @@
     {
       "name": "Triarch Praetorians",
       "role": "Elites",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [90, 180],
+      "sizeOptions": [5],
+      "pointsOptions": [90],
       "isEpicHero": false,
       "isCharacter": false
     },
