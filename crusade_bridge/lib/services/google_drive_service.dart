@@ -103,19 +103,33 @@ class GoogleDriveService {
 
     try {
       final crusades = StorageService.loadAllCrusades();
+      final now = DateTime.now();
       final backupData = {
         'version': '1.0',
-        'timestamp': DateTime.now().toIso8601String(),
+        'timestamp': now.toIso8601String(),
         'crusades': crusades.map((c) => c.toJson()).toList(),
       };
 
       final jsonContent = jsonEncode(backupData);
-      final fileName = 'crusade_bridge_backup_${DateTime.now().millisecondsSinceEpoch}.json';
 
-      // Create file metadata
+      // Create human-readable filename
+      final dateStr = '${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}_${now.hour.toString().padLeft(2, '0')}${now.minute.toString().padLeft(2, '0')}';
+      final fileName = crusades.length == 1
+          ? 'Crusade_${_sanitizeFileName(crusades.first.name)}_$dateStr.json'
+          : 'AllCrusades_${crusades.length}_$dateStr.json';
+
+      // Create file metadata with custom properties
       final driveFile = drive.File()
         ..name = fileName
-        ..mimeType = 'application/json';
+        ..mimeType = 'application/json'
+        ..description = crusades.length == 1
+            ? '${crusades.first.name} - ${crusades.first.faction}'
+            : '${crusades.length} Crusades backup'
+        ..properties = {
+          'crusadeCount': crusades.length.toString(),
+          'crusadeNames': crusades.map((c) => c.name).join(', '),
+          'factions': crusades.map((c) => c.faction).join(', '),
+        };
 
       // Upload file
       final media = drive.Media(
@@ -147,24 +161,36 @@ class GoogleDriveService {
     }
 
     try {
+      final now = DateTime.now();
       // Use the same format as backupCrusades for consistency
       final backupData = {
         'version': '1.0',
-        'timestamp': DateTime.now().toIso8601String(),
+        'timestamp': now.toIso8601String(),
         'crusades': [crusade.toJson()],  // Wrap single crusade in array
       };
       final jsonContent = jsonEncode(backupData);
-      // Use consistent naming with backup files so retrieval works
-      final fileName = 'crusade_bridge_backup_${crusade.id}.json';
 
-      // Create file metadata
+      // Create human-readable filename
+      final dateStr = '${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}_${now.hour.toString().padLeft(2, '0')}${now.minute.toString().padLeft(2, '0')}';
+      final fileName = 'Crusade_${_sanitizeFileName(crusade.name)}_$dateStr.json';
+
+      // Create file metadata with custom properties
       final driveFile = drive.File()
         ..name = fileName
-        ..mimeType = 'application/json';
+        ..mimeType = 'application/json'
+        ..description = '${crusade.name} - ${crusade.faction}'
+        ..properties = {
+          'crusadeId': crusade.id,
+          'crusadeName': crusade.name,
+          'faction': crusade.faction,
+          'detachment': crusade.detachment,
+          'supplyLimit': crusade.supplyLimit.toString(),
+          'rp': crusade.rp.toString(),
+        };
 
-      // Check if file already exists
+      // Check if a file for this crusade already exists (by crusadeId property)
       final existingFiles = await _driveApi!.files.list(
-        q: "name='$fileName' and mimeType='application/json'",
+        q: "properties has { key='crusadeId' and value='${crusade.id}' } and mimeType='application/json'",
         spaces: 'drive',
       );
 
@@ -203,9 +229,10 @@ class GoogleDriveService {
 
     try {
       final fileList = await _driveApi!.files.list(
-        q: "name contains 'crusade_bridge_backup' and mimeType='application/json'",
+        q: "(name contains 'crusade_bridge_backup' or name contains 'Crusade_' or name contains 'AllCrusades_') and mimeType='application/json'",
         orderBy: 'modifiedTime desc',
         spaces: 'drive',
+        $fields: 'files(id, name, description, properties, createdTime, modifiedTime, size)',
       );
 
       return fileList.files ?? [];
@@ -319,6 +346,12 @@ class GoogleDriveService {
       print('Error deleting backup: $e');
       return false;
     }
+  }
+
+  /// Sanitize a filename by removing invalid characters
+  static String _sanitizeFileName(String name) {
+    // Replace invalid characters with underscores
+    return name.replaceAll(RegExp(r'[<>:"/\\|?*]'), '_');
   }
 }
 

@@ -110,6 +110,14 @@ class CrusadeDashboardScreen extends ConsumerWidget {
                       ),
                     ),
                     Text(
+                      '${currentCrusade.totalCrusadePoints} CP',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFFFF59D),
+                      ),
+                    ),
+                    Text(
                       '${currentCrusade.rp} RP',
                       style: const TextStyle(
                         fontSize: 18,

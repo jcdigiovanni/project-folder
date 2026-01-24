@@ -26,6 +26,11 @@ class OOBModifyScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text('Modify OOB - ${currentCrusade.name}'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.military_tech),
+            tooltip: 'Requisitions',
+            onPressed: () => _showRequisitionsDialog(context, ref),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ArmyAvatar(
@@ -67,6 +72,23 @@ class OOBModifyScreen extends ConsumerWidget {
                       style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Total CP',
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                    Text(
+                      '${currentCrusade.totalCrusadePoints}',
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFFFF59D),
                       ),
                     ),
                   ],
@@ -121,13 +143,67 @@ class OOBModifyScreen extends ConsumerWidget {
                 // If it's a group, show component units in hierarchical style
                 if (item.type == 'group' && item.components != null && item.components!.isNotEmpty) {
                   for (final component in item.components!) {
+                    // Build nested unit details
+                    final List<Widget> nestedExpansionChildren = [];
+                    nestedExpansionChildren.add(
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('Unit Details', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                            const SizedBox(height: 8),
+                            _DetailRow(label: 'Experience', value: '${component.xp} XP'),
+                            _DetailRow(label: 'Models', value: '${component.modelsCurrent}/${component.modelsMax}'),
+                            _DetailRow(label: 'Crusade Points', value: '${component.crusadePoints}'),
+                            if (component.tallies['played'] != null)
+                              _DetailRow(label: 'Battles Played', value: '${component.tallies['played']}'),
+                            if (component.honours.isNotEmpty) ...[
+                              const SizedBox(height: 8),
+                              const Text('Battle Honours:', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                              ...component.honours.map((honour) => Padding(
+                                padding: const EdgeInsets.only(left: 16, top: 4),
+                                child: Text('• $honour', style: const TextStyle(fontSize: 13)),
+                              )),
+                            ],
+                            if (component.enhancements.isNotEmpty) ...[
+                              const SizedBox(height: 8),
+                              const Text('Enhancements:', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                              ...component.enhancements.map((enhancement) => Padding(
+                                padding: const EdgeInsets.only(left: 16, top: 4),
+                                child: Text('• $enhancement', style: const TextStyle(fontSize: 13)),
+                              )),
+                            ],
+                            if (component.scars.isNotEmpty) ...[
+                              const SizedBox(height: 8),
+                              const Text('Battle Scars:', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.red)),
+                              ...component.scars.map((scar) => Padding(
+                                padding: const EdgeInsets.only(left: 16, top: 4),
+                                child: Text('• $scar', style: const TextStyle(fontSize: 13, color: Colors.red)),
+                              )),
+                            ],
+                            if (component.notes != null && component.notes!.isNotEmpty) ...[
+                              const SizedBox(height: 8),
+                              const Text('Notes:', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 16, top: 4),
+                                child: Text(component.notes!, style: const TextStyle(fontSize: 13, fontStyle: FontStyle.italic)),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                    );
+
                     expansionChildren.add(
                       Padding(
-                        padding: const EdgeInsets.only(left: 32.0), // Indent for hierarchy
-                        child: ListTile(
+                        padding: const EdgeInsets.only(left: 16.0), // Indent for hierarchy
+                        child: ExpansionTile(
                           leading: component.isWarlord == true
                               ? const Icon(Icons.star, color: Colors.yellow, size: 18)
-                              : const Icon(Icons.subdirectory_arrow_right, size: 18, color: Colors.grey),
+                              : component.isEpicHero == true
+                                  ? const Icon(Icons.military_tech, color: Colors.purple, size: 18)
+                                  : const Icon(Icons.subdirectory_arrow_right, size: 18, color: Colors.grey),
                           title: Text(
                             component.customName != null
                                 ? '${component.customName} (${component.name})'
@@ -135,14 +211,71 @@ class OOBModifyScreen extends ConsumerWidget {
                             style: const TextStyle(fontSize: 14), // Smaller text for nested items
                           ),
                           subtitle: Text(
-                            '${component.rank} • ${component.xp} XP • ${component.points} pts • ${component.modelsCurrent}/${component.modelsMax} models',
+                            '${component.rank} • ${component.points} pts • ${component.crusadePoints} CP',
                             style: const TextStyle(fontSize: 12), // Even smaller for subtitle
                           ),
-                          dense: true, // More compact display
+                          dense: true,
+                          tilePadding: const EdgeInsets.symmetric(horizontal: 16),
+                          childrenPadding: EdgeInsets.zero,
+                          children: nestedExpansionChildren,
                         ),
                       ),
                     );
                   }
+                  expansionChildren.add(const Divider());
+                }
+
+                // If it's a unit (not a group), show detailed stats section
+                if (item.type == 'unit') {
+                  expansionChildren.add(
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Unit Details', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                          const SizedBox(height: 8),
+                          _DetailRow(label: 'Experience', value: '${item.xp} XP'),
+                          _DetailRow(label: 'Models', value: '${item.modelsCurrent}/${item.modelsMax}'),
+                          _DetailRow(label: 'Crusade Points', value: '${item.crusadePoints}'),
+                          if (item.tallies['played'] != null)
+                            _DetailRow(label: 'Battles Played', value: '${item.tallies['played']}'),
+                          if (item.honours.isNotEmpty) ...[
+                            const SizedBox(height: 8),
+                            const Text('Battle Honours:', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                            ...item.honours.map((honour) => Padding(
+                              padding: const EdgeInsets.only(left: 16, top: 4),
+                              child: Text('• $honour', style: const TextStyle(fontSize: 13)),
+                            )),
+                          ],
+                          if (item.enhancements.isNotEmpty) ...[
+                            const SizedBox(height: 8),
+                            const Text('Enhancements:', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                            ...item.enhancements.map((enhancement) => Padding(
+                              padding: const EdgeInsets.only(left: 16, top: 4),
+                              child: Text('• $enhancement', style: const TextStyle(fontSize: 13)),
+                            )),
+                          ],
+                          if (item.scars.isNotEmpty) ...[
+                            const SizedBox(height: 8),
+                            const Text('Battle Scars:', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.red)),
+                            ...item.scars.map((scar) => Padding(
+                              padding: const EdgeInsets.only(left: 16, top: 4),
+                              child: Text('• $scar', style: const TextStyle(fontSize: 13, color: Colors.red)),
+                            )),
+                          ],
+                          if (item.notes != null && item.notes!.isNotEmpty) ...[
+                            const SizedBox(height: 8),
+                            const Text('Notes:', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 16, top: 4),
+                              child: Text(item.notes!, style: const TextStyle(fontSize: 13, fontStyle: FontStyle.italic)),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  );
                   expansionChildren.add(const Divider());
                 }
 
@@ -170,19 +303,38 @@ class OOBModifyScreen extends ConsumerWidget {
                   ),
                 );
 
-                return ExpansionTile(
-                  leading: leadingIcon,
-                  title: Text(
-                    item.customName != null
-                        ? '${item.customName} (${item.name})'
-                        : item.name
+                return Container(
+                  margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                  child: ExpansionTile(
+                    leading: leadingIcon,
+                    title: Text(
+                      item.customName != null
+                          ? '${item.customName} (${item.name})'
+                          : item.name
+                    ),
+                    subtitle: Text(
+                      item.type == 'group'
+                          ? '${item.points} pts • ${item.totalCrusadePoints} CP • ${item.components?.length ?? 0} units'
+                          : '${item.rank} • ${item.points} pts • ${item.crusadePoints} CP'
+                    ),
+                    backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+                    collapsedBackgroundColor: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      side: BorderSide(
+                        color: item.type == 'group' ? Colors.blue.withValues(alpha: 0.5) : Colors.grey.withValues(alpha: 0.3),
+                        width: 2,
+                      ),
+                    ),
+                    collapsedShape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      side: BorderSide(
+                        color: Colors.transparent,
+                        width: 0,
+                      ),
+                    ),
+                    children: expansionChildren,
                   ),
-                  subtitle: Text(
-                    item.type == 'group'
-                        ? '${item.points} pts • ${item.components?.length ?? 0} units • ${item.modelsCurrent}/${item.modelsMax} models'
-                        : '${item.rank} • ${item.xp} XP • ${item.points} pts • ${item.modelsCurrent}/${item.modelsMax} models'
-                  ),
-                  children: expansionChildren,
                 );
               },
             ),
@@ -361,14 +513,16 @@ class OOBModifyScreen extends ConsumerWidget {
     );
   }
 
-  void _addUnit(BuildContext context, WidgetRef ref) {
+  Future<void> _addUnit(BuildContext context, WidgetRef ref) async {
     final currentCrusade = ref.read(currentCrusadeNotifierProvider);
     final crusadeFaction = currentCrusade?.faction;
 
-    // Preload units for the crusade's faction
+    // Preload units for the crusade's faction and wait for them to load
     if (crusadeFaction != null) {
-      ReferenceDataService.getUnits(crusadeFaction);
+      await ReferenceDataService.getUnits(crusadeFaction);
     }
+
+    if (!context.mounted) return;
 
     showModalBottomSheet(
       context: context,
@@ -515,9 +669,10 @@ class OOBModifyScreen extends ConsumerWidget {
                       return;
                     }
 
-                    // Get unit data to check for Epic Hero flag
+                    // Get unit data to check for Epic Hero and Character flags
                     final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, selectedUnit!);
                     final isEpicHero = unitData['isEpicHero'] as bool? ?? false;
+                    final isCharacter = unitData['isCharacter'] as bool? ?? false;
 
                     final newUnit = UnitOrGroup(
                       id: const Uuid().v4(),
@@ -529,6 +684,7 @@ class OOBModifyScreen extends ConsumerWidget {
                       modelsMax: models,
                       isWarlord: isWarlord,
                       isEpicHero: isEpicHero,
+                      isCharacter: isCharacter,
                     );
 
                     ref.read(currentCrusadeNotifierProvider.notifier).addUnitOrGroup(newUnit);
@@ -844,6 +1000,260 @@ class OOBModifyScreen extends ConsumerWidget {
           },
         );
       },
+    );
+  }
+
+  /// Shows the requisitions dialog with available requisition options
+  static void _showRequisitionsDialog(BuildContext context, WidgetRef ref) {
+    final currentCrusade = ref.read(currentCrusadeNotifierProvider);
+    if (currentCrusade == null) return;
+
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Requisitions',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    '${currentCrusade.rp} RP',
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFFFFF59D)),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              ListTile(
+                leading: const Icon(Icons.workspace_premium, color: Colors.amber),
+                title: const Text('Renowned Heroes'),
+                subtitle: const Text('Add an enhancement to a character unit (1 RP)'),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  Navigator.pop(context);
+                  _applyRenownedHeroes(context, ref);
+                },
+              ),
+              const Divider(),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'More requisitions coming soon...',
+                  style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  /// Applies the Renowned Heroes requisition (add enhancement to character)
+  static void _applyRenownedHeroes(BuildContext context, WidgetRef ref) {
+    final currentCrusade = ref.read(currentCrusadeNotifierProvider);
+    if (currentCrusade == null) return;
+
+    // Check if user has enough RP
+    if (currentCrusade.rp < 1) {
+      SnackBarUtils.showError(context, 'Not enough RP! You need 1 RP for this requisition.');
+      return;
+    }
+
+    // Get all eligible character units (isCharacter=true, isEpicHero=false, no existing enhancement)
+    final eligibleUnits = <MapEntry<int, UnitOrGroup>>[];
+    for (var i = 0; i < currentCrusade.oob.length; i++) {
+      final item = currentCrusade.oob[i];
+      // Only ungrouped units are eligible (groups can't have enhancements)
+      if (item.type == 'unit' && item.isCharacter == true && item.isEpicHero != true && item.enhancements.isEmpty) {
+        eligibleUnits.add(MapEntry(i, item));
+      }
+    }
+
+    if (eligibleUnits.isEmpty) {
+      SnackBarUtils.showError(context, 'No eligible characters! Characters must not be Epic Heroes and must not already have an enhancement.');
+      return;
+    }
+
+    // Get available enhancements for the detachment
+    final enhancements = ReferenceDataService.getEnhancements(currentCrusade.faction, currentCrusade.detachment);
+
+    if (enhancements.isEmpty) {
+      SnackBarUtils.showError(context, 'No enhancements available for ${currentCrusade.detachment} detachment.');
+      return;
+    }
+
+    // Show unit selection dialog
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        MapEntry<int, UnitOrGroup>? selectedUnit;
+        Map<String, dynamic>? selectedEnhancement;
+
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+                left: 16,
+                right: 16,
+                top: 16,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Renowned Heroes',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Select a character and enhancement (1 RP)',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Character selection dropdown
+                  DropdownButtonFormField<MapEntry<int, UnitOrGroup>>(
+                    decoration: const InputDecoration(
+                      labelText: 'Character',
+                      border: OutlineInputBorder(),
+                    ),
+                    items: eligibleUnits.map((entry) {
+                      final unit = entry.value;
+                      return DropdownMenuItem(
+                        value: entry,
+                        child: Text(unit.customName ?? unit.name),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setModalState(() {
+                        selectedUnit = value;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Enhancement selection dropdown
+                  DropdownButtonFormField<Map<String, dynamic>>(
+                    decoration: const InputDecoration(
+                      labelText: 'Enhancement',
+                      border: OutlineInputBorder(),
+                    ),
+                    items: enhancements.map((enh) {
+                      return DropdownMenuItem(
+                        value: enh,
+                        child: Text('${enh['name']} (+${enh['points']} pts)'),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setModalState(() {
+                        selectedEnhancement = value;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 24),
+
+                  // Apply button
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: selectedUnit != null && selectedEnhancement != null
+                          ? () {
+                              final unitIndex = selectedUnit!.key;
+                              final unit = selectedUnit!.value;
+                              final enhName = selectedEnhancement!['name'] as String;
+                              final enhPoints = selectedEnhancement!['points'] as int;
+
+                              // Create updated unit with enhancement
+                              final updatedUnit = UnitOrGroup(
+                                id: unit.id,
+                                type: unit.type,
+                                name: unit.name,
+                                customName: unit.customName,
+                                points: unit.points + enhPoints, // Add enhancement points
+                                modelsCurrent: unit.modelsCurrent,
+                                modelsMax: unit.modelsMax,
+                                notes: unit.notes,
+                                statsText: unit.statsText,
+                                isWarlord: unit.isWarlord,
+                                isEpicHero: unit.isEpicHero,
+                                xp: unit.xp,
+                                honours: unit.honours,
+                                scars: unit.scars,
+                                enhancements: [...unit.enhancements, enhName],
+                                crusadePoints: unit.crusadePoints,
+                                tallies: unit.tallies,
+                              );
+
+                              // Update OOB
+                              final updatedOob = List<UnitOrGroup>.from(currentCrusade.oob);
+                              updatedOob[unitIndex] = updatedUnit;
+
+                              // Create updated crusade with -1 RP
+                              final updatedCrusade = Crusade(
+                                id: currentCrusade.id,
+                                name: currentCrusade.name,
+                                faction: currentCrusade.faction,
+                                detachment: currentCrusade.detachment,
+                                supplyLimit: currentCrusade.supplyLimit,
+                                rp: currentCrusade.rp - 1, // Deduct RP
+                                armyIconPath: currentCrusade.armyIconPath,
+                                factionIconAsset: currentCrusade.factionIconAsset,
+                                oob: updatedOob,
+                                templates: currentCrusade.templates,
+                              );
+
+                              ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
+                              Navigator.pop(context);
+
+                              SnackBarUtils.showSuccess(
+                                context,
+                                'Enhancement "$enhName" added to ${unit.customName ?? unit.name}!',
+                              );
+                            }
+                          : null,
+                      child: const Text('Apply Enhancement (1 RP)'),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+}
+
+// Helper widget for displaying detail rows in unit expansion
+class _DetailRow extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const _DetailRow({required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: const TextStyle(fontSize: 13, color: Colors.grey)),
+          Text(value, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+        ],
+      ),
     );
   }
 }

@@ -59,6 +59,9 @@ Crusade({
   // Calculate remaining points
   int get remainingPoints => supplyLimit - totalOobPoints;
 
+  // Calculate total Crusade Points across all units
+  int get totalCrusadePoints => oob.fold<int>(0, (sum, item) => sum + item.totalCrusadePoints);
+
   // JSON serialization
   Map<String, dynamic> toJson() {
     return {
@@ -153,6 +156,9 @@ class UnitOrGroup {
   @HiveField(17)
   List<String> enhancements = [];
 
+  @HiveField(18)
+  bool? isCharacter;
+
   UnitOrGroup({
     required this.id,
     required this.type,
@@ -166,6 +172,7 @@ class UnitOrGroup {
     this.statsText,
     this.isWarlord,
     this.isEpicHero,
+    this.isCharacter,
     int? xp,
     List<String>? honours,
     List<String>? scars,
@@ -189,6 +196,14 @@ class UnitOrGroup {
     return 'Legendary';
   }
 
+  // Calculate total Crusade Points for this unit or group
+  int get totalCrusadePoints {
+    if (type == 'group' && components != null) {
+      return components!.fold<int>(0, (sum, unit) => sum + unit.crusadePoints);
+    }
+    return crusadePoints;
+  }
+
   // JSON serialization
   Map<String, dynamic> toJson() {
     return {
@@ -210,6 +225,7 @@ class UnitOrGroup {
       'statsText': statsText,
       'isWarlord': isWarlord,
       'isEpicHero': isEpicHero,
+      'isCharacter': isCharacter,
     };
   }
 
@@ -229,6 +245,7 @@ class UnitOrGroup {
       statsText: json['statsText'] as String?,
       isWarlord: json['isWarlord'] as bool?,
       isEpicHero: json['isEpicHero'] as bool?,
+      isCharacter: json['isCharacter'] as bool?,
       xp: json['xp'] as int?,
       honours: (json['honours'] as List<dynamic>?)?.cast<String>(),
       scars: (json['scars'] as List<dynamic>?)?.cast<String>(),
@@ -236,5 +253,31 @@ class UnitOrGroup {
       crusadePoints: json['crusadePoints'] as int?,
       tallies: (json['tallies'] as Map<String, dynamic>?)?.cast<String, int>(),
     );
+  }
+}
+
+/// Represents a detachment enhancement that can be purchased for character units
+/// via the Renowned Heroes requisition.
+class Enhancement {
+  final String name;
+  final int points;
+
+  Enhancement({
+    required this.name,
+    required this.points,
+  });
+
+  factory Enhancement.fromJson(Map<String, dynamic> json) {
+    return Enhancement(
+      name: json['name'] as String,
+      points: json['points'] as int,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'points': points,
+    };
   }
 }

@@ -9,10 +9,12 @@ Crusade Bridge is a mobile-first companion app for tracking and managing your Wa
 ## ✨ Features
 
 ### Current Features
+
 - **Crusade Management**
   - Create new crusades with faction and detachment selection
   - Load and switch between multiple crusades
   - Disband crusades with confirmation
+  - Requisition Points (RP) tracking
 
 - **Order of Battle (OOB)**
   - Add individual units with size/points variants
@@ -21,23 +23,40 @@ Crusade Bridge is a mobile-first companion app for tracking and managing your Wa
   - Track model counts and point totals
   - Warlord designation for HQ units
   - Epic Hero identification
+  - Character unit identification
+  - Expandable unit details with visual frames
+  - XP tracking and rank progression
+  - Battle honours and scars display
+  - Crusade Points (CP) calculation
+
+- **Requisitions System** 🆕
+  - Renowned Heroes: Add detachment enhancements to character units (1 RP)
+  - Enhancement point cost tracking
+  - Eligibility validation (characters only, non-Epic Heroes)
+  - More requisitions coming soon
 
 - **Cloud Sync**
-  - Push crusades to Google Drive
-  - Pull crusades from Google Drive
+  - Push crusades to Google Drive with human-readable filenames 🆕
+  - Pull crusades from Google Drive with rich metadata display 🆕
+  - Smart file updates using crusade ID matching 🆕
   - Automatic conflict detection and resolution
   - Timestamped version tracking
+  - Multi-crusade backup support
 
 - **Data Management**
   - Local storage with Hive
-  - Comprehensive faction and unit data
+  - Faction and detachment data for all 26 factions
+  - Unit data for Adepta Sororitas and Leagues of Votann 🆕
+  - Enhancement data for detachments 🆕
   - Auto-loading and caching for performance
 
 ### Coming Soon
+- Additional unit data for remaining factions
+- More requisition types (Increase Supply, Rearm & Resupply, Fresh Recruits)
 - Roster assembly for battles
 - Game tracking and battle results
-- Maintenance and upgrades
-- Battle honors and requisitions
+- Post-game unit updates (XP, honours, scars)
+- Battle honours and scars management UI
 - Campaign statistics and analytics
 
 ## 🏗️ Architecture
@@ -103,14 +122,21 @@ For Google Drive sync functionality, you'll need to:
 
 ## 📊 Data Structure
 
-### Faction Data
+### Faction Data (v2.0)
 Located in `assets/data/factions_and_detachments.json`:
 ```json
 {
+  "version": "2.0",
   "factions": {
     "Faction Name": {
       "icon": "path/to/icon.png",
-      "detachments": ["Detachment 1", "Detachment 2"]
+      "detachments": {
+        "Detachment Name": {
+          "enhancements": [
+            {"name": "Enhancement Name", "points": 15}
+          ]
+        }
+      }
     }
   }
 }
@@ -121,13 +147,15 @@ Located in `assets/data/units/[faction_name].json`:
 ```json
 {
   "faction": "Faction Name",
+  "version": "1.0",
   "units": [
     {
       "name": "Unit Name",
       "role": "HQ|Troops|Elites|Fast Attack|Heavy Support|Dedicated Transport",
       "sizeOptions": [5, 10],
       "pointsOptions": [100, 200],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": true
     }
   ]
 }
@@ -185,5 +213,15 @@ For questions or support, please open an issue on GitHub.
 
 ---
 
-**Current Version:** Alpha Development
+**Current Version:** Alpha Development (v0.2.0 - Requisitions Update)
 **Last Updated:** January 23, 2026
+
+**Recent Updates:**
+- ✨ Requisitions system with Renowned Heroes
+- ✨ Enhancement system for character units
+- ✨ Improved Google Drive backup with readable filenames
+- ✨ Visual polish with unit expansion frames
+- 🐛 Fixed async unit loading issues
+- 📦 Added Leagues of Votann unit data
+
+See [PROGRESS_UPDATE_2026-01-23.md](PROGRESS_UPDATE_2026-01-23.md) for detailed changes.

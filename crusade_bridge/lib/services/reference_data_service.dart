@@ -40,8 +40,29 @@ class ReferenceDataService {
   static List<String> getDetachments(String faction) {
     final factions = _factionsData?['factions'] as Map<String, dynamic>?;
     final factionData = factions?[faction] as Map<String, dynamic>?;
-    final detachments = factionData?['detachments'] as List<dynamic>?;
-    return detachments?.cast<String>() ?? [];
+    final detachmentsData = factionData?['detachments'];
+
+    // Handle both old array format and new object format for backwards compatibility
+    if (detachmentsData is List) {
+      return detachmentsData.cast<String>();
+    } else if (detachmentsData is Map<String, dynamic>) {
+      return detachmentsData.keys.toList();
+    }
+
+    return [];
+  }
+
+  /// Get list of enhancements for a specific faction's detachment
+  static List<Map<String, dynamic>> getEnhancements(String faction, String detachment) {
+    final factions = _factionsData?['factions'] as Map<String, dynamic>?;
+    final factionData = factions?[faction] as Map<String, dynamic>?;
+    final detachmentsData = factionData?['detachments'] as Map<String, dynamic>?;
+    final detachmentData = detachmentsData?[detachment] as Map<String, dynamic>?;
+    final enhancements = detachmentData?['enhancements'] as List<dynamic>?;
+
+    if (enhancements == null) return [];
+
+    return enhancements.map((e) => e as Map<String, dynamic>).toList();
   }
 
   /// Get faction icon asset path

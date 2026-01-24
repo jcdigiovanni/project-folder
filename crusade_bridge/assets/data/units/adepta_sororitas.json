@@ -1,231 +1,263 @@
 {
   "faction": "Adepta Sororitas",
   "version": "1.0",
-  "lastUpdated": "2025-01-23",
+  "lastUpdated": "2026-01-23",
   "units": [
     {
       "name": "Aestred Thurga and Agathae Dolan",
       "role": "HQ",
       "sizeOptions": [2],
       "pointsOptions": [70],
-      "isEpicHero": true
+      "isEpicHero": true,
+      "isCharacter": true
     },
     {
       "name": "Arco-flagellants",
       "role": "Elites",
       "sizeOptions": [3, 10],
       "pointsOptions": [45, 140],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Battle Sisters Squad",
       "role": "Troops",
       "sizeOptions": [10],
       "pointsOptions": [105],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Canoness",
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [60],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": true
     },
     {
       "name": "Canoness with Jump Pack",
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [75],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": true
     },
     {
       "name": "Castigator",
       "role": "Heavy Support",
       "sizeOptions": [1],
       "pointsOptions": [160],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Celestian Insidiants",
       "role": "Elites",
       "sizeOptions": [10],
       "pointsOptions": [120],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Celestian Sacresants",
       "role": "Elites",
       "sizeOptions": [5, 10],
       "pointsOptions": [70, 140],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Daemonifuge",
       "role": "HQ",
       "sizeOptions": [2],
       "pointsOptions": [85],
-      "isEpicHero": true
+      "isEpicHero": true,
+      "isCharacter": true
     },
     {
       "name": "Dialogus",
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [40],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": true
     },
     {
       "name": "Dogmata",
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [45],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": true
     },
     {
       "name": "Dominion Squad",
       "role": "Fast Attack",
       "sizeOptions": [10],
       "pointsOptions": [120],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Exorcist",
       "role": "Heavy Support",
       "sizeOptions": [1],
       "pointsOptions": [210],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Hospitaller",
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [60],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": true
     },
     {
       "name": "Imagifier",
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [65],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": true
     },
     {
       "name": "Immolator",
       "role": "Dedicated Transport",
       "sizeOptions": [1],
       "pointsOptions": [115],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Junith Eruita",
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [80],
-      "isEpicHero": true
+      "isEpicHero": true,
+      "isCharacter": true
     },
     {
       "name": "Ministorum Priest",
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [50],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": true
     },
     {
       "name": "Mortifiers",
       "role": "Heavy Support",
       "sizeOptions": [1, 2],
       "pointsOptions": [70, 140],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Morvenn Vahl",
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [185],
-      "isEpicHero": true
+      "isEpicHero": true,
+      "isCharacter": true
     },
     {
       "name": "Palatine",
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [50],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": true
     },
     {
       "name": "Paragon Warsuits",
       "role": "Heavy Support",
       "sizeOptions": [3],
       "pointsOptions": [210],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Penitent Engines",
       "role": "Heavy Support",
       "sizeOptions": [1, 2],
       "pointsOptions": [75, 150],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Repentia Squad",
       "role": "Elites",
       "sizeOptions": [5, 10],
       "pointsOptions": [75, 160],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Retributor Squad",
       "role": "Heavy Support",
       "sizeOptions": [5],
       "pointsOptions": [120],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Saint Celestine",
       "role": "HQ",
       "sizeOptions": [3],
       "pointsOptions": [150],
-      "isEpicHero": true
+      "isEpicHero": true,
+      "isCharacter": true
     },
     {
       "name": "Sanctifiers",
       "role": "Elites",
       "sizeOptions": [9],
       "pointsOptions": [110],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Seraphim Squad",
       "role": "Fast Attack",
       "sizeOptions": [5, 10],
       "pointsOptions": [80, 160],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Sisters Novitiate Squad",
       "role": "Elites",
       "sizeOptions": [10],
       "pointsOptions": [100],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Sororitas Rhino",
       "role": "Dedicated Transport",
       "sizeOptions": [1],
       "pointsOptions": [75],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": false
     },
     {
       "name": "Triumph of Saint Katherine",
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [235],
-      "isEpicHero": true
+      "isEpicHero": true,
+      "isCharacter": true
     },
     {
       "name": "Zephyrim Squad",
       "role": "Fast Attack",
       "sizeOptions": [5, 10],
       "pointsOptions": [80, 160],
-      "isEpicHero": false
+      "isEpicHero": false,
+      "isCharacter": false
     }
   ]
 }

@@ -1,0 +1,95 @@
+{
+  "faction": "Leagues of Votann",
+  "version": "1.0",
+  "lastUpdated": "2026-01-23",
+  "units": [
+    {
+      "name": "Brôkhyr",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Brôkhyr Iron-master",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Einhyr Champion",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [85],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Einhyr Hearthguard",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [140, 280],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Hearthkyn Warriors",
+      "role": "Troops",
+      "sizeOptions": [10, 20],
+      "pointsOptions": [110, 220],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Cthonian Beserks",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [130, 260],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Grimnyr",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [70],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Hekaton Land Fortress",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [340],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Kâhl",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [90],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Sagitaur",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [100],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Ûthar the Destined",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [120],
+      "isEpicHero": true,
+      "isCharacter": true
+    }
+  ]
+}

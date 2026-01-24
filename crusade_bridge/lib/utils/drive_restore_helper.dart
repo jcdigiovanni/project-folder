@@ -95,13 +95,36 @@ class DriveRestoreHelper {
             itemBuilder: (context, index) {
               final file = files[index];
               final modifiedTime = file.modifiedTime ?? DateTime.now();
+              final description = file.description ?? '';
+              final crusadeCount = file.properties?['crusadeCount'];
+              final crusadeNames = file.properties?['crusadeNames'] ?? '';
+
+              // Build subtitle based on available metadata
+              String subtitle;
+              if (description.isNotEmpty) {
+                subtitle = '$description\n${_formatDateTime(modifiedTime)}';
+              } else if (crusadeNames.isNotEmpty) {
+                subtitle = '$crusadeNames\n${_formatDateTime(modifiedTime)}';
+              } else {
+                subtitle = _formatDateTime(modifiedTime);
+              }
+
               return ListTile(
-                leading: const Icon(Icons.backup),
-                title: Text(file.name ?? 'Unknown'),
+                leading: Icon(
+                  crusadeCount != null && int.tryParse(crusadeCount) != null && int.parse(crusadeCount) > 1
+                      ? Icons.folder_special
+                      : Icons.backup,
+                  color: Colors.blue,
+                ),
+                title: Text(
+                  file.name ?? 'Unknown',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
                 subtitle: Text(
-                  'Modified: ${_formatDateTime(modifiedTime)}',
+                  subtitle,
                   style: const TextStyle(fontSize: 12),
                 ),
+                isThreeLine: description.isNotEmpty || crusadeNames.isNotEmpty,
                 onTap: () async {
                   Navigator.pop(dialogContext);
                   await performRestore(
@@ -152,15 +175,37 @@ class DriveRestoreHelper {
                   itemCount: files.length,
                   itemBuilder: (context, index) {
                     final file = files[index];
-                    final createdTime = file.createdTime;
+                    final modifiedTime = file.modifiedTime ?? DateTime.now();
+                    final description = file.description ?? '';
+                    final crusadeCount = file.properties?['crusadeCount'];
+                    final crusadeNames = file.properties?['crusadeNames'] ?? '';
+
+                    // Build subtitle based on available metadata
+                    String subtitle;
+                    if (description.isNotEmpty) {
+                      subtitle = '$description\n${_formatDateTime(modifiedTime)}';
+                    } else if (crusadeNames.isNotEmpty) {
+                      subtitle = '$crusadeNames\n${_formatDateTime(modifiedTime)}';
+                    } else {
+                      subtitle = _formatDateTime(modifiedTime);
+                    }
+
                     return ListTile(
-                      leading: const Icon(Icons.backup),
-                      title: Text(file.name ?? 'Unknown'),
-                      subtitle: Text(
-                        createdTime != null
-                            ? 'Created: ${_formatDateTime(createdTime)}'
-                            : 'No date',
+                      leading: Icon(
+                        crusadeCount != null && int.tryParse(crusadeCount) != null && int.parse(crusadeCount) > 1
+                            ? Icons.folder_special
+                            : Icons.backup,
+                        color: Colors.blue,
                       ),
+                      title: Text(
+                        file.name ?? 'Unknown',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(
+                        subtitle,
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                      isThreeLine: description.isNotEmpty || crusadeNames.isNotEmpty,
                       onTap: () async {
                         Navigator.pop(sheetContext);
                         await performRestore(

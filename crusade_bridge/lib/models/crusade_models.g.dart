@@ -93,6 +93,7 @@ class UnitOrGroupAdapter extends TypeAdapter<UnitOrGroup> {
       statsText: fields[14] as String?,
       isWarlord: fields[15] as bool?,
       isEpicHero: fields[16] as bool?,
+      isCharacter: fields[18] as bool?,
       xp: fields[8] as int?,
       honours: (fields[9] as List?)?.cast<String>(),
       scars: (fields[10] as List?)?.cast<String>(),
@@ -105,7 +106,7 @@ class UnitOrGroupAdapter extends TypeAdapter<UnitOrGroup> {
   @override
   void write(BinaryWriter writer, UnitOrGroup obj) {
     writer
-      ..writeByte(18)
+      ..writeByte(19)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -141,7 +142,9 @@ class UnitOrGroupAdapter extends TypeAdapter<UnitOrGroup> {
       ..writeByte(16)
       ..write(obj.isEpicHero)
       ..writeByte(17)
-      ..write(obj.enhancements);
+      ..write(obj.enhancements)
+      ..writeByte(18)
+      ..write(obj.isCharacter);
   }
 
   @override
