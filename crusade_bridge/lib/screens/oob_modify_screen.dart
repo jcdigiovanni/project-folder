@@ -586,7 +586,25 @@ class OOBModifyScreen extends ConsumerWidget {
                   onChanged: (value) {
                     setModalState(() {
                       selectedUnit = value;
-                      selectedSizeIndex = null;
+                      // Pre-select the smallest unit size (first option)
+                      if (value != null && selectedFaction != null) {
+                        final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, value);
+                        final sizeOptions = unitData['sizeOptions'] as List? ?? [];
+                        final pointsOptions = unitData['pointsOptions'] as List? ?? [];
+                        if (sizeOptions.isNotEmpty) {
+                          selectedSizeIndex = 0;
+                          final sizeValue = sizeOptions[0];
+                          models = (sizeValue is int) ? sizeValue : int.tryParse(sizeValue.toString()) ?? 1;
+                          if (pointsOptions.isNotEmpty) {
+                            final pointsValue = pointsOptions[0];
+                            points = (pointsValue is int) ? pointsValue : int.tryParse(pointsValue.toString()) ?? 0;
+                          }
+                        } else {
+                          selectedSizeIndex = null;
+                        }
+                      } else {
+                        selectedSizeIndex = null;
+                      }
                     });
                   },
                 ),

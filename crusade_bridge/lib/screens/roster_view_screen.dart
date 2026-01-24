@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import '../models/crusade_models.dart';
 import '../providers/crusade_provider.dart';
 import '../widgets/army_avatar.dart';
-import '../utils/snackbar_utils.dart';
 
 class RosterViewScreen extends ConsumerWidget {
   final String rosterId;
@@ -115,13 +114,11 @@ class RosterViewScreen extends ConsumerWidget {
               const SizedBox(width: 16),
               Expanded(
                 child: ElevatedButton.icon(
-                  onPressed: units.isEmpty
-                      ? null
-                      : () => _showRecordGameDialog(context, ref, roster),
-                  icon: const Icon(Icons.sports_kabaddi),
-                  label: const Text('Record Game'),
+                  onPressed: () => _showStatsDialog(context, roster),
+                  icon: const Icon(Icons.bar_chart),
+                  label: const Text('View Stats'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orange,
+                    backgroundColor: Colors.blue,
                     padding: const EdgeInsets.symmetric(vertical: 12),
                   ),
                 ),
@@ -133,70 +130,166 @@ class RosterViewScreen extends ConsumerWidget {
     );
   }
 
-  void _showRecordGameDialog(BuildContext context, WidgetRef ref, Roster roster) {
-    showDialog(
+  void _showStatsDialog(BuildContext context, Roster roster) {
+    final hasGames = roster.timesDeployed > 0;
+
+    showModalBottomSheet(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Record Game Result'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
+      isScrollControlled: true,
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.5,
+        minChildSize: 0.3,
+        maxChildSize: 0.8,
+        expand: false,
+        builder: (context, scrollController) => Column(
           children: [
-            Text('Record the result for "${roster.name}"'),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _ResultButton(
-                  label: 'Win',
-                  icon: Icons.emoji_events,
-                  color: Colors.green,
-                  onTap: () => _recordResult(context, ref, roster, 'win'),
-                ),
-                _ResultButton(
-                  label: 'Loss',
-                  icon: Icons.sentiment_dissatisfied,
-                  color: Colors.red,
-                  onTap: () => _recordResult(context, ref, roster, 'loss'),
-                ),
-                _ResultButton(
-                  label: 'Draw',
-                  icon: Icons.handshake,
-                  color: Colors.orange,
-                  onTap: () => _recordResult(context, ref, roster, 'draw'),
-                ),
-              ],
+            // Handle bar
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 12),
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade600,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            // Title
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  const Icon(Icons.bar_chart, size: 24),
+                  const SizedBox(width: 8),
+                  Text(
+                    '${roster.name} Stats',
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(height: 24),
+
+            // Stats content
+            Expanded(
+              child: ListView(
+                controller: scrollController,
+                padding: const EdgeInsets.all(16),
+                children: [
+                  if (!hasGames) ...[
+                    Center(
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.sports_kabaddi,
+                            size: 64,
+                            color: Colors.grey.withValues(alpha: 0.5),
+                          ),
+                          const SizedBox(height: 16),
+                          const Text(
+                            'No battles yet',
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'This roster has not been deployed in any games.',
+                            style: TextStyle(color: Colors.grey.shade500),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ] else ...[
+                    // Win rate card
+                    _StatsCard(
+                      title: 'Performance',
+                      children: [
+                        _LargeStatRow(
+                          label: 'Win Rate',
+                          value: roster.winRate,
+                          color: Colors.blue,
+                        ),
+                        const SizedBox(height: 16),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _StatBox(
+                                label: 'Games',
+                                value: '${roster.timesDeployed}',
+                                icon: Icons.sports_kabaddi,
+                                color: Colors.blue,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: _StatBox(
+                                label: 'Wins',
+                                value: '${roster.wins}',
+                                icon: Icons.emoji_events,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _StatBox(
+                                label: 'Losses',
+                                value: '${roster.losses}',
+                                icon: Icons.sentiment_dissatisfied,
+                                color: Colors.red,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: _StatBox(
+                                label: 'Draws',
+                                value: '${roster.draws}',
+                                icon: Icons.handshake,
+                                color: Colors.orange,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    // Roster info card
+                    _StatsCard(
+                      title: 'Roster Info',
+                      children: [
+                        _InfoRow(
+                          label: 'Created',
+                          value: _formatDate(roster.createdAt),
+                        ),
+                        _InfoRow(
+                          label: 'Last Modified',
+                          value: _formatDate(roster.lastModified),
+                        ),
+                        _InfoRow(
+                          label: 'Units',
+                          value: '${roster.unitIds.length}',
+                        ),
+                      ],
+                    ),
+                  ],
+                ],
+              ),
             ),
           ],
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-        ],
       ),
     );
   }
 
-  void _recordResult(BuildContext context, WidgetRef ref, Roster roster, String result) {
-    // Create updated roster with new game record
-    final updatedRoster = Roster(
-      id: roster.id,
-      name: roster.name,
-      unitIds: roster.unitIds,
-      createdAt: roster.createdAt,
-      lastModified: DateTime.now().millisecondsSinceEpoch,
-      timesDeployed: roster.timesDeployed + 1,
-      wins: roster.wins + (result == 'win' ? 1 : 0),
-      losses: roster.losses + (result == 'loss' ? 1 : 0),
-      draws: roster.draws + (result == 'draw' ? 1 : 0),
-    );
-
-    ref.read(currentCrusadeNotifierProvider.notifier).updateRoster(updatedRoster);
-    Navigator.pop(context);
-
-    final resultText = result == 'win' ? 'Victory' : result == 'loss' ? 'Defeat' : 'Draw';
-    SnackBarUtils.showSuccess(context, '$resultText recorded for "${roster.name}"');
+  String _formatDate(int timestamp) {
+    final date = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    return '${date.day}/${date.month}/${date.year}';
   }
 }
 
@@ -598,45 +691,144 @@ class _TagChip extends StatelessWidget {
   }
 }
 
-class _ResultButton extends StatelessWidget {
-  final String label;
-  final IconData icon;
-  final Color color;
-  final VoidCallback onTap;
+class _StatsCard extends StatelessWidget {
+  final String title;
+  final List<Widget> children;
 
-  const _ResultButton({
-    required this.label,
-    required this.icon,
-    required this.color,
-    required this.onTap,
+  const _StatsCard({
+    required this.title,
+    required this.children,
   });
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.15),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: color),
-        ),
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon, color: color, size: 32),
-            const SizedBox(height: 4),
             Text(
-              label,
-              style: TextStyle(
+              title,
+              style: const TextStyle(
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: color,
               ),
             ),
+            const SizedBox(height: 12),
+            ...children,
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _LargeStatRow extends StatelessWidget {
+  final String label;
+  final String value;
+  final Color color;
+
+  const _LargeStatRow({
+    required this.label,
+    required this.value,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 16),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _StatBox extends StatelessWidget {
+  final String label;
+  final String value;
+  final IconData icon;
+  final Color color;
+
+  const _StatBox({
+    required this.label,
+    required this.value,
+    required this.icon,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
+      ),
+      child: Column(
+        children: [
+          Icon(icon, color: color, size: 24),
+          const SizedBox(height: 8),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.grey.shade500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _InfoRow extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const _InfoRow({
+    required this.label,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: TextStyle(color: Colors.grey.shade500),
+          ),
+          Text(
+            value,
+            style: const TextStyle(fontWeight: FontWeight.w500),
+          ),
+        ],
       ),
     );
   }

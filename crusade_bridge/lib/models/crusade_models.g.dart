@@ -31,13 +31,14 @@ class CrusadeAdapter extends TypeAdapter<Crusade> {
       usedFirstCharacterEnhancement: fields[11] as bool?,
       history: (fields[12] as List?)?.cast<CrusadeEvent>(),
       rosters: (fields[13] as List?)?.cast<Roster>(),
+      games: (fields[14] as List?)?.cast<Game>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Crusade obj) {
     writer
-      ..writeByte(14)
+      ..writeByte(15)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -65,7 +66,9 @@ class CrusadeAdapter extends TypeAdapter<Crusade> {
       ..writeByte(12)
       ..write(obj.history)
       ..writeByte(13)
-      ..write(obj.rosters);
+      ..write(obj.rosters)
+      ..writeByte(14)
+      ..write(obj.games);
   }
 
   @override
@@ -273,6 +276,299 @@ class RosterAdapter extends TypeAdapter<Roster> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is RosterAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class CrusadeCampaignLinkAdapter extends TypeAdapter<CrusadeCampaignLink> {
+  @override
+  final int typeId = 8;
+
+  @override
+  CrusadeCampaignLink read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return CrusadeCampaignLink(
+      crusadeId: fields[0] as String,
+      crusadeName: fields[1] as String,
+      faction: fields[2] as String,
+      gamesPlayed: fields[3] as int,
+      wins: fields[4] as int,
+      losses: fields[5] as int,
+      draws: fields[6] as int,
+      joinedAt: fields[7] as int?,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, CrusadeCampaignLink obj) {
+    writer
+      ..writeByte(8)
+      ..writeByte(0)
+      ..write(obj.crusadeId)
+      ..writeByte(1)
+      ..write(obj.crusadeName)
+      ..writeByte(2)
+      ..write(obj.faction)
+      ..writeByte(3)
+      ..write(obj.gamesPlayed)
+      ..writeByte(4)
+      ..write(obj.wins)
+      ..writeByte(5)
+      ..write(obj.losses)
+      ..writeByte(6)
+      ..write(obj.draws)
+      ..writeByte(7)
+      ..write(obj.joinedAt);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CrusadeCampaignLinkAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class CampaignAdapter extends TypeAdapter<Campaign> {
+  @override
+  final int typeId = 4;
+
+  @override
+  Campaign read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return Campaign(
+      id: fields[0] as String,
+      name: fields[1] as String,
+      description: fields[2] as String?,
+      createdAt: fields[3] as int?,
+      lastModified: fields[4] as int?,
+      crusadeLinks: (fields[5] as List?)?.cast<CrusadeCampaignLink>(),
+      isActive: fields[6] as bool,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, Campaign obj) {
+    writer
+      ..writeByte(7)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.name)
+      ..writeByte(2)
+      ..write(obj.description)
+      ..writeByte(3)
+      ..write(obj.createdAt)
+      ..writeByte(4)
+      ..write(obj.lastModified)
+      ..writeByte(5)
+      ..write(obj.crusadeLinks)
+      ..writeByte(6)
+      ..write(obj.isActive);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CampaignAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class GameAgendaAdapter extends TypeAdapter<GameAgenda> {
+  @override
+  final int typeId = 5;
+
+  @override
+  GameAgenda read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return GameAgenda(
+      id: fields[0] as String,
+      name: fields[1] as String,
+      type: fields[2] as String,
+      description: fields[3] as String?,
+      completed: fields[4] as bool,
+      tier: fields[5] as int,
+      maxTier: fields[6] as int,
+      unitTallies: (fields[7] as Map?)?.cast<String, int>(),
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, GameAgenda obj) {
+    writer
+      ..writeByte(8)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.name)
+      ..writeByte(2)
+      ..write(obj.type)
+      ..writeByte(3)
+      ..write(obj.description)
+      ..writeByte(4)
+      ..write(obj.completed)
+      ..writeByte(5)
+      ..write(obj.tier)
+      ..writeByte(6)
+      ..write(obj.maxTier)
+      ..writeByte(7)
+      ..write(obj.unitTallies);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is GameAgendaAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class UnitGameStateAdapter extends TypeAdapter<UnitGameState> {
+  @override
+  final int typeId = 6;
+
+  @override
+  UnitGameState read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return UnitGameState(
+      unitId: fields[0] as String,
+      unitName: fields[1] as String,
+      kills: fields[2] as int,
+      wasDestroyed: fields[3] as bool,
+      markedForGreatness: fields[4] as bool,
+      notes: fields[5] as String?,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, UnitGameState obj) {
+    writer
+      ..writeByte(6)
+      ..writeByte(0)
+      ..write(obj.unitId)
+      ..writeByte(1)
+      ..write(obj.unitName)
+      ..writeByte(2)
+      ..write(obj.kills)
+      ..writeByte(3)
+      ..write(obj.wasDestroyed)
+      ..writeByte(4)
+      ..write(obj.markedForGreatness)
+      ..writeByte(5)
+      ..write(obj.notes);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is UnitGameStateAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class GameAdapter extends TypeAdapter<Game> {
+  @override
+  final int typeId = 7;
+
+  @override
+  Game read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return Game(
+      id: fields[0] as String,
+      name: fields[1] as String,
+      rosterId: fields[3] as String,
+      battleSize: fields[4] as String,
+      rosterPoints: fields[5] as int,
+      rosterCrusadePoints: fields[6] as int,
+      campaignId: fields[2] as String?,
+      createdAt: fields[7] as int?,
+      completedAt: fields[8] as int?,
+      result: fields[9] as String,
+      agendas: (fields[10] as List?)?.cast<GameAgenda>(),
+      unitStates: (fields[11] as List?)?.cast<UnitGameState>(),
+      opponentName: fields[12] as String?,
+      opponentFaction: fields[13] as String?,
+      notes: fields[14] as String?,
+      playerScore: fields[15] as int?,
+      opponentScore: fields[16] as int?,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, Game obj) {
+    writer
+      ..writeByte(17)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.name)
+      ..writeByte(2)
+      ..write(obj.campaignId)
+      ..writeByte(3)
+      ..write(obj.rosterId)
+      ..writeByte(4)
+      ..write(obj.battleSize)
+      ..writeByte(5)
+      ..write(obj.rosterPoints)
+      ..writeByte(6)
+      ..write(obj.rosterCrusadePoints)
+      ..writeByte(7)
+      ..write(obj.createdAt)
+      ..writeByte(8)
+      ..write(obj.completedAt)
+      ..writeByte(9)
+      ..write(obj.result)
+      ..writeByte(10)
+      ..write(obj.agendas)
+      ..writeByte(11)
+      ..write(obj.unitStates)
+      ..writeByte(12)
+      ..write(obj.opponentName)
+      ..writeByte(13)
+      ..write(obj.opponentFaction)
+      ..writeByte(14)
+      ..write(obj.notes)
+      ..writeByte(15)
+      ..write(obj.playerScore)
+      ..writeByte(16)
+      ..write(obj.opponentScore);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is GameAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

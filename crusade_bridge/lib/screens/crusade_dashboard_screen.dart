@@ -160,18 +160,14 @@ class CrusadeDashboardScreen extends ConsumerWidget {
                     icon: Icons.groups,
                     label: 'Assemble Roster',
                     color: Colors.green,
-                    onTap: () {
-                      SnackBarUtils.showMessage(context, 'Roster assembly coming soon');
-                    },
+                    onTap: () => context.go('/rosters'),
                   ),
                   // 4. Play Game
                   _ActionTile(
                     icon: Icons.play_arrow,
                     label: 'Play Game',
                     color: Colors.orange,
-                    onTap: () {
-                      SnackBarUtils.showMessage(context, 'Play mode coming soon');
-                    },
+                    onTap: () => context.go('/play'),
                   ),
                   // 5. Post-Game Update
                   _ActionTile(

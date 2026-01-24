@@ -1,12 +1,12 @@
 # Crusade Bridge - Project Status
 
-**Last Updated:** January 23, 2026
+**Last Updated:** January 24, 2026
 
 ## 🎯 Current Status: Active Development
 
-### Recent Session Summary (2026-01-23)
+### Recent Session Summary (2026-01-24)
 
-This session focused on resolving critical async/sync issues, implementing data management features, and enhancing the faction/unit data structure.
+This session implemented major gameplay infrastructure: the Roster system for assembling battle-ready forces, the Play section with battle size selection and points indicators, and a full Campaign Manager that allows multiple crusade forces to participate in shared campaigns with win/loss tracking.
 
 ---
 
@@ -55,8 +55,8 @@ This session focused on resolving critical async/sync issues, implementing data 
 
 ### Next Immediate Tasks
 - [ ] Complete unit data for remaining 22 factions
-- [ ] Implement roster assembly feature
-- [ ] Add game play mode
+- [ ] In-game unit tracking (kills, destroyed status, marked for greatness)
+- [ ] Post-game flow (experience, battle honors, requisitions)
 - [ ] Implement maintenance/upgrade system
 
 ---
@@ -71,8 +71,9 @@ This session focused on resolving critical async/sync issues, implementing data 
 | Modify OOB | ✅ Complete | Add/edit/delete units and groups |
 | Unit Data (Adepta Sororitas) | ✅ Complete | 32 units with full metadata |
 | Unit Data (Other Factions) | ⏳ Pending | 22 factions remaining |
-| Assemble Roster | ⏳ Planned | Coming soon |
-| Play Game | ⏳ Planned | Coming soon |
+| Assemble Roster | ✅ Complete | Create/view/edit rosters from OOB |
+| Play Game | 🚧 In Progress | Battle size selection, roster selection done |
+| Campaign Manager | ✅ Complete | Multi-force campaigns with win tracking |
 | Maintenance Mode | ⏳ Planned | Coming soon |
 | Resources | ⏳ Planned | Coming soon |
 | Google Drive Sync | ✅ Complete | Push/pull with conflict resolution |
@@ -82,14 +83,24 @@ This session focused on resolving critical async/sync issues, implementing data 
 ## 🏗️ Architecture
 
 ### Key Services
-- **StorageService** - Hive-based local persistence
+- **StorageService** - Hive-based local persistence (Crusades + Campaigns)
 - **ReferenceDataService** - Faction/unit data with caching
 - **GoogleDriveService** - Cloud sync functionality
 - **SyncService** - Conflict resolution logic
 
+### Providers
+- **CrusadeProvider** - Current crusade state management
+- **CampaignsProvider** - Campaign CRUD and force management
+
 ### Data Models
 - **Crusade** - Main crusade data structure
 - **UnitOrGroup** - Individual units or grouped units
+- **Roster** - Battle-ready unit selection from OOB
+- **Campaign** - Standalone campaign with multi-crusade support
+- **CrusadeCampaignLink** - Per-crusade performance tracking in campaigns
+- **Game** - Individual game session tracking
+- **GameAgenda** - Objective (binary/tiered) or tally agenda tracking
+- **UnitGameState** - In-game unit status (kills, destroyed, marked for greatness)
 - **Faction/Detachment** - Reference data structure
 
 ---
@@ -106,21 +117,22 @@ This session focused on resolving critical async/sync issues, implementing data 
 
 ## 🎯 Roadmap
 
-### Phase 1: Core Functionality (Current)
+### Phase 1: Core Functionality ✅
 - [x] Crusade CRUD operations
 - [x] OOB management
 - [x] Google Drive sync
-- [ ] Complete faction data
+- [ ] Complete faction data (1/23 done)
 
-### Phase 2: Gameplay Features
-- [ ] Roster assembly
-- [ ] Game tracking
+### Phase 2: Gameplay Features (Current)
+- [x] Roster assembly
+- [x] Campaign tracking
+- [ ] In-game unit tracking
+- [ ] Post-game flow
 - [ ] Battle honors
 - [ ] Requisitions
 
 ### Phase 3: Advanced Features
 - [ ] Unit maintenance
-- [ ] Campaign tracking
 - [ ] Statistics/analytics
 - [ ] Export/sharing
 

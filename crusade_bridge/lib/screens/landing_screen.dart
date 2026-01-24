@@ -191,6 +191,19 @@ class _LandingScreenState extends ConsumerState<LandingScreen> with WidgetsBindi
                 ),
                 child: const Text('Restore from Drive'),
               ),
+              const SizedBox(height: 16),
+              const Divider(),
+              const SizedBox(height: 8),
+              ElevatedButton.icon(
+                onPressed: () {
+                  context.go('/campaigns');
+                },
+                icon: const Icon(Icons.flag),
+                label: const Text('Campaign Manager'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.purple.shade700,
+                ),
+              ),
               const SizedBox(height: 8),
               // Add your other buttons here (Build/Modify OOB, etc.) with SizedBox(height: 8)
             ],

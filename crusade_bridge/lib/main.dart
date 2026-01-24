@@ -10,11 +10,16 @@ import 'screens/oob_modify_screen.dart';
 import 'screens/requisition_screen.dart';
 import 'screens/history_screen.dart';
 import 'screens/settings_screen.dart';
+import 'screens/roster_list_screen.dart';
+import 'screens/roster_view_screen.dart';
+import 'screens/roster_build_screen.dart';
+import 'screens/play_screen.dart';
+import 'screens/campaign_list_screen.dart';
+import 'screens/campaign_view_screen.dart';
 import 'services/storage_service.dart';
 import 'services/google_drive_service.dart';
 import 'services/reference_data_service.dart';
 import 'providers/crusade_provider.dart';
-import 'utils/snackbar_utils.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -78,6 +83,36 @@ class _MyAppState extends ConsumerState<MyApp> {
           GoRoute(
             path: '/settings',
             builder: (context, state) => const SettingsScreen(),
+          ),
+          GoRoute(
+            path: '/rosters',
+            builder: (context, state) => const RosterListScreen(),
+          ),
+          GoRoute(
+            path: '/roster/:rosterId',
+            builder: (context, state) => RosterViewScreen(
+              rosterId: state.pathParameters['rosterId']!,
+            ),
+          ),
+          GoRoute(
+            path: '/roster/:rosterId/edit',
+            builder: (context, state) => RosterBuildScreen(
+              rosterId: state.pathParameters['rosterId']!,
+            ),
+          ),
+          GoRoute(
+            path: '/play',
+            builder: (context, state) => const PlayScreen(),
+          ),
+          GoRoute(
+            path: '/campaigns',
+            builder: (context, state) => const CampaignListScreen(),
+          ),
+          GoRoute(
+            path: '/campaign/:campaignId',
+            builder: (context, state) => CampaignViewScreen(
+              campaignId: state.pathParameters['campaignId']!,
+            ),
           ),
         ],
       ),
@@ -246,8 +281,7 @@ class ScaffoldWithNavBar extends ConsumerWidget {
         }
         break;
       case 2:
-        // TODO: Play route
-        SnackBarUtils.showMessage(context, 'Play coming soon');
+        context.go('/play');
         break;
       case 3:
         context.go('/settings');

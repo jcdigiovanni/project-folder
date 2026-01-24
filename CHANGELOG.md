@@ -8,13 +8,65 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned
-- Roster assembly feature
-- Game play tracking
+- In-game unit tracking and post-game flow
 - Maintenance and upgrade system
 - Battle honors management
-- Requisition system
-- Campaign statistics
 - Unit data for remaining 22 factions
+
+---
+
+## [0.3.0] - 2026-01-24
+
+### Added
+- **Roster System**
+  - Roster list screen with create/delete functionality
+  - Roster view screen with unit summary and stats
+  - Roster build screen for assembling units from OOB
+  - Crusade Points (CP) tracking per roster
+  - `calculateTotalCrusadePoints()` method on Roster model
+
+- **Play Section**
+  - Battle size selection (Combat Patrol, Incursion, Strike Force, Onslaught, Apocalypse)
+  - Points indicator system (green: under/at limit, yellow: up to 5% over, red: >5% over)
+  - Roster selection with CP display
+  - No-roster state handling with redirect to OOB or roster creation
+
+- **Campaign Manager (Major Feature)**
+  - Standalone Campaign model elevated above Crusades
+  - Multiple crusade forces can participate in a single campaign
+  - `CrusadeCampaignLink` model for per-crusade performance tracking (wins/losses/draws)
+  - Campaign list screen with active/ended sections
+  - Campaign view screen with force cards and win rate display
+  - Add/remove crusade forces from campaigns
+  - End/reactivate campaign functionality
+  - Campaign Manager button on landing screen
+
+- **Game Data Models**
+  - `Game` model for tracking individual game sessions
+  - `GameAgenda` model with objective (binary/tiered) and tally types
+  - `UnitGameState` model for in-game unit tracking (kills, destroyed status)
+  - `BattleSizeType` and `GameResult` constants
+
+- **Provider & Storage**
+  - `CampaignsNotifier` with full CRUD operations
+  - Campaign provider with `addCrusadeToCampaign`, `removeCrusadeFromCampaign`, `recordGameResult`
+  - `getCampaignsForCrusade()` method to find campaigns containing a specific force
+  - Campaign storage operations in StorageService
+  - New Hive adapters for Campaign, CrusadeCampaignLink, Game, GameAgenda, UnitGameState
+
+### Changed
+- Refactored Campaign model to be standalone (no longer embedded in Crusade)
+- Removed `campaigns` field from Crusade model
+- Updated navigation to route Play button to `/play`
+- Dashboard "Assemble Roster" and "Play Game" buttons now functional
+
+### Fixed
+- Pre-populate smallest unit size/points when selecting a unit in OOB
+- Roster view "Record Game" replaced with "View Stats" button
+
+### Technical
+- Added routes: `/rosters`, `/roster/:rosterId`, `/roster/:rosterId/edit`, `/play`, `/campaigns`, `/campaign/:campaignId`
+- Hive TypeIds: Campaign (4), GameAgenda (5), UnitGameState (6), Game (7), CrusadeCampaignLink (8)
 
 ---
 
