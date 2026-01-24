@@ -1,355 +1,407 @@
-[
-  {
-    "name": "Autarch",
-    "points": 70,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Autarch Skyrunner",
-    "points": 85,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Autarch Wayleaper",
-    "points": 100,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Avatar of Khaine",
-    "points": 335,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Baharroth",
-    "points": 115,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Corsair Voidreavers",
-    "points": [
-      { "models": 5, "pts": 60 },
-      { "models": 10, "pts": 120 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Corsair Voidscarred",
-    "points": [
-      { "models": 5, "pts": 65 },
-      { "models": 10, "pts": 130 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Crimson Hunter",
-    "points": 140,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Dark Reapers",
-    "points": [
-      { "models": 5, "pts": 80 },
-      { "models": 10, "pts": 160 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Dire Avengers",
-    "points": [
-      { "models": 5, "pts": 70 },
-      { "models": 10, "pts": 140 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Eldrad Ulthran",
-    "points": 105,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Falcon",
-    "points": 140,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Farseer",
-    "points": 80,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Farseer Skyrunner",
-    "points": 90,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Fire Dragons",
-    "points": [
-      { "models": 5, "pts": 85 },
-      { "models": 10, "pts": 170 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Fire Prism",
-    "points": 150,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Fuegan",
-    "points": 105,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Guardian Defenders",
-    "points": [
-      { "models": 10, "pts": 100 },
-      { "models": 20, "pts": 200 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Hemlock Wraithfighter",
-    "points": 210,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Howling Banshees",
-    "points": [
-      { "models": 5, "pts": 85 },
-      { "models": 10, "pts": 170 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Illic Nightspear",
-    "points": 70,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Irillyth",
-    "points": 100,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Jain Zar",
-    "points": 95,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Karandras",
-    "points": 95,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Maugan Ra",
-    "points": 110,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Night Spinner",
-    "points": 160,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Prince Yriel",
-    "points": 100,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Rangers",
-    "points": [
-      { "models": 5, "pts": 55 },
-      { "models": 10, "pts": 110 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Shining Spears",
-    "points": [
-      { "models": 3, "pts": 80 },
-      { "models": 6, "pts": 160 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Spiritseer",
-    "points": 65,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Storm Guardians",
-    "points": 95,
-    "modelsNote": "10 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Striking Scorpions",
-    "points": [
-      { "models": 5, "pts": 75 },
-      { "models": 10, "pts": 150 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Support Weapon",
-    "points": 105,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Swooping Hawks",
-    "points": [
-      { "models": 5, "pts": 80 },
-      { "models": 10, "pts": 160 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "The Visarch",
-    "points": 90,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "The Yncarne",
-    "points": 270,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Vyper",
-    "points": 65,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "War Walker",
-    "points": 95,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Warlock",
-    "points": 50,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Warlock Conclave",
-    "points": [
-      { "models": 3, "pts": 75 },
-      { "models": 6, "pts": 150 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Warlock Skyrunner",
-    "points": 60,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Warlock Skyrunner Conclave",
-    "points": [
-      { "models": 3, "pts": 95 },
-      { "models": 6, "pts": 190 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Warp Spiders",
-    "points": [
-      { "models": 5, "pts": 100 },
-      { "models": 10, "pts": 200 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Wave Serpent",
-    "points": 120,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Windriders",
-    "points": [
-      { "models": 3, "pts": 80 },
-      { "models": 6, "pts": 160 },
-      { "models": 9, "pts": 240 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Wraithblades",
-    "points": [
-      { "models": 5, "pts": 170 },
-      { "models": 10, "pts": 340 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Wraithguard",
-    "points": [
-      { "models": 5, "pts": 170 },
-      { "models": 10, "pts": 340 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Wraithknight",
-    "points": 510,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Wraithlord",
-    "points": 160,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Yvraine",
-    "points": 100,
-    "isCharacter": true,
-    "isEpicHero": true
-  }
-]
+{
+  "faction": "Aeldari",
+  "version": "1.0",
+  "lastUpdated": "2026-01-23",
+  "units": [
+    {
+      "name": "Autarch",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [70],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Autarch Skyrunner",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [85],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Autarch Wayleaper",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [100],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Avatar of Khaine",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [335],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Baharroth",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [115],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Corsair Voidreavers",
+      "role": "Troops",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [60, 120],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Corsair Voidscarred",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [65, 130],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Crimson Hunter",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [140],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Dark Reapers",
+      "role": "Heavy Support",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [80, 160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Dire Avengers",
+      "role": "Troops",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [70, 140],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Eldrad Ulthran",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [105],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Falcon",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [140],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Farseer",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Farseer Skyrunner",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [90],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Fire Dragons",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [85, 170],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Fire Prism",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [150],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Fuegan",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [105],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Guardian Defenders",
+      "role": "Troops",
+      "sizeOptions": [10, 20],
+      "pointsOptions": [100, 200],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Hemlock Wraithfighter",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [210],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Howling Banshees",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [85, 170],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Illic Nightspear",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [70],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Irillyth",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [100],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Jain Zar",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [95],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Karandras",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [95],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Maugan Ra",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [110],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Night Spinner",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Prince Yriel",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [100],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Rangers",
+      "role": "Troops",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [55, 110],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Shining Spears",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [80, 160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Spiritseer",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [65],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Storm Guardians",
+      "role": "Troops",
+      "sizeOptions": [10],
+      "pointsOptions": [95],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Striking Scorpions",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [75, 150],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Support Weapon",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [105],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Swooping Hawks",
+      "role": "Fast Attack",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [80, 160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "The Visarch",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [90],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "The Yncarne",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [270],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Vyper",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [65],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "War Walker",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [95],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Warlock",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [50],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Warlock Conclave",
+      "role": "Elites",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [75, 150],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Warlock Skyrunner",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [60],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Warlock Skyrunner Conclave",
+      "role": "Elites",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [95, 190],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Warp Spiders",
+      "role": "Fast Attack",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [100, 200],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Wave Serpent",
+      "role": "Dedicated Transport",
+      "sizeOptions": [1],
+      "pointsOptions": [120],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Windriders",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6, 9],
+      "pointsOptions": [80, 160, 240],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Wraithblades",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [170, 340],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Wraithguard",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [170, 340],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Wraithknight",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [510],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Wraithlord",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Yvraine",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [100],
+      "isEpicHero": true,
+      "isCharacter": true
+    }
+  ]
+}

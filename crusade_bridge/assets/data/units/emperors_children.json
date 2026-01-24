@@ -1,153 +1,183 @@
-[
-  {
-    "name": "Chaos Land Raider",
-    "points": 220,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Chaos Rhino",
-    "points": 80,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Chaos Spawn",
-    "points": 70,
-    "modelsNote": "2 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Chaos Terminators",
-    "points": 155,
-    "modelsNote": "5 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Daemon Prince of Slaanesh",
-    "points": 180,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Daemon Prince of Slaanesh with Wings",
-    "points": 215,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Flawless Blades",
-    "points": [
-      { "models": 3, "pts": 110 },
-      { "models": 6, "pts": 220 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Fulgrim",
-    "points": 340,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Heldrake",
-    "points": 195,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Infactors",
-    "points": [
-      { "models": 5, "pts": 85 },
-      { "models": 10, "pts": 160 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Lord Exultant",
-    "points": 80,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Lord Kakophonist",
-    "points": 70,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Lucius the Eternal",
-    "points": 150,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Maulerfiend",
-    "points": 130,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Noise Marines",
-    "points": 145,
-    "modelsNote": "6 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Sorcerer",
-    "points": 60,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Tormentors",
-    "points": [
-      { "models": 5, "pts": 85 },
-      { "models": 10, "pts": 170 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Daemonettes",
-    "points": 90,
-    "modelsNote": "10 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Fiends",
-    "points": [
-      { "models": 3, "pts": 95 },
-      { "models": 6, "pts": 190 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Keeper of Secrets",
-    "points": 240,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Seekers",
-    "points": [
-      { "models": 5, "pts": 80 },
-      { "models": 10, "pts": 160 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Shalaxi Helbane",
-    "points": 340,
-    "isCharacter": true,
-    "isEpicHero": true
-  }
-]
+{
+  "faction": "Emperor's Children",
+  "version": "1.0",
+  "lastUpdated": "2026-01-23",
+  "units": [
+    {
+      "name": "Chaos Land Raider",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [220],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Chaos Rhino",
+      "role": "Dedicated Transport",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Chaos Spawn",
+      "role": "Elites",
+      "sizeOptions": [2],
+      "pointsOptions": [70],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Chaos Terminators",
+      "role": "Elites",
+      "sizeOptions": [5],
+      "pointsOptions": [155],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Daemon Prince of Slaanesh",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [180],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Daemon Prince of Slaanesh with Wings",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [215],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Flawless Blades",
+      "role": "Elites",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [110, 220],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Fulgrim",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [340],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Heldrake",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [195],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Infactors",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [85, 160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Lord Exultant",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Lord Kakophonist",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [70],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Lucius the Eternal",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [150],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Maulerfiend",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [130],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Noise Marines",
+      "role": "Troops",
+      "sizeOptions": [6],
+      "pointsOptions": [145],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Sorcerer",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [60],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Tormentors",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [85, 170],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Daemonettes",
+      "role": "Troops",
+      "sizeOptions": [10],
+      "pointsOptions": [90],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Fiends",
+      "role": "Elites",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [95, 190],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Keeper of Secrets",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [240],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Seekers",
+      "role": "Fast Attack",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [80, 160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Shalaxi Helbane",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [340],
+      "isEpicHero": true,
+      "isCharacter": true
+    }
+  ]
+}

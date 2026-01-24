@@ -1,91 +1,119 @@
-[
-  {
-    "name": "Callidus Assassin",
-    "points": 90,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Culexus Assassin",
-    "points": 85,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Eversor Assassin",
-    "points": 95,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Vindicare Assassin",
-    "points": 90,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Exaction Squad",
-    "points": 35,
-    "modelsNote": "5 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Inquisitorial Henchmen",
-    "points": 40,
-    "modelsNote": "Variable composition",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Inquisitor",
-    "points": 55,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Inquisitor Coteaz",
-    "points": 75,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Inquisitor Greyfax",
-    "points": 75,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Inquisitor Karamazov",
-    "points": 100,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Lord Inquisitor Kyria Draxus",
-    "points": 75,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Rogue Trader Entourage",
-    "points": 80,
-    "modelsNote": "Variable composition",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Subductor Squad",
-    "points": 70,
-    "modelsNote": "5 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Vigilant Squad",
-    "points": 70,
-    "modelsNote": "5 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  }
-]
+{
+  "faction": "Imperial Agents",
+  "version": "1.0",
+  "lastUpdated": "2026-01-23",
+  "units": [
+    {
+      "name": "Callidus Assassin",
+      "role": "Elites",
+      "sizeOptions": [1],
+      "pointsOptions": [90],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Culexus Assassin",
+      "role": "Elites",
+      "sizeOptions": [1],
+      "pointsOptions": [85],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Eversor Assassin",
+      "role": "Elites",
+      "sizeOptions": [1],
+      "pointsOptions": [95],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Vindicare Assassin",
+      "role": "Elites",
+      "sizeOptions": [1],
+      "pointsOptions": [90],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Exaction Squad",
+      "role": "Elites",
+      "sizeOptions": [5],
+      "pointsOptions": [35],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Inquisitorial Henchmen",
+      "role": "Elites",
+      "sizeOptions": [1],
+      "pointsOptions": [40],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Inquisitor",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [55],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Inquisitor Coteaz",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Inquisitor Greyfax",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Inquisitor Karamazov",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [100],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Lord Inquisitor Kyria Draxus",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Rogue Trader Entourage",
+      "role": "Elites",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Subductor Squad",
+      "role": "Elites",
+      "sizeOptions": [5],
+      "pointsOptions": [70],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Vigilant Squad",
+      "role": "Elites",
+      "sizeOptions": [5],
+      "pointsOptions": [70],
+      "isEpicHero": false,
+      "isCharacter": false
+    }
+  ]
+}

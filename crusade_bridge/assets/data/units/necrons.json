@@ -1,320 +1,375 @@
-[
-  {
-    "name": "Annihilation Barge",
-    "points": 105,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Canoptek Doomstalker",
-    "points": 140,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Canoptek Reanimator",
-    "points": 75,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Canoptek Scarab Swarms",
-    "points": [
-      { "models": 3, "pts": 40 },
-      { "models": 6, "pts": 80 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Canoptek Spyders",
-    "points": 75,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Canoptek Wraiths",
-    "points": [
-      { "models": 3, "pts": 110 },
-      { "models": 6, "pts": 220 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Catacomb Command Barge",
-    "points": 120,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Chronomancer",
-    "points": 65,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Convergence of Dominion",
-    "points": 180,
-    "modelsNote": "3 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Cryptothralls",
-    "points": 60,
-    "modelsNote": "2 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "C'tan Shard of the Deceiver",
-    "points": 285,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "C'tan Shard of the Nightbringer",
-    "points": 315,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "C'tan Shard of the Void Dragon",
-    "points": 310,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Deathmarks",
-    "points": [
-      { "models": 5, "pts": 60 },
-      { "models": 10, "pts": 120 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Doom Scythe",
-    "points": 230,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Doomsday Ark",
-    "points": 200,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Flayed Ones",
-    "points": [
-      { "models": 5, "pts": 60 },
-      { "models": 10, "pts": 120 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Geomancer",
-    "points": 75,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Ghost Ark",
-    "points": 115,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Hexmark Destroyer",
-    "points": 75,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Illuminor Szeras",
-    "points": 165,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Immortals",
-    "points": [
-      { "models": 5, "pts": 70 },
-      { "models": 10, "pts": 140 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Imotekh the Stormlord",
-    "points": 100,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Lokhust Destroyers",
-    "points": [
-      { "models": 3, "pts": 120 },
-      { "models": 6, "pts": 240 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Lokhust Heavy Destroyers",
-    "points": [
-      { "models": 1, "pts": 55 },
-      { "models": 3, "pts": 165 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Lokhust Lord",
-    "points": 80,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Lychguard",
-    "points": [
-      { "models": 5, "pts": 85 },
-      { "models": 10, "pts": 170 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Monolith",
-    "points": 400,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Necron Warriors",
-    "points": [
-      { "models": 10, "pts": 90 },
-      { "models": 20, "pts": 180 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Night Scythe",
-    "points": 145,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Ophydian Destroyers",
-    "points": [
-      { "models": 3, "pts": 80 },
-      { "models": 6, "pts": 160 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Orikan the Diviner",
-    "points": 80,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Overlord",
-    "points": 85,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Overlord with Translocation Shroud",
-    "points": 85,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Plasmancer",
-    "points": 55,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Psychomancer",
-    "points": 55,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Royal Warden",
-    "points": 50,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Skorpekh Destroyers",
-    "points": [
-      { "models": 3, "pts": 90 },
-      { "models": 6, "pts": 180 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Skorpekh Lord",
-    "points": 90,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Technomancer",
-    "points": 80,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "The Silent King",
-    "points": 400,
-    "modelsNote": "3 models",
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Tomb Blades",
-    "points": [
-      { "models": 3, "pts": 75 },
-      { "models": 6, "pts": 150 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Transcendent C'tan",
-    "points": 305,
-    "isCharacter": false,
-    "isEpicHero": true
-  },
-  {
-    "name": "Trazyn the Infinite",
-    "points": 75,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Triarch Praetorians",
-    "points": [
-      { "models": 5, "pts": 90 },
-      { "models": 10, "pts": 180 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Triarch Stalker",
-    "points": 110,
-    "isCharacter": false,
-    "isEpicHero": false
-  }
-]
+{
+  "faction": "Necrons",
+  "version": "1.0",
+  "lastUpdated": "2026-01-23",
+  "units": [
+    {
+      "name": "Annihilation Barge",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [105],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Canoptek Doomstalker",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [140],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Canoptek Reanimator",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Canoptek Scarab Swarms",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [40, 80],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Canoptek Spyders",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Canoptek Wraiths",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [110, 220],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Catacomb Command Barge",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [120],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Chronomancer",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [65],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Convergence of Dominion",
+      "role": "Heavy Support",
+      "sizeOptions": [3],
+      "pointsOptions": [180],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Cryptothralls",
+      "role": "Elites",
+      "sizeOptions": [2],
+      "pointsOptions": [60],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "C'tan Shard of the Deceiver",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [285],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "C'tan Shard of the Nightbringer",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [315],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "C'tan Shard of the Void Dragon",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [310],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Deathmarks",
+      "role": "Fast Attack",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [60, 120],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Doom Scythe",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [230],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Doomsday Ark",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [200],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Flayed Ones",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [60, 120],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Geomancer",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Ghost Ark",
+      "role": "Dedicated Transport",
+      "sizeOptions": [1],
+      "pointsOptions": [115],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Hexmark Destroyer",
+      "role": "Elites",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Illuminor Szeras",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [165],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Immortals",
+      "role": "Troops",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [70, 140],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Imotekh the Stormlord",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [100],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Lokhust Destroyers",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [120, 240],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Lokhust Heavy Destroyers",
+      "role": "Heavy Support",
+      "sizeOptions": [1, 3],
+      "pointsOptions": [55, 165],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Lokhust Lord",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Lychguard",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [85, 170],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Monolith",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [400],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Necron Warriors",
+      "role": "Troops",
+      "sizeOptions": [10, 20],
+      "pointsOptions": [90, 180],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Night Scythe",
+      "role": "Dedicated Transport",
+      "sizeOptions": [1],
+      "pointsOptions": [145],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Ophydian Destroyers",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [80, 160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Orikan the Diviner",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Overlord",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [85],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Overlord with Translocation Shroud",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [85],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Plasmancer",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [55],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Psychomancer",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [55],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Royal Warden",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [50],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Skorpekh Destroyers",
+      "role": "Elites",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [90, 180],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Skorpekh Lord",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [90],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Technomancer",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "The Silent King",
+      "role": "HQ",
+      "sizeOptions": [3],
+      "pointsOptions": [400],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Tomb Blades",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [75, 150],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Transcendent C'tan",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [305],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Trazyn the Infinite",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Triarch Praetorians",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [90, 180],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Triarch Stalker",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [110],
+      "isEpicHero": false,
+      "isCharacter": false
+    }
+  ]
+}

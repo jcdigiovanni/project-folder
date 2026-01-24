@@ -1,262 +1,313 @@
-[
-  {
-    "name": "Aun'Va",
-    "points": 85,
-    "modelsNote": "with Ethereal Guard",
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Aun'Shi",
-    "points": 65,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Breacher Team",
-    "points": [
-      { "models": 5, "pts": 90 },
-      { "models": 10, "pts": 180 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Broadside Battlesuits",
-    "points": [
-      { "models": 1, "pts": 100 },
-      { "models": 3, "pts": 300 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Cadre Fireblade",
-    "points": 50,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Commander Farsight",
-    "points": 115,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Commander in Coldstar Battlesuit",
-    "points": 105,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Commander in Crisis Battlesuit",
-    "points": 95,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Commander in Enforcer Battlesuit",
-    "points": 115,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Commander Shadowsun",
-    "points": 100,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Crisis Battlesuits",
-    "points": [
-      { "models": 3, "pts": 195 },
-      { "models": 6, "pts": 390 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Darkstrider",
-    "points": 60,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Devilfish",
-    "points": 85,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Ethereal",
-    "points": 50,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Firesight Marksman",
-    "points": 70,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Ghostkeel Battlesuit",
-    "points": 160,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Hammerhead Gunship",
-    "points": 130,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Kroot Carnivores",
-    "points": [
-      { "models": 10, "pts": 65 },
-      { "models": 20, "pts": 130 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Kroot Farstalkers",
-    "points": 80,
-    "modelsNote": "10 models + Kill-broker",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Kroot Flesh Shaper",
-    "points": 60,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Kroot Shaper",
-    "points": 55,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Kroot Trail Shaper",
-    "points": 60,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Krootox Riders",
-    "points": [
-      { "models": 3, "pts": 80 },
-      { "models": 6, "pts": 160 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Longstrike",
-    "points": 140,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Pathfinder Team",
-    "points": [
-      { "models": 10, "pts": 90 },
-      { "models": 11, "pts": 100 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Piranhas",
-    "points": [
-      { "models": 1, "pts": 55 },
-      { "models": 2, "pts": 110 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Razorshark Strike Fighter",
-    "points": 110,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Riptide Battlesuit",
-    "points": 250,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Sky Ray Gunship",
-    "points": 140,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Stealth Battlesuits",
-    "points": [
-      { "models": 3, "pts": 75 },
-      { "models": 6, "pts": 150 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Stormsurge",
-    "points": 400,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Strike Team",
-    "points": [
-      { "models": 10, "pts": 80 },
-      { "models": 20, "pts": 160 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Sun Shark Bomber",
-    "points": 165,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Ta'unar Supremacy Armour",
-    "points": 700,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Tetra",
-    "points": [
-      { "models": 1, "pts": 80 },
-      { "models": 2, "pts": 160 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Tiger Shark",
-    "points": 300,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Tiger Shark AX-1-0",
-    "points": 350,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "TY7 Devilfish",
-    "points": 85,
-    "isCharacter": false,
-    "isEpicHero": false
-  }
-]
+{
+  "faction": "T'au Empire",
+  "version": "1.0",
+  "lastUpdated": "2026-01-23",
+  "units": [
+    {
+      "name": "Aun'Va",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [85],
+      "modelsNote": "with Ethereal Guard",
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Aun'Shi",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [65],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Breacher Team",
+      "role": "Troops",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [90, 180],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Broadside Battlesuits",
+      "role": "Heavy Support",
+      "sizeOptions": [1, 3],
+      "pointsOptions": [100, 300],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Cadre Fireblade",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [50],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Commander Farsight",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [115],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Commander in Coldstar Battlesuit",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [105],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Commander in Crisis Battlesuit",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [95],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Commander in Enforcer Battlesuit",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [115],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Commander Shadowsun",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [100],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Crisis Battlesuits",
+      "role": "Elites",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [195, 390],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Darkstrider",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [60],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Devilfish",
+      "role": "Dedicated Transport",
+      "sizeOptions": [1],
+      "pointsOptions": [85],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Ethereal",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [50],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Firesight Marksman",
+      "role": "Elites",
+      "sizeOptions": [1],
+      "pointsOptions": [70],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Ghostkeel Battlesuit",
+      "role": "Elites",
+      "sizeOptions": [1],
+      "pointsOptions": [160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Hammerhead Gunship",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [130],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Kroot Carnivores",
+      "role": "Troops",
+      "sizeOptions": [10, 20],
+      "pointsOptions": [65, 130],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Kroot Farstalkers",
+      "role": "Elites",
+      "sizeOptions": [10],
+      "pointsOptions": [80],
+      "modelsNote": "10 models + Kill-broker",
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Kroot Flesh Shaper",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [60],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Kroot Shaper",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [55],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Kroot Trail Shaper",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [60],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Krootox Riders",
+      "role": "Heavy Support",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [80, 160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Longstrike",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [140],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Pathfinder Team",
+      "role": "Fast Attack",
+      "sizeOptions": [10, 11],
+      "pointsOptions": [90, 100],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Piranhas",
+      "role": "Fast Attack",
+      "sizeOptions": [1, 2],
+      "pointsOptions": [55, 110],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Razorshark Strike Fighter",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [110],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Riptide Battlesuit",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [250],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Sky Ray Gunship",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [140],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Stealth Battlesuits",
+      "role": "Elites",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [75, 150],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Stormsurge",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [400],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Strike Team",
+      "role": "Troops",
+      "sizeOptions": [10, 20],
+      "pointsOptions": [80, 160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Sun Shark Bomber",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [165],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Ta'unar Supremacy Armour",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [700],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Tetra",
+      "role": "Fast Attack",
+      "sizeOptions": [1, 2],
+      "pointsOptions": [80, 160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Tiger Shark",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [300],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Tiger Shark AX-1-0",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [350],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "TY7 Devilfish",
+      "role": "Dedicated Transport",
+      "sizeOptions": [1],
+      "pointsOptions": [85],
+      "isEpicHero": false,
+      "isCharacter": false
+    }
+  ]
+}

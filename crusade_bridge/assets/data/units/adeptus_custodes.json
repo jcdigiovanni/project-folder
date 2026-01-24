@@ -1,120 +1,135 @@
-[
-  {
-    "name": "Allarus Custodians",
-    "points": [
-      { "models": 3, "pts": 165 },
-      { "models": 5, "pts": 275 },
-      { "models": 6, "pts": 330 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Blade Champion",
-    "points": 75,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Custodian Guard",
-    "points": [
-      { "models": 3, "pts": 135 },
-      { "models": 5, "pts": 225 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Custodian Wardens",
-    "points": [
-      { "models": 3, "pts": 150 },
-      { "models": 5, "pts": 250 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Knight Centura",
-    "points": 55,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Prosecutors",
-    "points": [
-      { "models": 5, "pts": 50 },
-      { "models": 10, "pts": 100 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Shield-Captain",
-    "points": 120,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Shield-Captain in Allarus Terminator Armour",
-    "points": 130,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Shield-Captain on Dawneagle Jetbike",
-    "points": 150,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Trajann Valoris",
-    "points": 140,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Valerian",
-    "points": 110,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Venerable Contemptor Dreadnought",
-    "points": 170,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Venerable Land Raider",
-    "points": 220,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Vertus Praetors",
-    "points": [
-      { "models": 3, "pts": 225 },
-      { "models": 6, "pts": 450 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Vigilators",
-    "points": [
-      { "models": 5, "pts": 65 },
-      { "models": 10, "pts": 130 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Witchseekers",
-    "points": [
-      { "models": 5, "pts": 55 },
-      { "models": 10, "pts": 110 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  }
-]
+{
+  "faction": "Adeptus Custodes",
+  "version": "1.0",
+  "lastUpdated": "2026-01-23",
+  "units": [
+    {
+      "name": "Allarus Custodians",
+      "role": "Elites",
+      "sizeOptions": [3, 5, 6],
+      "pointsOptions": [165, 275, 330],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Blade Champion",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Custodian Guard",
+      "role": "Troops",
+      "sizeOptions": [3, 5],
+      "pointsOptions": [135, 225],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Custodian Wardens",
+      "role": "Elites",
+      "sizeOptions": [3, 5],
+      "pointsOptions": [150, 250],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Knight Centura",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [55],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Prosecutors",
+      "role": "Troops",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [50, 100],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Shield-Captain",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [120],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Shield-Captain in Allarus Terminator Armour",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [130],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Shield-Captain on Dawneagle Jetbike",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [150],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Trajann Valoris",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [140],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Valerian",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [110],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Venerable Contemptor Dreadnought",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [170],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Venerable Land Raider",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [220],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Vertus Praetors",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [225, 450],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Vigilators",
+      "role": "Troops",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [65, 130],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Witchseekers",
+      "role": "Troops",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [55, 110],
+      "isEpicHero": false,
+      "isCharacter": false
+    }
+  ]
+}

@@ -1,270 +1,320 @@
-[
-  {
-    "name": "Battlewagon",
-    "points": 160,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Beast Snagga Boyz",
-    "points": [
-      { "models": 10, "pts": 95 },
-      { "models": 20, "pts": 190 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Beastboss",
-    "points": 90,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Beastboss on Squigosaur",
-    "points": 135,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Big Mek in Mega Armour",
-    "points": 80,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Big Mek with Shokk Attack Gun",
-    "points": 80,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Boomdakka Snazzwagon",
-    "points": 90,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Boss Snikrot",
-    "points": 85,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Boyz",
-    "points": [
-      { "models": 10, "pts": 85 },
-      { "models": 20, "pts": 170 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Burna Boyz",
-    "points": 100,
-    "modelsNote": "10 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Deff Dread",
-    "points": 130,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Deffkoptas",
-    "points": [
-      { "models": 3, "pts": 100 },
-      { "models": 6, "pts": 200 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Flash Gitz",
-    "points": 140,
-    "modelsNote": "10 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Ghazghkull Thraka",
-    "points": 235,
-    "modelsNote": "with Makari",
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Gretchin",
-    "points": [
-      { "models": 10, "pts": 40 },
-      { "models": 20, "pts": 80 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Kill Rig",
-    "points": 160,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Kommandoz",
-    "points": 110,
-    "modelsNote": "10 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Kustom Boosta-blasta",
-    "points": 85,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Lootas",
-    "points": 50,
-    "modelsNote": "5 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Mek",
-    "points": 40,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Mek Gunz",
-    "points": [
-      { "models": 1, "pts": 55 },
-      { "models": 3, "pts": 165 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Megatrakk Scrapjet",
-    "points": 85,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Meganobz",
-    "points": [
-      { "models": 3, "pts": 105 },
-      { "models": 6, "pts": 210 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Mozrog Skragbad",
-    "points": 170,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Nob on Smasha Squig",
-    "points": 65,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Nobz",
-    "points": [
-      { "models": 5, "pts": 100 },
-      { "models": 10, "pts": 200 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Painboss",
-    "points": 60,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Painboy",
-    "points": 55,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Rukkatrukk Squigbuggy",
-    "points": 90,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Shokkjump Dragsta",
-    "points": 85,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Squighog Boyz",
-    "points": [
-      { "models": 3, "pts": 100 },
-      { "models": 6, "pts": 200 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Stormboyz",
-    "points": 100,
-    "modelsNote": "10 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Tankbustas",
-    "points": 100,
-    "modelsNote": "10 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Trukk",
-    "points": 65,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Warbikers",
-    "points": [
-      { "models": 3, "pts": 70 },
-      { "models": 6, "pts": 140 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Warboss",
-    "points": 75,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Warboss in Mega Armour",
-    "points": 95,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Weirdboy",
-    "points": 55,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Zagstruk",
-    "points": 80,
-    "isCharacter": true,
-    "isEpicHero": true
-  }
-]
+{
+  "faction": "Orks",
+  "version": "1.0",
+  "lastUpdated": "2026-01-23",
+  "units": [
+    {
+      "name": "Battlewagon",
+      "role": "Dedicated Transport",
+      "sizeOptions": [1],
+      "pointsOptions": [160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Beast Snagga Boyz",
+      "role": "Troops",
+      "sizeOptions": [10, 20],
+      "pointsOptions": [95, 190],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Beastboss",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [90],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Beastboss on Squigosaur",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [135],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Big Mek in Mega Armour",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Big Mek with Shokk Attack Gun",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Boomdakka Snazzwagon",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [90],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Boss Snikrot",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [85],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Boyz",
+      "role": "Troops",
+      "sizeOptions": [10, 20],
+      "pointsOptions": [85, 170],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Burna Boyz",
+      "role": "Elites",
+      "sizeOptions": [10],
+      "pointsOptions": [100],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Deff Dread",
+      "role": "Elites",
+      "sizeOptions": [1],
+      "pointsOptions": [130],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Deffkoptas",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [100, 200],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Flash Gitz",
+      "role": "Elites",
+      "sizeOptions": [10],
+      "pointsOptions": [140],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Ghazghkull Thraka",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [235],
+      "modelsNote": "with Makari",
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Gretchin",
+      "role": "Troops",
+      "sizeOptions": [10, 20],
+      "pointsOptions": [40, 80],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Kill Rig",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Kommandoz",
+      "role": "Elites",
+      "sizeOptions": [10],
+      "pointsOptions": [110],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Kustom Boosta-blasta",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [85],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Lootas",
+      "role": "Elites",
+      "sizeOptions": [5],
+      "pointsOptions": [50],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Mek",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [40],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Mek Gunz",
+      "role": "Heavy Support",
+      "sizeOptions": [1, 3],
+      "pointsOptions": [55, 165],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Megatrakk Scrapjet",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [85],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Meganobz",
+      "role": "Elites",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [105, 210],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Mozrog Skragbad",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [170],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Nob on Smasha Squig",
+      "role": "Elites",
+      "sizeOptions": [1],
+      "pointsOptions": [65],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Nobz",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [100, 200],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Painboss",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [60],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Painboy",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [55],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Rukkatrukk Squigbuggy",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [90],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Shokkjump Dragsta",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [85],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Squighog Boyz",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [100, 200],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Stormboyz",
+      "role": "Elites",
+      "sizeOptions": [10],
+      "pointsOptions": [100],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Tankbustas",
+      "role": "Elites",
+      "sizeOptions": [10],
+      "pointsOptions": [100],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Trukk",
+      "role": "Dedicated Transport",
+      "sizeOptions": [1],
+      "pointsOptions": [65],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Warbikers",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [70, 140],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Warboss",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Warboss in Mega Armour",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [95],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Weirdboy",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [55],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Zagstruk",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": true,
+      "isCharacter": true
+    }
+  ]
+}

@@ -1,74 +1,95 @@
-[
-  {
-    "name": "Armiger Helverins",
-    "points": [
-      { "models": 1, "pts": 140 },
-      { "models": 2, "pts": 280 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Armiger Warglaives",
-    "points": [
-      { "models": 1, "pts": 150 },
-      { "models": 2, "pts": 300 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Canis Rex",
-    "points": 405,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Knight Castellan",
-    "points": 495,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Knight Crusader",
-    "points": 455,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Knight Errant",
-    "points": 410,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Knight Gallant",
-    "points": 420,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Knight Paladin",
-    "points": 425,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Knight Preceptor",
-    "points": 430,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Knight Valiant",
-    "points": 510,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Knight Warden",
-    "points": 445,
-    "isCharacter": true,
-    "isEpicHero": false
-  }
-]
+{
+  "faction": "Imperial Knights",
+  "version": "1.0",
+  "lastUpdated": "2026-01-23",
+  "units": [
+    {
+      "name": "Armiger Helverins",
+      "role": "Fast Attack",
+      "sizeOptions": [1, 2],
+      "pointsOptions": [140, 280],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Armiger Warglaives",
+      "role": "Fast Attack",
+      "sizeOptions": [1, 2],
+      "pointsOptions": [150, 300],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Canis Rex",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [405],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Knight Castellan",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [495],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Knight Crusader",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [455],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Knight Errant",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [410],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Knight Gallant",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [420],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Knight Paladin",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [425],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Knight Preceptor",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [430],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Knight Valiant",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [510],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Knight Warden",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [445],
+      "isEpicHero": false,
+      "isCharacter": true
+    }
+  ]
+}

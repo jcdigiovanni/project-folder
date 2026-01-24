@@ -1,182 +1,215 @@
-[
-  {
-    "name": "Be'lakor",
-    "points": 350,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Bloodcrushers",
-    "points": [
-      { "models": 3, "pts": 120 },
-      { "models": 6, "pts": 240 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Bloodletters",
-    "points": [
-      { "models": 10, "pts": 120 },
-      { "models": 20, "pts": 240 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Bloodmaster",
-    "points": 70,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Bloodthirster",
-    "points": 310,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Daemonettes",
-    "points": [
-      { "models": 10, "pts": 110 },
-      { "models": 20, "pts": 220 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Exalted Flamer",
-    "points": 75,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Flamers",
-    "points": [
-      { "models": 3, "pts": 80 },
-      { "models": 6, "pts": 160 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Flesh Hounds",
-    "points": [
-      { "models": 5, "pts": 70 },
-      { "models": 10, "pts": 140 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Great Unclean One",
-    "points": 260,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Horticulous Slimux",
-    "points": 200,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Karanak",
-    "points": 90,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Keeper of Secrets",
-    "points": 290,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Lord of Change",
-    "points": 285,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Nurglings",
-    "points": [
-      { "models": 3, "pts": 45 },
-      { "models": 6, "pts": 90 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Plaguebearers",
-    "points": [
-      { "models": 10, "pts": 120 },
-      { "models": 20, "pts": 240 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Plague Drones",
-    "points": [
-      { "models": 3, "pts": 90 },
-      { "models": 6, "pts": 180 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Rendmaster on Foot",
-    "points": 80,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Rotigus",
-    "points": 280,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Shalaxi Helbane",
-    "points": 400,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Skarbrand",
-    "points": 300,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Skullmaster",
-    "points": 80,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Skull Cannon",
-    "points": 110,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Soul Grinder",
-    "points": 170,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "The Blue Scribes",
-    "points": 80,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "The Changeling",
-    "points": 90,
-    "isCharacter": true,
-    "isEpicHero": true
-  }
-]
+{
+  "faction": "Chaos Daemons",
+  "version": "1.0",
+  "lastUpdated": "2026-01-23",
+  "units": [
+    {
+      "name": "Be'lakor",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [350],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Bloodcrushers",
+      "role": "Elites",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [120, 240],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Bloodletters",
+      "role": "Troops",
+      "sizeOptions": [10, 20],
+      "pointsOptions": [120, 240],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Bloodmaster",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [70],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Bloodthirster",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [310],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Daemonettes",
+      "role": "Troops",
+      "sizeOptions": [10, 20],
+      "pointsOptions": [110, 220],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Exalted Flamer",
+      "role": "Elites",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Flamers",
+      "role": "Elites",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [80, 160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Flesh Hounds",
+      "role": "Fast Attack",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [70, 140],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Great Unclean One",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [260],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Horticulous Slimux",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [200],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Karanak",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [90],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Keeper of Secrets",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [290],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Lord of Change",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [285],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Nurglings",
+      "role": "Troops",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [45, 90],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Plaguebearers",
+      "role": "Troops",
+      "sizeOptions": [10, 20],
+      "pointsOptions": [120, 240],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Plague Drones",
+      "role": "Elites",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [90, 180],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Rendmaster on Foot",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Rotigus",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [280],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Shalaxi Helbane",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [400],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Skarbrand",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [300],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Skullmaster",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Skull Cannon",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [110],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Soul Grinder",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [170],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "The Blue Scribes",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "The Changeling",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [90],
+      "isEpicHero": true,
+      "isCharacter": true
+    }
+  ]
+}

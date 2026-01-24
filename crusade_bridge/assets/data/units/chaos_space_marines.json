@@ -1,208 +1,247 @@
-[
-  {
-    "name": "Abaddon the Despoiler",
-    "points": 310,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Accursed Cultists",
-    "points": 70,
-    "modelsNote": "8 Mutants + 8 Torments",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Chaos Bikers",
-    "points": [
-      { "models": 3, "pts": 70 },
-      { "models": 6, "pts": 140 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Chaos Cultists",
-    "points": [
-      { "models": 10, "pts": 55 },
-      { "models": 20, "pts": 110 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Chaos Lord",
-    "points": 75,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Chaos Lord in Terminator Armour",
-    "points": 95,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Chaos Lord on Juggernaut of Khorne",
-    "points": 105,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Chaos Rhino",
-    "points": 75,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Chaos Space Marines",
-    "points": [
-      { "models": 5, "pts": 90 },
-      { "models": 10, "pts": 180 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Chaos Terminator Squad",
-    "points": [
-      { "models": 5, "pts": 190 },
-      { "models": 10, "pts": 380 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Chosen",
-    "points": [
-      { "models": 5, "pts": 125 },
-      { "models": 10, "pts": 250 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Cypher",
-    "points": 80,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Dark Apostle",
-    "points": 75,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Dark Commune",
-    "points": 55,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Fabius Bile",
-    "points": 100,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Forgefiend",
-    "points": 135,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Haarken Worldclaimer",
-    "points": 110,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Havocs",
-    "points": 130,
-    "modelsNote": "5 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Helbrute",
-    "points": 130,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Heldrake",
-    "points": 200,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Huron Blackheart",
-    "points": 90,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Jump Pack Lord",
-    "points": 90,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Legionaries",
-    "points": [
-      { "models": 5, "pts": 90 },
-      { "models": 10, "pts": 180 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Lucius the Eternal",
-    "points": 115,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Master of Executions",
-    "points": 85,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Master of Possession",
-    "points": 80,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Possessed",
-    "points": [
-      { "models": 5, "pts": 140 },
-      { "models": 10, "pts": 280 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Vashtorr the Arkifane",
-    "points": 215,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Venomcrawler",
-    "points": 120,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Warp Talons",
-    "points": [
-      { "models": 5, "pts": 100 },
-      { "models": 10, "pts": 200 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  }
-]
+{
+  "faction": "Chaos Space Marines",
+  "version": "1.0",
+  "lastUpdated": "2026-01-23",
+  "units": [
+    {
+      "name": "Abaddon the Despoiler",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [310],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Accursed Cultists",
+      "role": "Troops",
+      "sizeOptions": [16],
+      "pointsOptions": [70],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Chaos Bikers",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [70, 140],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Chaos Cultists",
+      "role": "Troops",
+      "sizeOptions": [10, 20],
+      "pointsOptions": [55, 110],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Chaos Lord",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Chaos Lord in Terminator Armour",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [95],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Chaos Lord on Juggernaut of Khorne",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [105],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Chaos Rhino",
+      "role": "Dedicated Transport",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Chaos Space Marines",
+      "role": "Troops",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [90, 180],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Chaos Terminator Squad",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [190, 380],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Chosen",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [125, 250],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Cypher",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Dark Apostle",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Dark Commune",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [55],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Fabius Bile",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [100],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Forgefiend",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [135],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Haarken Worldclaimer",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [110],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Havocs",
+      "role": "Heavy Support",
+      "sizeOptions": [5],
+      "pointsOptions": [130],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Helbrute",
+      "role": "Elites",
+      "sizeOptions": [1],
+      "pointsOptions": [130],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Heldrake",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [200],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Huron Blackheart",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [90],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Jump Pack Lord",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [90],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Legionaries",
+      "role": "Troops",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [90, 180],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Lucius the Eternal",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [115],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Master of Executions",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [85],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Master of Possession",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Possessed",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [140, 280],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Vashtorr the Arkifane",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [215],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Venomcrawler",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [120],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Warp Talons",
+      "role": "Fast Attack",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [100, 200],
+      "isEpicHero": false,
+      "isCharacter": false
+    }
+  ]
+}

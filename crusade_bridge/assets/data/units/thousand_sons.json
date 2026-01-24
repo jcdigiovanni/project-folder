@@ -1,239 +1,287 @@
-[
-  {
-    "name": "Ahriman",
-    "points": 100,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Ahriman on Disc of Tzeentch",
-    "points": 120,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Blue Horrors",
-    "points": 90,
-    "modelsNote": "10 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Chaos Land Raider",
-    "points": 220,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Chaos Predator Annihilator",
-    "points": 130,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Chaos Predator Destructor",
-    "points": 130,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Chaos Rhino",
-    "points": 90,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Chaos Spawn",
-    "points": 65,
-    "modelsNote": "2 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Chaos Vindicator",
-    "points": 185,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Daemon Prince of Tzeentch",
-    "points": 180,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Daemon Prince of Tzeentch with Wings",
-    "points": 170,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Defiler",
-    "points": 165,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Exalted Sorcerer",
-    "points": 80,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Exalted Sorcerer on Disc of Tzeentch",
-    "points": 100,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Flamers",
-    "points": [
-      { "models": 3, "pts": 65 },
-      { "models": 6, "pts": 130 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Forgefiend",
-    "points": 130,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Heldrake",
-    "points": 215,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Helbrute",
-    "points": 110,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Infernal Master",
-    "points": 95,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Kairos Fateweaver",
-    "points": 285,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Lord of Change",
-    "points": 270,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Magnus the Red",
-    "points": 435,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Maulerfiend",
-    "points": 120,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Mutalith Vortex Beast",
-    "points": 170,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Pink Horrors",
-    "points": 115,
-    "modelsNote": "10 models",
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Rubric Marines",
-    "points": [
-      { "models": 5, "pts": 100 },
-      { "models": 10, "pts": 190 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Scarab Occult Terminators",
-    "points": [
-      { "models": 5, "pts": 180 },
-      { "models": 10, "pts": 360 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Screamers",
-    "points": [
-      { "models": 3, "pts": 80 },
-      { "models": 6, "pts": 160 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Sekhetar Robots",
-    "points": [
-      { "models": 2, "pts": 80 },
-      { "models": 4, "pts": 160 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Sorcerer",
-    "points": 80,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Sorcerer in Terminator Armour",
-    "points": 85,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Tzaangor Enlightened",
-    "points": [
-      { "models": 3, "pts": 45 },
-      { "models": 6, "pts": 90 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Tzaangor Enlightened with Fatecaster Greatbows",
-    "points": [
-      { "models": 3, "pts": 55 },
-      { "models": 6, "pts": 110 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Tzaangor Shaman",
-    "points": 60,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Tzaangors",
-    "points": [
-      { "models": 10, "pts": 70 },
-      { "models": 20, "pts": 160 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  }
-]
+{
+  "faction": "Thousand Sons",
+  "version": "1.0",
+  "lastUpdated": "2026-01-23",
+  "units": [
+    {
+      "name": "Ahriman",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [100],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Ahriman on Disc of Tzeentch",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [120],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Blue Horrors",
+      "role": "Troops",
+      "sizeOptions": [10],
+      "pointsOptions": [90],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Chaos Land Raider",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [220],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Chaos Predator Annihilator",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [130],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Chaos Predator Destructor",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [130],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Chaos Rhino",
+      "role": "Dedicated Transport",
+      "sizeOptions": [1],
+      "pointsOptions": [90],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Chaos Spawn",
+      "role": "Elites",
+      "sizeOptions": [2],
+      "pointsOptions": [65],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Chaos Vindicator",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [185],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Daemon Prince of Tzeentch",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [180],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Daemon Prince of Tzeentch with Wings",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [170],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Defiler",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [165],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Exalted Sorcerer",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Exalted Sorcerer on Disc of Tzeentch",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [100],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Flamers",
+      "role": "Elites",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [65, 130],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Forgefiend",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [130],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Heldrake",
+      "role": "Fast Attack",
+      "sizeOptions": [1],
+      "pointsOptions": [215],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Helbrute",
+      "role": "Elites",
+      "sizeOptions": [1],
+      "pointsOptions": [110],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Infernal Master",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [95],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Kairos Fateweaver",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [285],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Lord of Change",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [270],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Magnus the Red",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [435],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Maulerfiend",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [120],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Mutalith Vortex Beast",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [170],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Pink Horrors",
+      "role": "Troops",
+      "sizeOptions": [10],
+      "pointsOptions": [115],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Rubric Marines",
+      "role": "Troops",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [100, 190],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Scarab Occult Terminators",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [180, 360],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Screamers",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [80, 160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Sekhetar Robots",
+      "role": "Elites",
+      "sizeOptions": [2, 4],
+      "pointsOptions": [80, 160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Sorcerer",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Sorcerer in Terminator Armour",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [85],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Tzaangor Enlightened",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [45, 90],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Tzaangor Enlightened with Fatecaster Greatbows",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [55, 110],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Tzaangor Shaman",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [60],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Tzaangors",
+      "role": "Troops",
+      "sizeOptions": [10, 20],
+      "pointsOptions": [70, 160],
+      "isEpicHero": false,
+      "isCharacter": false
+    }
+  ]
+}

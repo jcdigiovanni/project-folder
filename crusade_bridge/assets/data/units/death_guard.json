@@ -1,125 +1,151 @@
-[
-  {
-    "name": "Biologus Putrifier",
-    "points": 55,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Blightlord Terminators",
-    "points": [
-      { "models": 5, "pts": 165 },
-      { "models": 10, "pts": 330 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Death Guard Chaos Lord",
-    "points": 75,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Death Guard Chaos Lord in Terminator Armour",
-    "points": 95,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Death Guard Cultists",
-    "points": [
-      { "models": 10, "pts": 55 },
-      { "models": 20, "pts": 110 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Deathshroud Terminators",
-    "points": [
-      { "models": 3, "pts": 120 },
-      { "models": 6, "pts": 240 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Foul Blightspawn",
-    "points": 60,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Lord of Contagion",
-    "points": 80,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Lord of Virulence",
-    "points": 80,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Malignant Plaguecaster",
-    "points": 65,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Mortarion",
-    "points": 350,
-    "isCharacter": true,
-    "isEpicHero": true
-  },
-  {
-    "name": "Myphitic Blight-hauler",
-    "points": 100,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Noxious Blightbringer",
-    "points": 55,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Plague Marines",
-    "points": [
-      { "models": 5, "pts": 90 },
-      { "models": 10, "pts": 180 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Plague Surgeon",
-    "points": 55,
-    "isCharacter": true,
-    "isEpicHero": false
-  },
-  {
-    "name": "Plagueburst Crawler",
-    "points": 160,
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Poxwalkers",
-    "points": [
-      { "models": 10, "pts": 60 },
-      { "models": 20, "pts": 120 }
-    ],
-    "isCharacter": false,
-    "isEpicHero": false
-  },
-  {
-    "name": "Tallyman",
-    "points": 50,
-    "isCharacter": true,
-    "isEpicHero": false
-  }
-]
+{
+  "faction": "Death Guard",
+  "version": "1.0",
+  "lastUpdated": "2026-01-23",
+  "units": [
+    {
+      "name": "Biologus Putrifier",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [55],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Blightlord Terminators",
+      "role": "Elites",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [165, 330],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Death Guard Chaos Lord",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Death Guard Chaos Lord in Terminator Armour",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [95],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Death Guard Cultists",
+      "role": "Troops",
+      "sizeOptions": [10, 20],
+      "pointsOptions": [55, 110],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Deathshroud Terminators",
+      "role": "Elites",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [120, 240],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Foul Blightspawn",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [60],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Lord of Contagion",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Lord of Virulence",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [80],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Malignant Plaguecaster",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [65],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Mortarion",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [350],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Myphitic Blight-hauler",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [100],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Noxious Blightbringer",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [55],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Plague Marines",
+      "role": "Troops",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [90, 180],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Plague Surgeon",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [55],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Plagueburst Crawler",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [160],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Poxwalkers",
+      "role": "Troops",
+      "sizeOptions": [10, 20],
+      "pointsOptions": [60, 120],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Tallyman",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [50],
+      "isEpicHero": false,
+      "isCharacter": true
+    }
+  ]
+}
