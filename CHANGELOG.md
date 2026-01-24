@@ -11,7 +11,55 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - In-game unit tracking and post-game flow
 - Maintenance and upgrade system
 - Battle honors management
-- Unit data for remaining 22 factions
+- Deathwatch unit data (only missing faction)
+
+---
+
+## [0.3.1] - 2026-01-24
+
+### Added
+- **Exit App Button**
+  - Added Exit button to bottom navigation bar
+  - Confirmation dialog before exiting
+  - Uses `SystemNavigator.pop()` for clean app exit
+
+- **Group Deletion Confirmation**
+  - Warning dialog when deleting a group with units
+  - Shows unit count and names (up to 3)
+  - "Ungroup Only" option returns units to OOB without deleting
+  - "Delete All" option removes group and all units
+
+- **Google Drive Campaigns Backup (v1.1)**
+  - Backup now includes both crusades and campaigns
+  - Restore handles campaigns from v1.1+ backups
+  - Backward compatible with v1.0 crusade-only backups
+  - New filename format: `CrusadeBridge_Xc_Ycamp_DATE.json`
+
+### Changed
+- **Conditional Play Button**
+  - Play button now only shows when a crusade is loaded
+  - Without crusade: Home, Load, Settings, Exit (4 items)
+  - With crusade: Home, Dashboard, Play, Settings, Exit (5 items)
+
+- **Clear Local Data**
+  - Now clears both crusades and campaigns
+  - Updated dialog text to mention campaigns
+
+- **Renowned Heroes Enhancement**
+  - Enhancement dropdown now filters to current detachment only
+  - Previously showed all faction enhancements incorrectly
+
+- **Warlord Toggle**
+  - Now hidden when a warlord already exists in the OOB
+  - Checks both top-level units and units inside groups
+
+### Fixed
+- Removed unused `go_router` import in `campaign_view_screen.dart`
+- Removed unnecessary non-null assertion in `oob_modify_screen.dart`
+
+### Technical
+- Updated backup version from 1.0 to 1.1
+- Refactored bottom navigation index calculation for conditional items
 
 ---
 
@@ -53,6 +101,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `getCampaignsForCrusade()` method to find campaigns containing a specific force
   - Campaign storage operations in StorageService
   - New Hive adapters for Campaign, CrusadeCampaignLink, Game, GameAgenda, UnitGameState
+
+- **Complete Unit Data (Major Milestone)**
+  - 27 of 28 factions now have complete unit data (~1,248 total units)
+  - Full detachment and enhancement data for all 27 factions
+  - Unit schema includes: name, role, sizeOptions, pointsOptions, isEpicHero, isCharacter
+  - Only Deathwatch unit file remaining
 
 ### Changed
 - Refactored Campaign model to be standalone (no longer embedded in Crusade)

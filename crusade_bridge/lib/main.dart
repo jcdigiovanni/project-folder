@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -179,6 +180,10 @@ class ScaffoldWithNavBar extends ConsumerWidget {
                     icon: Icon(Icons.settings),
                     label: 'Settings',
                   ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.exit_to_app),
+                    label: 'Exit',
+                  ),
                 ]
               : const [
                   BottomNavigationBarItem(
@@ -190,102 +195,157 @@ class ScaffoldWithNavBar extends ConsumerWidget {
                     label: 'Load',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.play_arrow),
-                    label: 'Play',
-                  ),
-                  BottomNavigationBarItem(
                     icon: Icon(Icons.settings),
                     label: 'Settings',
                   ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.exit_to_app),
+                    label: 'Exit',
+                  ),
                 ],
-          currentIndex: _calculateSelectedIndex(context),
+          currentIndex: _calculateSelectedIndex(context, currentCrusade != null),
           onTap: (index) => _onItemTapped(context, index, currentCrusade),
         ),
       ),
     );
   }
 
-  int _calculateSelectedIndex(BuildContext context) {
+  int _calculateSelectedIndex(BuildContext context, bool hasCrusade) {
     final String location = GoRouterState.of(context).uri.toString();
     if (location.startsWith('/landing')) return 0;
     if (location.startsWith('/dashboard')) return 1;
     if (location.startsWith('/oob')) return 1;
-    if (location.startsWith('/play')) return 2;
-    if (location.startsWith('/settings')) return 3;
+    if (location.startsWith('/play')) return hasCrusade ? 2 : 0;
+    // Settings is index 3 with crusade, index 2 without
+    if (location.startsWith('/settings')) return hasCrusade ? 3 : 2;
     return 0; // Default to home
   }
 
   void _onItemTapped(BuildContext context, int index, dynamic currentCrusade) {
-    switch (index) {
-      case 0:
-        context.go('/landing');
-        break;
-      case 1:
-        if (currentCrusade != null) {
-          // If crusade is loaded, go to dashboard
-          context.go('/dashboard');
-        } else {
-          // If no crusade, show load dialog
-          showModalBottomSheet(
-            context: context,
-            builder: (context) {
-              final savedCrusades = StorageService.loadAllCrusades();
+    final hasCrusade = currentCrusade != null;
 
-              return Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Load Crusade',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 16),
-                    if (savedCrusades.isEmpty)
-                      const Text('No saved Crusades yet.'),
-                    if (savedCrusades.isNotEmpty)
-                      Expanded(
-                        child: Consumer(
-                          builder: (context, ref, child) => ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: savedCrusades.length,
-                            itemBuilder: (context, idx) {
-                              final crusade = savedCrusades[idx];
-                              return ListTile(
-                                title: Text(crusade.name),
-                                subtitle: Text('${crusade.faction} - ${crusade.detachment}'),
-                                onTap: () {
-                                  ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
-                                  Navigator.pop(context);
-                                  context.go('/dashboard');
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    const SizedBox(height: 16),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: ElevatedButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: const Text('Close'),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        }
-        break;
-      case 2:
-        context.go('/play');
-        break;
-      case 3:
-        context.go('/settings');
-        break;
+    // With crusade: Home(0), Dashboard(1), Play(2), Settings(3), Exit(4)
+    // Without crusade: Home(0), Load(1), Settings(2), Exit(3)
+
+    if (index == 0) {
+      context.go('/landing');
+      return;
     }
+
+    if (index == 1) {
+      if (hasCrusade) {
+        context.go('/dashboard');
+      } else {
+        // Show load dialog
+        _showLoadCrusadeDialog(context);
+      }
+      return;
+    }
+
+    if (hasCrusade) {
+      // With crusade loaded
+      switch (index) {
+        case 2:
+          context.go('/play');
+          break;
+        case 3:
+          context.go('/settings');
+          break;
+        case 4:
+          _showExitConfirmation(context);
+          break;
+      }
+    } else {
+      // Without crusade loaded
+      switch (index) {
+        case 2:
+          context.go('/settings');
+          break;
+        case 3:
+          _showExitConfirmation(context);
+          break;
+      }
+    }
+  }
+
+  void _showLoadCrusadeDialog(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        final savedCrusades = StorageService.loadAllCrusades();
+
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Load Crusade',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 16),
+              if (savedCrusades.isEmpty)
+                const Text('No saved Crusades yet.'),
+              if (savedCrusades.isNotEmpty)
+                Expanded(
+                  child: Consumer(
+                    builder: (context, ref, child) => ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: savedCrusades.length,
+                      itemBuilder: (context, idx) {
+                        final crusade = savedCrusades[idx];
+                        return ListTile(
+                          title: Text(crusade.name),
+                          subtitle: Text('${crusade.faction} - ${crusade.detachment}'),
+                          onTap: () {
+                            ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
+                            Navigator.pop(context);
+                            context.go('/dashboard');
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              const SizedBox(height: 16),
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Close'),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showExitConfirmation(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Exit App'),
+        content: const Text('Are you sure you want to exit Crusade Bridge?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              SystemNavigator.pop();
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF8B0000),
+            ),
+            child: const Text('Exit'),
+          ),
+        ],
+      ),
+    );
   }
 }

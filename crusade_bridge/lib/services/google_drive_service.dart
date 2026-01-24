@@ -90,7 +90,7 @@ class GoogleDriveService {
     _driveApi = null;
   }
 
-  /// Backup all crusades to Google Drive
+  /// Backup all crusades and campaigns to Google Drive
   static Future<bool> backupCrusades() async {
     if (!_isSupported) {
       print('Google Drive backup is not supported on this platform');
@@ -103,30 +103,33 @@ class GoogleDriveService {
 
     try {
       final crusades = StorageService.loadAllCrusades();
+      final campaigns = StorageService.loadAllCampaigns();
       final now = DateTime.now();
       final backupData = {
-        'version': '1.0',
+        'version': '1.1',
         'timestamp': now.toIso8601String(),
         'crusades': crusades.map((c) => c.toJson()).toList(),
+        'campaigns': campaigns.map((c) => c.toJson()).toList(),
       };
 
       final jsonContent = jsonEncode(backupData);
 
       // Create human-readable filename
       final dateStr = '${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}_${now.hour.toString().padLeft(2, '0')}${now.minute.toString().padLeft(2, '0')}';
-      final fileName = crusades.length == 1
+      final fileName = crusades.length == 1 && campaigns.isEmpty
           ? 'Crusade_${_sanitizeFileName(crusades.first.name)}_$dateStr.json'
-          : 'AllCrusades_${crusades.length}_$dateStr.json';
+          : 'CrusadeBridge_${crusades.length}c_${campaigns.length}camp_$dateStr.json';
 
       // Create file metadata with custom properties
       final driveFile = drive.File()
         ..name = fileName
         ..mimeType = 'application/json'
-        ..description = crusades.length == 1
+        ..description = crusades.length == 1 && campaigns.isEmpty
             ? '${crusades.first.name} - ${crusades.first.faction}'
-            : '${crusades.length} Crusades backup'
+            : '${crusades.length} Crusades, ${campaigns.length} Campaigns'
         ..properties = {
           'crusadeCount': crusades.length.toString(),
+          'campaignCount': campaigns.length.toString(),
           'crusadeNames': crusades.map((c) => c.name).join(', '),
           'factions': crusades.map((c) => c.faction).join(', '),
         };
@@ -229,7 +232,7 @@ class GoogleDriveService {
 
     try {
       final fileList = await _driveApi!.files.list(
-        q: "(name contains 'crusade_bridge_backup' or name contains 'Crusade_' or name contains 'AllCrusades_') and mimeType='application/json'",
+        q: "(name contains 'crusade_bridge_backup' or name contains 'Crusade_' or name contains 'AllCrusades_' or name contains 'CrusadeBridge_') and mimeType='application/json'",
         orderBy: 'modifiedTime desc',
         spaces: 'drive',
         $fields: 'files(id, name, description, properties, createdTime, modifiedTime, size)',
@@ -269,7 +272,7 @@ class GoogleDriveService {
     }
   }
 
-  /// Restore crusades from a specific backup file
+  /// Restore crusades and campaigns from a specific backup file
   static Future<bool> restoreFromBackup(String fileId) async {
     if (_driveApi == null || _currentUser == null) {
       return false;
@@ -294,10 +297,11 @@ class GoogleDriveService {
       final backupData = jsonDecode(jsonString) as Map<String, dynamic>;
 
       List<Crusade> crusades;
+      List<Campaign> campaigns = [];
 
       // Check if this is the new format with 'crusades' array wrapper
       if (backupData.containsKey('crusades')) {
-        // New format: { "version": "1.0", "timestamp": "...", "crusades": [...] }
+        // New format: { "version": "1.x", "timestamp": "...", "crusades": [...], "campaigns": [...] }
         final crusadesJson = backupData['crusades'] as List<dynamic>?;
 
         if (crusadesJson == null || crusadesJson.isEmpty) {
@@ -308,6 +312,15 @@ class GoogleDriveService {
         crusades = crusadesJson
             .map((json) => Crusade.fromJson(json as Map<String, dynamic>))
             .toList();
+
+        // Restore campaigns if present (version 1.1+)
+        final campaignsJson = backupData['campaigns'] as List<dynamic>?;
+        if (campaignsJson != null && campaignsJson.isNotEmpty) {
+          campaigns = campaignsJson
+              .map((json) => Campaign.fromJson(json as Map<String, dynamic>))
+              .toList();
+          print('Restoring ${campaigns.length} campaigns from backup');
+        }
       } else {
         // Legacy format: bare crusade object
         // Try to parse the entire backup data as a single crusade
@@ -324,6 +337,11 @@ class GoogleDriveService {
       // Save each crusade
       for (final crusade in crusades) {
         StorageService.saveCrusade(crusade);
+      }
+
+      // Save each campaign
+      for (final campaign in campaigns) {
+        StorageService.saveCampaign(campaign);
       }
 
       return true;

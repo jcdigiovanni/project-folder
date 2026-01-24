@@ -298,7 +298,13 @@ class OOBModifyScreen extends ConsumerWidget {
                     leading: const Icon(Icons.delete, color: Colors.red),
                     title: const Text('Delete', style: TextStyle(color: Colors.red)),
                     onTap: () {
-                      ref.read(currentCrusadeNotifierProvider.notifier).removeUnitOrGroup(index);
+                      if (item.type == 'group' && item.components != null && item.components!.isNotEmpty) {
+                        // Show confirmation dialog for groups with units
+                        _showDeleteGroupDialog(context, ref, index, item);
+                      } else {
+                        // Direct delete for units or empty groups
+                        ref.read(currentCrusadeNotifierProvider.notifier).removeUnitOrGroup(index);
+                      }
                     },
                   ),
                 );
@@ -379,6 +385,90 @@ class OOBModifyScreen extends ConsumerWidget {
     } else {
       _addUnit(context, ref);
     }
+  }
+
+  /// Shows a confirmation dialog when deleting a group with component units
+  void _showDeleteGroupDialog(BuildContext context, WidgetRef ref, int index, UnitOrGroup group) {
+    final unitCount = group.components?.length ?? 0;
+    final unitNames = group.components?.map((u) => u.customName ?? u.name).take(3).toList() ?? [];
+    final moreCount = unitCount > 3 ? unitCount - 3 : 0;
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete Group?'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'This group contains $unitCount unit${unitCount == 1 ? '' : 's'}:',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            ...unitNames.map((name) => Padding(
+              padding: const EdgeInsets.only(left: 16, top: 4),
+              child: Text('• $name'),
+            )),
+            if (moreCount > 0)
+              Padding(
+                padding: const EdgeInsets.only(left: 16, top: 4),
+                child: Text('• ...and $moreCount more', style: const TextStyle(fontStyle: FontStyle.italic)),
+              ),
+            const SizedBox(height: 16),
+            const Text('What would you like to do?'),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              // Ungroup: return units to OOB, then remove the empty group entry
+              final currentCrusade = ref.read(currentCrusadeNotifierProvider);
+              if (currentCrusade != null && group.components != null) {
+                final updatedOob = List<UnitOrGroup>.from(currentCrusade.oob);
+                // Remove the group
+                updatedOob.removeAt(index);
+                // Add the component units back to OOB
+                updatedOob.addAll(group.components!);
+
+                final updatedCrusade = Crusade(
+                  id: currentCrusade.id,
+                  name: currentCrusade.name,
+                  faction: currentCrusade.faction,
+                  detachment: currentCrusade.detachment,
+                  supplyLimit: currentCrusade.supplyLimit,
+                  rp: currentCrusade.rp,
+                  armyIconPath: currentCrusade.armyIconPath,
+                  factionIconAsset: currentCrusade.factionIconAsset,
+                  oob: updatedOob,
+                  templates: currentCrusade.templates,
+                  usedFirstCharacterEnhancement: currentCrusade.usedFirstCharacterEnhancement,
+                  history: currentCrusade.history,
+                );
+                ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
+                SnackBarUtils.showSuccess(context, 'Group disbanded. Units returned to Order of Battle.');
+              }
+            },
+            child: const Text('Ungroup Only'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              // Delete group and all units
+              ref.read(currentCrusadeNotifierProvider.notifier).removeUnitOrGroup(index);
+              SnackBarUtils.showSuccess(context, 'Group and all units deleted.');
+            },
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Delete All'),
+          ),
+        ],
+      ),
+    );
   }
 
   void _createGroup(BuildContext context, WidgetRef ref) {
@@ -536,7 +626,7 @@ class OOBModifyScreen extends ConsumerWidget {
         bool isWarlord = false;
         int? selectedSizeIndex;
         bool addEnhancement = false; // For first character enhancement option
-        Map<String, dynamic>? selectedEnhancement;
+        String? selectedEnhancementKey; // Use string key instead of Map for dropdown value
 
       return StatefulBuilder(
         builder: (context, setModalState) => Padding(
@@ -659,15 +749,34 @@ class OOBModifyScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
 
-              // Warlord toggle (show only for HQ units that are NOT Epic Heroes)
-              if (selectedUnit != null && selectedFaction != null)
+              // Warlord toggle (show only for HQ units that are NOT Epic Heroes, and only if no warlord exists)
+              if (selectedUnit != null && selectedFaction != null && currentCrusade != null)
                 Builder(
                   builder: (context) {
                     final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, selectedUnit!);
                     final role = unitData['role'] as String? ?? '';
                     final isEpicHeroUnit = unitData['isEpicHero'] as bool? ?? false;
 
-                    if (role == 'HQ' && !isEpicHeroUnit) {
+                    // Check if there's already a warlord in the OOB (including in groups)
+                    bool hasExistingWarlord = false;
+                    for (final item in currentCrusade.oob) {
+                      if (item.isWarlord == true) {
+                        hasExistingWarlord = true;
+                        break;
+                      }
+                      if (item.type == 'group' && item.components != null) {
+                        for (final component in item.components!) {
+                          if (component.isWarlord == true) {
+                            hasExistingWarlord = true;
+                            break;
+                          }
+                        }
+                      }
+                      if (hasExistingWarlord) break;
+                    }
+
+                    // Only show toggle if: HQ role, not Epic Hero, and no existing warlord
+                    if (role == 'HQ' && !isEpicHeroUnit && !hasExistingWarlord) {
                       return SwitchListTile(
                         title: const Text('Designate as Warlord'),
                         value: isWarlord,
@@ -682,7 +791,10 @@ class OOBModifyScreen extends ConsumerWidget {
               if (selectedUnit != null && selectedFaction != null && currentCrusade != null)
                 Builder(
                   builder: (context) {
-                    final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, selectedUnit!);
+                    final crusade = currentCrusade;
+                    final faction = selectedFaction!;
+                    final unit = selectedUnit!;
+                    final unitData = ReferenceDataService.getUnitDataSync(faction, unit);
                     final isEpicHeroUnit = unitData['isEpicHero'] as bool? ?? false;
                     final isCharacterUnit = unitData['isCharacter'] as bool? ?? false;
 
@@ -690,25 +802,20 @@ class OOBModifyScreen extends ConsumerWidget {
                     final canUseFirstCharacterEnhancement =
                         isCharacterUnit &&
                         !isEpicHeroUnit &&
-                        !currentCrusade.usedFirstCharacterEnhancement &&
-                        currentCrusade.rp >= 1;
+                        !crusade.usedFirstCharacterEnhancement &&
+                        crusade.rp >= 1;
 
                     if (!canUseFirstCharacterEnhancement) {
                       return const SizedBox.shrink();
                     }
 
-                    // Get all enhancements from all detachments
-                    final allEnhancements = ReferenceDataService.getAllEnhancementsForFaction(currentCrusade.faction);
-                    if (allEnhancements.isEmpty) {
+                    // Get enhancements for the crusade's detachment only
+                    final detachmentEnhancements = ReferenceDataService.getEnhancements(
+                      crusade.faction,
+                      crusade.detachment,
+                    );
+                    if (detachmentEnhancements.isEmpty) {
                       return const SizedBox.shrink();
-                    }
-
-                    // Flatten enhancements for dropdown
-                    final flatEnhancements = <Map<String, dynamic>>[];
-                    for (final entry in allEnhancements.entries) {
-                      for (final enh in entry.value) {
-                        flatEnhancements.add({...enh, 'detachment': entry.key});
-                      }
                     }
 
                     return Column(
@@ -718,33 +825,35 @@ class OOBModifyScreen extends ConsumerWidget {
                         SwitchListTile(
                           title: const Text('Add Enhancement (Renowned Heroes)'),
                           subtitle: Text(
-                            'First character bonus! Costs 1 RP (${currentCrusade.rp} available)',
+                            'First character bonus! Costs 1 RP (${crusade.rp} available)',
                             style: const TextStyle(fontSize: 12),
                           ),
                           value: addEnhancement,
                           onChanged: (value) => setModalState(() {
                             addEnhancement = value;
-                            if (!value) selectedEnhancement = null;
+                            if (!value) selectedEnhancementKey = null;
                           }),
                         ),
                         if (addEnhancement)
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: DropdownButtonFormField<Map<String, dynamic>>(
+                            child: DropdownButtonFormField<String>(
                               decoration: const InputDecoration(
                                 labelText: 'Select Enhancement',
                                 border: OutlineInputBorder(),
                               ),
-                              items: flatEnhancements.map((enh) {
-                                return DropdownMenuItem(
-                                  value: enh,
+                              items: detachmentEnhancements.map((enh) {
+                                final name = enh['name'] as String;
+                                final points = enh['points'] as int;
+                                return DropdownMenuItem<String>(
+                                  value: name,
                                   child: Text(
-                                    '${enh['name']} (+${enh['points']} pts)',
+                                    '$name (+$points pts)',
                                     style: const TextStyle(fontSize: 14),
                                   ),
                                 );
                               }).toList(),
-                              onChanged: (value) => setModalState(() => selectedEnhancement = value),
+                              onChanged: (value) => setModalState(() => selectedEnhancementKey = value),
                             ),
                           ),
                       ],
@@ -764,7 +873,7 @@ class OOBModifyScreen extends ConsumerWidget {
                     }
 
                     // Validate enhancement selection if enabled
-                    if (addEnhancement && selectedEnhancement == null) {
+                    if (addEnhancement && selectedEnhancementKey == null) {
                       SnackBarUtils.showError(context, 'Select an enhancement or disable the option');
                       return;
                     }
@@ -774,13 +883,22 @@ class OOBModifyScreen extends ConsumerWidget {
                     final isEpicHero = unitData['isEpicHero'] as bool? ?? false;
                     final isCharacter = unitData['isCharacter'] as bool? ?? false;
 
-                    // Calculate final points (base + enhancement if applicable)
-                    final enhancementPoints = addEnhancement && selectedEnhancement != null
-                        ? (selectedEnhancement!['points'] as int)
-                        : 0;
-                    final enhancementName = addEnhancement && selectedEnhancement != null
-                        ? selectedEnhancement!['name'] as String
-                        : null;
+                    // Look up enhancement points if selected
+                    int enhancementPoints = 0;
+                    String? enhancementName;
+                    if (addEnhancement && selectedEnhancementKey != null && currentCrusade != null) {
+                      final enhancements = ReferenceDataService.getEnhancements(
+                        currentCrusade.faction,
+                        currentCrusade.detachment,
+                      );
+                      for (final enh in enhancements) {
+                        if (enh['name'] == selectedEnhancementKey) {
+                          enhancementPoints = enh['points'] as int;
+                          enhancementName = selectedEnhancementKey;
+                          break;
+                        }
+                      }
+                    }
 
                     final newUnit = UnitOrGroup(
                       id: const Uuid().v4(),

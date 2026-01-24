@@ -6,27 +6,25 @@
 
 ### Recent Session Summary (2026-01-24)
 
-This session implemented major gameplay infrastructure: the Roster system for assembling battle-ready forces, the Play section with battle size selection and points indicators, and a full Campaign Manager that allows multiple crusade forces to participate in shared campaigns with win/loss tracking.
+This session focused on UX improvements and data management enhancements: added Exit app button to navigation, made Play conditional on having a loaded crusade, upgraded Google Drive backup to include campaigns (v1.1), added group deletion confirmation with ungroup option, and improved the Renowned Heroes enhancement flow.
 
 ---
 
 ## 📊 Metrics
 
 ### Code Changes
-- **Files Modified:** 6
-- **Lines Added:** ~150
-- **Lines Modified:** ~50
-- **New Methods:** 4
-- **Bug Fixes:** 1 (critical async/sync issue)
+- **Files Modified:** 5
+- **Lines Added:** ~120
+- **Lines Modified:** ~60
+- **New Methods:** 3
+- **Bug Fixes:** 2 (warnings)
 
 ### Files Touched
-1. `lib/services/reference_data_service.dart` - Added sync methods
-2. `lib/services/storage_service.dart` - Added delete functionality
-3. `lib/providers/crusade_provider.dart` - Added delete crusade method
-4. `lib/screens/oob_modify_screen.dart` - Fixed async issues
-5. `lib/screens/crusade_dashboard_screen.dart` - Added disband feature
-6. `lib/screens/landing_screen.dart` - Removed redundant UI
-7. `assets/data/units/adepta_sororitas.json` - Enhanced unit data
+1. `lib/main.dart` - Exit button, conditional Play button, refactored navigation
+2. `lib/screens/settings_screen.dart` - Clear campaigns with crusades
+3. `lib/services/google_drive_service.dart` - Backup/restore campaigns (v1.1)
+4. `lib/screens/oob_modify_screen.dart` - Group delete confirmation, enhancement filtering
+5. `lib/screens/campaign_view_screen.dart` - Removed unused import
 
 ---
 
@@ -39,8 +37,9 @@ This session implemented major gameplay infrastructure: the Roster system for as
 - ✅ Auto-refresh crusade list after changes
 
 ### Unit Data Structure
-- ✅ Enhanced unit JSON schema with `role` and `isEpicHero` fields
-- ✅ Adepta Sororitas faction complete with 32 units
+- ✅ Enhanced unit JSON schema with `role`, `isEpicHero`, and `isCharacter` fields
+- ✅ All 27 factions with detachments and enhancements defined
+- ✅ 27/28 unit data files populated (~1,248 total units)
 - ✅ Role-based UI logic (Warlord designation for HQ non-Epic Heroes)
 - ✅ Synchronous data access methods for cached unit data
 
@@ -48,13 +47,22 @@ This session implemented major gameplay infrastructure: the Roster system for as
 - ✅ Fixed async/sync mismatch in OOB modify screen
 - ✅ Fixed routing error when disbanding crusades
 - ✅ Removed redundant refresh button from landing screen
+- ✅ Fixed unused import warning in campaign_view_screen
+- ✅ Fixed unnecessary non-null assertion in oob_modify_screen
+
+### UX Improvements
+- ✅ Exit app button with confirmation dialog
+- ✅ Play button hidden when no crusade loaded
+- ✅ Group deletion confirmation with "Ungroup Only" option
+- ✅ Warlord toggle hidden when warlord already exists
+- ✅ Renowned Heroes enhancement limited to current detachment
 
 ---
 
 ## 🚧 In Progress
 
 ### Next Immediate Tasks
-- [ ] Complete unit data for remaining 22 factions
+- [ ] Create Deathwatch unit data file (only missing faction)
 - [ ] In-game unit tracking (kills, destroyed status, marked for greatness)
 - [ ] Post-game flow (experience, battle honors, requisitions)
 - [ ] Implement maintenance/upgrade system
@@ -69,14 +77,14 @@ This session implemented major gameplay infrastructure: the Roster system for as
 | Load Crusade | ✅ Complete | From local storage |
 | Delete Crusade | ✅ Complete | With confirmation dialog |
 | Modify OOB | ✅ Complete | Add/edit/delete units and groups |
-| Unit Data (Adepta Sororitas) | ✅ Complete | 32 units with full metadata |
-| Unit Data (Other Factions) | ⏳ Pending | 22 factions remaining |
+| Unit Data (All Factions) | ✅ Complete | 27/28 factions populated (~1,248 units) |
+| Unit Data (Deathwatch) | ⏳ Pending | Only missing unit file |
 | Assemble Roster | ✅ Complete | Create/view/edit rosters from OOB |
 | Play Game | 🚧 In Progress | Battle size selection, roster selection done |
 | Campaign Manager | ✅ Complete | Multi-force campaigns with win tracking |
 | Maintenance Mode | ⏳ Planned | Coming soon |
 | Resources | ⏳ Planned | Coming soon |
-| Google Drive Sync | ✅ Complete | Push/pull with conflict resolution |
+| Google Drive Sync | ✅ Complete | Push/pull crusades + campaigns (v1.1) |
 
 ---
 
@@ -108,10 +116,40 @@ This session implemented major gameplay infrastructure: the Roster system for as
 ## 📈 Progress Tracking
 
 ### Faction Data Completion
-- **Completed:** 1/23 (4.3%)
-  - Adepta Sororitas ✅
-- **Remaining:** 22 factions
-  - Adeptus Astartes, Adeptus Custodes, Adeptus Mechanicus, Aeldari, Astra Militarum, Black Templars, Blood Angels, Chaos Daemons, Chaos Knights, Chaos Space Marines, Dark Angels, Death Guard, Deathwatch, Drukhari, Emperor's Children, Genestealer Cults, Grey Knights, Imperial Agents, Imperial Knights, Leagues of Votann, Necrons, Orks, Space Wolves, T'au Empire, Thousand Sons, Tyranids, World Eaters
+- **Factions & Detachments:** 27/27 ✅ (100%)
+- **Unit Data Files:** 27/28 (96.4%)
+
+| Faction | Units | Status |
+|---------|-------|--------|
+| Adepta Sororitas | 32 | ✅ |
+| Adeptus Astartes | 99 | ✅ |
+| Adeptus Custodes | 15 | ✅ |
+| Adeptus Mechanicus | 31 | ✅ |
+| Aeldari | 51 | ✅ |
+| Astra Militarum | 64 | ✅ |
+| Black Templars | 103 | ✅ |
+| Blood Angels | 118 | ✅ |
+| Chaos Daemons | 53 | ✅ |
+| Chaos Knights | 11 | ✅ |
+| Chaos Space Marines | 47 | ✅ |
+| Dark Angels | 109 | ✅ |
+| Death Guard | 36 | ✅ |
+| Deathwatch | - | ⏳ Missing |
+| Drukhari | 23 | ✅ |
+| Emperor's Children | 22 | ✅ |
+| Genestealer Cults | 24 | ✅ |
+| Grey Knights | 25 | ✅ |
+| Imperial Agents | 28 | ✅ |
+| Imperial Knights | 12 | ✅ |
+| Leagues of Votann | 21 | ✅ |
+| Necrons | 47 | ✅ |
+| Orks | 52 | ✅ |
+| Space Wolves | 106 | ✅ |
+| T'au Empire | 38 | ✅ |
+| Thousand Sons | 34 | ✅ |
+| Tyranids | 33 | ✅ |
+| World Eaters | 19 | ✅ |
+| **Total** | **~1,248** | |
 
 ---
 
@@ -121,7 +159,7 @@ This session implemented major gameplay infrastructure: the Roster system for as
 - [x] Crusade CRUD operations
 - [x] OOB management
 - [x] Google Drive sync
-- [ ] Complete faction data (1/23 done)
+- [x] Complete faction data (27/28 done, only Deathwatch missing)
 
 ### Phase 2: Gameplay Features (Current)
 - [x] Roster assembly
@@ -146,9 +184,10 @@ None currently tracked.
 
 ## 💡 Technical Debt
 
-1. **Unit Data Population** - Need to populate 22 remaining factions
-2. **Error Handling** - Could add more robust error handling in sync operations
-3. **Testing** - No automated tests yet
+1. **Deathwatch Unit Data** - Create deathwatch.json unit file (only missing faction)
+2. **Filename Inconsistency** - `black_templar.json` should be `black_templars.json` (plural)
+3. **Error Handling** - Could add more robust error handling in sync operations
+4. **Testing** - No automated tests yet
 
 ---
 

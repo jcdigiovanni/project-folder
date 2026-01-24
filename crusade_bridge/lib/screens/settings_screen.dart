@@ -125,7 +125,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       builder: (context) => AlertDialog(
         title: const Text('Clear Local Data'),
         content: const Text(
-          'This will delete all locally stored crusades. This action cannot be undone. Make sure you have backups on Google Drive.',
+          'This will delete all locally stored crusades and campaigns. This action cannot be undone. Make sure you have backups on Google Drive.',
         ),
         actions: [
           TextButton(
@@ -139,6 +139,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               try {
                 // Clear all crusades from Hive
                 await StorageService.crusadeBox.clear();
+
+                // Clear all campaigns from Hive
+                await StorageService.campaignBox.clear();
 
                 // Reset the current crusade in the provider
                 ref.read(currentCrusadeNotifierProvider.notifier).clearCurrent();
@@ -426,7 +429,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Clear all locally stored crusades. This action cannot be undone.',
+                    'Clear all locally stored crusades and campaigns. This action cannot be undone.',
                     style: TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                   const SizedBox(height: 12),

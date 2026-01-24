@@ -12,54 +12,6 @@
       "isCharacter": true
     },
     {
-      "name": "Bloodletters",
-      "role": "Troops",
-      "sizeOptions": [10],
-      "pointsOptions": [110],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
-      "name": "Bloodmaster",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [65],
-      "isEpicHero": false,
-      "isCharacter": true
-    },
-    {
-      "name": "Bloodthirster",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [305],
-      "isEpicHero": false,
-      "isCharacter": true
-    },
-    {
-      "name": "Chaos Land Raider",
-      "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [220],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
-      "name": "Chaos Rhino",
-      "role": "Dedicated Transport",
-      "sizeOptions": [1],
-      "pointsOptions": [80],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
-      "name": "Chaos Spawn",
-      "role": "Elites",
-      "sizeOptions": [2],
-      "pointsOptions": [70],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
       "name": "Eightbound",
       "role": "Elites",
       "sizeOptions": [3, 6],
@@ -76,15 +28,7 @@
       "isCharacter": false
     },
     {
-      "name": "Helbrute",
-      "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [130],
-      "isEpicHero": false,
-      "isCharacter": false
-    },
-    {
-      "name": "Jackhals",
+      "name": "Jakhals",
       "role": "Elites",
       "sizeOptions": [5, 10],
       "pointsOptions": [65, 130],
@@ -116,20 +60,12 @@
       "isCharacter": true
     },
     {
-      "name": "Skull Altar",
-      "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [105],
+      "name": "World Eaters Chaos Spawn",
+      "role": "Elites",
+      "sizeOptions": [2],
+      "pointsOptions": [70],
       "isEpicHero": false,
       "isCharacter": false
-    },
-    {
-      "name": "Skulltaker",
-      "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [85],
-      "isEpicHero": true,
-      "isCharacter": true
     },
     {
       "name": "World Eaters Daemon Prince",
@@ -148,11 +84,131 @@
       "isCharacter": true
     },
     {
+      "name": "World Eaters Helbrute",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [130],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "World Eaters Land Raider",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [220],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
       "name": "World Eaters Lord on Juggernaut",
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [100],
       "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "World Eaters Rhino",
+      "role": "Dedicated Transport",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Bloodcrushers",
+      "role": "Fast Attack",
+      "sizeOptions": [3, 6],
+      "pointsOptions": [110, 220],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Bloodletters",
+      "role": "Troops",
+      "sizeOptions": [10],
+      "pointsOptions": [110],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Bloodmaster",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [65],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Bloodthirster",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [305],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Flesh Hounds",
+      "role": "Fast Attack",
+      "sizeOptions": [5, 10],
+      "pointsOptions": [75, 150],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Karanak",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [75],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Rendmaster on Blood Throne",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [165],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Skarbrand",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [305],
+      "isEpicHero": true,
+      "isCharacter": true
+    },
+    {
+      "name": "Skull Altar",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [105],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Skull Cannon",
+      "role": "Heavy Support",
+      "sizeOptions": [1],
+      "pointsOptions": [95],
+      "isEpicHero": false,
+      "isCharacter": false
+    },
+    {
+      "name": "Skullmaster",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [100],
+      "isEpicHero": false,
+      "isCharacter": true
+    },
+    {
+      "name": "Skulltaker",
+      "role": "HQ",
+      "sizeOptions": [1],
+      "pointsOptions": [85],
+      "isEpicHero": true,
       "isCharacter": true
     }
   ]
