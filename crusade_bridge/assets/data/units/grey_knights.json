@@ -1,0 +1,174 @@
+[
+  {
+    "name": "Brother-Captain",
+    "points": 90,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Brotherhood Champion",
+    "points": 70,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Brotherhood Chaplain",
+    "points": 65,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Brotherhood Librarian",
+    "points": 80,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Brotherhood Techmarine",
+    "points": 70,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Brotherhood Terminator Squad",
+    "points": [
+      { "models": 4, "pts": 160 },
+      { "models": 5, "pts": 200 },
+      { "models": 8, "pts": 320 },
+      { "models": 10, "pts": 400 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Castellan Crowe",
+    "points": 90,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Grand Master",
+    "points": 95,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Grand Master in Nemesis Dreadknight",
+    "points": 225,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Grand Master Voldus",
+    "points": 110,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Interceptor Squad",
+    "points": [
+      { "models": 5, "pts": 125 },
+      { "models": 10, "pts": 250 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Land Raider",
+    "points": 220,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Land Raider Crusader",
+    "points": 220,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Land Raider Redeemer",
+    "points": 270,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Nemesis Dreadknight",
+    "points": 210,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Paladin Squad",
+    "points": [
+      { "models": 4, "pts": 180 },
+      { "models": 5, "pts": 225 },
+      { "models": 8, "pts": 360 },
+      { "models": 10, "pts": 450 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Purgation Squad",
+    "points": [
+      { "models": 5, "pts": 115 },
+      { "models": 10, "pts": 230 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Purifier Squad",
+    "points": [
+      { "models": 5, "pts": 125 },
+      { "models": 10, "pts": 250 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Razorback",
+    "points": 85,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Rhino",
+    "points": 80,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Stormhawk Interceptor",
+    "points": 160,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Stormraven Gunship",
+    "points": 280,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Stormtalon Gunship",
+    "points": 170,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Strike Squad",
+    "points": [
+      { "models": 5, "pts": 120 },
+      { "models": 10, "pts": 240 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Venerable Dreadnought",
+    "points": 140,
+    "isCharacter": false,
+    "isEpicHero": false
+  }
+]

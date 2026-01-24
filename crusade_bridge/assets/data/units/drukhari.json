@@ -1,0 +1,156 @@
+[
+  {
+    "name": "Archon",
+    "points": 80,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Cronos",
+    "points": 55,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Drazhar",
+    "points": 85,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Haemonculus",
+    "points": 70,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Hand of the Archon",
+    "points": 125,
+    "modelsNote": "10 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Hellions",
+    "points": 85,
+    "modelsNote": "5 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Incubi",
+    "points": 90,
+    "modelsNote": "5 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Kabalite Warriors",
+    "points": 115,
+    "modelsNote": "10 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Lady Malys",
+    "points": 100,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Lelith Hesperax",
+    "points": 85,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Mandrakes",
+    "points": [
+      { "models": 5, "pts": 75 },
+      { "models": 10, "pts": 150 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Raider",
+    "points": 85,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Ravager",
+    "points": 110,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Razorwing Jetfighter",
+    "points": 170,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Reavers",
+    "points": 70,
+    "modelsNote": "3 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Scourges with Heavy Weapons",
+    "points": 130,
+    "modelsNote": "5 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Scourges with Shardcarbines",
+    "points": 80,
+    "modelsNote": "5 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Succubus",
+    "points": 50,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Talos",
+    "points": 80,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Venom",
+    "points": 160,
+    "modelsNote": "2 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Voidraven Bomber",
+    "points": 245,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Wracks",
+    "points": [
+      { "models": 5, "pts": 65 },
+      { "models": 8, "pts": 105 },
+      { "models": 10, "pts": 130 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Wyches",
+    "points": 90,
+    "modelsNote": "10 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  }
+]

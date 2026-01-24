@@ -1,0 +1,120 @@
+[
+  {
+    "name": "Allarus Custodians",
+    "points": [
+      { "models": 3, "pts": 165 },
+      { "models": 5, "pts": 275 },
+      { "models": 6, "pts": 330 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Blade Champion",
+    "points": 75,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Custodian Guard",
+    "points": [
+      { "models": 3, "pts": 135 },
+      { "models": 5, "pts": 225 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Custodian Wardens",
+    "points": [
+      { "models": 3, "pts": 150 },
+      { "models": 5, "pts": 250 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Knight Centura",
+    "points": 55,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Prosecutors",
+    "points": [
+      { "models": 5, "pts": 50 },
+      { "models": 10, "pts": 100 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Shield-Captain",
+    "points": 120,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Shield-Captain in Allarus Terminator Armour",
+    "points": 130,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Shield-Captain on Dawneagle Jetbike",
+    "points": 150,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Trajann Valoris",
+    "points": 140,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Valerian",
+    "points": 110,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Venerable Contemptor Dreadnought",
+    "points": 170,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Venerable Land Raider",
+    "points": 220,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Vertus Praetors",
+    "points": [
+      { "models": 3, "pts": 225 },
+      { "models": 6, "pts": 450 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Vigilators",
+    "points": [
+      { "models": 5, "pts": 65 },
+      { "models": 10, "pts": 130 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Witchseekers",
+    "points": [
+      { "models": 5, "pts": 55 },
+      { "models": 10, "pts": 110 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  }
+]

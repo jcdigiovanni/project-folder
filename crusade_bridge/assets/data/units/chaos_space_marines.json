@@ -1,0 +1,208 @@
+[
+  {
+    "name": "Abaddon the Despoiler",
+    "points": 310,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Accursed Cultists",
+    "points": 70,
+    "modelsNote": "8 Mutants + 8 Torments",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Chaos Bikers",
+    "points": [
+      { "models": 3, "pts": 70 },
+      { "models": 6, "pts": 140 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Chaos Cultists",
+    "points": [
+      { "models": 10, "pts": 55 },
+      { "models": 20, "pts": 110 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Chaos Lord",
+    "points": 75,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Chaos Lord in Terminator Armour",
+    "points": 95,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Chaos Lord on Juggernaut of Khorne",
+    "points": 105,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Chaos Rhino",
+    "points": 75,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Chaos Space Marines",
+    "points": [
+      { "models": 5, "pts": 90 },
+      { "models": 10, "pts": 180 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Chaos Terminator Squad",
+    "points": [
+      { "models": 5, "pts": 190 },
+      { "models": 10, "pts": 380 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Chosen",
+    "points": [
+      { "models": 5, "pts": 125 },
+      { "models": 10, "pts": 250 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Cypher",
+    "points": 80,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Dark Apostle",
+    "points": 75,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Dark Commune",
+    "points": 55,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Fabius Bile",
+    "points": 100,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Forgefiend",
+    "points": 135,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Haarken Worldclaimer",
+    "points": 110,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Havocs",
+    "points": 130,
+    "modelsNote": "5 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Helbrute",
+    "points": 130,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Heldrake",
+    "points": 200,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Huron Blackheart",
+    "points": 90,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Jump Pack Lord",
+    "points": 90,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Legionaries",
+    "points": [
+      { "models": 5, "pts": 90 },
+      { "models": 10, "pts": 180 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Lucius the Eternal",
+    "points": 115,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Master of Executions",
+    "points": 85,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Master of Possession",
+    "points": 80,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Possessed",
+    "points": [
+      { "models": 5, "pts": 140 },
+      { "models": 10, "pts": 280 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Vashtorr the Arkifane",
+    "points": 215,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Venomcrawler",
+    "points": 120,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Warp Talons",
+    "points": [
+      { "models": 5, "pts": 100 },
+      { "models": 10, "pts": 200 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  }
+]

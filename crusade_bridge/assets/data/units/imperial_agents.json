@@ -1,0 +1,91 @@
+[
+  {
+    "name": "Callidus Assassin",
+    "points": 90,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Culexus Assassin",
+    "points": 85,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Eversor Assassin",
+    "points": 95,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Vindicare Assassin",
+    "points": 90,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Exaction Squad",
+    "points": 35,
+    "modelsNote": "5 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Inquisitorial Henchmen",
+    "points": 40,
+    "modelsNote": "Variable composition",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Inquisitor",
+    "points": 55,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Inquisitor Coteaz",
+    "points": 75,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Inquisitor Greyfax",
+    "points": 75,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Inquisitor Karamazov",
+    "points": 100,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Lord Inquisitor Kyria Draxus",
+    "points": 75,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Rogue Trader Entourage",
+    "points": 80,
+    "modelsNote": "Variable composition",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Subductor Squad",
+    "points": 70,
+    "modelsNote": "5 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Vigilant Squad",
+    "points": 70,
+    "modelsNote": "5 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  }
+]

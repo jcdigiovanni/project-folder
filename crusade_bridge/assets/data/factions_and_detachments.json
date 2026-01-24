@@ -1,343 +1,1611 @@
 {
-  "version": "2.0",
-  "lastUpdated": "2026-01-23",
+  "version": "3.8",
+  "lastUpdated": "2026-01-24",
   "factions": {
     "Adepta Sororitas": {
       "icon": "assets/icons/factions/adepta_sororitas.png",
       "detachments": {
         "Army of Faith": {
-          "enhancements": []
+          "enhancements": [
+            {"name": "Blade of Saint Ellynor", "points": 15},
+            {"name": "Divine Aspect", "points": 5},
+            {"name": "Litanies of Faith", "points": 10},
+            {"name": "Triptych of the Macharian Crusade", "points": 20}
+          ]
         },
         "Bringers of Flame": {
           "enhancements": [
-            {"name": "Righteous Rage", "points": 15},
-            {"name": "Manual of Saint Griselda", "points": 20},
             {"name": "Fire and Fury", "points": 30},
-            {"name": "Iron Surpice of Saint Istalela", "points": 10}
+            {"name": "Iron Surplice of Saint Istalela", "points": 10},
+            {"name": "Manual of Saint Griselda", "points": 20},
+            {"name": "Righteous Rage", "points": 15}
           ]
         },
         "Champions of Faith": {
-          "enhancements": []
+          "enhancements": [
+            {"name": "Eyes of the Oracle", "points": 10},
+            {"name": "Mark of Devotion", "points": 30},
+            {"name": "Sanctified Amulet", "points": 25},
+            {"name": "Triptych of Judgement", "points": 15}
+          ]
         },
         "Hallowed Martyrs": {
-          "enhancements": []
+          "enhancements": [
+            {"name": "Chaplet of Sacrifice", "points": 25},
+            {"name": "Mantle of Ophelia", "points": 20},
+            {"name": "Saintly Example", "points": 10},
+            {"name": "Through Suffering, Strength", "points": 25}
+          ]
         },
         "Penitent Host": {
-          "enhancements": []
+          "enhancements": [
+            {"name": "Catechism of Divine Penitence", "points": 20},
+            {"name": "Psalm of Righteous Judgement", "points": 30},
+            {"name": "Refrain of Enduring Faith", "points": 25},
+            {"name": "Verse of Holy Piety", "points": 15}
+          ]
         }
       }
     },
     "Adeptus Astartes": {
       "icon": "assets/icons/factions/space_marines.png",
       "detachments": {
-        "1st Company Task Force": {"enhancements": []},
-        "Anvil Siege Force": {"enhancements": []},
-        "Bastion Task Force": {"enhancements": []},
-        "Blade of Ultramar": {"enhancements": []},
-        "Emperor's Shield": {"enhancements": []},
-        "Firestorm Assault Force": {"enhancements": []},
-        "Forgefather's Seekers": {"enhancements": []},
-        "Gladius Task Force": {"enhancements": []},
-        "Hammer of Avernii": {"enhancements": []},
-        "Ironstorm Spearhead": {"enhancements": []},
-        "Librarius Conclave": {"enhancements": []},
-        "Orbital Assault Force": {"enhancements": []},
-        "Reclamation Force": {"enhancements": []},
-        "Shadowmark Talon": {"enhancements": []},
-        "Spearpoint Task Force": {"enhancements": []},
-        "Vanguard Spearhead": {"enhancements": []}
+        "1st Company Task Force": {
+          "enhancements": [
+            {"name": "Fear Made Manifest", "points": 30},
+            {"name": "Iron Resolve", "points": 15},
+            {"name": "Rites of War", "points": 10},
+            {"name": "The Imperium's Sword", "points": 25}
+          ]
+        },
+        "Anvil Siege Force": {
+          "enhancements": [
+            {"name": "Architect of War", "points": 25},
+            {"name": "Fleet Commander", "points": 15},
+            {"name": "Indomitable Fury", "points": 20},
+            {"name": "Stoic Defender", "points": 15}
+          ]
+        },
+        "Bastion Task Force": {
+          "enhancements": [
+            {"name": "Blades of Valour", "points": 15},
+            {"name": "Bombast Omnivox", "points": 15},
+            {"name": "Eye of the Primarch", "points": 10},
+            {"name": "Hero of the Chapter", "points": 20}
+          ]
+        },
+        "Blade of Ultramar": {
+          "enhancements": [
+            {"name": "Armour of Antoninus", "points": 10},
+            {"name": "Oath of Macragge", "points": 15},
+            {"name": "Student of the Codex", "points": 20},
+            {"name": "Veteran of Behemoth", "points": 25}
+          ]
+        },
+        "Emperor's Shield": {
+          "enhancements": [
+            {"name": "Champion of the Feast", "points": 25},
+            {"name": "Disciple of Rhetoricus", "points": 10},
+            {"name": "Indomitable Champion", "points": 20},
+            {"name": "Malodraxian Standard", "points": 20}
+          ]
+        },
+        "Firestorm Assault Force": {
+          "enhancements": [
+            {"name": "Adamantine Mantle", "points": 20},
+            {"name": "Champion of Humanity", "points": 10},
+            {"name": "Forged in Battle", "points": 15},
+            {"name": "War-tempered Artifice", "points": 25}
+          ]
+        },
+        "Forgefather's Seekers": {
+          "enhancements": [
+            {"name": "Adamantine Mantle", "points": 20},
+            {"name": "Forged in Battle", "points": 15},
+            {"name": "Immolator", "points": 10},
+            {"name": "War-tempered Artifice", "points": 25}
+          ]
+        },
+        "Gladius Task Force": {
+          "enhancements": [
+            {"name": "Adept of the Codex", "points": 20},
+            {"name": "Artificer Armour", "points": 10},
+            {"name": "Fire Discipline", "points": 25},
+            {"name": "The Honour Vehement", "points": 15}
+          ]
+        },
+        "Hammer of Avernii": {
+          "enhancements": [
+            {"name": "Iron Laurel", "points": 10},
+            {"name": "Medusan Roar", "points": 30},
+            {"name": "Spiritus Ferrum", "points": 25},
+            {"name": "Steel Font", "points": 15}
+          ]
+        },
+        "Ironstorm Spearhead": {
+          "enhancements": [
+            {"name": "Adept of the Omnissiah", "points": 35},
+            {"name": "Master of Machine War", "points": 20},
+            {"name": "Target Augury Web", "points": 30},
+            {"name": "The Flesh is Weak", "points": 10}
+          ]
+        },
+        "Librarius Conclave": {
+          "enhancements": [
+            {"name": "Celerity", "points": 30},
+            {"name": "Fusillade", "points": 35},
+            {"name": "Obfuscation", "points": 20},
+            {"name": "Prescience", "points": 25}
+          ]
+        },
+        "Orbital Assault Force": {
+          "enhancements": [
+            {"name": "Dedicated Gunship", "points": 15},
+            {"name": "Laurels of Thunder", "points": 15},
+            {"name": "Orbital Uplink Reliquary", "points": 25},
+            {"name": "Veteran of the Vanguard", "points": 20}
+          ]
+        },
+        "Reclamation Force": {
+          "enhancements": [
+            {"name": "Avenging Avatar", "points": 10},
+            {"name": "Liberation", "points": 25},
+            {"name": "Scroll of Proclamation", "points": 15},
+            {"name": "Seals of Reconquest", "points": 20}
+          ]
+        },
+        "Shadowmark Talon": {
+          "enhancements": [
+            {"name": "Blackwing Shroud", "points": 25},
+            {"name": "Coronal Susurrant", "points": 30},
+            {"name": "Hunter's Instincts", "points": 25},
+            {"name": "Umbral Raptor", "points": 15}
+          ]
+        },
+        "Spearpoint Task Force": {
+          "enhancements": [
+            {"name": "Chogorian Huntmaster", "points": 25},
+            {"name": "Hunter's Eye", "points": 20},
+            {"name": "Spearpoint Paragon", "points": 25},
+            {"name": "Stormseers' Wisdom", "points": 15}
+          ]
+        },
+        "Vanguard Spearhead": {
+          "enhancements": [
+            {"name": "Execute and Redeploy", "points": 20},
+            {"name": "Ghostweave Cloak", "points": 15},
+            {"name": "Shadow War Veteran", "points": 30},
+            {"name": "The Blade Driven Deep", "points": 25}
+          ]
+        }
       }
     },
     "Adeptus Custodes": {
       "icon": "assets/icons/factions/adeptus_custodes.png",
       "detachments": {
-        "Auric Champions": {"enhancements": []},
-        "Lions of the Emperor": {"enhancements": []},
-        "Null Maiden Vigil": {"enhancements": []},
-        "Shield Host": {"enhancements": []},
-        "Solar Spearhead": {"enhancements": []},
-        "Talons of the Emperor": {"enhancements": []}
+        "Auric Champions": {
+          "enhancements": [
+            {"name": "Blade Imperator", "points": 25},
+            {"name": "Inspirational Exemplar", "points": 10},
+            {"name": "Martial Philosopher", "points": 30},
+            {"name": "Veiled Blade", "points": 25}
+          ]
+        },
+        "Lions of the Emperor": {
+          "enhancements": [
+            {"name": "Admonimortis", "points": 10},
+            {"name": "Fierce Conqueror", "points": 15},
+            {"name": "Praesidius", "points": 25},
+            {"name": "Superior Creation", "points": 25}
+          ]
+        },
+        "Null Maiden Vigil": {
+          "enhancements": [
+            {"name": "Enhanced Voidsheen Cloak", "points": 10},
+            {"name": "Huntress' Eye", "points": 15},
+            {"name": "Oblivion Knight", "points": 25},
+            {"name": "Raptor Blade", "points": 5}
+          ]
+        },
+        "Shield Host": {
+          "enhancements": [
+            {"name": "Auric Mantle", "points": 15},
+            {"name": "Castellan's Mark", "points": 20},
+            {"name": "From the Hall of Armouries", "points": 25},
+            {"name": "Panoptispex", "points": 5}
+          ]
+        },
+        "Solar Spearhead": {
+          "enhancements": [
+            {"name": "Adamantine Talisman", "points": 25},
+            {"name": "Augury Uplink", "points": 35},
+            {"name": "Honoured Fallen", "points": 15},
+            {"name": "Veteran of the Kataphraktoi", "points": 10}
+          ]
+        },
+        "Talons of the Emperor": {
+          "enhancements": [
+            {"name": "Aegis Projector", "points": 20},
+            {"name": "Champion of the Imperium", "points": 25},
+            {"name": "Gift of Terran Artifice", "points": 15},
+            {"name": "Radiant Mantle", "points": 30}
+          ]
+        }
       }
     },
     "Adeptus Mechanicus": {
       "icon": "assets/icons/factions/adeptus_mechanicus.png",
       "detachments": {
-        "Cohort Cybernetica": {"enhancements": []},
-        "Data-Psalm Conclave": {"enhancements": []},
-        "Explorator Maniple": {"enhancements": []},
-        "Haloscreed Battle Clade": {"enhancements": []},
-        "Rad-zone Corps": {"enhancements": []},
-        "Skitarii Hunter Cohort": {"enhancements": []}
+        "Cohort Cybernetica": {
+          "enhancements": [
+            {"name": "Arch-negator", "points": 10},
+            {"name": "Emotionless Clarity", "points": 15},
+            {"name": "Lord of Machines", "points": 20},
+            {"name": "Necromechanic", "points": 25}
+          ]
+        },
+        "Data-Psalm Conclave": {
+          "enhancements": [
+            {"name": "Data-blessed Autosermon", "points": 20},
+            {"name": "Mantle of the Gnosticarh", "points": 15},
+            {"name": "Mechanicus Locum", "points": 10},
+            {"name": "Temporcopia", "points": 25}
+          ]
+        },
+        "Explorator Maniple": {
+          "enhancements": [
+            {"name": "Artisan", "points": 15},
+            {"name": "Genetor", "points": 25},
+            {"name": "Logis", "points": 20},
+            {"name": "Magos", "points": 15}
+          ]
+        },
+        "Haloscreed Battle Clade": {
+          "enhancements": [
+            {"name": "Cognitive Reinforcement", "points": 35},
+            {"name": "Inloaded Lethality", "points": 15},
+            {"name": "Sanctified Ordnance", "points": 10},
+            {"name": "Transoracular Quad Wafers", "points": 15}
+          ]
+        },
+        "Rad-zone Corps": {
+          "enhancements": [
+            {"name": "Autoclavic Denunciation", "points": 15},
+            {"name": "Malphonic Susurrus", "points": 20},
+            {"name": "Peerless Eradicator", "points": 20},
+            {"name": "Radial Suffusion", "points": 25}
+          ]
+        },
+        "Skitarii Hunter Cohort": {
+          "enhancements": [
+            {"name": "Battle-sphere Uplink", "points": 30},
+            {"name": "Cantic Thrallnet", "points": 25},
+            {"name": "Clandestine Infiltrator", "points": 20},
+            {"name": "Veiled Hunter", "points": 10}
+          ]
+        }
       }
     },
     "Aeldari": {
       "icon": "assets/icons/factions/aeldari.png",
       "detachments": {
-        "Armoured Warhost": {"enhancements": []},
-        "Aspect Host": {"enhancements": []},
-        "Devoted of Ynnead": {"enhancements": []},
-        "Ghosts of the Webway": {"enhancements": []},
-        "Guardian Battlehost": {"enhancements": []},
-        "Seer Council": {"enhancements": []},
-        "Spirit Conclave": {"enhancements": []},
-        "Serpent's Brood": {"enhancements": []},
-        "Warhost": {"enhancements": []},
-        "Windrider Host": {"enhancements": []}
+        "Armoured Warhost": {
+          "enhancements": [
+            {"name": "Guiding Presence", "points": 25},
+            {"name": "Guileful Strategist", "points": 15},
+            {"name": "Harmonisation Matrix", "points": 30},
+            {"name": "Spirit Stone of Raelyth", "points": 20}
+          ]
+        },
+        "Aspect Host": {
+          "enhancements": [
+            {"name": "Aspect of Murder", "points": 25},
+            {"name": "Mantle of Wisdom", "points": 30},
+            {"name": "Shimmerstone", "points": 15},
+            {"name": "Strategic Savant", "points": 15}
+          ]
+        },
+        "Devoted of Ynnead": {
+          "enhancements": [
+            {"name": "Borrowed Vigour", "points": 10},
+            {"name": "Gaze of Ynnead", "points": 15},
+            {"name": "Morbid Might", "points": 15},
+            {"name": "Storm of Whispers", "points": 10}
+          ]
+        },
+        "Ghosts of the Webway": {
+          "enhancements": [
+            {"name": "Cegorach's Coil", "points": 25},
+            {"name": "Mask of Secrets", "points": 15},
+            {"name": "Mistweave", "points": 15},
+            {"name": "Murder's Jest", "points": 20}
+          ]
+        },
+        "Guardian Battlehost": {
+          "enhancements": [
+            {"name": "Breath of Vaul", "points": 10},
+            {"name": "Craftworld's Champion", "points": 25},
+            {"name": "Ethereal Pathway", "points": 30},
+            {"name": "Protector of the Paths", "points": 20}
+          ]
+        },
+        "Seer Council": {
+          "enhancements": [
+            {"name": "Lucid Eye", "points": 30},
+            {"name": "Runes of Warding", "points": 25},
+            {"name": "Stone of Eldritch Fury", "points": 15},
+            {"name": "Torc of Morai-Heg", "points": 20}
+          ]
+        },
+        "Spirit Conclave": {
+          "enhancements": [
+            {"name": "Higher Duty", "points": 25},
+            {"name": "Light of Clarity", "points": 30},
+            {"name": "Rune of Mists", "points": 10},
+            {"name": "Stave of Kurnous", "points": 15}
+          ]
+        },
+        "Serpent's Brood": {
+          "enhancements": [
+            {"name": "Fanged Leer", "points": 10},
+            {"name": "Key of Ghosts", "points": 20},
+            {"name": "Shedskin Raiment", "points": 25},
+            {"name": "Weavers' Wail", "points": 20}
+          ]
+        },
+        "Warhost": {
+          "enhancements": [
+            {"name": "Gift of Foresight", "points": 15},
+            {"name": "Phoenix Gem", "points": 35},
+            {"name": "Psychic Destroyer", "points": 30},
+            {"name": "Timeless Strategist", "points": 15}
+          ]
+        },
+        "Windrider Host": {
+          "enhancements": [
+            {"name": "Echoes of Ulthanesh", "points": 20},
+            {"name": "Firstdrawn Blade", "points": 10},
+            {"name": "Mirage Field", "points": 25},
+            {"name": "Seersight Strike", "points": 15}
+          ]
+        }
       }
     },
     "Astra Militarum": {
       "icon": "assets/icons/factions/astra_militarum.png",
       "detachments": {
-        "Bridgehead Strike": {"enhancements": []},
-        "Combined Arms": {"enhancements": []},
-        "Grizzled Company": {"enhancements": []},
-        "Hammer of the Emperor": {"enhancements": []},
-        "Mechanised Assault": {"enhancements": []},
-        "Recon Element": {"enhancements": []},
-        "Siege Regiment": {"enhancements": []}
+        "Bridgehead Strike": {
+          "enhancements": [
+            {"name": "Advance Augury", "points": 15},
+            {"name": "Bombast-class Vox-array", "points": 35},
+            {"name": "Priority-drop Beacon", "points": 30},
+            {"name": "Shroud Projector", "points": 15}
+          ]
+        },
+        "Combined Arms": {
+          "enhancements": [
+            {"name": "Death Mask of Ollanius", "points": 10},
+            {"name": "Drill Commander", "points": 20},
+            {"name": "Grand Strategist", "points": 15},
+            {"name": "Reactive Command", "points": 15}
+          ]
+        },
+        "Grizzled Company": {
+          "enhancements": [
+            {"name": "Abhuman Detail", "points": 20},
+            {"name": "Aquilan Eye", "points": 20},
+            {"name": "Laud Hailer", "points": 10},
+            {"name": "Spec Ops Veteran", "points": 15}
+          ]
+        },
+        "Hammer of the Emperor": {
+          "enhancements": [
+            {"name": "Calm Under Fire", "points": 15},
+            {"name": "Indomitable Steed", "points": 15},
+            {"name": "Regimental Banner", "points": 20},
+            {"name": "Veteran Crew", "points": 20}
+          ]
+        },
+        "Mechanised Assault": {
+          "enhancements": [
+            {"name": "Bold Leadership", "points": 25},
+            {"name": "Sacred Unguents", "points": 10},
+            {"name": "Smoke Grenades", "points": 10},
+            {"name": "Vanguard Honours", "points": 15}
+          ]
+        },
+        "Recon Element": {
+          "enhancements": [
+            {"name": "Guerrilla Honours", "points": 25},
+            {"name": "Scare Gas Grenades", "points": 5},
+            {"name": "Survival Gear", "points": 5},
+            {"name": "Tripwires", "points": 20}
+          ]
+        },
+        "Siege Regiment": {
+          "enhancements": [
+            {"name": "Eager Advance", "points": 20},
+            {"name": "Flash Grenades", "points": 20},
+            {"name": "Legacy Sidearm", "points": 10},
+            {"name": "Stalwart's Honours", "points": 15}
+          ]
+        }
       }
     },
     "Black Templars": {
       "icon": "assets/icons/factions/black_templars.png",
       "detachments": {
-        "Champions of Vehemence": {"enhancements": []},
-        "Godhammer Assault Force": {"enhancements": []},
-        "Vindication Task Force": {"enhancements": []},
-        "Wrathful Procession": {"enhancements": []}
+        "Champions of Vehemence": {
+          "enhancements": [
+            {"name": "Incendiary Animus", "points": 25},
+            {"name": "Merciless Denunciation", "points": 25},
+            {"name": "Oathbound Exemplar", "points": 15},
+            {"name": "Zealous Vanguard", "points": 20}
+          ]
+        },
+        "Godhammer Assault Force": {
+          "enhancements": [
+            {"name": "Augury Servo-host", "points": 15},
+            {"name": "Battle-psalm Precentor", "points": 10},
+            {"name": "Herald of Sacred Slaughter", "points": 15},
+            {"name": "Paragon of Fury", "points": 25}
+          ]
+        },
+        "Vindication Task Force": {
+          "enhancements": [
+            {"name": "Consecrating Aura", "points": 25},
+            {"name": "Imperialis of the Eternal Crusade", "points": 15},
+            {"name": "Orb of the Emperor's Aegis", "points": 10},
+            {"name": "Warden of Honour", "points": 20}
+          ]
+        },
+        "Wrathful Procession": {
+          "enhancements": [
+            {"name": "Benediction of Fury", "points": 10},
+            {"name": "Pyrebrand", "points": 25},
+            {"name": "Sacred Rage", "points": 30},
+            {"name": "Taramond's Censer", "points": 15}
+          ]
+        }
       }
     },
     "Blood Angels": {
       "icon": "assets/icons/factions/blood_angels.png",
       "detachments": {
-        "Angelic Inheritors": {"enhancements": []},
-        "Liberator Assault Group": {"enhancements": []},
-        "Rage-crusted Onslaught": {"enhancements": []},
-        "The Angelic Host": {"enhancements": []},
-        "The Lost Brethren": {"enhancements": []}
+        "Angelic Inheritors": {
+          "enhancements": [
+            {"name": "Blazing Icon", "points": 20},
+            {"name": "Ordained Sacrifice", "points": 25},
+            {"name": "Prescient Flash", "points": 20},
+            {"name": "Troubling Visions", "points": 15}
+          ]
+        },
+        "Liberator Assault Group": {
+          "enhancements": [
+            {"name": "Gift of Foresight", "points": 15},
+            {"name": "Icon of the Angel", "points": 20},
+            {"name": "Rage-fuelled Warrior", "points": 35},
+            {"name": "Speed of the Primarch", "points": 25}
+          ]
+        },
+        "Rage-cursed Onslaught": {
+          "enhancements": [
+            {"name": "Angel's Fang", "points": 25},
+            {"name": "Carmine Reliquary", "points": 30},
+            {"name": "Master of the Red Thirst", "points": 25},
+            {"name": "Sanguinary Tear", "points": 35}
+          ]
+        },
+        "The Angelic Host": {
+          "enhancements": [
+            {"name": "Archangel's Shard", "points": 15},
+            {"name": "Artisan of War", "points": 20},
+            {"name": "Gleaming Pinions", "points": 25},
+            {"name": "Visage of Death", "points": 15}
+          ]
+        },
+        "The Lost Brethren": {
+          "enhancements": [
+            {"name": "Blood Shard", "points": 25},
+            {"name": "Sanguinius' Grace", "points": 20},
+            {"name": "To Slay the Warmaster", "points": 15},
+            {"name": "Vengeful Onslaught", "points": 10}
+          ]
+        }
       }
     },
     "Chaos Daemons": {
       "icon": "assets/icons/factions/chaos_daemons.png",
       "detachments": {
-        "Blood Legion": {"enhancements": []},
-        "Daemonic Incursion": {"enhancements": []},
-        "Legion of Excess": {"enhancements": []},
-        "Plague Legion": {"enhancements": []},
-        "Scintillating Legion": {"enhancements": []},
-        "Shadow Legion": {"enhancements": []}
+        "Blood Legion": {
+          "enhancements": [
+            {"name": "Brazenmaw", "points": 15},
+            {"name": "Fury's Cage", "points": 20},
+            {"name": "Gateway Into Damnation", "points": 10},
+            {"name": "Slaughterthirst", "points": 25}
+          ]
+        },
+        "Daemonic Incursion": {
+          "enhancements": [
+            {"name": "Argath, the King of Blades", "points": 20},
+            {"name": "Soulstealer", "points": 15},
+            {"name": "The Endless Gift", "points": 30},
+            {"name": "The Everstave", "points": 25}
+          ]
+        },
+        "Legion of Excess": {
+          "enhancements": [
+            {"name": "Avatar of Perfection", "points": 15},
+            {"name": "Dreaming Crown", "points": 30},
+            {"name": "False Majesty", "points": 30},
+            {"name": "Soul Glutton", "points": 10}
+          ]
+        },
+        "Plague Legion": {
+          "enhancements": [
+            {"name": "Cankerblight", "points": 15},
+            {"name": "Droning Shroud", "points": 35},
+            {"name": "Font of Spores", "points": 20},
+            {"name": "Maggot Maws", "points": 15}
+          ]
+        },
+        "Scintillating Legion": {
+          "enhancements": [
+            {"name": "Improbable Shield", "points": 30},
+            {"name": "Inescapable Eye", "points": 10},
+            {"name": "Infernal Puppeteer", "points": 10},
+            {"name": "Neverblade", "points": 20}
+          ]
+        },
+        "Shadow Legion": {
+          "enhancements": [
+            {"name": "Fade to Darkness", "points": 30},
+            {"name": "Leaping Shadows", "points": 25},
+            {"name": "Malice Made Manifest", "points": 25},
+            {"name": "Mantle of Gloom", "points": 20}
+          ]
+        }
       }
     },
     "Chaos Knights": {
       "icon": "assets/icons/factions/chaos_knights.png",
       "detachments": {
-        "Houndpack Lance": {"enhancements": []},
-        "Infernal Lance": {"enhancements": []},
-        "Iconoclast Fiefdom": {"enhancements": []},
-        "Lords of Dread": {"enhancements": []},
-        "Traitoris Lance": {"enhancements": []}
+        "Houndpack Lance": {
+          "enhancements": [
+            {"name": "Final Howl", "points": 20},
+            {"name": "Loping Predator", "points": 10},
+            {"name": "Panoply of the Cursed Knight", "points": 15},
+            {"name": "Preyslayer's Mantle", "points": 15}
+          ]
+        },
+        "Infernal Lance": {
+          "enhancements": [
+            {"name": "Bestial Aspect", "points": 20},
+            {"name": "Blasphemous Engine", "points": 35},
+            {"name": "Fleshmetal Fusion", "points": 35},
+            {"name": "Knight Diabolus", "points": 25}
+          ]
+        },
+        "Iconoclast Fiefdom": {
+          "enhancements": [
+            {"name": "Diabolical Resilience", "points": 35},
+            {"name": "Pave the Way", "points": 15},
+            {"name": "Profane Altar", "points": 20},
+            {"name": "Tyrant's Banner", "points": 5}
+          ]
+        },
+        "Lords of Dread": {
+          "enhancements": [
+            {"name": "Blade of Celerity", "points": 35},
+            {"name": "Blessing of the Dark Master", "points": 20},
+            {"name": "Mirror of Fates", "points": 30},
+            {"name": "Putrid Carapace", "points": 30},
+            {"name": "Throne Mechanicum of Skulls", "points": 25},
+            {"name": "Warp-borne Stalker", "points": 25}
+          ]
+        },
+        "Traitoris Lance": {
+          "enhancements": [
+            {"name": "Malevolent Heraldry", "points": 30},
+            {"name": "Nightmare's Master", "points": 20},
+            {"name": "Tyrant's Shadow", "points": 25},
+            {"name": "Veil of Medrengard", "points": 35}
+          ]
+        }
       }
     },
     "Chaos Space Marines": {
       "icon": "assets/icons/factions/chaos_space_marines.png",
       "detachments": {
-        "Cabal of Chaos": {"enhancements": []},
-        "Chaos Cult": {"enhancements": []},
-        "Creations of Bile": {"enhancements": []},
-        "Deceptors": {"enhancements": []},
-        "Dread Talons": {"enhancements": []},
-        "Felhammer Siege-host": {"enhancements": []},
-        "Nightmare Hunt": {"enhancements": []},
-        "Pactbound Zealots": {"enhancements": []},
-        "Renegade Raiders": {"enhancements": []},
-        "Soulforged Warpack": {"enhancements": []},
-        "Veterans of the Long War": {"enhancements": []}
+        "Cabal of Chaos": {
+          "enhancements": [
+            {"name": "Eye of Tzeentch", "points": 25},
+            {"name": "Infernal Avatar", "points": 20},
+            {"name": "Mind Blade", "points": 25},
+            {"name": "Touched by the Warp", "points": 10}
+          ]
+        },
+        "Chaos Cult": {
+          "enhancements": [
+            {"name": "Amulet of Tainted Vigour", "points": 20},
+            {"name": "Cultist's Brand", "points": 20},
+            {"name": "Incendiary Goad", "points": 15},
+            {"name": "Warped Foresight", "points": 10}
+          ]
+        },
+        "Creations of Bile": {
+          "enhancements": [
+            {"name": "Helm of All-seeing", "points": 25},
+            {"name": "Living Carapace", "points": 15},
+            {"name": "Prime Test Subject", "points": 35},
+            {"name": "Surgical Precision", "points": 10}
+          ]
+        },
+        "Deceptors": {
+          "enhancements": [
+            {"name": "Cursed Fang", "points": 10},
+            {"name": "Falsehood", "points": 10},
+            {"name": "Shroud of Obfuscation", "points": 15},
+            {"name": "Soul Link", "points": 5}
+          ]
+        },
+        "Dread Talons": {
+          "enhancements": [
+            {"name": "Eater of Dread", "points": 15},
+            {"name": "Night's Shroud", "points": 20},
+            {"name": "Warp-fuelled Thrusters", "points": 20},
+            {"name": "Willbreaker", "points": 10}
+          ]
+        },
+        "Fellhammer Siege-host": {
+          "enhancements": [
+            {"name": "Bastion Plate", "points": 10},
+            {"name": "Iron Artifice", "points": 10},
+            {"name": "Ironbound Enmity", "points": 15},
+            {"name": "Warp Tracer", "points": 20}
+          ]
+        },
+        "Nightmare Hunt": {
+          "enhancements": [
+            {"name": "Greyveil Hex", "points": 25},
+            {"name": "Sorrowsent Vulture", "points": 35},
+            {"name": "Terrorglut Parasite", "points": 20},
+            {"name": "Warp-fuelled Thrusters", "points": 20}
+          ]
+        },
+        "Pactbound Zealots": {
+          "enhancements": [
+            {"name": "Eye of Tzeentch", "points": 15},
+            {"name": "Intoxicating Elixir", "points": 15},
+            {"name": "Orbs of Unlife", "points": 15},
+            {"name": "Talisman of Burning Blood", "points": 15}
+          ]
+        },
+        "Renegade Raiders": {
+          "enhancements": [
+            {"name": "Despot's Claim", "points": 15},
+            {"name": "Dread Reaver", "points": 15},
+            {"name": "Mark of the Hound", "points": 25},
+            {"name": "Tyrant's Lash", "points": 20}
+          ]
+        },
+        "Soulforged Warpack": {
+          "enhancements": [
+            {"name": "Forge's Blessing", "points": 20},
+            {"name": "Invigorated Mechatendrils", "points": 15},
+            {"name": "Tempting Addendum", "points": 25},
+            {"name": "Soul Harvester", "points": 15}
+          ]
+        },
+        "Veterans of the Long War": {
+          "enhancements": [
+            {"name": "Eager for Vengeance", "points": 20},
+            {"name": "Edge of Abaddon", "points": 15},
+            {"name": "Mark of Legend", "points": 10},
+            {"name": "Warmaster's Gift", "points": 15}
+          ]
+        }
       }
     },
     "Dark Angels": {
       "icon": "assets/icons/factions/dark_angels.png",
       "detachments": {
-        "Company of Hunters": {"enhancements": []},
-        "Inner Circle Task Force": {"enhancements": []},
-        "Lion's Blade Task Force": {"enhancements": []},
-        "Unforgiven Task Force": {"enhancements": []},
-        "Wrath of the Rock": {"enhancements": []}
+        "Company of Hunters": {
+          "enhancements": [
+            {"name": "Master of Manoeuvre", "points": 15},
+            {"name": "Master-crafted Weapon", "points": 10},
+            {"name": "Mounted Strategist", "points": 30},
+            {"name": "Recon Hunter", "points": 20}
+          ]
+        },
+        "Inner Circle Task Force": {
+          "enhancements": [
+            {"name": "Champion of the Deathwing", "points": 15},
+            {"name": "Deathwing Assault", "points": 30},
+            {"name": "Eye of the Unseen", "points": 10},
+            {"name": "Singular Will", "points": 20}
+          ]
+        },
+        "Lion's Blade Task Force": {
+          "enhancements": [
+            {"name": "Calibanite Armaments", "points": 15},
+            {"name": "Fulguris Magna", "points": 20},
+            {"name": "Lord of the Hunt", "points": 15},
+            {"name": "Stalwart Champion", "points": 25}
+          ]
+        },
+        "Unforgiven Task Force": {
+          "enhancements": [
+            {"name": "Pennant of Remembrance", "points": 10},
+            {"name": "Shroud of Heroes", "points": 25},
+            {"name": "Stubborn Tenacity", "points": 15},
+            {"name": "Weapons of the First Legion", "points": 15}
+          ]
+        },
+        "Wrath of the Rock": {
+          "enhancements": [
+            {"name": "Ancient Weapons", "points": 25},
+            {"name": "Deathwing Assault", "points": 15},
+            {"name": "Lord of the Ravenwing", "points": 10},
+            {"name": "Tempered in Battle", "points": 10}
+          ]
+        }
       }
     },
     "Death Guard": {
       "icon": "assets/icons/factions/death_guard.png",
       "detachments": {
-        "Champions of Contagion": {"enhancements": []},
-        "Death Lord's Chosen": {"enhancements": []},
-        "Flyblown Host": {"enhancements": []},
-        "Mortarion's Hammer": {"enhancements": []},
-        "Shamblerot Vectorium": {"enhancements": []},
-        "Tallyband Summoners": {"enhancements": []},
-        "Virulent Vectorium": {"enhancements": []}
+        "Champions of Contagion": {
+          "enhancements": [
+            {"name": "Cornucophagus", "points": 35},
+            {"name": "Final Ingredient", "points": 20},
+            {"name": "Needle of Nurgle", "points": 25},
+            {"name": "Visions of Virulence", "points": 15}
+          ]
+        },
+        "Death Lord's Chosen": {
+          "enhancements": [
+            {"name": "Face of Death", "points": 10},
+            {"name": "Helm of the Fly King", "points": 20},
+            {"name": "Vile Vigour", "points": 15},
+            {"name": "Warprot Talisman", "points": 30}
+          ]
+        },
+        "Flyblown Host": {
+          "enhancements": [
+            {"name": "Droning Chorus", "points": 15},
+            {"name": "Insectile Murmuration", "points": 20},
+            {"name": "Plagueveil", "points": 25},
+            {"name": "Rejuvenating Swarm", "points": 10}
+          ]
+        },
+        "Mortarion's Hammer": {
+          "enhancements": [
+            {"name": "Bilemaw Blight", "points": 10},
+            {"name": "Eye of Affliction", "points": 20},
+            {"name": "Shriekworm Familiar", "points": 15},
+            {"name": "Tendrilous Emissions", "points": 30}
+          ]
+        },
+        "Shamblerot Vectorium": {
+          "enhancements": [
+            {"name": "Lord of the Walking Pox", "points": 15},
+            {"name": "Sorrowsuphon", "points": 10},
+            {"name": "Talisman of Burgeoning", "points": 25},
+            {"name": "Witherbone Pipes", "points": 25}
+          ]
+        },
+        "Tallyband Summoners": {
+          "enhancements": [
+            {"name": "Beckoning Blight", "points": 20},
+            {"name": "Entropic Knell", "points": 15},
+            {"name": "Fell Harvester", "points": 10},
+            {"name": "Tome of Bounteous Blessings", "points": 20}
+          ]
+        },
+        "Virulent Vectorium": {
+          "enhancements": [
+            {"name": "Arch Contaminator", "points": 25},
+            {"name": "Daemon Weapon of Nurgle", "points": 10},
+            {"name": "Furnace of Plagues", "points": 25},
+            {"name": "Revolting Regeneration", "points": 20}
+          ]
+        }
       }
     },
     "Deathwatch": {
       "icon": "assets/icons/factions/deathwatch.png",
       "detachments": {
-        "Black Spear Task Force": {"enhancements": []}
+        "Black Spear Task Force": {
+          "enhancements": [
+            {"name": "Beacon Angelis", "points": 25},
+            {"name": "Osseus Key", "points": 15},
+            {"name": "The Tome of Ectoclades", "points": 30},
+            {"name": "Thief of Secrets", "points": 25}
+          ]
+        }
       }
     },
     "Drukhari": {
       "icon": "assets/icons/factions/drukhari.png",
       "detachments": {
-        "Covenite Coterie": {"enhancements": []},
-        "Kabalite Cartel": {"enhancements": []},
-        "Realspace Raiders": {"enhancements": []},
-        "Reaper's Wager": {"enhancements": []},
-        "Skysplinter Assault": {"enhancements": []},
-        "Spectacle of Spite": {"enhancements": []}
+        "Covenite Coterie": {
+          "enhancements": [
+            {"name": "Master Artisan", "points": 20},
+            {"name": "Master Nemesine", "points": 5},
+            {"name": "Master Regenesis", "points": 25},
+            {"name": "Master Repugnomancer", "points": 15}
+          ]
+        },
+        "Kabalite Cartel": {
+          "enhancements": [
+            {"name": "Informant Network", "points": 30},
+            {"name": "Leechbite Plate", "points": 5},
+            {"name": "Towering Arrogance", "points": 20},
+            {"name": "Webway Awl", "points": 25}
+          ]
+        },
+        "Realspace Raiders": {
+          "enhancements": [
+            {"name": "Crucible of Malediction", "points": 20},
+            {"name": "Dark Vitality", "points": 25},
+            {"name": "Eye of Spite", "points": 15},
+            {"name": "Labyrinthine Cunning", "points": 25}
+          ]
+        },
+        "Reaper's Wager": {
+          "enhancements": [
+            {"name": "Archraider", "points": 15},
+            {"name": "Conductor of Torment", "points": 20},
+            {"name": "Reaper's Cowl", "points": 25},
+            {"name": "Webway Walker", "points": 15}
+          ]
+        },
+        "Skysplinter Assault": {
+          "enhancements": [
+            {"name": "Nightmare Shroud", "points": 20},
+            {"name": "Phantasmal Smoke", "points": 15},
+            {"name": "Sadistic Fulcrum", "points": 15},
+            {"name": "Spiteful Raider", "points": 10}
+          ]
+        },
+        "Spectacle of Spite": {
+          "enhancements": [
+            {"name": "Chronoshard", "points": 15},
+            {"name": "Morghenna's Curse", "points": 20},
+            {"name": "Periapt of Torments", "points": 25},
+            {"name": "Pharmacophex", "points": 15}
+          ]
+        }
       }
     },
     "Emperor's Children": {
       "icon": "assets/icons/factions/emperors_children.png",
       "detachments": {
-        "Carnival of Excess": {"enhancements": []},
-        "Coterie of the Conceited": {"enhancements": []},
-        "Court of the Phoenician": {"enhancements": []},
-        "Mecurial Host": {"enhancements": []},
-        "Peerless Bladesmen": {"enhancements": []},
-        "Rapid Evisceration": {"enhancements": []},
-        "Slaanesh's Chosen": {"enhancements": []}
+        "Carnival of Excess": {
+          "enhancements": [
+            {"name": "Dark Blessings", "points": 10},
+            {"name": "Empyric Suffusion", "points": 15},
+            {"name": "Possessed Blade", "points": 25},
+            {"name": "Warp Walker", "points": 30}
+          ]
+        },
+        "Coterie of the Conceited": {
+          "enhancements": [
+            {"name": "Pledge of Dark Glory", "points": 25},
+            {"name": "Pledge of Eternal Servitude", "points": 25},
+            {"name": "Pledge of Mortal Pain", "points": 15},
+            {"name": "Pledge of Unholy Fortune", "points": 30}
+          ]
+        },
+        "Court of the Phoenician": {
+          "enhancements": [
+            {"name": "Exalted Patron", "points": 15},
+            {"name": "Soulstain Made Manifest", "points": 15},
+            {"name": "Spiritsilver", "points": 20},
+            {"name": "Tears of the Phoenix", "points": 25}
+          ]
+        },
+        "Mercurial Host": {
+          "enhancements": [
+            {"name": "Intoxicating Musk", "points": 20},
+            {"name": "Loathsome Dexterity", "points": 10},
+            {"name": "Steeped in Suffering", "points": 20},
+            {"name": "Tactical Perfection", "points": 15}
+          ]
+        },
+        "Peerless Bladesmen": {
+          "enhancements": [
+            {"name": "Blinding Speed", "points": 25},
+            {"name": "Distortion", "points": 25},
+            {"name": "Faultless Opportunist", "points": 15},
+            {"name": "Rise to the Challenge", "points": 30}
+          ]
+        },
+        "Rapid Evisceration": {
+          "enhancements": [
+            {"name": "Accomplished Tactician", "points": 35},
+            {"name": "Heretek Adept", "points": 35},
+            {"name": "Spearhead Striker", "points": 20},
+            {"name": "Sublime Prescience", "points": 25}
+          ]
+        },
+        "Slaanesh's Chosen": {
+          "enhancements": [
+            {"name": "Eager to Prove", "points": 15},
+            {"name": "Proud and Vainglorious", "points": 20},
+            {"name": "Repulsed by Weakness", "points": 25},
+            {"name": "Slayer of Champions", "points": 15}
+          ]
+        }
       }
     },
     "Genestealer Cults": {
       "icon": "assets/icons/factions/genestealer_cults.png",
       "detachments": {
-        "Biosanctic Broodsurge": {"enhancements": []},
-        "Brood Brother Auxilia": {"enhancements": []},
-        "Final Day": {"enhancements": []},
-        "Host of Ascension": {"enhancements": []},
-        "Outlander Claw": {"enhancements": []},
-        "Xenocreed Congregation": {"enhancements": []}
+        "Biosanctic Broodsurge": {
+          "enhancements": [
+            {"name": "Alien Majesty", "points": 15},
+            {"name": "Biomorph Adaptation", "points": 25},
+            {"name": "Mutagenic Regeneration", "points": 10},
+            {"name": "Predatory Instincts", "points": 20}
+          ]
+        },
+        "Brood Brother Auxilia": {
+          "enhancements": [
+            {"name": "Adaptive Reprisal", "points": 15},
+            {"name": "Firepoint Commander", "points": 10},
+            {"name": "Martial Espionage", "points": 25},
+            {"name": "The Hero Returned", "points": 20}
+          ]
+        },
+        "Final Day": {
+          "enhancements": [
+            {"name": "Enraptured Damnation", "points": 10},
+            {"name": "Inhuman Integration", "points": 20},
+            {"name": "Synaptic Auger", "points": 15},
+            {"name": "Vanguard Tyrant", "points": 25}
+          ]
+        },
+        "Host of Ascension": {
+          "enhancements": [
+            {"name": "A Chink in Their Armour", "points": 20},
+            {"name": "Assassination Edict", "points": 15},
+            {"name": "Our Time Is Nigh", "points": 20},
+            {"name": "Prowling Agitant", "points": 15}
+          ]
+        },
+        "Outlander Claw": {
+          "enhancements": [
+            {"name": "Assault Commando", "points": 15},
+            {"name": "Cartographic Data-leech", "points": 10},
+            {"name": "Serpentine Tactics", "points": 10},
+            {"name": "Starfall Shells", "points": 10}
+          ]
+        },
+        "Xenocreed Congregation": {
+          "enhancements": [
+            {"name": "Deeds That Speak to the Masses", "points": 25},
+            {"name": "Denunciator of Tyrants", "points": 25},
+            {"name": "Gene-sire's Reliquary", "points": 5},
+            {"name": "Incendiary Inspiration", "points": 15}
+          ]
+        }
       }
     },
     "Grey Knights": {
       "icon": "assets/icons/factions/grey_knights.png",
       "detachments": {
-        "Augurium Task Force": {"enhancements": []},
-        "Banishers": {"enhancements": []},
-        "Brotherhood Strike": {"enhancements": []},
-        "Hallowed Conclave": {"enhancements": []},
-        "Sanctic Spearhead": {"enhancements": []},
-        "Warpbane Task Force": {"enhancements": []}
+        "Augurium Task Force": {
+          "enhancements": [
+            {"name": "A Foot in the Future", "points": 15},
+            {"name": "Doomseer's Amulet", "points": 25},
+            {"name": "Grimoire of Conjunctions", "points": 10},
+            {"name": "Shield of Prophecy", "points": 20}
+          ]
+        },
+        "Banishers": {
+          "enhancements": [
+            {"name": "Pure Soul", "points": 20},
+            {"name": "Sigil of the Hunt", "points": 10},
+            {"name": "The Ephemeral Tome", "points": 15},
+            {"name": "The Sixty-sixth Seal", "points": 25}
+          ]
+        },
+        "Brotherhood Strike": {
+          "enhancements": [
+            {"name": "Banishing Wave", "points": 20},
+            {"name": "Blinding Aura", "points": 10},
+            {"name": "Purity of Purpose", "points": 15},
+            {"name": "Tome of Forbidden Ways", "points": 25}
+          ]
+        },
+        "Hallowed Conclave": {
+          "enhancements": [
+            {"name": "Eye of the Augurium", "points": 25},
+            {"name": "Inescapable Judgement", "points": 20},
+            {"name": "Nemesis Rounds", "points": 10},
+            {"name": "Sanctic Reaper", "points": 15}
+          ]
+        },
+        "Sanctic Spearhead": {
+          "enhancements": [
+            {"name": "Driven by Duty", "points": 10},
+            {"name": "Quickening Foci", "points": 15},
+            {"name": "Sigil of Exigence", "points": 30},
+            {"name": "Spiritus Machina", "points": 25}
+          ]
+        },
+        "Warpbane Task Force": {
+          "enhancements": [
+            {"name": "Mandulian Reliquary", "points": 20},
+            {"name": "Paragon of Sanctity", "points": 10},
+            {"name": "Prial of the Abyss", "points": 25},
+            {"name": "Radiant Champion", "points": 15}
+          ]
+        }
       }
     },
     "Imperial Agents": {
       "icon": "assets/icons/factions/imperial_agents.png",
       "detachments": {
-        "Alien Hunters": {"enhancements": []},
-        "Daemon Hunters": {"enhancements": []},
-        "Imperialis Fleet": {"enhancements": []},
-        "Purgation Force": {"enhancements": []},
-        "Veiled Blade Elimination Force": {"enhancements": []}
+        "Alien Hunters": {
+          "enhancements": [
+            {"name": "Amulet of Auto-chastisement", "points": 25},
+            {"name": "Beacon Angelis", "points": 30},
+            {"name": "Blackweave Shroud", "points": 15},
+            {"name": "Universal Anathema", "points": 10}
+          ]
+        },
+        "Daemon Hunters": {
+          "enhancements": [
+            {"name": "Daemon Slayer", "points": 10},
+            {"name": "Formidable Resolve", "points": 5},
+            {"name": "Gift of the Prescient", "points": 20},
+            {"name": "Grimoire of True Names", "points": 10}
+          ]
+        },
+        "Imperialis Fleet": {
+          "enhancements": [
+            {"name": "Clandestine Operation", "points": 15},
+            {"name": "Combat Landers", "points": 10},
+            {"name": "Digital Weapons", "points": 10},
+            {"name": "Fleetmaster", "points": 20}
+          ]
+        },
+        "Purgation Force": {
+          "enhancements": [
+            {"name": "Ignis Judicium", "points": 10},
+            {"name": "Liber Heresius", "points": 10},
+            {"name": "No Escape", "points": 25},
+            {"name": "Witch Hunter", "points": 15}
+          ]
+        },
+        "Veiled Blade Elimination Force": {
+          "enhancements": [
+            {"name": "Decoy Targets", "points": 40},
+            {"name": "Esoteric Explosives", "points": 40},
+            {"name": "Intraneural Biotech", "points": 35},
+            {"name": "Micromelta Rounds", "points": 45}
+          ]
+        }
       }
     },
     "Imperial Knights": {
       "icon": "assets/icons/factions/imperial_knights.png",
       "detachments": {
-        "Gate Warden Lance": {"enhancements": []},
-        "Questor Forgepact": {"enhancements": []},
-        "Questoris Companions": {"enhancements": []},
-        "Spearhead-At-Arms": {"enhancements": []},
-        "Valourstrike Lance": {"enhancements": []}
+        "Gate Warden Lance": {
+          "enhancements": [
+            {"name": "Acquisitor-at-Arms", "points": 15},
+            {"name": "Augury Halo", "points": 20},
+            {"name": "Purgation's Hand", "points": 20},
+            {"name": "Vengeful Tread", "points": 15}
+          ]
+        },
+        "Questor Forgepact": {
+          "enhancements": [
+            {"name": "Knight of the Opus Machina", "points": 20},
+            {"name": "Magos Questoris", "points": 35},
+            {"name": "Omnissian Champion", "points": 30},
+            {"name": "Vocifer Magnificat", "points": 15}
+          ]
+        },
+        "Questoris Companions": {
+          "enhancements": [
+            {"name": "Crushing Condemnation", "points": 10},
+            {"name": "Herald of Triumph", "points": 15},
+            {"name": "Pennant of Silvered Fury", "points": 15},
+            {"name": "Wyrmslayer Divination", "points": 10}
+          ]
+        },
+        "Spearhead-At-Arms": {
+          "enhancements": [
+            {"name": "Fables of Nightmare", "points": 10},
+            {"name": "Martial Tuition", "points": 15},
+            {"name": "Mentor's Pride", "points": 20},
+            {"name": "Tales of Heroism", "points": 10}
+          ]
+        },
+        "Valourstrike Lance": {
+          "enhancements": [
+            {"name": "Bearer of the Evanescent Ion", "points": 15},
+            {"name": "Bearer of the Iron Chalice", "points": 20},
+            {"name": "Bearer of the Ludicant's Helm", "points": 25},
+            {"name": "Bearer of the Lancer's Sigil", "points": 25}
+          ]
+        }
       }
     },
     "Leagues of Votann": {
       "icon": "assets/icons/factions/leagues_of_votann.png",
       "detachments": {
-        "Brandfast Oathband": {"enhancements": []},
-        "Delve Assault Shift": {"enhancements": []},
-        "Hearthband": {"enhancements": []},
-        "Hearthfyre Arsenal": {"enhancements": []},
-        "Needgaard Oathband": {"enhancements": []},
-        "Persecution Prospect": {"enhancements": []}
+        "Brandfast Oathband": {
+          "enhancements": [
+            {"name": "Precursive Judgement", "points": 15},
+            {"name": "Signature Restoration", "points": 5},
+            {"name": "Tactical Alchemy", "points": 10},
+            {"name": "Trivärg Cyber Implant", "points": 40}
+          ]
+        },
+        "Delve Assault Shift": {
+          "enhancements": [
+            {"name": "Delverke Navigator", "points": 25},
+            {"name": "Multiwave System Jammer", "points": 10},
+            {"name": "Piledriver", "points": 15},
+            {"name": "Quake Supervisor", "points": 20}
+          ]
+        },
+        "Hearthband": {
+          "enhancements": [
+            {"name": "Bastion Shield", "points": 25},
+            {"name": "High Kähl", "points": 30},
+            {"name": "Ironskein", "points": 10},
+            {"name": "Quake Multigenerator", "points": 15}
+          ]
+        },
+        "Hearthfyre Arsenal": {
+          "enhancements": [
+            {"name": "Calculated Tenacity", "points": 15},
+            {"name": "Farstrydr Node", "points": 20},
+            {"name": "Graviton Vault", "points": 5},
+            {"name": "Mantle of Elders", "points": 10}
+          ]
+        },
+        "Needgaard Oathband": {
+          "enhancements": [
+            {"name": "Ancestral Crest", "points": 15},
+            {"name": "Dead Reckoning", "points": 10},
+            {"name": "Iron Ambassador", "points": 5},
+            {"name": "Oathbound Speculator", "points": 30}
+          ]
+        },
+        "Persecution Prospect": {
+          "enhancements": [
+            {"name": "Eye for Weakness", "points": 25},
+            {"name": "Nomad Strategist", "points": 20},
+            {"name": "Surgical Saboteur", "points": 10},
+            {"name": "Writ of Acquisition", "points": 10}
+          ]
+        }
       }
     },
     "Necrons": {
       "icon": "assets/icons/factions/necrons.png",
       "detachments": {
-        "Annihilation Legion": {"enhancements": []},
-        "Awakened Dynasty": {"enhancements": []},
-        "Canoptek Court": {"enhancements": []},
-        "Cryptek Conclave": {"enhancements": []},
-        "Cursed Legion": {"enhancements": []},
-        "Hypercrypt Legion": {"enhancements": []},
-        "Obeisance Phalanx": {"enhancements": []},
-        "Pantheon of Woe": {"enhancements": []},
-        "Starshatter Arsenal": {"enhancements": []}
+        "Annihilation Legion": {
+          "enhancements": [
+            {"name": "Eldritch Nightmare", "points": 15},
+            {"name": "Eternal Madness", "points": 25},
+            {"name": "Ingrained Superiority", "points": 10},
+            {"name": "Soulless Reaper", "points": 20}
+          ]
+        },
+        "Awakened Dynasty": {
+          "enhancements": [
+            {"name": "Enaegic Dermal Bond", "points": 30},
+            {"name": "Nether-realm Casket", "points": 20},
+            {"name": "Phasal Subjugator", "points": 35},
+            {"name": "Veil of Darkness", "points": 20}
+          ]
+        },
+        "Canoptek Court": {
+          "enhancements": [
+            {"name": "Autodivinator", "points": 15},
+            {"name": "Dimensional Sanctum", "points": 20},
+            {"name": "Hyperphasic Fulcrum", "points": 15},
+            {"name": "Metalodermal Tesla Weave", "points": 10}
+          ]
+        },
+        "Cryptek Conclave": {
+          "enhancements": [
+            {"name": "Atomic Disintegrators", "points": 10},
+            {"name": "Gauntlet of Compression", "points": 20},
+            {"name": "Gravitic Bolas", "points": 15},
+            {"name": "Quantum Abacus", "points": 15}
+          ]
+        },
+        "Cursed Legion": {
+          "enhancements": [
+            {"name": "Cursed Circlet", "points": 25},
+            {"name": "Destroyer Ankh", "points": 20},
+            {"name": "Mark of the Nekrosor", "points": 20},
+            {"name": "Murdermind", "points": 15}
+          ]
+        },
+        "Hypercrypt Legion": {
+          "enhancements": [
+            {"name": "Arisen Tyrant", "points": 25},
+            {"name": "Dimensional Overseer", "points": 25},
+            {"name": "Hyperspatial Transfer Node", "points": 15},
+            {"name": "Osteoclave Fulcrum", "points": 20}
+          ]
+        },
+        "Obeisance Phalanx": {
+          "enhancements": [
+            {"name": "Eternal Conqueror", "points": 25},
+            {"name": "Honourable Combatant", "points": 10},
+            {"name": "Unflinching Will", "points": 20},
+            {"name": "Warrior Noble", "points": 15}
+          ]
+        },
+        "Pantheon of Woe": {
+          "enhancements": [
+            {"name": "Animus Damper", "points": 20},
+            {"name": "Quantum Goad", "points": 30},
+            {"name": "Relativistic Tether", "points": 25},
+            {"name": "Singularity Matrix", "points": 40}
+          ]
+        },
+        "Starshatter Arsenal": {
+          "enhancements": [
+            {"name": "Chromo-impedance Fields", "points": 25},
+            {"name": "Demanding Leader", "points": 10},
+            {"name": "Dread Majesty", "points": 30},
+            {"name": "Miniaturised Nebuloscope", "points": 15}
+          ]
+        }
       }
     },
     "Orks": {
       "icon": "assets/icons/factions/orks.png",
       "detachments": {
-        "Bully Boyz": {"enhancements": []},
-        "Da Big Hunt": {"enhancements": []},
-        "Dread Mob": {"enhancements": []},
-        "Green Tide": {"enhancements": []},
-        "Kult of Speed": {"enhancements": []},
-        "More Dakka!": {"enhancements": []},
-        "Taktikal Brigade": {"enhancements": []},
-        "War Horde": {"enhancements": []}
+        "Bully Boyz": {
+          "enhancements": [
+            {"name": "Big Gob", "points": 20},
+            {"name": "Da Biggest Boss", "points": 15},
+            {"name": "'Eadstompa", "points": 10},
+            {"name": "Tellyporta", "points": 25}
+          ]
+        },
+        "Da Big Hunt": {
+          "enhancements": [
+            {"name": "Glory Hog", "points": 30},
+            {"name": "Proper Killy", "points": 15},
+            {"name": "Skrag Every Stash!", "points": 25},
+            {"name": "Surly as a Squiggoth", "points": 20}
+          ]
+        },
+        "Dread Mob": {
+          "enhancements": [
+            {"name": "Gitfinder Gogglez", "points": 10},
+            {"name": "Press It Fasta!", "points": 35},
+            {"name": "Smoky Gubbinz", "points": 15},
+            {"name": "Supa-glowy Fing", "points": 20}
+          ]
+        },
+        "Green Tide": {
+          "enhancements": [
+            {"name": "Bloodthirsty Belligerence", "points": 15},
+            {"name": "Brutal But Kunnin'", "points": 25},
+            {"name": "Ferocious Show Off", "points": 10},
+            {"name": "Raucous Warcaller", "points": 20}
+          ]
+        },
+        "Kult of Speed": {
+          "enhancements": [
+            {"name": "Fasta Than Yooz", "points": 35},
+            {"name": "Speed Makes Right", "points": 25},
+            {"name": "Squig-hide Tyres", "points": 15},
+            {"name": "Wazblasta", "points": 10}
+          ]
+        },
+        "More Dakka!": {
+          "enhancements": [
+            {"name": "Da Gobshot Thunderbuss", "points": 15},
+            {"name": "Dead Shiny Shootas", "points": 35},
+            {"name": "Targetin' Squigs", "points": 15},
+            {"name": "Zog Off and Eat Dakka!", "points": 10}
+          ]
+        },
+        "Taktikal Brigade": {
+          "enhancements": [
+            {"name": "Gob Boomer", "points": 10},
+            {"name": "Mek Kaptin", "points": 45},
+            {"name": "Mork's Kunnin'", "points": 15},
+            {"name": "Skwad Leader", "points": 15}
+          ]
+        },
+        "War Horde": {
+          "enhancements": [
+            {"name": "Follow Me Ladz", "points": 25},
+            {"name": "Headwoppa's Killchoppa", "points": 20},
+            {"name": "Kunnin' But Brutal", "points": 15},
+            {"name": "Supa-Cybork Body", "points": 15}
+          ]
+        }
       }
     },
     "Space Wolves": {
       "icon": "assets/icons/factions/space_wolves.png",
       "detachments": {
-        "Champions of Fenris": {"enhancements": []},
-        "Saga of the Beastslayer": {"enhancements": []},
-        "Saga of the Bold": {"enhancements": []},
-        "Saga of the Great Wolf": {"enhancements": []},
-        "Saga of the Hunter": {"enhancements": []}
+        "Champions of Fenris": {
+          "enhancements": [
+            {"name": "Fangrune Pendant", "points": 15},
+            {"name": "Foes' Fate", "points": 15},
+            {"name": "Longstrider", "points": 20},
+            {"name": "Wolves' Wisdom", "points": 30}
+          ]
+        },
+        "Saga of the Beastslayer": {
+          "enhancements": [
+            {"name": "Elder's Guidance", "points": 20},
+            {"name": "Helm of the Beastslayer", "points": 15},
+            {"name": "Hunter's Guile", "points": 20},
+            {"name": "Wolf-touched", "points": 15}
+          ]
+        },
+        "Saga of the Bold": {
+          "enhancements": [
+            {"name": "Braggart's Steel", "points": 20},
+            {"name": "Hordeslayer", "points": 15},
+            {"name": "Skjald", "points": 15},
+            {"name": "Thunderwolf's Fortitude", "points": 25}
+          ]
+        },
+        "Saga of the Great Wolf": {
+          "enhancements": [
+            {"name": "Chariots of the Storm", "points": 25},
+            {"name": "Grimnar's Mark", "points": 20},
+            {"name": "Howlmay", "points": 15},
+            {"name": "Skjald's Foretelling", "points": 25}
+          ]
+        },
+        "Saga of the Hunter": {
+          "enhancements": [
+            {"name": "Fenrisian Grit", "points": 15},
+            {"name": "Feral Rage", "points": 10},
+            {"name": "Swift Hunter", "points": 20},
+            {"name": "Wolf Master", "points": 5}
+          ]
+        }
       }
     },
     "T'au Empire": {
       "icon": "assets/icons/factions/tau_empire.png",
       "detachments": {
-        "Auxiliary Cadre": {"enhancements": []},
-        "Experimental Prototype Cadre": {"enhancements": []},
-        "Kauyon": {"enhancements": []},
-        "Kroot Hunting Pack": {"enhancements": []},
-        "Mont'ka": {"enhancements": []},
-        "Retaliation Cadre": {"enhancements": []}
+        "Auxiliary Cadre": {
+          "enhancements": [
+            {"name": "Admired Leader", "points": 20},
+            {"name": "Fanatical Convert", "points": 10},
+            {"name": "Student of Kauyon", "points": 15},
+            {"name": "Transponder Lock Module", "points": 25}
+          ]
+        },
+        "Experimental Prototype Cadre": {
+          "enhancements": [
+            {"name": "Fusion Blades", "points": 25},
+            {"name": "Plasma Accelerator Rifle", "points": 10},
+            {"name": "Supernova Launcher", "points": 15},
+            {"name": "Thermoelectronic Projector", "points": 20}
+          ]
+        },
+        "Kauyon": {
+          "enhancements": [
+            {"name": "Exemplar of the Kauyon", "points": 20},
+            {"name": "Precision of the Patient Hunter", "points": 15},
+            {"name": "Solid-Image Projection Unit", "points": 30},
+            {"name": "Through Unity, Devastation", "points": 40}
+          ]
+        },
+        "Kroot Hunting Pack": {
+          "enhancements": [
+            {"name": "Borthrod Gland", "points": 15},
+            {"name": "Kroothawk Flock", "points": 10},
+            {"name": "Nomadic Hunter", "points": 20},
+            {"name": "Root-carved Weapons", "points": 10}
+          ]
+        },
+        "Mont'ka": {
+          "enhancements": [
+            {"name": "Coordinated Exploitation", "points": 40},
+            {"name": "Exemplar of the Mont'ka", "points": 10},
+            {"name": "Strategic Conqueror", "points": 15},
+            {"name": "Strike Swiftly", "points": 25}
+          ]
+        },
+        "Retaliation Cadre": {
+          "enhancements": [
+            {"name": "Internal Grenade Racks", "points": 20},
+            {"name": "Prototype Weapon System", "points": 15},
+            {"name": "Puretide Engram Neurochip", "points": 25},
+            {"name": "Starflare Ignition System", "points": 20}
+          ]
+        }
       }
     },
     "Thousand Sons": {
       "icon": "assets/icons/factions/thousand_sons.png",
       "detachments": {
-        "Changehost of Deceit": {"enhancements": []},
-        "Grand Coven": {"enhancements": []},
-        "Rubicae Phalanx": {"enhancements": []},
-        "Warpforged Cabal": {"enhancements": []},
-        "Warpmeld Pact": {"enhancements": []},
-        "Hexwarp Thrallband": {"enhancements": []}
+        "Changehost of Deceit": {
+          "enhancements": [
+            {"name": "Diabolic Savant", "points": 20},
+            {"name": "Duplicitous Malediction", "points": 15},
+            {"name": "Nethershriek Mind-eater", "points": 10},
+            {"name": "Tome of True Names", "points": 20}
+          ]
+        },
+        "Grand Coven": {
+          "enhancements": [
+            {"name": "Eldritch Vortex of E'taph", "points": 35},
+            {"name": "Incandaeum", "points": 15},
+            {"name": "Lord of Forbidden Lore", "points": 20},
+            {"name": "Umbralefic Crystal", "points": 20}
+          ]
+        },
+        "Rubricae Phalanx": {
+          "enhancements": [
+            {"name": "Arcane Thralls", "points": 5},
+            {"name": "Lord of the Rubricae", "points": 15},
+            {"name": "Risen Rubricae", "points": 30},
+            {"name": "The Stave Abominus", "points": 20}
+          ]
+        },
+        "Warpforged Cabal": {
+          "enhancements": [
+            {"name": "Biomechanical Mutation", "points": 15},
+            {"name": "The Perplexing Cloak", "points": 20},
+            {"name": "Warp Suphon", "points": 5},
+            {"name": "Warp-cursed Runemaster", "points": 10}
+          ]
+        },
+        "Warpmeld Pact": {
+          "enhancements": [
+            {"name": "Bray Lord", "points": 15},
+            {"name": "Diamond of Distortion", "points": 20},
+            {"name": "Flowing Flesh", "points": 10},
+            {"name": "Warpmeld Dagger", "points": 10}
+          ]
+        },
+        "Hexwarp Thrallband": {
+          "enhancements": [
+            {"name": "Arcane Might", "points": 20},
+            {"name": "Empowered Manifestation", "points": 20},
+            {"name": "Empyric Unslaughter", "points": 25},
+            {"name": "Nocitilith Mantle", "points": 15}
+          ]
+        }
       }
     },
     "Tyranids": {
       "icon": "assets/icons/factions/tyranids.png",
       "detachments": {
-        "Assimilation Swarm": {"enhancements": []},
-        "Crusher Stampede": {"enhancements": []},
-        "Invasion Fleet": {"enhancements": []},
-        "Subterranean Assault": {"enhancements": []},
-        "Synaptic Nexus": {"enhancements": []},
-        "Unending Swarm": {"enhancements": []},
-        "Vanguard Onslaught": {"enhancements": []},
-        "Warrior Bioform Onslaught": {"enhancements": []}
+        "Assimilation Swarm": {
+          "enhancements": [
+            {"name": "Biophagic Flow", "points": 10},
+            {"name": "Instinctive Defence", "points": 15},
+            {"name": "Parasitic Biomorphology", "points": 25},
+            {"name": "Regenerating Monstrosity", "points": 20}
+          ]
+        },
+        "Crusher Stampede": {
+          "enhancements": [
+            {"name": "Enraged Reserves", "points": 20},
+            {"name": "Monstrous Nemesis", "points": 25},
+            {"name": "Null Nodules", "points": 10},
+            {"name": "Ominous Presence", "points": 15}
+          ]
+        },
+        "Invasion Fleet": {
+          "enhancements": [
+            {"name": "Adaptive Biology", "points": 25},
+            {"name": "Alien Cunning", "points": 30},
+            {"name": "Perfectly Adapted", "points": 15},
+            {"name": "Synaptic Linchpin", "points": 20}
+          ]
+        },
+        "Subterranean Assault": {
+          "enhancements": [
+            {"name": "Synaptic Strategy", "points": 15},
+            {"name": "Tremor Senses", "points": 20},
+            {"name": "Trygon Prime", "points": 20},
+            {"name": "Vanguard Intellect", "points": 15}
+          ]
+        },
+        "Synaptic Nexus": {
+          "enhancements": [
+            {"name": "Power of the Hive Mind", "points": 10},
+            {"name": "Psychostatic Disruption", "points": 30},
+            {"name": "Synaptic Control", "points": 20},
+            {"name": "The Dirgeheart of Kharis", "points": 15}
+          ]
+        },
+        "Unending Swarm": {
+          "enhancements": [
+            {"name": "Adrenalised Onslaught", "points": 15},
+            {"name": "Naturalised Camouflage", "points": 30},
+            {"name": "Piercing Talons", "points": 25},
+            {"name": "Relentless Hunger", "points": 20}
+          ]
+        },
+        "Vanguard Onslaught": {
+          "enhancements": [
+            {"name": "Chameleonic", "points": 15},
+            {"name": "Hunting Grounds", "points": 20},
+            {"name": "Neuromode", "points": 20},
+            {"name": "Stalker", "points": 10}
+          ]
+        },
+        "Warrior Bioform Onslaught": {
+          "enhancements": [
+            {"name": "Elevated Might", "points": 30},
+            {"name": "Ocular Adaptation", "points": 20},
+            {"name": "Sensory Assimilation", "points": 20},
+            {"name": "Synaptic Tyrant", "points": 10}
+          ]
+        }
       }
     },
     "World Eaters": {
       "icon": "assets/icons/factions/world_eaters.png",
       "detachments": {
-        "Berzerker Warband": {"enhancements": []},
-        "Cult of Blood": {"enhancements": []},
-        "Khorne Daemonkin": {"enhancements": []},
-        "Possessed Slaughterband": {"enhancements": []},
-        "Goretrack Onslaught": {"enhancements": []},
-        "Vessels of Wrath": {"enhancements": []}
+        "Berzerker Warband": {
+          "enhancements": [
+            {"name": "Battle-lust", "points": 10},
+            {"name": "Berzerker Glaive", "points": 35},
+            {"name": "Favoured of Khorne", "points": 15},
+            {"name": "Helm of Brazen Ire", "points": 30}
+          ]
+        },
+        "Cult of Blood": {
+          "enhancements": [
+            {"name": "Brazen Form", "points": 25},
+            {"name": "Butcher Lord", "points": 10},
+            {"name": "Chosen of the Blood God", "points": 15},
+            {"name": "Strategic Slaughter", "points": 20}
+          ]
+        },
+        "Khorne Daemonkin": {
+          "enhancements": [
+            {"name": "Blade of Endless Bloodshed", "points": 30},
+            {"name": "Blood-forged Armour", "points": 20},
+            {"name": "Disciple of Khorne", "points": 15},
+            {"name": "Icon of War", "points": 25}
+          ]
+        },
+        "Possessed Slaughterband": {
+          "enhancements": [
+            {"name": "Frenzied Focus", "points": 20},
+            {"name": "Killing Clarity", "points": 15},
+            {"name": "Malicious Vigour", "points": 30},
+            {"name": "Violent Demise", "points": 10}
+          ]
+        },
+        "Goretrack Onslaught": {
+          "enhancements": [
+            {"name": "Aggressive Deployment", "points": 20},
+            {"name": "Infernal Infusion", "points": 25},
+            {"name": "Murderous Onslaught", "points": 5},
+            {"name": "Unleash Hell", "points": 10}
+          ]
+        },
+        "Vessels of Wrath": {
+          "enhancements": [
+            {"name": "Archslaughterer", "points": 25},
+            {"name": "Avenger's Crown", "points": 15},
+            {"name": "Gateways to Glory", "points": 10},
+            {"name": "Vox-diabolus", "points": 20}
+          ]
+        }
       }
     }
   }

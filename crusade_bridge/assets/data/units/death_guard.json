@@ -1,0 +1,125 @@
+[
+  {
+    "name": "Biologus Putrifier",
+    "points": 55,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Blightlord Terminators",
+    "points": [
+      { "models": 5, "pts": 165 },
+      { "models": 10, "pts": 330 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Death Guard Chaos Lord",
+    "points": 75,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Death Guard Chaos Lord in Terminator Armour",
+    "points": 95,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Death Guard Cultists",
+    "points": [
+      { "models": 10, "pts": 55 },
+      { "models": 20, "pts": 110 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Deathshroud Terminators",
+    "points": [
+      { "models": 3, "pts": 120 },
+      { "models": 6, "pts": 240 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Foul Blightspawn",
+    "points": 60,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Lord of Contagion",
+    "points": 80,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Lord of Virulence",
+    "points": 80,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Malignant Plaguecaster",
+    "points": 65,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Mortarion",
+    "points": 350,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Myphitic Blight-hauler",
+    "points": 100,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Noxious Blightbringer",
+    "points": 55,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Plague Marines",
+    "points": [
+      { "models": 5, "pts": 90 },
+      { "models": 10, "pts": 180 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Plague Surgeon",
+    "points": 55,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Plagueburst Crawler",
+    "points": 160,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Poxwalkers",
+    "points": [
+      { "models": 10, "pts": 60 },
+      { "models": 20, "pts": 120 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Tallyman",
+    "points": 50,
+    "isCharacter": true,
+    "isEpicHero": false
+  }
+]

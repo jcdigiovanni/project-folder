@@ -1,0 +1,62 @@
+[
+  {
+    "name": "War Dog Autocannon",
+    "points": 140,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "War Dog Brigand",
+    "points": 150,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "War Dog Executioner",
+    "points": 160,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "War Dog Huntsman",
+    "points": 140,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "War Dog Karnivore",
+    "points": 140,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "War Dog Stalker",
+    "points": 150,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Knight Abominant",
+    "points": 410,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Knight Desecrator",
+    "points": 390,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Knight Rampager",
+    "points": 380,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Knight Tyrant",
+    "points": 480,
+    "isCharacter": true,
+    "isEpicHero": false
+  }
+]

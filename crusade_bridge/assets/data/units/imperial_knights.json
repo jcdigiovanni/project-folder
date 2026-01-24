@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Armiger Helverins",
+    "points": [
+      { "models": 1, "pts": 140 },
+      { "models": 2, "pts": 280 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Armiger Warglaives",
+    "points": [
+      { "models": 1, "pts": 150 },
+      { "models": 2, "pts": 300 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Canis Rex",
+    "points": 405,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Knight Castellan",
+    "points": 495,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Knight Crusader",
+    "points": 455,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Knight Errant",
+    "points": 410,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Knight Gallant",
+    "points": 420,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Knight Paladin",
+    "points": 425,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Knight Preceptor",
+    "points": 430,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Knight Valiant",
+    "points": 510,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Knight Warden",
+    "points": 445,
+    "isCharacter": true,
+    "isEpicHero": false
+  }
+]

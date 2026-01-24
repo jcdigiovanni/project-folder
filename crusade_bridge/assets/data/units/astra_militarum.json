@@ -1,0 +1,433 @@
+[
+  {
+    "name": "Aegis Defence Line",
+    "points": 145,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Armoured Sentinels",
+    "points": [
+      { "models": 1, "pts": 65 },
+      { "models": 2, "pts": 130 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Artillery Team",
+    "points": 95,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Attilan Rough Riders",
+    "points": [
+      { "models": 5, "pts": 60 },
+      { "models": 10, "pts": 120 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Baneblade",
+    "points": 450,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Banehammer",
+    "points": 420,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Banesword",
+    "points": 450,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Basilisk",
+    "points": 140,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Bullgryn Squad",
+    "points": [
+      { "models": 3, "pts": 100 },
+      { "models": 6, "pts": 200 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Cadian Castellan",
+    "points": 55,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Cadian Command Squad",
+    "points": 65,
+    "modelsNote": "5 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Cadian Heavy Weapons Squad",
+    "points": 65,
+    "modelsNote": "3 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Cadian Shock Troops",
+    "points": [
+      { "models": 10, "pts": 65 },
+      { "models": 20, "pts": 120 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Catachan Command Squad",
+    "points": 65,
+    "modelsNote": "5 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Catachan Heavy Weapons Squad",
+    "points": 65,
+    "modelsNote": "3 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Catachan Jungle Fighters",
+    "points": [
+      { "models": 10, "pts": 65 },
+      { "models": 20, "pts": 120 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Chimera",
+    "points": 85,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Commissar",
+    "points": 30,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Death Korps of Krieg",
+    "points": [
+      { "models": 10, "pts": 65 },
+      { "models": 20, "pts": 145 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Death Riders",
+    "points": [
+      { "models": 5, "pts": 60 },
+      { "models": 10, "pts": 120 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Deathstrike",
+    "points": 145,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Doomhammer",
+    "points": 415,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Field Ordnance Battery",
+    "points": 110,
+    "modelsNote": "2 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Gaunt's Ghosts",
+    "points": 100,
+    "modelsNote": "6 models",
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Hellhammer",
+    "points": 420,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Hellhound",
+    "points": 125,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Hydra",
+    "points": 95,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Kasrkin",
+    "points": 110,
+    "modelsNote": "10 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Krieg Combat Engineers",
+    "points": [
+      { "models": 5, "pts": 60 },
+      { "models": 10, "pts": 95 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Krieg Command Squad",
+    "points": 65,
+    "modelsNote": "6 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Krieg Heavy Weapons Squad",
+    "points": 75,
+    "modelsNote": "4 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Leman Russ Battle Tank",
+    "points": 185,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Leman Russ Commander",
+    "points": 235,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Leman Russ Demolisher",
+    "points": 190,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Leman Russ Eradicator",
+    "points": 170,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Leman Russ Executioner",
+    "points": 170,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Leman Russ Exterminator",
+    "points": 180,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Leman Russ Punisher",
+    "points": 150,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Leman Russ Vanquisher",
+    "points": 145,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Lord Marshal Dreir",
+    "points": 100,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Lord Solar Leontus",
+    "points": 130,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Manticore",
+    "points": 165,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Militarum Tempestus Command Squad",
+    "points": 85,
+    "modelsNote": "5 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Ministorum Priest",
+    "points": 35,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Nork Deddog",
+    "points": 60,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Ogryn Bodyguard",
+    "points": 40,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Ogryn Squad",
+    "points": [
+      { "models": 3, "pts": 60 },
+      { "models": 6, "pts": 130 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Primaris Psyker",
+    "points": 60,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Ratlings",
+    "points": [
+      { "models": 5, "pts": 60 },
+      { "models": 10, "pts": 100 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Rogal Dorn Battle Tank",
+    "points": 250,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Rogal Dorn Commander",
+    "points": 275,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Scout Sentinels",
+    "points": [
+      { "models": 1, "pts": 55 },
+      { "models": 2, "pts": 110 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Shadowsword",
+    "points": 410,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Sly Marbo",
+    "points": 55,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Stormlord",
+    "points": 430,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Stormsword",
+    "points": 465,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Taurox",
+    "points": 75,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Taurox Prime",
+    "points": 90,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Tech-Priest Enginseer",
+    "points": 45,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Tempestus Aquilons",
+    "points": 100,
+    "modelsNote": "10 models",
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Tempestus Scions",
+    "points": [
+      { "models": 5, "pts": 70 },
+      { "models": 10, "pts": 140 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Ursula Creed",
+    "points": 85,
+    "isCharacter": true,
+    "isEpicHero": true
+  },
+  {
+    "name": "Valkyrie",
+    "points": 190,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Wyvern",
+    "points": 110,
+    "isCharacter": false,
+    "isEpicHero": false
+  }
+]

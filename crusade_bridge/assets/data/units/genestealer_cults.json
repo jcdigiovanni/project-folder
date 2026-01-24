@@ -1,0 +1,170 @@
+[
+  {
+    "name": "Aberrants",
+    "points": [
+      { "models": 5, "pts": 135 },
+      { "models": 10, "pts": 300 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Abominant",
+    "points": 85,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Achilles Ridgerunners",
+    "points": [
+      { "models": 1, "pts": 95 },
+      { "models": 2, "pts": 120 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Acolyte Hybrids with Autopistols",
+    "points": [
+      { "models": 5, "pts": 65 },
+      { "models": 10, "pts": 130 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Acolyte Hybrids with Hand Flamers",
+    "points": [
+      { "models": 5, "pts": 70 },
+      { "models": 10, "pts": 140 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Acolyte Iconward",
+    "points": 50,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Atalan Jackals",
+    "points": [
+      { "models": 5, "pts": 85 },
+      { "models": 10, "pts": 150 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Benefictus",
+    "points": 70,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Biophagus",
+    "points": 50,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Clamavus",
+    "points": 50,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Goliath Rockgrinder",
+    "points": 120,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Goliath Truck",
+    "points": 85,
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Hybrid Metamorphs",
+    "points": [
+      { "models": 5, "pts": 70 },
+      { "models": 10, "pts": 140 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Jackal Alphus",
+    "points": 55,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Kelermorph",
+    "points": 60,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Locus",
+    "points": 45,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Magus",
+    "points": 50,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Neophyte Hybrids",
+    "points": [
+      { "models": 10, "pts": 65 },
+      { "models": 20, "pts": 145 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Nexos",
+    "points": 60,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Patriarch",
+    "points": 75,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Primus",
+    "points": 70,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Purestrain Genestealers",
+    "points": [
+      { "models": 5, "pts": 75 },
+      { "models": 10, "pts": 140 }
+    ],
+    "isCharacter": false,
+    "isEpicHero": false
+  },
+  {
+    "name": "Reductus Saboteur",
+    "points": 65,
+    "isCharacter": true,
+    "isEpicHero": false
+  },
+  {
+    "name": "Sanctus",
+    "points": 50,
+    "isCharacter": true,
+    "isEpicHero": false
+  }
+]
