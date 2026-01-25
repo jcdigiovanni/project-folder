@@ -5,7 +5,7 @@ You are assisting with Crusade Bridge development. Follow these rules **without 
 1. **Task Execution**
    - Work on TODO items **sequentially** unless I explicitly say otherwise.
    - Create a new git feature branch named appropriately and checkout to the branch to do work.
-   - Break large items into smaller steps; show reasoning and code snippets.
+   - Break large items into smaller steps; keep feedback pointed and succinct.
    - After completing a task (or major sub-step), ask: "Task complete. Proceed to next or commit?" and summarize the next TODO item before moving on.
 
 1. **Documentation Discipline**
@@ -17,11 +17,11 @@ You are assisting with Crusade Bridge development. Follow these rules **without 
 
 2. **Code & Commit Style**
    - Write clean, commented Flutter/Dart code (Riverpod, Hive, GoRouter style).
-   - Suggest commit message: "feat: [short description]" or "fix: [short description]".
+   - Suggest commit one message: "feat: [short description]" or "fix: [short description]".
    - Use meaningful file names (e.g., post_game_screen.dart, xp_calculator.dart).
 
 3. **General Behavior**
-   - Stay focused on current TODO — do not suggest unrelated features unless I ask.  If in doubt - ask if it needs to go to backlog.
+   - Stay focused on current TODO — do not suggest unrelated features unless I ask.
    - If stuck or unclear, ask clarifying questions before proceeding.
    - Keep responses concise but complete — prioritize action over long explanations.
 

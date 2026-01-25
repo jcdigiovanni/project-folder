@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../models/crusade_models.dart';
 import '../providers/crusade_provider.dart';
 import '../services/storage_service.dart';
+import '../services/google_drive_service.dart';
 
 /// Post-game screen for reviewing and finalizing battle results
 /// Allows adjustments before committing XP and tally updates to units
@@ -18,11 +19,12 @@ class PostGameScreen extends ConsumerStatefulWidget {
 
 class _PostGameScreenState extends ConsumerState<PostGameScreen> {
   String? _markedForGreatnessUnitId;
+  final TextEditingController _notesController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    // Load any existing marked for greatness selection
+    // Load any existing marked for greatness selection and notes
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final crusade = ref.read(currentCrusadeNotifierProvider);
       final game = crusade?.games.where((g) => g.id == widget.gameId).firstOrNull;
@@ -33,8 +35,18 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
             _markedForGreatnessUnitId = markedUnit.unitId;
           });
         }
+        // Load existing notes
+        if (game.notes != null) {
+          _notesController.text = game.notes!;
+        }
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _notesController.dispose();
+    super.dispose();
   }
 
   @override
@@ -97,6 +109,13 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
                     _updateDestroyed(game, unitId, wasDestroyed);
                   },
                 ),
+                const SizedBox(height: 24),
+
+                // Notes Section
+                _NotesSection(
+                  controller: _notesController,
+                  onChanged: (value) => _updateNotes(game, value),
+                ),
 
                 const SizedBox(height: 32),
               ],
@@ -145,6 +164,11 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
       });
       ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
     }
+  }
+
+  void _updateNotes(Game game, String notes) {
+    game.notes = notes.isEmpty ? null : notes;
+    ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
   }
 
   void _commitResults(Game game) {
@@ -238,8 +262,55 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
       ),
     );
 
-    // Navigate to dashboard
-    context.go('/dashboard');
+    // Prompt for Drive backup if supported and signed in
+    if (GoogleDriveService.isSupported && GoogleDriveService.isSignedIn) {
+      _promptDriveBackup();
+    } else {
+      // Navigate to dashboard
+      context.go('/dashboard');
+    }
+  }
+
+  void _promptDriveBackup() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Backup to Drive?'),
+        content: const Text(
+          'Would you like to backup your Crusade data to Google Drive?',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              context.go('/dashboard');
+            },
+            child: const Text('Skip'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Backing up to Drive...')),
+              );
+              final success = await GoogleDriveService.backupCrusades();
+              if (mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(success
+                        ? 'Backup complete!'
+                        : 'Backup failed. Check your connection.'),
+                    backgroundColor: success ? Colors.green : Colors.red,
+                  ),
+                );
+                context.go('/dashboard');
+              }
+            },
+            child: const Text('Backup'),
+          ),
+        ],
+      ),
+    );
   }
 
   UnitOrGroup? _findUnitInOOB(Crusade crusade, String unitId) {
@@ -646,6 +717,68 @@ class _UnitSummaryCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Section for optional game notes
+class _NotesSection extends StatelessWidget {
+  final TextEditingController controller;
+  final Function(String) onChanged;
+
+  const _NotesSection({
+    required this.controller,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const Icon(Icons.notes, color: Colors.grey, size: 20),
+            const SizedBox(width: 8),
+            const Text(
+              'Game Notes',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Text(
+          'Optional notes about the battle',
+          style: TextStyle(color: Colors.grey.shade400, fontSize: 14),
+        ),
+        const SizedBox(height: 12),
+        TextField(
+          controller: controller,
+          onChanged: onChanged,
+          maxLines: 3,
+          decoration: InputDecoration(
+            hintText: 'Add notes about this battle...',
+            hintStyle: TextStyle(color: Colors.grey.shade600),
+            filled: true,
+            fillColor: Colors.grey.shade900,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: Colors.grey.shade700),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: Colors.grey.shade700),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color: Color(0xFFFFB6C1)),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
