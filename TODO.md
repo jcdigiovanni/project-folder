@@ -1,8 +1,7 @@
 # TODO - Active Sprint Tracker
 **Last Updated:** January 25, 2026 (Post-Lunch)
 
-## Claude Operating Guidelines – Read & Follow Every Time
-[Insert the full guidelines section above here]
+**Follow the guidelines in AGENTS.md exactly.**
 
 ## Current Focus: Complete Post-Game & XP Application (Phases 5–6)
 Goal: Full testable battle loop – Play (tallies/agendas) → Post-Game (recap/XP/apply) → OOB updated.
