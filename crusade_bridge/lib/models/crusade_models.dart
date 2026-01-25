@@ -208,6 +208,9 @@ class UnitOrGroup {
   @HiveField(18)
   bool? isCharacter;
 
+  @HiveField(19)
+  bool pendingRankUp; // True when unit has ranked up and needs attention (e.g., select Battle Honour)
+
   UnitOrGroup({
     required this.id,
     required this.type,
@@ -228,12 +231,14 @@ class UnitOrGroup {
     List<String>? enhancements,
     int? crusadePoints,
     Map<String, int>? tallies,
+    bool? pendingRankUp,
   })  : xp = xp ?? 0,
         honours = honours ?? [],
         scars = scars ?? [],
         enhancements = enhancements ?? [],
         crusadePoints = crusadePoints ?? 0,
-        tallies = tallies ?? {'played': 0, 'survived': 0, 'destroyed': 0};
+        tallies = tallies ?? {'played': 0, 'survived': 0, 'destroyed': 0},
+        pendingRankUp = pendingRankUp ?? false;
 
   // Calculate rank based on XP (Epic Heroes don't gain XP)
   String get rank {

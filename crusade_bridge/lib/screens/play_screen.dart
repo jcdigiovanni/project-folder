@@ -180,6 +180,15 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
                 ),
               ),
             ],
+            const SizedBox(height: 24),
+            OutlinedButton.icon(
+              onPressed: () => context.go('/landing'),
+              icon: const Icon(Icons.folder_open),
+              label: const Text('Load Army'),
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+              ),
+            ),
           ],
         ),
       ),

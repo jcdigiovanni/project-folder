@@ -288,17 +288,8 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> {
     game.opponentScore = opponentScore;
     ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(isVictory
-            ? 'Victory! Ready for post-game paperwork.'
-            : 'Defeat recorded. Ready for post-game paperwork.'),
-        backgroundColor: isVictory ? Colors.green : Colors.red.shade700,
-      ),
-    );
-
-    // Navigate back to dashboard
-    context.go('/dashboard');
+    // Navigate to post-game screen for review and XP calculation
+    context.go('/postgame/${game.id}');
   }
 
   void _showUnitSelectionDialog(BuildContext context, Game game, GameAgenda agenda) {

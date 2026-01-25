@@ -210,9 +210,34 @@ class OOBModifyScreen extends ConsumerWidget {
                                 : component.name,
                             style: const TextStyle(fontSize: 14), // Smaller text for nested items
                           ),
-                          subtitle: Text(
-                            '${component.rank} • ${component.points} pts • ${component.crusadePoints} CP',
-                            style: const TextStyle(fontSize: 12), // Even smaller for subtitle
+                          subtitle: Row(
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  '${component.rank} • ${component.points} pts • ${component.crusadePoints} CP',
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ),
+                              if (component.pendingRankUp) ...[
+                                const SizedBox(width: 6),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+                                  decoration: BoxDecoration(
+                                    color: Colors.amber.withValues(alpha: 0.2),
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(color: Colors.amber.withValues(alpha: 0.5)),
+                                  ),
+                                  child: const Text(
+                                    'Level Up!',
+                                    style: TextStyle(
+                                      fontSize: 9,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.amber,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ],
                           ),
                           dense: true,
                           tilePadding: const EdgeInsets.symmetric(horizontal: 16),
@@ -235,7 +260,10 @@ class OOBModifyScreen extends ConsumerWidget {
                         children: [
                           const Text('Unit Details', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                           const SizedBox(height: 8),
-                          _DetailRow(label: 'Experience', value: '${item.xp} XP'),
+                          if (item.pendingRankUp)
+                            _HighlightedXPRow(xp: item.xp, rank: item.rank)
+                          else
+                            _DetailRow(label: 'Experience', value: '${item.xp} XP'),
                           _DetailRow(label: 'Models', value: '${item.modelsCurrent}/${item.modelsMax}'),
                           _DetailRow(label: 'Crusade Points', value: '${item.crusadePoints}'),
                           if (item.tallies['played'] != null)
@@ -318,10 +346,35 @@ class OOBModifyScreen extends ConsumerWidget {
                           ? '${item.customName} (${item.name})'
                           : item.name
                     ),
-                    subtitle: Text(
-                      item.type == 'group'
-                          ? '${item.points} pts • ${item.totalCrusadePoints} CP • ${item.components?.length ?? 0} units'
-                          : '${item.rank} • ${item.points} pts • ${item.crusadePoints} CP'
+                    subtitle: Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                            item.type == 'group'
+                                ? '${item.points} pts • ${item.totalCrusadePoints} CP • ${item.components?.length ?? 0} units'
+                                : '${item.rank} • ${item.points} pts • ${item.crusadePoints} CP',
+                          ),
+                        ),
+                        if (item.type != 'group' && item.pendingRankUp) ...[
+                          const SizedBox(width: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: Colors.amber.withValues(alpha: 0.2),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: Colors.amber.withValues(alpha: 0.5)),
+                            ),
+                            child: const Text(
+                              'Level Up!',
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.amber,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
                     ),
                     backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                     collapsedBackgroundColor: Colors.transparent,
@@ -1571,6 +1624,62 @@ class _DetailRow extends StatelessWidget {
         children: [
           Text(label, style: const TextStyle(fontSize: 13, color: Colors.grey)),
           Text(value, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+        ],
+      ),
+    );
+  }
+}
+
+/// Highlighted XP row shown when a unit has a pending rank up
+class _HighlightedXPRow extends StatelessWidget {
+  final int xp;
+  final String rank;
+
+  const _HighlightedXPRow({required this.xp, required this.rank});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.amber.withValues(alpha: 0.15),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.amber.withValues(alpha: 0.5)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.arrow_upward, color: Colors.amber, size: 16),
+              const SizedBox(width: 6),
+              const Text(
+                'Experience',
+                style: TextStyle(fontSize: 13, color: Colors.amber, fontWeight: FontWeight.w500),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Text(
+                '$xp XP',
+                style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.amber),
+              ),
+              const SizedBox(width: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                decoration: BoxDecoration(
+                  color: Colors.amber,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  rank,
+                  style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.black),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

@@ -1,199 +1,142 @@
 # Crusade Bridge - Project Status
 
-**Last Updated:** January 24, 2026
+**Last Updated:** January 25, 2026
 
-## 🎯 Current Status: Active Development
+🎯 Current Status: Active Development – Gameplay Implementation Phase  
+The app has moved from solid core/maintenance features into active battle flow development. Play Screen and agenda tracking are now underway, with post-game and XP logic next.
 
-### Recent Session Summary (2026-01-24)
+### Recent Session Summary (2026-01-24 to 01-25)
 
-This session focused on UX improvements and data management enhancements: added Exit app button to navigation, made Play conditional on having a loaded crusade, upgraded Google Drive backup to include campaigns (v1.1), added group deletion confirmation with ungroup option, and improved the Renowned Heroes enhancement flow.
+- **Jan 25 Morning**: Advanced agenda tracking (Phases 1–4 complete per TODO.md): ActiveGameScreen created, navigation wired, Game object/unit states initialized, placeholder agendas (tally + tiered) displayed, component tally controls + tier UI, group framing, game completion flow stubbed.
+- **Jan 24 Burst**: Heavy housekeeping/QOL (11/12 tracked items crossed): conditional buttons (e.g., Play only when loaded), confirmations (exit, group delete), Warlord toggle hide, detachment-filtered enhancements in Renowned Heroes, Drive v1.1 (campaign backups), clear local also clears campaigns, icons batches (Imperium/Chaos/final), Tyranids units added, validation/sanitization.
+- **Data push**: Tyranids complete; broader unit coverage + enhancements across 20+ factions.
 
----
+* * *
 
-## 📊 Metrics
+📊 Metrics (Recent Activity)
+---------------------------
 
-### Code Changes
-- **Files Modified:** 5
-- **Lines Added:** ~120
-- **Lines Modified:** ~60
-- **New Methods:** 3
-- **Bug Fixes:** 2 (warnings)
+- **Commits (Jan 24–25)**: ~15+ affecting crusade_bridge (data, UX, Play start, sync upgrades)
+- **Files Modified (Jan 24 burst)**: 10+
+- **Lines Added/Modified**: Hundreds (e.g., crusade_models.dart +44, providers +29)
+- **New Features/Methods**: Campaign Manager, ActiveGameScreen route, game add/update/get, agenda init/display
+- **Bug Fixes/QOL**: Async fixes, null safety, deprecation cleanup, UI conditionals/filters
 
-### Files Touched
-1. `lib/main.dart` - Exit button, conditional Play button, refactored navigation
-2. `lib/screens/settings_screen.dart` - Clear campaigns with crusades
-3. `lib/services/google_drive_service.dart` - Backup/restore campaigns (v1.1)
-4. `lib/screens/oob_modify_screen.dart` - Group delete confirmation, enhancement filtering
-5. `lib/screens/campaign_view_screen.dart` - Removed unused import
+* * *
 
----
+✅ Completed Features
+--------------------
 
-## ✅ Completed Features
+### Core & Maintenance
+- ✅ Crusade CRUD (create/load/delete/disband with confirmations)
+- ✅ OOB management (add/edit/delete units/groups, hierarchical/expandable UI)
+- ✅ Requisitions (Renowned Heroes live: RP spend, character-only, no Epic Heroes/duplicates, detachment-filtered enhancements)
+- ✅ Google Drive Sync v1.1 (human-readable filenames, rich metadata, campaign backups included, clear local clears campaigns)
+- ✅ UX Polish Batch: Conditional Play button, exit/confirmation dialogs, Warlord toggle hide, "Ungroup Only" delete option, filtered enhancements
 
-### Data Management
-- ✅ Crusade deletion (disband) functionality
-- ✅ Proper navigation flow on crusade deletion
-- ✅ Confirmation dialogs with warnings
-- ✅ Auto-refresh crusade list after changes
+### Data & Reference
+- ✅ Adepta Sororitas complete (37 units + all 5 detachments/enhancements)
+- ✅ Enhancements populated across 20+ factions (factions_and_detachments.json v3.8)
+- ✅ Unit data for ~27 factions (JSON per faction + template)
+- ✅ isCharacter/isEpicHero flags (Sororitas complete; propagating)
+- ✅ Data validation/sanitization
 
-### Unit Data Structure
-- ✅ Enhanced unit JSON schema with `role`, `isEpicHero`, and `isCharacter` fields
-- ✅ All 27 factions with detachments and enhancements defined
-- ✅ 27/28 unit data files populated (~1,248 total units)
-- ✅ Role-based UI logic (Warlord designation for HQ non-Epic Heroes)
-- ✅ Synchronous data access methods for cached unit data
+### Gameplay Foundations
+- ✅ Campaign Manager added
+- ✅ ActiveGameScreen created + routed (/game/:gameId)
+- ✅ Game object/unit states init on roster deploy
+- ✅ Agenda tracking Phases 1–4: Placeholder agendas, display, component tally UI, tier selection, game completion stub
 
-### Bug Fixes
-- ✅ Fixed async/sync mismatch in OOB modify screen
-- ✅ Fixed routing error when disbanding crusades
-- ✅ Removed redundant refresh button from landing screen
-- ✅ Fixed unused import warning in campaign_view_screen
-- ✅ Fixed unnecessary non-null assertion in oob_modify_screen
+* * *
 
-### UX Improvements
-- ✅ Exit app button with confirmation dialog
-- ✅ Play button hidden when no crusade loaded
-- ✅ Group deletion confirmation with "Ungroup Only" option
-- ✅ Warlord toggle hidden when warlord already exists
-- ✅ Renowned Heroes enhancement limited to current detachment
+🚧 In Progress
+--------------
 
----
+- [ ] Agenda Tracking Phases 5–6 (post-game recap, Mark for Greatness, Commit Results, XP calc/apply)
+- [ ] Tally steppers refinement (kills/survived + agenda progress indicators)
+- [ ] Post-Game Screen stub (recap tallies/agendas, victor bonus)
+- [ ] Roster assembly (checkbox OOB selection, points validation)
+- [ ] More requisitions (Supply Limit increase, Rearm/Resupply, Fresh Recruits)
+- [ ] Fill remaining isCharacter/isEpicHero flags + unit data (e.g., Orks, Necrons)
 
-## 🚧 In Progress
+* * *
 
-### Next Immediate Tasks
-- [ ] Create Deathwatch unit data file (only missing faction)
-- [ ] In-game unit tracking (kills, destroyed status, marked for greatness)
-- [ ] Post-game flow (experience, battle honors, requisitions)
-- [ ] Implement maintenance/upgrade system
+📋 Feature Status
+-----------------
 
----
+| Feature                  | Status     | Notes                                                                 |
+|--------------------------|------------|-----------------------------------------------------------------------|
+| Create/Load/Delete Crusade | ✅ Complete | With confirmations and navigation flows                              |
+| Modify OOB               | ✅ Complete | Hierarchical groups, Warlord/Epic Hero handling, requisitions integrated |
+| Google Drive Sync        | ✅ Complete | v1.1 with campaign backups, metadata, clear local support             |
+| Requisitions (Renowned Heroes) | ✅ Complete | Detachment-filtered enhancements, RP validation                      |
+| Unit Data Coverage       | 🟢 Advanced | ~27 factions; enhancements broad; flags propagating                  |
+| Assemble Roster          | ⏳ Planned  | Checkbox OOB → named roster save                                      |
+| Play Game / Agenda Tracking | 🟡 In Progress | ActiveGameScreen live; Phases 1–4 done (tallies, agendas display)     |
+| Post-Game / XP Progression | ⏳ Planned  | Recap, Mark for Greatness, XP calc (participation/kills/marked)       |
+| Maintenance Mode         | 🟡 Partial | Requisitions live; edit dialog expansion pending                      |
+| Resources                | ⏳ Planned  | Links to Wahapedia/Community                                          |
 
-## 📋 Feature Status
+* * *
 
-| Feature | Status | Notes |
-|---------|--------|-------|
-| Create Crusade | ✅ Complete | Full faction/detachment selection |
-| Load Crusade | ✅ Complete | From local storage |
-| Delete Crusade | ✅ Complete | With confirmation dialog |
-| Modify OOB | ✅ Complete | Add/edit/delete units and groups |
-| Unit Data (All Factions) | ✅ Complete | 27/28 factions populated (~1,248 units) |
-| Unit Data (Deathwatch) | ⏳ Pending | Only missing unit file |
-| Assemble Roster | ✅ Complete | Create/view/edit rosters from OOB |
-| Play Game | 🚧 In Progress | Battle size selection, roster selection done |
-| Campaign Manager | ✅ Complete | Multi-force campaigns with win tracking |
-| Maintenance Mode | ⏳ Planned | Coming soon |
-| Resources | ⏳ Planned | Coming soon |
-| Google Drive Sync | ✅ Complete | Push/pull crusades + campaigns (v1.1) |
+🏗️ Architecture Highlights
+---------------------------
 
----
+- **State**: Riverpod (scoped providers for crusade, games, InGameState)
+- **Storage**: Hive (Crusade, UnitOrGroup, Game models + adapters)
+- **Sync**: Google Drive API v3 (app data folder, manual save/load)
+- **Data**: Per-faction JSON + template; reference_service for lookup
+- **UI**: Material 3 dark theme, pastel accents, collapsible groups, conditional elements
 
-## 🏗️ Architecture
+* * *
 
-### Key Services
-- **StorageService** - Hive-based local persistence (Crusades + Campaigns)
-- **ReferenceDataService** - Faction/unit data with caching
-- **GoogleDriveService** - Cloud sync functionality
-- **SyncService** - Conflict resolution logic
-
-### Providers
-- **CrusadeProvider** - Current crusade state management
-- **CampaignsProvider** - Campaign CRUD and force management
-
-### Data Models
-- **Crusade** - Main crusade data structure
-- **UnitOrGroup** - Individual units or grouped units
-- **Roster** - Battle-ready unit selection from OOB
-- **Campaign** - Standalone campaign with multi-crusade support
-- **CrusadeCampaignLink** - Per-crusade performance tracking in campaigns
-- **Game** - Individual game session tracking
-- **GameAgenda** - Objective (binary/tiered) or tally agenda tracking
-- **UnitGameState** - In-game unit status (kills, destroyed, marked for greatness)
-- **Faction/Detachment** - Reference data structure
-
----
-
-## 📈 Progress Tracking
+📈 Progress Tracking
+--------------------
 
 ### Faction Data Completion
-- **Factions & Detachments:** 27/27 ✅ (100%)
-- **Unit Data Files:** 27/28 (96.4%)
+- **Units JSON**: ~27/30+ major factions (Tyranids recent add)
+- **Enhancements**: 20+ factions/detachments populated (v3.8 points accurate)
+- **Flags**: isCharacter/isEpicHero complete for Sororitas; ongoing for others
 
-| Faction | Units | Status |
-|---------|-------|--------|
-| Adepta Sororitas | 32 | ✅ |
-| Adeptus Astartes | 99 | ✅ |
-| Adeptus Custodes | 15 | ✅ |
-| Adeptus Mechanicus | 31 | ✅ |
-| Aeldari | 51 | ✅ |
-| Astra Militarum | 64 | ✅ |
-| Black Templars | 103 | ✅ |
-| Blood Angels | 118 | ✅ |
-| Chaos Daemons | 53 | ✅ |
-| Chaos Knights | 11 | ✅ |
-| Chaos Space Marines | 47 | ✅ |
-| Dark Angels | 109 | ✅ |
-| Death Guard | 36 | ✅ |
-| Deathwatch | - | ⏳ Missing |
-| Drukhari | 23 | ✅ |
-| Emperor's Children | 22 | ✅ |
-| Genestealer Cults | 24 | ✅ |
-| Grey Knights | 25 | ✅ |
-| Imperial Agents | 28 | ✅ |
-| Imperial Knights | 12 | ✅ |
-| Leagues of Votann | 21 | ✅ |
-| Necrons | 47 | ✅ |
-| Orks | 52 | ✅ |
-| Space Wolves | 106 | ✅ |
-| T'au Empire | 38 | ✅ |
-| Thousand Sons | 34 | ✅ |
-| Tyranids | 33 | ✅ |
-| World Eaters | 19 | ✅ |
-| **Total** | **~1,248** | |
+* * *
 
----
+🎯 Roadmap
+----------
 
-## 🎯 Roadmap
+### Phase 1: Core & Maintenance (Mostly Complete)
+- [x] Crusade CRUD + Drive sync
+- [x] OOB + requisitions
+- [x] Data foundation (units + enhancements)
 
-### Phase 1: Core Functionality ✅
-- [x] Crusade CRUD operations
-- [x] OOB management
-- [x] Google Drive sync
-- [x] Complete faction data (27/28 done, only Deathwatch missing)
+### Phase 2: Gameplay (Active)
+- [x] Campaign Manager + ActiveGameScreen
+- [x] Agenda init/display + tally UI (Phases 1–4)
+- [ ] Post-game recap/XP/apply (Phases 5–6)
+- [ ] Roster assembly
+- [ ] Tally polish + agenda progress
 
-### Phase 2: Gameplay Features (Current)
-- [x] Roster assembly
-- [x] Campaign tracking
-- [ ] In-game unit tracking
-- [ ] Post-game flow
-- [ ] Battle honors
-- [ ] Requisitions
+### Phase 3: Advanced & Polish (Future)
+- [ ] More requisitions
+- [ ] Analytics/export
+- [ ] Testing (widget/unit)
+- [ ] Onboarding/hints
 
-### Phase 3: Advanced Features
-- [ ] Unit maintenance
-- [ ] Statistics/analytics
-- [ ] Export/sharing
+* * *
 
----
+🐛 Known Issues / Technical Debt
+--------------------------------
 
-## 🐛 Known Issues
+- Edit dialog preservation (XP/honors/scars/enhancements) – if not fixed, prioritize
+- Error/loading states for Drive ops
+- Automated tests (none yet)
+- Remaining faction unit data/flags
 
-None currently tracked.
+* * *
 
----
+📝 Notes
+--------
 
-## 💡 Technical Debt
-
-1. **Deathwatch Unit Data** - Create deathwatch.json unit file (only missing faction)
-2. **Filename Inconsistency** - `black_templar.json` should be `black_templars.json` (plural)
-3. **Error Handling** - Could add more robust error handling in sync operations
-4. **Testing** - No automated tests yet
-
----
-
-## 📝 Notes
-
-- Using Flutter with Riverpod for state management
-- Hive for local storage
-- Google Drive API for cloud sync
-- Material Design 3 theming
+- Goal: Sleek, approachable, low-clutter Crusade companion
+- Using Flutter + Riverpod + Hive + Google Drive
+- Data accuracy: Points/enhancements from Munitorum Field Manual v3.8
+- Focus: Get full battle loop (pre-game → play → post-game → apply) testable soon
