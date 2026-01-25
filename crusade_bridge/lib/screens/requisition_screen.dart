@@ -170,6 +170,10 @@ class RequisitionScreen extends ConsumerWidget {
                 oob: crusade.oob,
                 templates: crusade.templates,
                 lastModified: DateTime.now().millisecondsSinceEpoch,
+                usedFirstCharacterEnhancement: crusade.usedFirstCharacterEnhancement,
+                history: crusade.history,
+                rosters: crusade.rosters,
+                games: crusade.games,
               );
 
               ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);

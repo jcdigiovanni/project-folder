@@ -17,6 +17,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Kill tally now shows XP progress indicator (3 dots + earned XP badge)
   - Survived/Destroyed toggle redesigned as segmented button (clearer status)
 
+### Fixed
+- **BUG-004:** Marked for Greatness now awards +3 XP (was incorrectly +1) per 10th ed rules
+- **BUG-002:** Supply Limit increases now persist correctly (was missing games/rosters/history on save)
+- **BUG-003:** Fixed data loss in 4 OOB operations (group disband, group edit, enhancement add) - missing rosters/games fields
+
+### Improved
+- **ENH-001:** Added explicit close buttons to modal bottom sheets (Create Group, Add Unit, Edit Group, Renowned Heroes, Add Crusade Force)
+- **ENH-003:** OOB screen now shows full dashboard: Supply (used/limit), Remaining pts, Total CP, Available RP
+
 ### Planned
 - Battle honours selection on rank up
 - Maintenance and upgrade system

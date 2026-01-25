@@ -231,9 +231,9 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
       final newKillXP = totalKills ~/ 3;
       xpGained += (newKillXP - previousKillXP);
 
-      // 3. Marked for Greatness XP: 1 XP bonus
+      // 3. Marked for Greatness XP: +3 XP bonus (10th ed rules)
       if (unitState.markedForGreatness) {
-        xpGained += 1;
+        xpGained += 3;
       }
 
       // Apply XP (Epic Heroes don't gain XP)
@@ -541,7 +541,7 @@ class _MarkForGreatnessSection extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         Text(
-          'Select one unit to receive +1 XP bonus',
+          'Select one unit to receive +3 XP bonus',
           style: TextStyle(color: Colors.grey.shade400, fontSize: 14),
         ),
         const SizedBox(height: 12),

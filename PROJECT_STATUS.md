@@ -59,7 +59,9 @@ Velocity strong (18+ commits in 3 days), quality high (atomic, co-authored polis
 
 ### Recently Completed
 - Kill tally XP progress indicator (3 dots showing progress to next XP)
-- Survived/Destroyed segmented toggle (clearer unit status)  
+- Survived/Destroyed segmented toggle (clearer unit status)
+- **Bug fixes:** Marked for Greatness +3 XP, data persistence in OOB operations
+- **Enhancements:** Close buttons on modals, RP/CP dashboard in OOB screen  
 
 ### Roadmap
 - Phase 1–3: Core → Complete/Advanced  
