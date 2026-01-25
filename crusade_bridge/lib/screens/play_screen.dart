@@ -45,6 +45,29 @@ class PlayScreen extends ConsumerStatefulWidget {
 
 class _PlayScreenState extends ConsumerState<PlayScreen> {
   BattleSize? _selectedBattleSize;
+  bool _didCheckForActiveGame = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Check for active game only once when screen first loads
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkForActiveGame();
+    });
+  }
+
+  void _checkForActiveGame() {
+    if (_didCheckForActiveGame) return;
+    _didCheckForActiveGame = true;
+
+    final currentCrusade = ref.read(currentCrusadeNotifierProvider);
+    if (currentCrusade == null) return;
+
+    final activeGame = currentCrusade.games.where((g) => g.isInProgress).firstOrNull;
+    if (activeGame != null && mounted) {
+      _showActiveGameDialog(context, activeGame);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -385,6 +408,118 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
     return PointsStatus.grosslyOver;
   }
 
+  void _showActiveGameDialog(BuildContext context, Game activeGame) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        title: const Text('Game In Progress'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'You have an active game:',
+              style: TextStyle(color: Colors.grey.shade400),
+            ),
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: const Color(0xFFFFB6C1).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: const Color(0xFFFFB6C1).withValues(alpha: 0.3),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    activeGame.name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '${activeGame.agendas.length} agendas • ${activeGame.unitStates.length} units',
+                    style: TextStyle(
+                      color: Colors.grey.shade400,
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            const Text('Would you like to return to your game in progress?'),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _showEndBattleConfirmation(context, activeGame);
+            },
+            style: TextButton.styleFrom(foregroundColor: Colors.red.shade300),
+            child: const Text('End Battle'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              context.go('/game/${activeGame.id}');
+            },
+            child: const Text('Return to Game'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showEndBattleConfirmation(BuildContext context, Game activeGame) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('End Battle?'),
+        content: const Text(
+          'Are you sure you want to end this battle? '
+          'Any unrecorded progress will be lost and the game will be marked as incomplete.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _endBattle(activeGame);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red.shade700,
+            ),
+            child: const Text('End Battle'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _endBattle(Game game) {
+    game.completedAt = DateTime.now().millisecondsSinceEpoch;
+    game.result = GameResult.draw; // Mark as draw/incomplete
+    ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Battle ended. You can now start a new game.'),
+        backgroundColor: Colors.orange,
+      ),
+    );
+  }
+
   void _deployRoster(BuildContext context, Roster roster, int totalPoints, int totalCP) {
     final status = _getPointsStatus(totalPoints, _selectedBattleSize!);
 
@@ -440,19 +575,211 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
-              // TODO: Navigate to active game screen
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('${roster.name} deployed for ${_selectedBattleSize!.name}!'),
-                  backgroundColor: Colors.green,
-                ),
-              );
+              _showAgendaSelectionDialog(context, roster, totalPoints, totalCP);
             },
             child: const Text('Deploy'),
           ),
         ],
       ),
     );
+  }
+
+  /// Available agendas to choose from
+  List<GameAgenda> _getAvailableAgendas() {
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    return [
+      GameAgenda(
+        id: 'agenda_purgation_$timestamp',
+        name: 'Righteous Purgation',
+        type: AgendaType.tally,
+        description: 'Track kills and destruction wrought by each unit',
+      ),
+      GameAgenda(
+        id: 'agenda_survival_$timestamp',
+        name: 'Survival',
+        type: AgendaType.objective,
+        description: 'Select 1 unit to attempt survival',
+        maxTier: 2,
+        maxUnits: 1, // Only 1 unit can attempt this agenda
+      ),
+    ];
+  }
+
+  void _showAgendaSelectionDialog(BuildContext context, Roster roster, int totalPoints, int totalCP) {
+    final availableAgendas = _getAvailableAgendas();
+    final selectedAgendas = <GameAgenda>[];
+
+    showDialog(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setDialogState) => AlertDialog(
+          title: const Text('Select Agendas'),
+          content: SizedBox(
+            width: double.maxFinite,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Choose up to 2 agendas for this battle',
+                  style: TextStyle(
+                    color: Colors.grey.shade400,
+                    fontSize: 14,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                ...availableAgendas.map((agenda) {
+                  final isSelected = selectedAgendas.any((a) => a.id == agenda.id);
+                  final canSelect = selectedAgendas.length < 2 || isSelected;
+
+                  return Card(
+                    margin: const EdgeInsets.only(bottom: 8),
+                    color: isSelected
+                        ? const Color(0xFFFFB6C1).withValues(alpha: 0.15)
+                        : null,
+                    child: InkWell(
+                      onTap: canSelect
+                          ? () {
+                              setDialogState(() {
+                                if (isSelected) {
+                                  selectedAgendas.removeWhere((a) => a.id == agenda.id);
+                                } else {
+                                  selectedAgendas.add(agenda);
+                                }
+                              });
+                            }
+                          : null,
+                      borderRadius: BorderRadius.circular(12),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Row(
+                          children: [
+                            Icon(
+                              isSelected
+                                  ? Icons.check_circle
+                                  : Icons.circle_outlined,
+                              color: isSelected
+                                  ? const Color(0xFFFFB6C1)
+                                  : canSelect
+                                      ? Colors.grey
+                                      : Colors.grey.shade700,
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          agenda.name,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: canSelect ? null : Colors.grey.shade600,
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8,
+                                          vertical: 2,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: agenda.type == AgendaType.tally
+                                              ? Colors.blue.withValues(alpha: 0.2)
+                                              : Colors.orange.withValues(alpha: 0.2),
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        child: Text(
+                                          agenda.type == AgendaType.tally ? 'Tally' : 'Tiered',
+                                          style: TextStyle(
+                                            fontSize: 11,
+                                            color: agenda.type == AgendaType.tally
+                                                ? Colors.blue.shade300
+                                                : Colors.orange.shade300,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  if (agenda.description != null) ...[
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      agenda.description!,
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: canSelect
+                                            ? Colors.grey.shade400
+                                            : Colors.grey.shade600,
+                                      ),
+                                    ),
+                                  ],
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+                const SizedBox(height: 8),
+                Text(
+                  '${selectedAgendas.length}/2 selected',
+                  style: TextStyle(
+                    color: Colors.grey.shade500,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: selectedAgendas.isNotEmpty
+                  ? () {
+                      Navigator.pop(context);
+                      _startGame(context, roster, totalPoints, totalCP, selectedAgendas);
+                    }
+                  : null,
+              child: const Text('Start Game'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _startGame(BuildContext context, Roster roster, int totalPoints, int totalCP, List<GameAgenda> selectedAgendas) {
+    final currentCrusade = ref.read(currentCrusadeNotifierProvider);
+    if (currentCrusade == null) return;
+
+    // Create the game
+    final gameId = 'game_${DateTime.now().millisecondsSinceEpoch}';
+    final game = Game(
+      id: gameId,
+      name: '${_selectedBattleSize!.name} - ${DateTime.now().day}/${DateTime.now().month}',
+      rosterId: roster.id,
+      battleSize: _selectedBattleSize!.name.toLowerCase().replaceAll(' ', '_'),
+      rosterPoints: totalPoints,
+      rosterCrusadePoints: totalCP,
+      agendas: selectedAgendas,
+    );
+
+    // Initialize unit states from the roster
+    final rosterUnits = roster.getUnits(currentCrusade.oob);
+    game.initializeUnitStates(rosterUnits);
+
+    // Save the game
+    ref.read(currentCrusadeNotifierProvider.notifier).addGame(game);
+
+    // Navigate to active game screen
+    context.go('/game/$gameId');
   }
 }
 

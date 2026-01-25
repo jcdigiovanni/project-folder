@@ -15,6 +15,7 @@ import 'screens/roster_list_screen.dart';
 import 'screens/roster_view_screen.dart';
 import 'screens/roster_build_screen.dart';
 import 'screens/play_screen.dart';
+import 'screens/active_game_screen.dart';
 import 'screens/campaign_list_screen.dart';
 import 'screens/campaign_view_screen.dart';
 import 'services/storage_service.dart';
@@ -104,6 +105,12 @@ class _MyAppState extends ConsumerState<MyApp> {
           GoRoute(
             path: '/play',
             builder: (context, state) => const PlayScreen(),
+          ),
+          GoRoute(
+            path: '/game/:gameId',
+            builder: (context, state) => ActiveGameScreen(
+              gameId: state.pathParameters['gameId']!,
+            ),
           ),
           GoRoute(
             path: '/campaigns',

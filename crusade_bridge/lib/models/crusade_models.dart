@@ -815,6 +815,13 @@ class GameAgenda {
   @HiveField(7)
   Map<String, int> unitTallies; // unitId -> tally count
 
+  // For agendas that require unit selection
+  @HiveField(8)
+  int? maxUnits; // Max units that can attempt this agenda (null = all units)
+
+  @HiveField(9)
+  List<String> assignedUnitIds; // Units assigned to attempt this agenda
+
   GameAgenda({
     required this.id,
     required this.name,
@@ -824,7 +831,10 @@ class GameAgenda {
     this.tier = 0,
     this.maxTier = 1,
     Map<String, int>? unitTallies,
-  }) : unitTallies = unitTallies ?? {};
+    this.maxUnits,
+    List<String>? assignedUnitIds,
+  })  : unitTallies = unitTallies ?? {},
+        assignedUnitIds = assignedUnitIds ?? [];
 
   /// Add a tally for a unit (for tally-type agendas)
   void addTally(String unitId, {int count = 1}) {
@@ -844,6 +854,8 @@ class GameAgenda {
       tier: json['tier'] as int? ?? 0,
       maxTier: json['maxTier'] as int? ?? 1,
       unitTallies: (json['unitTallies'] as Map<String, dynamic>?)?.cast<String, int>(),
+      maxUnits: json['maxUnits'] as int?,
+      assignedUnitIds: (json['assignedUnitIds'] as List<dynamic>?)?.cast<String>(),
     );
   }
 
@@ -857,7 +869,22 @@ class GameAgenda {
       'tier': tier,
       'maxTier': maxTier,
       'unitTallies': unitTallies,
+      'maxUnits': maxUnits,
+      'assignedUnitIds': assignedUnitIds,
     };
+  }
+
+  /// Check if a unit is assigned to this agenda
+  bool isUnitAssigned(String unitId) {
+    // If no maxUnits limit, all units can participate (for tally agendas)
+    if (maxUnits == null) return true;
+    return assignedUnitIds.contains(unitId);
+  }
+
+  /// Check if more units can be assigned
+  bool get canAssignMoreUnits {
+    if (maxUnits == null) return true;
+    return assignedUnitIds.length < maxUnits!;
   }
 }
 
@@ -883,6 +910,12 @@ class UnitGameState {
   @HiveField(5)
   String? notes; // Optional notes for this unit's performance
 
+  @HiveField(6)
+  String? groupId; // ID of the group this unit belongs to (null if standalone)
+
+  @HiveField(7)
+  String? groupName; // Name of the group this unit belongs to
+
   UnitGameState({
     required this.unitId,
     required this.unitName,
@@ -890,6 +923,8 @@ class UnitGameState {
     this.wasDestroyed = false,
     this.markedForGreatness = false,
     this.notes,
+    this.groupId,
+    this.groupName,
   });
 
   factory UnitGameState.fromJson(Map<String, dynamic> json) {
@@ -900,6 +935,8 @@ class UnitGameState {
       wasDestroyed: json['wasDestroyed'] as bool? ?? false,
       markedForGreatness: json['markedForGreatness'] as bool? ?? false,
       notes: json['notes'] as String?,
+      groupId: json['groupId'] as String?,
+      groupName: json['groupName'] as String?,
     );
   }
 
@@ -911,6 +948,8 @@ class UnitGameState {
       'wasDestroyed': wasDestroyed,
       'markedForGreatness': markedForGreatness,
       'notes': notes,
+      'groupId': groupId,
+      'groupName': groupName,
     };
   }
 }
@@ -1057,12 +1096,15 @@ class Game {
   void initializeUnitStates(List<UnitOrGroup> units) {
     unitStates.clear();
     for (final unit in units) {
-      // For groups, add state for each component unit
+      // For groups, add state for each component unit with group info
       if (unit.type == 'group' && unit.components != null) {
+        final groupName = unit.customName ?? unit.name;
         for (final component in unit.components!) {
           unitStates.add(UnitGameState(
             unitId: component.id,
             unitName: component.customName ?? component.name,
+            groupId: unit.id,
+            groupName: groupName,
           ));
         }
       } else {

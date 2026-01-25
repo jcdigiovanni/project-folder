@@ -38,6 +38,7 @@ class CurrentCrusadeNotifier extends StateNotifier<Crusade?> {
     bool? usedFirstCharacterEnhancement,
     List<CrusadeEvent>? history,
     List<Roster>? rosters,
+    List<Game>? games,
   }) {
     return Crusade(
       id: state!.id,
@@ -54,6 +55,7 @@ class CurrentCrusadeNotifier extends StateNotifier<Crusade?> {
       usedFirstCharacterEnhancement: usedFirstCharacterEnhancement ?? state!.usedFirstCharacterEnhancement,
       history: history ?? state!.history,
       rosters: rosters ?? state!.rosters,
+      games: games ?? state!.games,
     );
   }
 
@@ -172,6 +174,33 @@ class CurrentCrusadeNotifier extends StateNotifier<Crusade?> {
   /// Get a roster by ID
   Roster? getRoster(String rosterId) {
     return state?.rosters.where((r) => r.id == rosterId).firstOrNull;
+  }
+
+  // ========== Game Management ==========
+
+  /// Add a new game to the crusade
+  void addGame(Game game) {
+    if (state == null) return;
+
+    state = _copyWith(games: [...state!.games, game]);
+    StorageService.saveCrusade(state!);
+  }
+
+  /// Update an existing game
+  void updateGame(Game updatedGame) {
+    if (state == null) return;
+
+    final updatedGames = state!.games.map((g) {
+      return g.id == updatedGame.id ? updatedGame : g;
+    }).toList();
+
+    state = _copyWith(games: updatedGames);
+    StorageService.saveCrusade(state!);
+  }
+
+  /// Get a game by ID
+  Game? getGame(String gameId) {
+    return state?.games.where((g) => g.id == gameId).firstOrNull;
   }
 }
 

@@ -406,13 +406,15 @@ class GameAgendaAdapter extends TypeAdapter<GameAgenda> {
       tier: fields[5] as int,
       maxTier: fields[6] as int,
       unitTallies: (fields[7] as Map?)?.cast<String, int>(),
+      maxUnits: fields[8] as int?,
+      assignedUnitIds: (fields[9] as List?)?.cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, GameAgenda obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -428,7 +430,11 @@ class GameAgendaAdapter extends TypeAdapter<GameAgenda> {
       ..writeByte(6)
       ..write(obj.maxTier)
       ..writeByte(7)
-      ..write(obj.unitTallies);
+      ..write(obj.unitTallies)
+      ..writeByte(8)
+      ..write(obj.maxUnits)
+      ..writeByte(9)
+      ..write(obj.assignedUnitIds);
   }
 
   @override
@@ -459,13 +465,15 @@ class UnitGameStateAdapter extends TypeAdapter<UnitGameState> {
       wasDestroyed: fields[3] as bool,
       markedForGreatness: fields[4] as bool,
       notes: fields[5] as String?,
+      groupId: fields[6] as String?,
+      groupName: fields[7] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UnitGameState obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.unitId)
       ..writeByte(1)
@@ -477,7 +485,11 @@ class UnitGameStateAdapter extends TypeAdapter<UnitGameState> {
       ..writeByte(4)
       ..write(obj.markedForGreatness)
       ..writeByte(5)
-      ..write(obj.notes);
+      ..write(obj.notes)
+      ..writeByte(6)
+      ..write(obj.groupId)
+      ..writeByte(7)
+      ..write(obj.groupName);
   }
 
   @override
