@@ -18,6 +18,13 @@
 - **Expected**: Should be hidden after the requisition has been used
 - **Priority**: Medium
 
+### BUG-004: Marked for Greatness awards wrong XP amount
+- **Location**: `post_game_screen.dart` - `_applyResultsToUnits()`
+- **Issue**: Marked for Greatness is applying +1 XP instead of +3 XP
+- **Expected**: Should award +3 XP per Crusade rules
+- **Code**: Line ~220: `xpGained += 1;` should be `xpGained += 3;`
+- **Priority**: High
+
 ---
 
 ## Enhancements

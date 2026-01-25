@@ -8,10 +8,54 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned
-- In-game unit tracking and post-game flow
+- Battle honours selection on rank up
 - Maintenance and upgrade system
-- Battle honors management
 - Deathwatch unit data (only missing faction)
+
+---
+
+## [0.3.2] - 2026-01-25
+
+### Added
+- **Post-Game Review Screen**
+  - Victory/Defeat banner with final score display
+  - Agenda recap section showing tally totals and tier achievements
+  - Mark for Greatness selector (1 unit per battle, +1 XP bonus)
+  - Unit summary cards with adjustable kills and destroyed status
+  - Commit Results button with confirmation dialog
+
+- **XP Calculation System**
+  - Participation XP: +1 XP for each unit that participated
+  - Kill Tally XP: +1 XP per 3 cumulative kills (tracks across games)
+  - Marked for Greatness XP: +1 XP bonus for selected unit
+  - Epic Heroes correctly excluded from XP gains
+
+- **Level Up Detection & Indicators**
+  - `pendingRankUp` field on UnitOrGroup model
+  - "Level Up!" amber tag on collapsed units in OOB screen
+  - Highlighted XP row with rank badge in expanded unit details
+  - Automatic detection when unit crosses XP threshold
+
+- **Active Game Enhancements**
+  - Score input dialog (You vs Opp) on Victory/Defeat
+  - Group visual framing with pink border and group name header
+  - `groupId` and `groupName` fields on UnitGameState for tracking
+
+- **Play Screen**
+  - "Load Army" button when no rosters exist
+
+- **Crusade Rewards**
+  - +1 RP awarded to crusade on game commit
+
+### Changed
+- Victory/Defeat now navigates to Post-Game Review instead of Dashboard
+- Unit states now track group membership for visual grouping
+
+### Technical
+- New route: `/postgame/:gameId`
+- New screen: `post_game_screen.dart`
+- New model fields: `UnitOrGroup.pendingRankUp`, `UnitGameState.groupId`, `UnitGameState.groupName`
+- Regenerated Hive adapters for model changes
 
 ---
 
