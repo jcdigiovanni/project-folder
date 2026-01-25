@@ -1,61 +1,15 @@
-# Backlog - Bugs & Enhancements
+# BACKLOG.md
+**Last Updated:** January 25, 2026 (Late Evening – Post-Sprint Integration)
 
-## Bugs
+## Bugs (Remaining)
+- **BUG-001 (High)**: Exit button doesn't function (location unclear – investigate app-wide navigation/close actions)
 
-### BUG-001: Exit button doesn't function
-- **Location**: Unknown (need to identify which screen)
-- **Issue**: Exit button doesn't exit/function as expected
-- **Priority**: High
+## Enhancements (Remaining)
+- **ENH-002 (Low)**: Consistent button styling across dialogs/popups (colors, padding, elevation)
 
-### BUG-002: Supply limit increases not persisting
-- **Location**: Settings/Supply limit selection
-- **Issue**: Supply limit changes may not stick after reload. May need a save/update event after selecting.
-- **Priority**: High
-
-### BUG-003: Renowned Heroes requisition still showing after use
-- **Location**: "Add Unit" popup in OOB screen
-- **Issue**: Renowned Heroes requisition option is still available even after it has been applied to the first character
-- **Expected**: Should be hidden after the requisition has been used
-- **Priority**: Medium
-
-### BUG-004: Marked for Greatness awards wrong XP amount
-- **Location**: `post_game_screen.dart` - `_applyResultsToUnits()`
-- **Issue**: Marked for Greatness is applying +1 XP instead of +3 XP
-- **Expected**: Should award +3 XP per Crusade rules
-- **Code**: Line ~220: `xpGained += 1;` should be `xpGained += 3;`
-- **Priority**: High
-
----
-
-## Enhancements
-
-### ENH-001: Back button in dialogs/popups
-- **Location**: All dialogs and popups (e.g., Add Unit to OOB dialog)
-- **Issue**: No back button to return to parent screen - user must tap dead space to exit
-- **Request**: Add explicit back/close button to all popup screens
-- **Note**: Need to differentiate between popups and base screens for consistent UX
-- **Priority**: Medium
-
-### ENH-002: Consistent button styling across dialogs
-- **Location**: All dialogs and popups
-- **Issue**: Buttons and selections in dialogs/popups have inconsistent styling
-- **Request**: Sanity pass to ensure all functional buttons use the same style
-- **Priority**: Low
-
-### ENH-003: Show RP/CP summary on Modify OOB screen
-- **Location**: `oob_modify_screen.dart`
-- **Issue**: No visibility into RP budget on the OOB screen
-- **Request**: Add summary display showing:
-  - Total Crusade Points (sum of all units)
-  - Available RP
-  - Remaining RP (Available - spent)
-  - Supply Limit
-- **Display Order**: Total CP | Available RP | Remaining | Supply Limit
-- **Priority**: Medium
-
----
-
-## Notes
-
-- Dialogs vs Base Screens: Need to establish a pattern for navigation in popups (explicit close button) vs full screens (app bar back button)
-- Button Styling: Consider creating a shared button style/theme for consistency
+## Archived/Resolved This Session
+- **BUG-004 (High)**: Moved to active TODO (Prelude) – Marked for Greatness +3 XP fix
+- **BUG-003 (Medium)**: Moved to active TODO (Phase 3) – Renowned Heroes visibility fix
+- **BUG-002 (High)**: Moved to active TODO (Phase 1) – Supply Limit persistence fix
+- **ENH-001 (Medium)**: Moved to active TODO (Prelude + Immediate Polish) – Explicit back/close buttons
+- **ENH-003 (Medium)**: Moved to active TODO (Prelude + Immediate Polish) – RP/CP summary dashboard
