@@ -6,11 +6,11 @@
 ## Prelude: High-Priority Bug Fixes (Integrate First)
 Goal: Clear critical bugs from BACKLOG.md before or alongside new requisition work – these affect live features (post-game XP) and will be touched naturally in RP/Supply flows.
 
-- [ ] BUG-004: Fix Marked for Greatness to award +3 XP (not +1) per current 10th ed rules (update logic in post_game_screen.dart or XP calculator)
-- [ ] BUG-002: Ensure Supply Limit increases persist correctly (test save/load after manual or auto-increase)
-- [ ] BUG-003: Hide/disable Renowned Heroes requisition after global use (track usage count properly)
-- [ ] ENH-001: Add explicit back/close buttons to all dialogs/popups (replace tap-outside-only behavior)
-- [ ] ENH-003: Add RP/CP summary dashboard to Modify OOB screen (Total CP, Available RP, Remaining RP, Supply Limit/Used)
+- [x] BUG-004: Fix Marked for Greatness to award +3 XP (not +1) per current 10th ed rules (update logic in post_game_screen.dart or XP calculator)
+- [x] BUG-002: Ensure Supply Limit increases persist correctly (test save/load after manual or auto-increase)
+- [x] BUG-003: Hide/disable Renowned Heroes requisition after global use (track usage count properly)
+- [x] ENH-001: Add explicit back/close buttons to all dialogs/popups (replace tap-outside-only behavior)
+- [x] ENH-003: Add RP/CP summary dashboard to Modify OOB screen (Total CP, Available RP, Remaining RP, Supply Limit/Used)
 
 ## Current Focus: Implement Core Requisitions System
 Goal: Add Requisition Points (RP) tracking and purchasing flow for the universal/core requisitions from the 10th ed Crusade rules. Tie into existing OOB points (MFM v3.8+) and auto-handle Supply Limit exceeded rule.
@@ -39,6 +39,7 @@ Goal: Add Requisition Points (RP) tracking and purchasing flow for the universal
 - [ ] Consistent explicit close/back buttons on all new requisition dialogs (per ENH-001)
 
 ## Completed This Session / Archive
+- **Prelude Bug Fixes (Jan 25):** BUG-004 (+3 XP for Mark), BUG-002/003 (data persistence), ENH-001 (close buttons), ENH-003 (RP/CP dashboard)
 - Backlog integration: Pulled high-priority bugs (BUG-002/003/004) and enhancements (ENH-001/003) into active sprint
 - Roster assembly polish: Checkbox OOB → multi-select → named roster save with points total, filters, notes
 - Post-Game & XP Application: Phases 5–6 complete (recap, Mark selector, notes, Commit, XP calc/apply, ranks, tallies, Drive backup prompt)

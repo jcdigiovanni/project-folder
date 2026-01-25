@@ -58,56 +58,80 @@ class OOBModifyScreen extends ConsumerWidget {
               ),
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                // Supply Used / Limit
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text(
-                      'Supply Limit',
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                      'Supply',
+                      style: TextStyle(fontSize: 11, color: Colors.grey),
                     ),
                     Text(
-                      '${currentCrusade.totalOobPoints} / ${currentCrusade.supplyLimit} pts',
-                      style: const TextStyle(
-                        fontSize: 24,
+                      '${currentCrusade.totalOobPoints}/${currentCrusade.supplyLimit}',
+                      style: TextStyle(
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
+                        color: currentCrusade.remainingPoints < 0
+                            ? Colors.red
+                            : Colors.white,
                       ),
                     ),
                   ],
                 ),
+                // Remaining Points
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Remaining',
+                      style: TextStyle(fontSize: 11, color: Colors.grey),
+                    ),
+                    Text(
+                      '${currentCrusade.remainingPoints}',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: currentCrusade.remainingPoints < 0
+                            ? Colors.red
+                            : const Color(0xFFFFB6C1),
+                      ),
+                    ),
+                  ],
+                ),
+                // Total CP
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text(
                       'Total CP',
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                      style: TextStyle(fontSize: 11, color: Colors.grey),
                     ),
                     Text(
                       '${currentCrusade.totalCrusadePoints}',
                       style: const TextStyle(
-                        fontSize: 24,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFFFFF59D),
+                        color: Color(0xFF90CAF9),
                       ),
                     ),
                   ],
                 ),
+                // Available RP
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text(
-                      'Remaining',
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                      'RP',
+                      style: TextStyle(fontSize: 11, color: Colors.grey),
                     ),
                     Text(
-                      '${currentCrusade.remainingPoints} pts',
-                      style: TextStyle(
-                        fontSize: 24,
+                      '${currentCrusade.rp}',
+                      style: const TextStyle(
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: currentCrusade.remainingPoints < 0
-                            ? Colors.red
-                            : const Color(0xFFFFB6C1),
+                        color: Color(0xFFFFF59D),
                       ),
                     ),
                   ],
@@ -502,6 +526,8 @@ class OOBModifyScreen extends ConsumerWidget {
                   templates: currentCrusade.templates,
                   usedFirstCharacterEnhancement: currentCrusade.usedFirstCharacterEnhancement,
                   history: currentCrusade.history,
+                  rosters: currentCrusade.rosters,
+                  games: currentCrusade.games,
                 );
                 ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
                 SnackBarUtils.showSuccess(context, 'Group disbanded. Units returned to Order of Battle.');
@@ -556,7 +582,17 @@ class OOBModifyScreen extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Create Group', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Create Group', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () => Navigator.pop(context),
+                        tooltip: 'Close',
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 16),
 
                   TextField(
@@ -693,7 +729,17 @@ class OOBModifyScreen extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Add Unit', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('Add Unit', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.pop(context),
+                    tooltip: 'Close',
+                  ),
+                ],
+              ),
               const SizedBox(height: 16),
 
               // Faction dropdown
@@ -1006,6 +1052,8 @@ class OOBModifyScreen extends ConsumerWidget {
                         templates: currentCrusade.templates,
                         usedFirstCharacterEnhancement: true,
                         history: [...currentCrusade.history, unitAddedEvent, enhancementEvent],
+                        rosters: currentCrusade.rosters,
+                        games: currentCrusade.games,
                       );
                       ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
 
@@ -1152,7 +1200,17 @@ class OOBModifyScreen extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Edit Group', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Edit Group', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () => Navigator.pop(context),
+                        tooltip: 'Close',
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 16),
 
                   TextField(
@@ -1312,6 +1370,10 @@ class OOBModifyScreen extends ConsumerWidget {
                           factionIconAsset: currentCrusade.factionIconAsset,
                           oob: updatedOob,
                           templates: currentCrusade.templates,
+                          usedFirstCharacterEnhancement: currentCrusade.usedFirstCharacterEnhancement,
+                          history: currentCrusade.history,
+                          rosters: currentCrusade.rosters,
+                          games: currentCrusade.games,
                         );
 
                         ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
@@ -1466,9 +1528,19 @@ class OOBModifyScreen extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Renowned Heroes',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Renowned Heroes',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () => Navigator.pop(context),
+                        tooltip: 'Close',
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 8),
                   const Text(
@@ -1583,6 +1655,8 @@ class OOBModifyScreen extends ConsumerWidget {
                                 templates: currentCrusade.templates,
                                 usedFirstCharacterEnhancement: currentCrusade.usedFirstCharacterEnhancement,
                                 history: [...currentCrusade.history, enhancementEvent],
+                                rosters: currentCrusade.rosters,
+                                games: currentCrusade.games,
                               );
 
                               ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
