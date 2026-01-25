@@ -1,6 +1,6 @@
 # Crusade Bridge - Project Status
 
-**Last Updated:** January 25, 2026 (Post-Lunch)
+**Last Updated:** January 25, 2026 (Evening)
 
 ### Executive Summary – Wins & Momentum
 Over the past few days (Jan 23–25), we've gone from solid maintenance base to **playable gameplay alpha** with real Crusade battle flow emerging — and today delivered **foundational Play screen functionality** that makes tallies, agendas, and post-game viable.  
@@ -41,15 +41,25 @@ Velocity strong (18+ commits in 3 days), quality high (atomic, co-authored polis
 - Faction Coverage: ~27 units JSONs, 20+ detachments enhancements  
 
 ### Completed Features
-- Crusade/OOB/requisitions with low-clutter UX  
-- Drive Sync v1.1 + campaign backups  
-- Agenda tracking Phases 1–4 (display, tallies, tiers, completion stub)  
-- ActiveGameScreen + game state infrastructure  
+- Crusade/OOB/requisitions with low-clutter UX
+- Drive Sync v1.1 + campaign backups
+- Agenda tracking Phases 1–4 (display, tallies, tiers, completion stub)
+- ActiveGameScreen + game state infrastructure
+- **Post-Game Screen & XP/Progression (Phases 5–6) — Complete**
+  - Full post-game review with recap, Mark for Greatness, unit summary
+  - XP calculation (participation, kills, marked bonus; Epic Hero skip)
+  - Rank progression with pendingRankUp flag
+  - Optional game notes field
+  - Drive backup prompt after commit
 
 ### In Progress
-- Post-Game Screen & XP/Progression (Phases 5–6)  
-- Tally polish & agenda indicators  
-- Remaining data flags  
+- Agenda progress indicators (Immediate Polish phase)
+- D6 roller widget for OOA tests
+- Remaining data flags
+
+### Recently Completed
+- Kill tally XP progress indicator (3 dots showing progress to next XP)
+- Survived/Destroyed segmented toggle (clearer unit status)  
 
 ### Roadmap
 - Phase 1–3: Core → Complete/Advanced  

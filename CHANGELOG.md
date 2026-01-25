@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Post-Game Screen Enhancements**
+  - Optional game notes field for recording battle details
+  - Google Drive backup prompt after committing results
+
+### Changed
+- **Active Game Screen Polish**
+  - Kill tally now shows XP progress indicator (3 dots + earned XP badge)
+  - Survived/Destroyed toggle redesigned as segmented button (clearer status)
+
 ### Planned
 - Battle honours selection on rank up
 - Maintenance and upgrade system

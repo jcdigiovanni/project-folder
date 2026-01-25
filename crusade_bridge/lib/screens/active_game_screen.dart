@@ -657,55 +657,87 @@ class _UnitAgendaCard extends StatelessWidget {
             ...agendas
                 .where((agenda) => agenda.isUnitAssigned(unitState.unitId))
                 .map((agenda) => _buildAgendaControl(context, agenda)),
-            // Unit defeated toggle
+            // Unit status toggle (Survived / Destroyed)
             const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  'Defeated:',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey.shade400,
-                  ),
-                ),
-                const SizedBox(width: 8),
+                // Survived button
                 GestureDetector(
-                  onTap: () => onDestroyedChanged(!unitState.wasDestroyed),
+                  onTap: unitState.wasDestroyed ? () => onDestroyedChanged(false) : null,
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: unitState.wasDestroyed
-                          ? Colors.red.shade900.withValues(alpha: 0.5)
-                          : Colors.grey.shade800,
-                      borderRadius: BorderRadius.circular(8),
+                      color: !unitState.wasDestroyed
+                          ? Colors.green.shade900.withValues(alpha: 0.5)
+                          : Colors.grey.shade800.withValues(alpha: 0.3),
+                      borderRadius: const BorderRadius.horizontal(left: Radius.circular(8)),
                       border: Border.all(
-                        color: unitState.wasDestroyed
-                            ? Colors.red.shade700
-                            : Colors.grey.shade600,
+                        color: !unitState.wasDestroyed
+                            ? Colors.green.shade700
+                            : Colors.grey.shade700,
                       ),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
-                          unitState.wasDestroyed
-                              ? Icons.cancel
-                              : Icons.shield_outlined,
+                          Icons.shield,
                           size: 16,
-                          color: unitState.wasDestroyed
-                              ? Colors.red.shade300
-                              : Colors.grey.shade400,
+                          color: !unitState.wasDestroyed
+                              ? Colors.green.shade300
+                              : Colors.grey.shade600,
                         ),
                         const SizedBox(width: 6),
                         Text(
-                          unitState.wasDestroyed ? 'Yes' : 'No',
+                          'Survived',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: !unitState.wasDestroyed
+                                ? Colors.green.shade300
+                                : Colors.grey.shade600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                // Destroyed button
+                GestureDetector(
+                  onTap: !unitState.wasDestroyed ? () => onDestroyedChanged(true) : null,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: unitState.wasDestroyed
+                          ? Colors.red.shade900.withValues(alpha: 0.5)
+                          : Colors.grey.shade800.withValues(alpha: 0.3),
+                      borderRadius: const BorderRadius.horizontal(right: Radius.circular(8)),
+                      border: Border.all(
+                        color: unitState.wasDestroyed
+                            ? Colors.red.shade700
+                            : Colors.grey.shade700,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.cancel,
+                          size: 16,
+                          color: unitState.wasDestroyed
+                              ? Colors.red.shade300
+                              : Colors.grey.shade600,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          'Destroyed',
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w500,
                             color: unitState.wasDestroyed
                                 ? Colors.red.shade300
-                                : Colors.grey.shade400,
+                                : Colors.grey.shade600,
                           ),
                         ),
                       ],
@@ -740,6 +772,7 @@ class _UnitAgendaCard extends StatelessWidget {
 }
 
 /// Kill tally control - compact increment/decrement for tracking unit kills
+/// Shows XP progress indicator (1 XP per 3 kills)
 class _KillTallyControl extends StatelessWidget {
   final int kills;
   final Function(int) onChanged;
@@ -751,9 +784,48 @@ class _KillTallyControl extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final xpEarned = kills ~/ 3;
+    final progressToNext = kills % 3;
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
+        // XP progress indicator
+        if (kills > 0)
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: Tooltip(
+              message: '$progressToNext/3 toward next XP',
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Progress dots
+                  ...List.generate(3, (i) => Container(
+                    width: 6,
+                    height: 6,
+                    margin: const EdgeInsets.symmetric(horizontal: 1),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: i < progressToNext
+                          ? Colors.amber
+                          : Colors.grey.shade700,
+                    ),
+                  )),
+                  if (xpEarned > 0) ...[
+                    const SizedBox(width: 4),
+                    Text(
+                      '+${xpEarned}XP',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.amber.shade300,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ),
         // Label
         Text(
           'Kills:',
