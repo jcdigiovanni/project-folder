@@ -374,7 +374,7 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> {
   }
 }
 
-/// Header showing agenda summary
+/// Header showing agenda summary with progress tracking
 class _AgendaSummaryHeader extends StatelessWidget {
   final Game game;
   final Function(GameAgenda agenda) onSelectUnit;
@@ -386,129 +386,382 @@ class _AgendaSummaryHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (game.agendas.isEmpty) {
+      return Container(
+        padding: const EdgeInsets.all(16),
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+        child: Row(
+          children: [
+            Icon(Icons.info_outline, size: 20, color: Colors.grey.shade400),
+            const SizedBox(width: 8),
+            Text(
+              'No agendas selected for this battle',
+              style: TextStyle(color: Colors.grey.shade400),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Container(
       padding: const EdgeInsets.all(16),
       color: Theme.of(context).colorScheme.surfaceContainerHighest,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Agendas',
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Agendas',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              // Quick stats
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFB6C1).withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(8),
                 ),
+                child: Text(
+                  '${game.agendas.length} active',
+                  style: const TextStyle(fontSize: 12, color: Color(0xFFFFB6C1)),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 12),
-          ...game.agendas.map((agenda) => Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Row(
-                  children: [
-                    Icon(
-                      agenda.type == AgendaType.tally
-                          ? Icons.add_circle_outline
-                          : Icons.emoji_events_outlined,
-                      size: 20,
-                      color: const Color(0xFFFFB6C1),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            agenda.name,
-                            style: const TextStyle(fontWeight: FontWeight.w500),
-                          ),
-                          if (agenda.description != null)
-                            Text(
-                              agenda.description!,
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey.shade400,
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                    // Show total for tally agendas
-                    if (agenda.type == AgendaType.tally)
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFFFB6C1).withValues(alpha: 0.2),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text(
-                          'Total: ${agenda.totalTallies}',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    // Show unit selection for limited agendas
-                    if (agenda.maxUnits != null)
-                      GestureDetector(
-                        onTap: () => onSelectUnit(agenda),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            color: agenda.assignedUnitIds.isEmpty
-                                ? Colors.orange.withValues(alpha: 0.2)
-                                : const Color(0xFFFFB6C1).withValues(alpha: 0.2),
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: agenda.assignedUnitIds.isEmpty
-                                  ? Colors.orange.withValues(alpha: 0.5)
-                                  : const Color(0xFFFFB6C1).withValues(alpha: 0.5),
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                agenda.assignedUnitIds.isEmpty
-                                    ? Icons.person_add_outlined
-                                    : Icons.person_outlined,
-                                size: 14,
-                                color: agenda.assignedUnitIds.isEmpty
-                                    ? Colors.orange
-                                    : const Color(0xFFFFB6C1),
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                agenda.assignedUnitIds.isEmpty
-                                    ? 'Select Unit'
-                                    : _getAssignedUnitName(agenda),
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  color: agenda.assignedUnitIds.isEmpty
-                                      ? Colors.orange
-                                      : const Color(0xFFFFB6C1),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
+          ...game.agendas.map((agenda) => _AgendaProgressCard(
+                agenda: agenda,
+                game: game,
+                onSelectUnit: () => onSelectUnit(agenda),
               )),
         ],
       ),
     );
   }
+}
 
-  String _getAssignedUnitName(GameAgenda agenda) {
+/// Individual agenda card with progress tracking
+class _AgendaProgressCard extends StatelessWidget {
+  final GameAgenda agenda;
+  final Game game;
+  final VoidCallback onSelectUnit;
+
+  const _AgendaProgressCard({
+    required this.agenda,
+    required this.game,
+    required this.onSelectUnit,
+  });
+
+  String _getAssignedUnitName() {
     if (agenda.assignedUnitIds.isEmpty) return 'None';
     final unitState = game.unitStates
         .where((u) => u.unitId == agenda.assignedUnitIds.first)
         .firstOrNull;
     return unitState?.unitName ?? 'Unknown';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isTally = agenda.type == AgendaType.tally;
+    final isObjective = agenda.type == AgendaType.objective;
+    final hasUnitLimit = agenda.maxUnits != null;
+    final needsUnitAssignment = hasUnitLimit && agenda.assignedUnitIds.isEmpty;
+
+    return Card(
+      margin: const EdgeInsets.only(bottom: 8),
+      color: needsUnitAssignment
+          ? Colors.orange.withValues(alpha: 0.1)
+          : null,
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Header row
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: isTally
+                        ? Colors.blue.withValues(alpha: 0.2)
+                        : Colors.amber.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Icon(
+                    isTally ? Icons.leaderboard : Icons.emoji_events,
+                    size: 16,
+                    color: isTally ? Colors.blue : Colors.amber,
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        agenda.name,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        isTally ? 'Tally Agenda' : 'Objective Agenda',
+                        style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
+                      ),
+                    ],
+                  ),
+                ),
+                // Tally total badge
+                if (isTally)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFFB6C1).withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.stacked_bar_chart, size: 14, color: Color(0xFFFFB6C1)),
+                        const SizedBox(width: 4),
+                        Text(
+                          '${agenda.totalTallies}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Color(0xFFFFB6C1),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                // Tier progress for objective agendas
+                if (isObjective && agenda.maxTier > 1)
+                  _TierProgressIndicator(
+                    currentTier: agenda.tier,
+                    maxTier: agenda.maxTier,
+                  ),
+              ],
+            ),
+
+            // Description
+            if (agenda.description != null) ...[
+              const SizedBox(height: 8),
+              Text(
+                agenda.description!,
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade400),
+              ),
+            ],
+
+            // Unit assignment for limited agendas
+            if (hasUnitLimit) ...[
+              const SizedBox(height: 10),
+              InkWell(
+                onTap: onSelectUnit,
+                borderRadius: BorderRadius.circular(8),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: needsUnitAssignment
+                        ? Colors.orange.withValues(alpha: 0.15)
+                        : Colors.grey.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: needsUnitAssignment
+                          ? Colors.orange.withValues(alpha: 0.5)
+                          : Colors.grey.withValues(alpha: 0.3),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        needsUnitAssignment ? Icons.person_add : Icons.person,
+                        size: 16,
+                        color: needsUnitAssignment ? Colors.orange : Colors.grey,
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          needsUnitAssignment
+                              ? 'Tap to assign unit'
+                              : 'Assigned: ${_getAssignedUnitName()}',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: needsUnitAssignment ? Colors.orange : null,
+                            fontWeight: needsUnitAssignment ? FontWeight.w500 : null,
+                          ),
+                        ),
+                      ),
+                      Icon(
+                        Icons.chevron_right,
+                        size: 18,
+                        color: needsUnitAssignment ? Colors.orange : Colors.grey,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+
+            // Progress bar for tally agendas with targets
+            if (isTally && agenda.totalTallies > 0) ...[
+              const SizedBox(height: 10),
+              _TallyProgressBar(totalTallies: agenda.totalTallies),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Tier progress indicator for objective agendas
+class _TierProgressIndicator extends StatelessWidget {
+  final int currentTier;
+  final int maxTier;
+
+  const _TierProgressIndicator({
+    required this.currentTier,
+    required this.maxTier,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: List.generate(maxTier, (index) {
+        final tierNum = index + 1;
+        final isAchieved = currentTier >= tierNum;
+        return Container(
+          margin: EdgeInsets.only(left: index > 0 ? 4 : 0),
+          width: 24,
+          height: 24,
+          decoration: BoxDecoration(
+            color: isAchieved
+                ? Colors.green.withValues(alpha: 0.2)
+                : Colors.grey.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(
+              color: isAchieved
+                  ? Colors.green
+                  : Colors.grey.withValues(alpha: 0.3),
+            ),
+          ),
+          child: Center(
+            child: isAchieved
+                ? const Icon(Icons.check, size: 14, color: Colors.green)
+                : Text(
+                    '$tierNum',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.grey.shade500,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+          ),
+        );
+      }),
+    );
+  }
+}
+
+/// Progress bar showing tally progress with milestone markers
+class _TallyProgressBar extends StatelessWidget {
+  final int totalTallies;
+
+  const _TallyProgressBar({required this.totalTallies});
+
+  @override
+  Widget build(BuildContext context) {
+    // Define milestone targets (e.g., XP thresholds)
+    const milestones = [3, 6, 10];
+    final maxMilestone = milestones.last;
+    final progress = (totalTallies / maxMilestone).clamp(0.0, 1.0);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const Icon(Icons.trending_up, size: 12, color: Colors.grey),
+            const SizedBox(width: 4),
+            Text(
+              'Progress',
+              style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Stack(
+          children: [
+            // Background
+            Container(
+              height: 8,
+              decoration: BoxDecoration(
+                color: Colors.grey.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+            // Progress fill
+            FractionallySizedBox(
+              widthFactor: progress,
+              child: Container(
+                height: 8,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      const Color(0xFFFFB6C1),
+                      const Color(0xFFFFB6C1).withValues(alpha: 0.7),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+            ),
+            // Milestone markers
+            ...milestones.map((milestone) {
+              final position = milestone / maxMilestone;
+              return Positioned(
+                left: 0,
+                right: 0,
+                child: FractionallySizedBox(
+                  widthFactor: position,
+                  alignment: Alignment.centerLeft,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      width: 2,
+                      height: 8,
+                      color: totalTallies >= milestone
+                          ? Colors.white.withValues(alpha: 0.8)
+                          : Colors.grey.withValues(alpha: 0.5),
+                    ),
+                  ),
+                ),
+              );
+            }),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: milestones.map((m) {
+            final achieved = totalTallies >= m;
+            return Text(
+              '$m',
+              style: TextStyle(
+                fontSize: 10,
+                color: achieved ? const Color(0xFFFFB6C1) : Colors.grey.shade600,
+                fontWeight: achieved ? FontWeight.bold : null,
+              ),
+            );
+          }).toList(),
+        ),
+      ],
+    );
   }
 }
 

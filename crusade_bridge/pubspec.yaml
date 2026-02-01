@@ -50,6 +50,7 @@ flutter:
     - assets/icons/factions/
     - assets/data/factions_and_detachments.json
     - assets/data/battle_honours.json
+    - assets/data/core_agendas.json
     - assets/data/units/
 
 dev_dependencies:

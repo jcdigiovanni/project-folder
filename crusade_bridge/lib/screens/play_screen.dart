@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -593,29 +595,50 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
     );
   }
 
-  /// Available agendas to choose from
-  List<GameAgenda> _getAvailableAgendas() {
-    final timestamp = DateTime.now().millisecondsSinceEpoch;
-    return [
-      GameAgenda(
-        id: 'agenda_purgation_$timestamp',
-        name: 'Righteous Purgation',
-        type: AgendaType.tally,
-        description: 'Track kills and destruction wrought by each unit',
-      ),
-      GameAgenda(
-        id: 'agenda_survival_$timestamp',
-        name: 'Survival',
-        type: AgendaType.objective,
-        description: 'Select 1 unit to attempt survival',
-        maxTier: 2,
-        maxUnits: 1, // Only 1 unit can attempt this agenda
-      ),
-    ];
+  /// Load available agendas from core_agendas.json
+  Future<List<GameAgenda>> _loadAvailableAgendas(BuildContext context) async {
+    try {
+      final jsonString = await DefaultAssetBundle.of(context).loadString('assets/data/core_agendas.json');
+      final data = json.decode(jsonString) as Map<String, dynamic>;
+      final agendasList = data['agendas'] as List<dynamic>;
+      final timestamp = DateTime.now().millisecondsSinceEpoch;
+
+      return agendasList.map((agendaData) {
+        final a = agendaData as Map<String, dynamic>;
+        return GameAgenda(
+          id: '${a['id']}_$timestamp',
+          name: a['name'] as String,
+          type: a['type'] as String,
+          description: a['description'] as String?,
+          maxTier: a['maxTier'] as int? ?? 1,
+          maxUnits: a['maxUnits'] as int?,
+        );
+      }).toList();
+    } catch (e) {
+      // Fallback to basic agendas if loading fails
+      final timestamp = DateTime.now().millisecondsSinceEpoch;
+      return [
+        GameAgenda(
+          id: 'agenda_purgation_$timestamp',
+          name: 'Righteous Purgation',
+          type: AgendaType.tally,
+          description: 'Track kills and destruction wrought by each unit',
+        ),
+        GameAgenda(
+          id: 'agenda_survival_$timestamp',
+          name: 'Survivor',
+          type: AgendaType.objective,
+          description: 'Select 1 unit to attempt survival',
+          maxTier: 2,
+          maxUnits: 1,
+        ),
+      ];
+    }
   }
 
-  void _showAgendaSelectionDialog(BuildContext context, Roster roster, int totalPoints, int totalCP) {
-    final availableAgendas = _getAvailableAgendas();
+  void _showAgendaSelectionDialog(BuildContext context, Roster roster, int totalPoints, int totalCP) async {
+    final availableAgendas = await _loadAvailableAgendas(context);
+    if (!mounted) return;
     final selectedAgendas = <GameAgenda>[];
 
     showDialog(

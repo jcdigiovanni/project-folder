@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Enhanced Agenda System** — 12 core Crusade agendas from JSON data (assets/data/core_agendas.json), pre-game multi-select with tally/objective type indicators, in-game progress tracking (AgendaProgressCard with type icons, TierProgressIndicator for objectives, TallyProgressBar with milestone markers), post-game recap with completion status badges, VP/XP rewards display, summary totals banner, full persistence via Game model.
 - **Out of Action (OOA) & Battle Scars system** — Post-game integration, per-unit/batch resolution, 1D6 roll with auto-pass (Epic/Fort/Swarm), prompt on 1 for Devastating Blow or Scar, scar table roll (D6), effect application, scar tracking in model, Repair requisition link, dedicated UI step, visual indicators on unit cards.
 - **Battle Honours & Rank-Up Flow** — Claim button in unit details, modal with manual/roll options, integrated D6/2D6 rolls for Traits/Weapon Enhancements (duplicate reroll), Crusade Relics dropdown (Characters only, limit 1), Psychic Fortitudes, model fields (battleTraits, weaponEnhancements, crusadeRelic), honours.json data file, history logging, Renowned Heroes integration.
 - **Reusable D6 Roller Widget** — lib/widgets/d6_roller.dart, supports 1D6/2D6/D3, animated shake, Epic Hero skip, reroll button, modal helper (showD6RollerModal), DiceResult class, widget tests.
@@ -15,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - RP cap enforced at 10; post-game RP award only if under cap.
 - Active game kill tally now shows XP progress (3 dots + earned badge); survived/destroyed toggle as segmented button.
+- Play screen agenda selection now loads from JSON data file with async loading and fallback.
 
 ### Fixed
 - BUG-004: Marked for Greatness +3 XP (was +1).
@@ -24,9 +26,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Improved
 - Explicit close buttons on modals (ENH-001).
 - RP/CP/Supply dashboard on OOB screen (ENH-003).
+- Post-game agenda recap now shows individual agenda rewards (VP/XP) and overall completion summary.
 
 ### Planned
-- Enhanced agendas (pre-game selection, in-game tracking, post-game recap).
 - Bug clearance (Exit button, local data clear, save issues).
 - Deathwatch data fill (last faction).
 
