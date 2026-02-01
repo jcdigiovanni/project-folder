@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -110,6 +112,19 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
                   },
                 ),
                 const SizedBox(height: 24),
+
+                // OOA Resolution Section (only if there are destroyed units)
+                if (game.unitStates.any((u) => u.wasDestroyed))
+                  _OOAResolutionSection(
+                    game: game,
+                    crusade: crusade,
+                    onOOAResolved: () {
+                      ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
+                      setState(() {}); // Refresh UI
+                    },
+                  ),
+                if (game.unitStates.any((u) => u.wasDestroyed))
+                  const SizedBox(height: 24),
 
                 // Notes Section
                 _NotesSection(
@@ -245,6 +260,32 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
         // Check if unit ranked up
         if (newRank != previousRank) {
           unit.pendingRankUp = true;
+        }
+      }
+
+      // Apply OOA outcomes (battle scars or devastating blow)
+      if (unitState.wasDestroyed && unitState.ooaTestResolved && unitState.ooaTestPassed == false) {
+        if (unitState.ooaOutcome == 'battle_scar' && unitState.battleScarGained != null) {
+          // Add battle scar to unit
+          unit.scars.add(unitState.battleScarGained!);
+        } else if (unitState.ooaOutcome == 'devastating_blow') {
+          // Remove one Battle Honour (last one added)
+          if (unit.honours.isNotEmpty) {
+            final removedHonour = unit.honours.removeLast();
+            // Also remove from specific lists if applicable
+            if (removedHonour.startsWith('Trait: ')) {
+              final traitName = removedHonour.substring(7);
+              unit.battleTraits.remove(traitName);
+            } else if (removedHonour.startsWith('Weapon: ')) {
+              final weaponName = removedHonour.substring(8);
+              unit.weaponEnhancements.remove(weaponName);
+            } else if (removedHonour.startsWith('Relic: ')) {
+              unit.crusadeRelic = null;
+            } else if (removedHonour.startsWith('Psychic: ')) {
+              final psychicName = removedHonour.substring(9);
+              unit.battleTraits.remove(psychicName);
+            }
+          }
         }
       }
     }
@@ -781,6 +822,650 @@ class _NotesSection extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+/// Section for Out of Action (OOA) test resolution
+class _OOAResolutionSection extends StatefulWidget {
+  final Game game;
+  final Crusade? crusade;
+  final VoidCallback onOOAResolved;
+
+  const _OOAResolutionSection({
+    required this.game,
+    required this.crusade,
+    required this.onOOAResolved,
+  });
+
+  @override
+  State<_OOAResolutionSection> createState() => _OOAResolutionSectionState();
+}
+
+class _OOAResolutionSectionState extends State<_OOAResolutionSection> {
+  Map<String, dynamic>? _battleScarsData;
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBattleScarsData();
+  }
+
+  Future<void> _loadBattleScarsData() async {
+    try {
+      final jsonString = await DefaultAssetBundle.of(context).loadString('assets/data/battle_honours.json');
+      final data = Map<String, dynamic>.from(
+        (const JsonDecoder().convert(jsonString)) as Map,
+      );
+      if (mounted) {
+        setState(() {
+          _battleScarsData = data;
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
+
+  List<UnitGameState> get _destroyedUnits =>
+      widget.game.unitStates.where((u) => u.wasDestroyed).toList();
+
+  bool get _allOOAResolved =>
+      _destroyedUnits.every((u) => u.ooaTestResolved);
+
+  UnitOrGroup? _findUnit(String unitId) {
+    if (widget.crusade == null) return null;
+    for (final unit in widget.crusade!.oob) {
+      if (unit.id == unitId) return unit;
+      if (unit.type == 'group' && unit.components != null) {
+        for (final component in unit.components!) {
+          if (component.id == unitId) return component;
+        }
+      }
+    }
+    return null;
+  }
+
+  bool _shouldAutoPass(UnitGameState unitState) {
+    final unit = _findUnit(unitState.unitId);
+    if (unit == null) return false;
+    // Epic Heroes auto-pass OOA tests
+    return unit.isEpicHero == true;
+  }
+
+  void _runOOATest(UnitGameState unitState) {
+    final unit = _findUnit(unitState.unitId);
+    if (unit == null) return;
+
+    // Check for auto-pass (Epic Hero)
+    if (_shouldAutoPass(unitState)) {
+      setState(() {
+        unitState.ooaTestResolved = true;
+        unitState.ooaTestPassed = true;
+        unitState.ooaTestRoll = null; // Auto-pass, no roll
+      });
+      widget.onOOAResolved();
+      return;
+    }
+
+    // Show dice roll modal
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => _OOATestModal(
+        unitState: unitState,
+        unit: unit,
+        battleScarsData: _battleScarsData,
+        onResolved: () {
+          setState(() {});
+          widget.onOOAResolved();
+        },
+      ),
+    );
+  }
+
+  void _runAllOOATests() {
+    // Process each destroyed unit that hasn't been resolved
+    for (final unitState in _destroyedUnits) {
+      if (!unitState.ooaTestResolved) {
+        if (_shouldAutoPass(unitState)) {
+          unitState.ooaTestResolved = true;
+          unitState.ooaTestPassed = true;
+          unitState.ooaTestRoll = null;
+        }
+      }
+    }
+    setState(() {});
+    widget.onOOAResolved();
+
+    // Show modal for remaining units that need manual resolution
+    final needsManualResolution = _destroyedUnits.where((u) => !u.ooaTestResolved).toList();
+    if (needsManualResolution.isNotEmpty) {
+      _runOOATest(needsManualResolution.first);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(Icons.healing, color: Colors.orange.shade400, size: 20),
+            const SizedBox(width: 8),
+            const Text(
+              'Out of Action Tests',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const Spacer(),
+            if (_allOOAResolved)
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.green.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.check_circle, color: Colors.green, size: 16),
+                    SizedBox(width: 4),
+                    Text('Complete', style: TextStyle(color: Colors.green, fontSize: 12)),
+                  ],
+                ),
+              ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Text(
+          'Destroyed units must take an Out of Action test (D6 roll of 2+ to pass)',
+          style: TextStyle(color: Colors.grey.shade400, fontSize: 14),
+        ),
+        const SizedBox(height: 12),
+
+        // Run All button if not all resolved
+        if (!_allOOAResolved)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: OutlinedButton.icon(
+              onPressed: _runAllOOATests,
+              icon: const Icon(Icons.casino),
+              label: const Text('Run All OOA Tests'),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Colors.orange,
+                side: const BorderSide(color: Colors.orange),
+              ),
+            ),
+          ),
+
+        // List of destroyed units
+        ..._destroyedUnits.map((unitState) => _OOAUnitCard(
+          unitState: unitState,
+          unit: _findUnit(unitState.unitId),
+          isAutoPass: _shouldAutoPass(unitState),
+          onRunTest: () => _runOOATest(unitState),
+        )),
+      ],
+    );
+  }
+}
+
+/// Card showing a single unit's OOA status
+class _OOAUnitCard extends StatelessWidget {
+  final UnitGameState unitState;
+  final UnitOrGroup? unit;
+  final bool isAutoPass;
+  final VoidCallback onRunTest;
+
+  const _OOAUnitCard({
+    required this.unitState,
+    required this.unit,
+    required this.isAutoPass,
+    required this.onRunTest,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final isResolved = unitState.ooaTestResolved;
+    final passed = unitState.ooaTestPassed ?? false;
+
+    return Card(
+      margin: const EdgeInsets.only(bottom: 8),
+      color: isResolved
+          ? (passed ? Colors.green.withValues(alpha: 0.1) : Colors.red.withValues(alpha: 0.1))
+          : null,
+      child: ListTile(
+        leading: Icon(
+          isResolved
+              ? (passed ? Icons.check_circle : Icons.cancel)
+              : Icons.help_outline,
+          color: isResolved
+              ? (passed ? Colors.green : Colors.red)
+              : Colors.orange,
+        ),
+        title: Text(unitState.unitName),
+        subtitle: _buildSubtitle(),
+        trailing: isResolved
+            ? _buildResolvedBadge(passed)
+            : TextButton(
+                onPressed: onRunTest,
+                child: Text(isAutoPass ? 'Auto-Pass' : 'Roll Test'),
+              ),
+      ),
+    );
+  }
+
+  Widget _buildSubtitle() {
+    if (!unitState.ooaTestResolved) {
+      if (isAutoPass) {
+        return const Text('Epic Hero - Automatic pass', style: TextStyle(color: Colors.amber));
+      }
+      return const Text('Awaiting OOA test');
+    }
+
+    final passed = unitState.ooaTestPassed ?? false;
+    if (passed) {
+      if (unitState.ooaTestRoll != null) {
+        return Text('Rolled ${unitState.ooaTestRoll} - Passed!');
+      }
+      return const Text('Auto-passed (Epic Hero)');
+    }
+
+    // Failed
+    String outcome = 'Rolled ${unitState.ooaTestRoll} - Failed!';
+    if (unitState.ooaOutcome == 'devastating_blow') {
+      outcome += ' (Devastating Blow)';
+    } else if (unitState.ooaOutcome == 'battle_scar' && unitState.battleScarGained != null) {
+      outcome += '\nScar: ${unitState.battleScarGained}';
+    }
+    return Text(outcome, style: const TextStyle(color: Colors.red));
+  }
+
+  Widget _buildResolvedBadge(bool passed) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: passed ? Colors.green.withValues(alpha: 0.2) : Colors.red.withValues(alpha: 0.2),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text(
+        passed ? 'Passed' : 'Failed',
+        style: TextStyle(
+          color: passed ? Colors.green : Colors.red,
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
+        ),
+      ),
+    );
+  }
+}
+
+/// Modal for running OOA test with dice roll
+class _OOATestModal extends StatefulWidget {
+  final UnitGameState unitState;
+  final UnitOrGroup unit;
+  final Map<String, dynamic>? battleScarsData;
+  final VoidCallback onResolved;
+
+  const _OOATestModal({
+    required this.unitState,
+    required this.unit,
+    required this.battleScarsData,
+    required this.onResolved,
+  });
+
+  @override
+  State<_OOATestModal> createState() => _OOATestModalState();
+}
+
+class _OOATestModalState extends State<_OOATestModal> {
+  int? _rollResult;
+  bool _isRolling = false;
+  bool _showOutcomeChoice = false;
+  String? _selectedOutcome;
+  String? _scarResult;
+  int? _scarRoll;
+
+  bool get _testPassed => _rollResult != null && _rollResult! >= 2;
+  bool get _testFailed => _rollResult != null && _rollResult == 1;
+
+  void _rollDice() async {
+    setState(() => _isRolling = true);
+
+    // Animate through random values
+    for (int i = 0; i < 8; i++) {
+      await Future.delayed(const Duration(milliseconds: 60));
+      if (!mounted) return;
+      setState(() {
+        _rollResult = (DateTime.now().millisecondsSinceEpoch % 6) + 1;
+      });
+    }
+
+    // Final roll
+    final random = DateTime.now().millisecondsSinceEpoch;
+    setState(() {
+      _rollResult = (random % 6) + 1;
+      _isRolling = false;
+      if (_testFailed) {
+        _showOutcomeChoice = true;
+      }
+    });
+  }
+
+  void _selectOutcome(String outcome) {
+    setState(() {
+      _selectedOutcome = outcome;
+      if (outcome == 'battle_scar') {
+        // Auto-roll for battle scar
+        _rollForScar();
+      }
+    });
+  }
+
+  void _rollForScar() async {
+    setState(() => _isRolling = true);
+
+    // Animate
+    for (int i = 0; i < 6; i++) {
+      await Future.delayed(const Duration(milliseconds: 60));
+      if (!mounted) return;
+      setState(() {
+        _scarRoll = (DateTime.now().millisecondsSinceEpoch % 6) + 1;
+      });
+    }
+
+    // Final roll
+    final roll = (DateTime.now().millisecondsSinceEpoch % 6) + 1;
+    setState(() {
+      _scarRoll = roll;
+      _isRolling = false;
+
+      // Find scar from table
+      final scarsTable = widget.battleScarsData?['battleScars']?['table'] as List?;
+      if (scarsTable != null) {
+        for (final scar in scarsTable) {
+          if (scar['roll'] == roll) {
+            _scarResult = scar['name'] as String;
+            break;
+          }
+        }
+      }
+      _scarResult ??= 'Unknown Scar';
+    });
+  }
+
+  void _confirmResult() {
+    // Update unit state
+    widget.unitState.ooaTestResolved = true;
+    widget.unitState.ooaTestRoll = _rollResult;
+    widget.unitState.ooaTestPassed = _testPassed;
+
+    if (_testFailed) {
+      widget.unitState.ooaOutcome = _selectedOutcome;
+      if (_selectedOutcome == 'battle_scar') {
+        widget.unitState.battleScarGained = _scarResult;
+      }
+    }
+
+    widget.onResolved();
+    Navigator.pop(context);
+  }
+
+  bool get _canConfirm {
+    if (_rollResult == null) return false;
+    if (_testPassed) return true;
+    if (_testFailed && _selectedOutcome != null) {
+      if (_selectedOutcome == 'battle_scar') {
+        return _scarResult != null;
+      }
+      return true;
+    }
+    return false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Container(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Header
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Out of Action Test',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            widget.unitState.unitName,
+            style: TextStyle(fontSize: 16, color: colorScheme.onSurfaceVariant),
+          ),
+          const SizedBox(height: 24),
+
+          // Dice display
+          Container(
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              color: _rollResult != null
+                  ? (_testPassed ? Colors.green.withValues(alpha: 0.2) : Colors.red.withValues(alpha: 0.2))
+                  : colorScheme.surfaceContainerHighest,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: _rollResult != null
+                    ? (_testPassed ? Colors.green : Colors.red)
+                    : colorScheme.outline,
+                width: 3,
+              ),
+            ),
+            child: Center(
+              child: _rollResult != null
+                  ? Text(
+                      '$_rollResult',
+                      style: TextStyle(
+                        fontSize: 48,
+                        fontWeight: FontWeight.bold,
+                        color: _testPassed ? Colors.green : Colors.red,
+                      ),
+                    )
+                  : Icon(Icons.casino, size: 40, color: colorScheme.onSurfaceVariant),
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // Result text
+          if (_rollResult != null)
+            Text(
+              _testPassed ? 'Passed! (2+ required)' : 'Failed! (Rolled 1)',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: _testPassed ? Colors.green : Colors.red,
+              ),
+            ),
+
+          const SizedBox(height: 24),
+
+          // Outcome choice (if failed)
+          if (_showOutcomeChoice && !_testPassed) ...[
+            const Text(
+              'Choose your fate:',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Expanded(
+                  child: _OutcomeCard(
+                    title: 'Devastating Blow',
+                    description: 'Lose one Battle Honour',
+                    icon: Icons.auto_awesome_mosaic,
+                    color: Colors.purple,
+                    isSelected: _selectedOutcome == 'devastating_blow',
+                    onTap: widget.unit.honours.isNotEmpty
+                        ? () => _selectOutcome('devastating_blow')
+                        : null,
+                    isDisabled: widget.unit.honours.isEmpty,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _OutcomeCard(
+                    title: 'Battle Scar',
+                    description: 'Gain a permanent scar',
+                    icon: Icons.healing,
+                    color: Colors.red,
+                    isSelected: _selectedOutcome == 'battle_scar',
+                    onTap: () => _selectOutcome('battle_scar'),
+                  ),
+                ),
+              ],
+            ),
+          ],
+
+          // Scar result (if battle scar selected)
+          if (_selectedOutcome == 'battle_scar' && _scarResult != null) ...[
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.red.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.red.withValues(alpha: 0.5)),
+              ),
+              child: Column(
+                children: [
+                  Text('Rolled: $_scarRoll', style: const TextStyle(color: Colors.grey)),
+                  const SizedBox(height: 4),
+                  Text(
+                    _scarResult!,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+
+          const SizedBox(height: 24),
+
+          // Action buttons
+          if (_rollResult == null)
+            FilledButton.icon(
+              onPressed: _isRolling ? null : _rollDice,
+              icon: _isRolling
+                  ? const SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Icon(Icons.casino),
+              label: Text(_isRolling ? 'Rolling...' : 'Roll D6'),
+            )
+          else
+            FilledButton.icon(
+              onPressed: _canConfirm ? _confirmResult : null,
+              icon: const Icon(Icons.check),
+              label: const Text('Confirm'),
+            ),
+
+          const SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+}
+
+/// Card for outcome selection
+class _OutcomeCard extends StatelessWidget {
+  final String title;
+  final String description;
+  final IconData icon;
+  final Color color;
+  final bool isSelected;
+  final VoidCallback? onTap;
+  final bool isDisabled;
+
+  const _OutcomeCard({
+    required this.title,
+    required this.description,
+    required this.icon,
+    required this.color,
+    required this.isSelected,
+    required this.onTap,
+    this.isDisabled = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Opacity(
+      opacity: isDisabled ? 0.5 : 1.0,
+      child: Card(
+        color: isSelected ? color.withValues(alpha: 0.2) : null,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide(
+            color: isSelected ? color : Colors.transparent,
+            width: 2,
+          ),
+        ),
+        child: InkWell(
+          onTap: isDisabled ? null : onTap,
+          borderRadius: BorderRadius.circular(12),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: [
+                Icon(icon, color: color, size: 32),
+                const SizedBox(height: 8),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: isDisabled ? Colors.grey : null,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  isDisabled ? 'No honours to lose' : description,
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: isDisabled ? Colors.grey : Colors.grey.shade400,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -31,6 +31,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Battle honours data file (assets/data/battle_honours.json) with core tables
   - History logging for honour claims
 
+- **Out of Action (OOA) Tests & Battle Scars**
+  - OOA Resolution section in post-game screen for destroyed units
+  - D6 roll with 2+ to pass; Epic Heroes auto-pass
+  - On failure (roll of 1): Choose Devastating Blow (lose honour) or Battle Scar
+  - Battle Scar D6 table roll with automatic application to unit
+  - "Run All OOA Tests" button for batch processing
+  - New UnitGameState fields: ooaTestResolved, ooaTestRoll, ooaTestPassed, ooaOutcome, battleScarGained
+  - Visual status cards showing pass/fail for each unit
+  - Scars and devastating blow effects applied on commit
+
 - **Requisitions Phase 3: Advanced/Healing Requisitions**
   - Repair and Recuperate: Remove Battle Scars from units (cost = scar count)
   - Renowned Heroes: Grant Enhancements to Characters (1-3 RP based on count)

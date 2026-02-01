@@ -941,6 +941,21 @@ class UnitGameState {
   @HiveField(7)
   String? groupName; // Name of the group this unit belongs to
 
+  @HiveField(8)
+  bool ooaTestResolved; // Whether OOA test has been resolved for this unit
+
+  @HiveField(9)
+  int? ooaTestRoll; // The D6 roll result (null if auto-passed or not yet rolled)
+
+  @HiveField(10)
+  bool? ooaTestPassed; // True if passed (roll 2+), false if failed (roll 1), null if not tested
+
+  @HiveField(11)
+  String? ooaOutcome; // 'devastating_blow' or 'battle_scar' if failed, null otherwise
+
+  @HiveField(12)
+  String? battleScarGained; // Name of battle scar gained (if any)
+
   UnitGameState({
     required this.unitId,
     required this.unitName,
@@ -950,6 +965,11 @@ class UnitGameState {
     this.notes,
     this.groupId,
     this.groupName,
+    this.ooaTestResolved = false,
+    this.ooaTestRoll,
+    this.ooaTestPassed,
+    this.ooaOutcome,
+    this.battleScarGained,
   });
 
   factory UnitGameState.fromJson(Map<String, dynamic> json) {
@@ -962,6 +982,11 @@ class UnitGameState {
       notes: json['notes'] as String?,
       groupId: json['groupId'] as String?,
       groupName: json['groupName'] as String?,
+      ooaTestResolved: json['ooaTestResolved'] as bool? ?? false,
+      ooaTestRoll: json['ooaTestRoll'] as int?,
+      ooaTestPassed: json['ooaTestPassed'] as bool?,
+      ooaOutcome: json['ooaOutcome'] as String?,
+      battleScarGained: json['battleScarGained'] as String?,
     );
   }
 
@@ -975,6 +1000,11 @@ class UnitGameState {
       'notes': notes,
       'groupId': groupId,
       'groupName': groupName,
+      'ooaTestResolved': ooaTestResolved,
+      'ooaTestRoll': ooaTestRoll,
+      'ooaTestPassed': ooaTestPassed,
+      'ooaOutcome': ooaOutcome,
+      'battleScarGained': battleScarGained,
     };
   }
 }
