@@ -1,79 +1,66 @@
 # Crusade Bridge - Project Status
 
-**Last Updated:** January 31, 2026
+**Last Updated:** January 31, 2026 (Post-Merge)
 
 ### Executive Summary – Wins & Momentum
-Over the past few days (Jan 23–25), we've gone from solid maintenance base to **playable gameplay alpha** with real Crusade battle flow emerging — and today delivered **foundational Play screen functionality** that makes tallies, agendas, and post-game viable.  
+Over the past week (Jan 23–31), we've advanced from maintenance foundation to a **playable alpha with full battle loop potential** — today merging **requisitions phases 1–3** (Supply Limit, Fresh Recruits, Repair/Recuperate, Renowned Heroes, Legendary Veterans) brings us closer to complete Crusade progression.
 
-Brass highlights:  
-- Jan 24 burst: 11/12 QOL items delivered (conditional UI, confirmations, filters, Warlord safeguards, Drive v1.1 campaign backups) — direct execution of design.md "sleek/low-clutter" vision.  
-- Jan 25 code push: **ActiveGameScreen created & routed**, **Game model/state infrastructure** fully wired (per-component agendas/tallies, unit assignment limits, group framing), **agenda tracking Phases 1–4 complete** (display, tally controls, tier UI, completion stub), **post-game stub** ready — bringing us very close to a full testable loop.  
-- Data expanded (~27 factions, broad enhancements v3.8), icons batched, validation added.  
-- Docs rationalized: lean TODO.md (active sprint), curated BACKLOG.md, consolidated README — reducing maintenance debt.  
+Brass highlights:
+- Jan 31 merge: Requisitions phase 3 (advanced/healing), phase 2 (Fresh Recruits with variable RP), phase 1 (RP cap/display/progress bar, Supply Limit increase) — direct delivery of requirements.md progression stories.
+- Jan 25 code push: ActiveGameScreen routed, Game model enhancements, agenda Phases 1–4 complete, post-game stub — enabling tallies/agendas.
+- Jan 24 burst: 11/12 QOL items (conditional UI, confirmations, filters, Drive v1.1), data expansions (Tyranids/icons/validation), Campaign Manager, Play Screen start.
+- Data at ~27 factions, enhancements broad (v3.8 accurate to MFM images).
+- Docs rationalized: lean TODO.md, curated BACKLOG.md, consolidated README.
 
-Velocity strong (18+ commits in 3 days), quality high (atomic, co-authored polish), vision intact — we're on track for a genuinely usable table-side tool.
+Velocity high (20+ commits), quality strong (atomic, co-authored), vision intact — on track for beta with testable loop.
 
-**Current Phase:** Gameplay Implementation (Post-Game & XP active)  
+**Current Phase:** Gameplay Implementation (Post-Game & XP active)
 **Vision Alignment:** Delivering requirements.md (clean flows, offline-first), design.md (intuitive/low-clutter), tasks.md (phased delivery).
 
-### Recent Work Summary (Jan 23–25)
-- **Jan 25 (Evening)**
-Alpha ~0.3.1 – Bug Fixes & UX Polish Complete (Jan 25, 2026)
-- Resolved high-priority bugs: Marked for Greatness XP (+3), Supply Limit persistence, Renowned Heroes visibility, dialog close UX.
-- Added RP/CP dashboard on OOB screen.
-- In Progress: Core Requisitions System (Phase 1 pending – RP tracking & menu)
-- Milestone: Full battle → post-game → requisition loop targeted for ~0.4.0
-- Data: 27/28 factions complete; only Deathwatch remaining.
-  
-- **Jan 25 (Lunch + Morning)**  
-  - Code: ActiveGameScreen routed (/game/:gameId), Game model enhancements (agenda limits, per-component states, group affiliation), crusade_provider game lifecycle (add/update/getGame), post-game stub.  
-  - Agenda tracking Phases 1–4 complete: placeholder agendas, tally/tier UI, completion stub.  
-  - Docs: Added BACKLOG.md, refactored/trimmed TODO.md (active Phases 5–6), removed redundant README, consolidated root README with Documentation Map.  
+### Recent Work Summary (Jan 23–31)
+- **Jan 31 Merge (1 commit)**  
+  - Requisitions phase 3: Repair/Recuperate (remove scars, cost = count), Renowned Heroes (enhancements to Characters, 1–3 RP), Legendary Veterans (non-Characters exceed 30 XP/3 Honours).  
+  - Phase 2: Fresh Recruits (add models, base 1 RP +1 per Honour, Supply Limit check).  
+  - Phase 1: RP cap 10, Supply Used progress bar, over-limit warning, Increase Supply Limit (+200 pts/1 RP).  
+  - Post-game: Optional notes field, RP award if under cap.  
+  - ActiveGame: Kill tally XP indicator (3 dots), survived/destroyed segmented toggle.  
+  - Fixes: Marked for Greatness +3 XP, Supply Limit persistence, 4 OOB operations data loss, visibility in Renowned Heroes.  
+  - Improved: Close buttons on modals, RP/CP dashboard on OOB.  
+
+- **Jan 25 (5 commits)**  
+  - Code: ActiveGameScreen routed, Game model (agenda limits, per-component states, group affiliation), crusade_provider game lifecycle, post-game stub.  
+  - Agenda Phases 1–4 complete: placeholders, tally/tier UI, component controls, completion stub.  
+  - Docs: BACKLOG.md added, TODO.md trimmed, redundant README removed, root README consolidated.  
 
 - **Jan 24 Burst (13 commits)**  
-  - UX/QOL: Conditional Play button, exit/confirmation, group delete options, Warlord hide, Renowned Heroes detachment filter, Drive v1.1 (campaign backups).  
+  - UX/QOL: Conditional Play button, exit/confirmation, group delete, Warlord hide, Renowned Heroes filter, Drive v1.1 (campaign backups).  
   - Data: Tyranids units, icon batches, validation/sanitization.  
   - Gameplay: Campaign Manager added, Play Screen started.  
 
-- **Jan 23 Prep**  
+- **Jan 23 Prep (4 commits)**  
   - OOB enhancements + data prep.
 
 ### Progress Against North Star Artifacts
-- **requirements.md** — Core 85–90% (CRUD, OOB, requisitions, sync); gameplay stories advancing (tallies/agendas/XP).  
-- **design.md** — Strong: collapsible/conditional UI, filters reduce clutter.  
-- **tasks.md** — Milestone 1–3 advanced; Milestone 4 active (Play foundations live).
+- **requirements.md** — Core 85–90% (CRUD, OOB, sync); gameplay 70% (tallies/agendas/XP advancing). Requisitions phase 3 fulfills progression stories.  
+- **design.md** — Strong: collapsible/conditional UI, filters reduce clutter; post-game notes/segmented toggle align with intuitive design.  
+- **tasks.md** — Milestone 1–3 advanced; Milestone 4 active (Play foundations complete, post-game stubbed); Milestone 5 partial (polish started).
 
-### Key Metrics (Jan 23–25)
-- Commits: ~18+  
+### Key Metrics (Jan 23–31)
+- Commits: ~22+  
 - Lines Changed: Hundreds (models +44, providers +29, screens additions)  
 - Faction Coverage: ~27 units JSONs, 20+ detachments enhancements  
 
 ### Completed Features
-- Crusade/OOB/requisitions with low-clutter UX
-- Drive Sync v1.1 + campaign backups
-- Agenda tracking Phases 1–4 (display, tallies, tiers, completion stub)
-- ActiveGameScreen + game state infrastructure
-- **Post-Game Screen & XP/Progression (Phases 5–6) — Complete**
-  - Full post-game review with recap, Mark for Greatness, unit summary
-  - XP calculation (participation, kills, marked bonus; Epic Hero skip)
-  - Rank progression with pendingRankUp flag
-  - Optional game notes field
-  - Drive backup prompt after commit
+- Crusade/OOB/requisitions with low-clutter UX  
+- Drive Sync v1.1 + campaign backups  
+- Agenda tracking Phases 1–4 (display, tallies, tiers, completion stub)  
+- ActiveGameScreen + game state infrastructure  
+- Requisitions phases 1–3 (Supply Limit, Fresh Recruits, Repair/Recuperate, Renowned Heroes, Legendary Veterans)  
 
 ### In Progress
-- **Requisitions Immediate Polish:** Auto-increase Supply Limit, dashboard visuals, confirmation prompts
-- Agenda progress indicators (Immediate Polish phase)
-- D6 roller widget for OOA tests
-- Remaining data flags
-
-### Recently Completed
-- **Requisitions Phase 3:** Repair and Recuperate, Renowned Heroes, Legendary Veterans implemented
-- **Requisitions Phase 2:** Fresh Recruits implemented (add models to units, variable RP cost based on Battle Honours)
-- **Requisitions Phase 1 Complete:** RP max cap (10), Supply Used display with progress bar, Increase Supply Limit functional
-- Kill tally XP progress indicator (3 dots showing progress to next XP)
-- Survived/Destroyed segmented toggle (clearer unit status)
-- **Bug fixes:** Marked for Greatness +3 XP, data persistence in OOB operations
-- **Enhancements:** Close buttons on modals, RP/CP dashboard in OOB screen  
+- Post-Game Screen & XP/Progression (Phases 5–6)  
+- Tally polish & agenda indicators  
+- Remaining data flags  
 
 ### Roadmap
 - Phase 1–3: Core → Complete/Advanced  
