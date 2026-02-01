@@ -24,7 +24,14 @@ You are assisting with Crusade Bridge development. Follow these rules **without 
    - If stuck or unclear, ask clarifying questions before proceeding.
    - Keep responses concise but complete — prioritize action over long explanations.
 
-5. **Context Gathering (Critical for BUG/ENH Tasks)**
+5. **When an item completes**
+   - Check it off in TODO
+   - Summarize in CHANGELOG.md (e.g., "Added post-game recap & XP calc")
+   - Update PROJECT_STATUS.md (move to Completed Features)
+   - If deferred long-term → cut/paste to BACKLOG.md with note "Deferred from agenda/post-game phase"
+   - After Phases 5–6 complete: Reset TODO to next phase (e.g., polish or data fill)
+
+6. **Context Gathering (Critical for BUG/ENH Tasks)**
    - When receiving a task from TODO.md that references a BUG-XXX or ENH-XXX (e.g. "Fix BUG-017: Unit CP must update after rank-up"):
      - **Immediately open and read the full entry from BACKLOG.md** for that exact number.
      - Read **all sections** in order: Description, Repro Steps, Expected, Actual, Impact, Potential Fix Notes.
