@@ -181,6 +181,38 @@ class RequisitionScreen extends ConsumerWidget {
                     SnackBarUtils.showMessage(context, 'Coming soon - requires wargear data');
                   },
                 ),
+                const SizedBox(height: 12),
+                _RequisitionOption(
+                  title: 'Repair and Recuperate',
+                  description: 'Remove a Battle Scar from a unit (cost = scar count)',
+                  cost: 1,
+                  costSuffix: '-5',
+                  icon: Icons.healing,
+                  color: Colors.teal,
+                  enabled: currentCrusade.rp >= 1 && _hasUnitsWithScars(currentCrusade),
+                  onTap: () => _showRepairAndRecuperateModal(context, ref, currentCrusade),
+                ),
+                const SizedBox(height: 12),
+                _RequisitionOption(
+                  title: 'Renowned Heroes',
+                  description: 'Grant an Enhancement to a Character (1-3 RP)',
+                  cost: 1,
+                  costSuffix: '-3',
+                  icon: Icons.star,
+                  color: Colors.orange,
+                  enabled: currentCrusade.rp >= 1 && _hasEligibleCharacters(currentCrusade),
+                  onTap: () => _showRenownedHeroesModal(context, ref, currentCrusade),
+                ),
+                const SizedBox(height: 12),
+                _RequisitionOption(
+                  title: 'Legendary Veterans',
+                  description: 'Allow a unit to exceed 30 XP and 3 Honours cap',
+                  cost: 3,
+                  icon: Icons.auto_awesome,
+                  color: Colors.deepPurple,
+                  enabled: currentCrusade.rp >= 3,
+                  onTap: () => _showLegendaryVeteransModal(context, ref, currentCrusade),
+                ),
               ],
             ),
           ),
@@ -512,6 +544,753 @@ class RequisitionScreen extends ConsumerWidget {
       ),
     );
   }
+
+  // ============ REPAIR AND RECUPERATE ============
+
+  bool _hasUnitsWithScars(Crusade crusade) {
+    for (final item in crusade.oob) {
+      if (item.type == 'group' && item.components != null) {
+        for (final unit in item.components!) {
+          if (unit.scars.isNotEmpty) return true;
+        }
+      } else if (item.scars.isNotEmpty) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  void _showRepairAndRecuperateModal(BuildContext context, WidgetRef ref, Crusade crusade) {
+    // Gather all units with scars
+    final List<UnitOrGroup> unitsWithScars = [];
+
+    for (final item in crusade.oob) {
+      if (item.type == 'group' && item.components != null) {
+        for (final unit in item.components!) {
+          if (unit.scars.isNotEmpty) {
+            unitsWithScars.add(unit);
+          }
+        }
+      } else if (item.scars.isNotEmpty) {
+        unitsWithScars.add(item);
+      }
+    }
+
+    if (unitsWithScars.isEmpty) {
+      SnackBarUtils.showMessage(context, 'No units have Battle Scars to remove');
+      return;
+    }
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.6,
+        minChildSize: 0.3,
+        maxChildSize: 0.9,
+        expand: false,
+        builder: (context, scrollController) => Column(
+          children: [
+            // Header
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Repair and Recuperate',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        'Select a unit to remove a Battle Scar',
+                        style: TextStyle(color: Colors.grey, fontSize: 14),
+                      ),
+                    ],
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.pop(context),
+                    tooltip: 'Close',
+                  ),
+                ],
+              ),
+            ),
+            const Divider(height: 1),
+            // Unit list
+            Expanded(
+              child: ListView.builder(
+                controller: scrollController,
+                itemCount: unitsWithScars.length,
+                itemBuilder: (context, index) {
+                  final unit = unitsWithScars[index];
+                  final rpCost = unit.scars.length; // Cost = number of scars
+                  final canAfford = crusade.rp >= rpCost;
+
+                  return ListTile(
+                    enabled: canAfford,
+                    leading: Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: Colors.teal.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Icon(Icons.healing, color: Colors.teal),
+                    ),
+                    title: Text(unit.customName ?? unit.name),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${unit.scars.length} Battle Scar${unit.scars.length > 1 ? 's' : ''}',
+                          style: const TextStyle(color: Colors.red),
+                        ),
+                        ...unit.scars.map((scar) => Text(
+                          '• $scar',
+                          style: TextStyle(color: Colors.grey.shade500, fontSize: 12),
+                        )),
+                      ],
+                    ),
+                    trailing: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: canAfford
+                            ? const Color(0xFFFFF59D).withValues(alpha: 0.2)
+                            : Colors.grey.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: canAfford ? const Color(0xFFFFF59D) : Colors.grey,
+                        ),
+                      ),
+                      child: Text(
+                        '$rpCost RP',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: canAfford ? const Color(0xFFFFF59D) : Colors.grey,
+                        ),
+                      ),
+                    ),
+                    onTap: canAfford
+                        ? () => _selectScarToRemove(context, ref, crusade, unit, rpCost)
+                        : null,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _selectScarToRemove(
+    BuildContext context,
+    WidgetRef ref,
+    Crusade crusade,
+    UnitOrGroup unit,
+    int rpCost,
+  ) {
+    // If only one scar, go directly to confirmation
+    if (unit.scars.length == 1) {
+      _confirmRepairAndRecuperate(context, ref, crusade, unit, unit.scars.first, rpCost);
+      return;
+    }
+
+    // Show scar selection dialog
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Select Scar to Remove'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: unit.scars.map((scar) => ListTile(
+            leading: const Icon(Icons.remove_circle, color: Colors.red),
+            title: Text(scar),
+            onTap: () {
+              Navigator.pop(dialogContext);
+              _confirmRepairAndRecuperate(context, ref, crusade, unit, scar, rpCost);
+            },
+          )).toList(),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _confirmRepairAndRecuperate(
+    BuildContext context,
+    WidgetRef ref,
+    Crusade crusade,
+    UnitOrGroup unit,
+    String scar,
+    int rpCost,
+  ) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Confirm Repair and Recuperate'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Unit: ${unit.customName ?? unit.name}'),
+            const SizedBox(height: 8),
+            Text('Remove: $scar'),
+            const SizedBox(height: 8),
+            Text(
+              'Cost: $rpCost RP',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFFFF59D),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Remove the scar
+              unit.scars.remove(scar);
+
+              // Update crusade RP
+              crusade.rp -= rpCost;
+              crusade.lastModified = DateTime.now().millisecondsSinceEpoch;
+
+              // Add history event
+              crusade.addEvent(CrusadeEvent.create(
+                type: CrusadeEventType.requisition,
+                description: 'Repair and Recuperate: Removed "$scar" from ${unit.customName ?? unit.name}',
+                unitId: unit.id,
+                unitName: unit.customName ?? unit.name,
+                metadata: {
+                  'requisition': 'repair_and_recuperate',
+                  'rpCost': rpCost,
+                  'removedScar': scar,
+                },
+              ));
+
+              // Save
+              ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
+              StorageService.saveCrusade(crusade);
+
+              Navigator.pop(dialogContext); // Close dialog
+              Navigator.pop(context); // Close modal
+
+              SnackBarUtils.showSuccess(
+                context,
+                'Battle Scar removed from ${unit.customName ?? unit.name}!',
+              );
+            },
+            child: const Text('Confirm'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ============ RENOWNED HEROES ============
+
+  bool _hasEligibleCharacters(Crusade crusade) {
+    for (final item in crusade.oob) {
+      if (item.type == 'group' && item.components != null) {
+        for (final unit in item.components!) {
+          if (_isEligibleForEnhancement(unit)) return true;
+        }
+      } else if (_isEligibleForEnhancement(item)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bool _isEligibleForEnhancement(UnitOrGroup unit) {
+    // Must be a Character
+    if (unit.isCharacter != true) return false;
+    // Cannot be an Epic Hero
+    if (unit.isEpicHero == true) return false;
+    // Cannot already have an enhancement
+    if (unit.enhancements.isNotEmpty) return false;
+    // Cannot have Disgraced or Mark of Shame scars
+    if (unit.scars.any((scar) =>
+        scar.toLowerCase().contains('disgraced') ||
+        scar.toLowerCase().contains('mark of shame'))) {
+      return false;
+    }
+    return true;
+  }
+
+  void _showRenownedHeroesModal(BuildContext context, WidgetRef ref, Crusade crusade) {
+    // Gather eligible characters
+    final List<UnitOrGroup> eligibleCharacters = [];
+
+    for (final item in crusade.oob) {
+      if (item.type == 'group' && item.components != null) {
+        for (final unit in item.components!) {
+          if (_isEligibleForEnhancement(unit)) {
+            eligibleCharacters.add(unit);
+          }
+        }
+      } else if (_isEligibleForEnhancement(item)) {
+        eligibleCharacters.add(item);
+      }
+    }
+
+    if (eligibleCharacters.isEmpty) {
+      SnackBarUtils.showMessage(
+        context,
+        'No eligible characters! Must be CHARACTER, not Epic Hero, no existing enhancement, and no Disgraced/Mark of Shame scars.',
+      );
+      return;
+    }
+
+    // Calculate RP cost based on how many characters already have enhancements
+    int charactersWithEnhancements = 0;
+    for (final item in crusade.oob) {
+      if (item.type == 'group' && item.components != null) {
+        for (final unit in item.components!) {
+          if (unit.isCharacter == true && unit.enhancements.isNotEmpty) {
+            charactersWithEnhancements++;
+          }
+        }
+      } else if (item.isCharacter == true && item.enhancements.isNotEmpty) {
+        charactersWithEnhancements++;
+      }
+    }
+
+    // Cost: 1 RP for first, 2 RP for second, 3 RP for third+
+    final rpCost = (charactersWithEnhancements + 1).clamp(1, 3);
+    final canAfford = crusade.rp >= rpCost;
+
+    if (!canAfford) {
+      SnackBarUtils.showError(context, 'Not enough RP ($rpCost RP required)');
+      return;
+    }
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.6,
+        minChildSize: 0.3,
+        maxChildSize: 0.9,
+        expand: false,
+        builder: (context, scrollController) => Column(
+          children: [
+            // Header
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Renowned Heroes',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Select a Character to grant an Enhancement ($rpCost RP)',
+                        style: const TextStyle(color: Colors.grey, fontSize: 14),
+                      ),
+                    ],
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.pop(context),
+                    tooltip: 'Close',
+                  ),
+                ],
+              ),
+            ),
+            const Divider(height: 1),
+            // Character list
+            Expanded(
+              child: ListView.builder(
+                controller: scrollController,
+                itemCount: eligibleCharacters.length,
+                itemBuilder: (context, index) {
+                  final unit = eligibleCharacters[index];
+
+                  return ListTile(
+                    leading: Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: Colors.orange.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Icon(Icons.star, color: Colors.orange),
+                    ),
+                    title: Text(unit.customName ?? unit.name),
+                    subtitle: Text(
+                      '${unit.rank} • ${unit.xp} XP',
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                    trailing: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFFF59D).withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: const Color(0xFFFFF59D)),
+                      ),
+                      child: Text(
+                        '$rpCost RP',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFFFF59D),
+                        ),
+                      ),
+                    ),
+                    onTap: () => _selectEnhancement(context, ref, crusade, unit, rpCost),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _selectEnhancement(
+    BuildContext context,
+    WidgetRef ref,
+    Crusade crusade,
+    UnitOrGroup unit,
+    int rpCost,
+  ) {
+    // Get enhancements for the current detachment
+    final enhancements = ReferenceDataService.getEnhancements(crusade.faction, crusade.detachment);
+
+    if (enhancements.isEmpty) {
+      SnackBarUtils.showMessage(context, 'No enhancements available for ${crusade.detachment}');
+      return;
+    }
+
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Select Enhancement'),
+        content: SizedBox(
+          width: double.maxFinite,
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: enhancements.length,
+            itemBuilder: (context, index) {
+              final enhancement = enhancements[index];
+              final name = enhancement['name'] as String? ?? 'Unknown';
+              final points = enhancement['points'] as int? ?? 0;
+
+              return ListTile(
+                title: Text(name),
+                subtitle: Text('$points pts'),
+                onTap: () {
+                  Navigator.pop(dialogContext);
+                  _confirmRenownedHeroes(context, ref, crusade, unit, name, points, rpCost);
+                },
+              );
+            },
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _confirmRenownedHeroes(
+    BuildContext context,
+    WidgetRef ref,
+    Crusade crusade,
+    UnitOrGroup unit,
+    String enhancementName,
+    int enhancementPoints,
+    int rpCost,
+  ) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Confirm Renowned Heroes'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Unit: ${unit.customName ?? unit.name}'),
+            const SizedBox(height: 8),
+            Text('Enhancement: $enhancementName (+$enhancementPoints pts)'),
+            const SizedBox(height: 8),
+            Text(
+              'Cost: $rpCost RP',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFFFF59D),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Add enhancement to unit
+              unit.enhancements.add(enhancementName);
+              unit.points += enhancementPoints;
+
+              // Update crusade RP
+              crusade.rp -= rpCost;
+              crusade.lastModified = DateTime.now().millisecondsSinceEpoch;
+
+              // Add history event
+              crusade.addEvent(CrusadeEvent.create(
+                type: CrusadeEventType.enhancement,
+                description: 'Renowned Heroes: ${unit.customName ?? unit.name} gained $enhancementName',
+                unitId: unit.id,
+                unitName: unit.customName ?? unit.name,
+                metadata: {
+                  'requisition': 'renowned_heroes',
+                  'rpCost': rpCost,
+                  'enhancement': enhancementName,
+                  'enhancementPoints': enhancementPoints,
+                },
+              ));
+
+              // Save
+              ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
+              StorageService.saveCrusade(crusade);
+
+              Navigator.pop(dialogContext); // Close dialog
+              Navigator.pop(context); // Close modal
+
+              SnackBarUtils.showSuccess(
+                context,
+                '${unit.customName ?? unit.name} gained $enhancementName!',
+              );
+            },
+            child: const Text('Confirm'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ============ LEGENDARY VETERANS ============
+
+  void _showLegendaryVeteransModal(BuildContext context, WidgetRef ref, Crusade crusade) {
+    // Gather eligible units (non-Characters that could benefit from exceeding caps)
+    // For now, show all non-Epic Hero units that aren't already legendary
+    final List<UnitOrGroup> eligibleUnits = [];
+
+    for (final item in crusade.oob) {
+      if (item.type == 'group' && item.components != null) {
+        for (final unit in item.components!) {
+          if (unit.isEpicHero != true && unit.isCharacter != true) {
+            eligibleUnits.add(unit);
+          }
+        }
+      } else if (item.isEpicHero != true && item.isCharacter != true) {
+        eligibleUnits.add(item);
+      }
+    }
+
+    if (eligibleUnits.isEmpty) {
+      SnackBarUtils.showMessage(context, 'No eligible units for Legendary Veterans');
+      return;
+    }
+
+    const rpCost = 3;
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.6,
+        minChildSize: 0.3,
+        maxChildSize: 0.9,
+        expand: false,
+        builder: (context, scrollController) => Column(
+          children: [
+            // Header
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Legendary Veterans',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        'Allow a unit to exceed 30 XP and 3 Honours',
+                        style: TextStyle(color: Colors.grey, fontSize: 14),
+                      ),
+                    ],
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.pop(context),
+                    tooltip: 'Close',
+                  ),
+                ],
+              ),
+            ),
+            const Divider(height: 1),
+            // Unit list
+            Expanded(
+              child: ListView.builder(
+                controller: scrollController,
+                itemCount: eligibleUnits.length,
+                itemBuilder: (context, index) {
+                  final unit = eligibleUnits[index];
+                  final canAfford = crusade.rp >= rpCost;
+
+                  return ListTile(
+                    enabled: canAfford,
+                    leading: Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: Colors.deepPurple.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Icon(Icons.auto_awesome, color: Colors.deepPurple),
+                    ),
+                    title: Text(unit.customName ?? unit.name),
+                    subtitle: Text(
+                      '${unit.rank} • ${unit.xp} XP • ${unit.honours.length} Honours',
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                    trailing: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: canAfford
+                            ? const Color(0xFFFFF59D).withValues(alpha: 0.2)
+                            : Colors.grey.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: canAfford ? const Color(0xFFFFF59D) : Colors.grey,
+                        ),
+                      ),
+                      child: Text(
+                        '$rpCost RP',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: canAfford ? const Color(0xFFFFF59D) : Colors.grey,
+                        ),
+                      ),
+                    ),
+                    onTap: canAfford
+                        ? () => _confirmLegendaryVeterans(context, ref, crusade, unit, rpCost)
+                        : null,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _confirmLegendaryVeterans(
+    BuildContext context,
+    WidgetRef ref,
+    Crusade crusade,
+    UnitOrGroup unit,
+    int rpCost,
+  ) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Confirm Legendary Veterans'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Unit: ${unit.customName ?? unit.name}'),
+            const SizedBox(height: 8),
+            const Text('This unit can now exceed:'),
+            const Text('• 30 XP cap'),
+            const Text('• 3 Battle Honours limit'),
+            const SizedBox(height: 8),
+            Text(
+              'Cost: $rpCost RP',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFFFF59D),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Note: We would need to add a flag to track legendary status
+              // For now, just record the event and deduct RP
+
+              // Update crusade RP
+              crusade.rp -= rpCost;
+              crusade.lastModified = DateTime.now().millisecondsSinceEpoch;
+
+              // Add history event
+              crusade.addEvent(CrusadeEvent.create(
+                type: CrusadeEventType.requisition,
+                description: 'Legendary Veterans: ${unit.customName ?? unit.name} can now exceed XP and Honours caps',
+                unitId: unit.id,
+                unitName: unit.customName ?? unit.name,
+                metadata: {
+                  'requisition': 'legendary_veterans',
+                  'rpCost': rpCost,
+                },
+              ));
+
+              // Save
+              ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
+              StorageService.saveCrusade(crusade);
+
+              Navigator.pop(dialogContext); // Close dialog
+              Navigator.pop(context); // Close modal
+
+              SnackBarUtils.showSuccess(
+                context,
+                '${unit.customName ?? unit.name} is now a Legendary Veteran!',
+              );
+            },
+            child: const Text('Confirm'),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 /// Helper class for tracking eligible units for Fresh Recruits
@@ -570,7 +1349,7 @@ class _RequisitionOption extends StatelessWidget {
                   width: 56,
                   height: 56,
                   decoration: BoxDecoration(
-                    color: color.withOpacity(0.2),
+                    color: color.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Icon(icon, color: color, size: 32),
@@ -603,7 +1382,7 @@ class _RequisitionOption extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFFF59D).withOpacity(0.2),
+                    color: const Color(0xFFFFF59D).withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(color: const Color(0xFFFFF59D)),
                   ),

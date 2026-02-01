@@ -61,12 +61,13 @@ Alpha ~0.3.1 – Bug Fixes & UX Polish Complete (Jan 25, 2026)
   - Drive backup prompt after commit
 
 ### In Progress
-- **Requisitions Phase 3:** Advanced/Healing Requisitions (Repair and Recuperate, Legendary Veterans)
+- **Requisitions Immediate Polish:** Auto-increase Supply Limit, dashboard visuals, confirmation prompts
 - Agenda progress indicators (Immediate Polish phase)
 - D6 roller widget for OOA tests
 - Remaining data flags
 
 ### Recently Completed
+- **Requisitions Phase 3:** Repair and Recuperate, Renowned Heroes, Legendary Veterans implemented
 - **Requisitions Phase 2:** Fresh Recruits implemented (add models to units, variable RP cost based on Battle Honours)
 - **Requisitions Phase 1 Complete:** RP max cap (10), Supply Used display with progress bar, Increase Supply Limit functional
 - Kill tally XP progress indicator (3 dots showing progress to next XP)

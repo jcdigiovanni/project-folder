@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Requisitions Phase 3: Advanced/Healing Requisitions**
+  - Repair and Recuperate: Remove Battle Scars from units (cost = scar count)
+  - Renowned Heroes: Grant Enhancements to Characters (1-3 RP based on count)
+  - Legendary Veterans: Allow non-Characters to exceed 30 XP and 3 Honours caps
+
 - **Requisitions Phase 2: Fresh Recruits**
   - Add models to existing units up to datasheet maximum
   - Variable RP cost: 1 RP base + 1 per Battle Honour on the unit

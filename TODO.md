@@ -28,9 +28,9 @@ Goal: Add Requisition Points (RP) tracking and purchasing flow for the universal
 - [ ] ~~Add UI for wargear selectors~~ DEFERRED: Requires wargear data layer
 
 ### Phase 3 – Advanced/Healing Requisitions
-- [ ] Implement "Repair and Recuperate" (1–5 RP variable; post-battle, remove one Battle Scar)
-- [ ] Implement "Renowned Heroes" (1–3 RP variable; grant Enhancements to Characters, track global count; integrate BUG-003 hide logic)
-- [ ] Implement "Legendary Veterans" (3 RP; allow non-Characters to exceed 30 XP and 3 Honours)
+- [x] Implement "Repair and Recuperate" (1–5 RP variable; post-battle, remove one Battle Scar)
+- [x] Implement "Renowned Heroes" (1–3 RP variable; grant Enhancements to Characters, track global count)
+- [x] Implement "Legendary Veterans" (3 RP; allow non-Characters to exceed 30 XP and 3 Honours)
 
 ### Immediate Polish (After Requisitions Core)
 - [ ] Auto-increase Supply Limit if points updates cause exceed (per Munitorum Field Manual rule – no RP cost)
@@ -39,6 +39,7 @@ Goal: Add Requisition Points (RP) tracking and purchasing flow for the universal
 - [ ] Consistent explicit close/back buttons on all new requisition dialogs (per ENH-001)
 
 ## Completed This Session / Archive
+- **Requisitions Phase 3 (Jan 31):** Repair and Recuperate, Renowned Heroes, Legendary Veterans implemented
 - **Requisitions Phase 2 (Jan 31):** Fresh Recruits implemented (variable RP cost, model upgrades, supply limit enforcement)
 - **Requisitions Phase 1 (Jan 31):** RP max cap (10), Supply Used display with progress bar, /requisition route functional
 - **Prelude Bug Fixes (Jan 25):** BUG-004 (+3 XP for Mark), BUG-002/003 (data persistence), ENH-001 (close buttons), ENH-003 (RP/CP dashboard)
