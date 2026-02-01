@@ -19,7 +19,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Play screen agenda selection now loads from JSON data file with async loading and fallback.
 
 ### Fixed
+- BUG-001: Exit button now platform-aware (Android SystemNavigator, iOS/Desktop dart:io exit, Web message).
 - BUG-004: Marked for Greatness +3 XP (was +1).
+- BUG-005: Clear local data now navigates to landing screen after clearing.
+- BUG-006: setCurrent now persists crusade to storage by default (first unit + Warlord/Enhancement save fix).
+- BUG-007: Group create modal handles no-units case with dialog, autofocus on name field, inline validation.
 - BUG-002: Supply Limit persistence fixed.
 - BUG-003: OOB data loss in group disband/edit, enhancement add.
 
@@ -29,7 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Post-game agenda recap now shows individual agenda rewards (VP/XP) and overall completion summary.
 
 ### Planned
-- Bug clearance (Exit button, local data clear, save issues).
+- Polish: Consistent Supply/RP dashboard visuals, confirmation dialogs.
 - Deathwatch data fill (last faction).
 
 ## [0.3.2] – 2026-01-25

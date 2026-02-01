@@ -7,10 +7,10 @@
 Goal: Clear remaining bugs and polish to solidify the full Crusade loop (battle → post-game → progression → agendas).
 
 ### Phase 5 – Bug Clearance & General Polish (Interleave as Needed)
-- [ ] BUG-001: Fix Exit button (bottom ribbon) – ensure app-wide close/confirm behavior
-- [ ] BUG-005: Deleting all local data clears campaigns properly (Hive box wipe)
-- [ ] BUG-006: First unit add as Character + Warlord/Renowned Heroes saves correctly to permanent roster
-- [ ] BUG-007: Group name field retains focus/validation during add (handle no-units case)
+- [x] BUG-001: Fix Exit button – platform-aware close (Android/iOS/Desktop/Web)
+- [x] BUG-005: Deleting all local data clears campaigns properly + navigates to landing
+- [x] BUG-006: First unit add as Character + Warlord saves correctly (setCurrent now persists)
+- [x] BUG-007: Group name field autofocus, inline validation, no-units dialog
 - [ ] Polish: Consistent Supply/RP dashboard visuals app-wide (progress bars, warnings)
 - [ ] Polish: Confirmation + undo safety for rank-up, OOA, scar, and progression actions
 

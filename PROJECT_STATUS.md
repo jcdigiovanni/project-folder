@@ -1,20 +1,15 @@
-**Last Updated:** February 1, 2026 (Phases 1–4 Complete – Enhanced Agendas)
+**Last Updated:** February 1, 2026 (Phases 1–5 Bug Fixes Complete)
 
 **Recent Work (Feb 1)**
+- Completed Phase 5 Bug Clearance:
+  - BUG-001: Exit button platform-aware (Android/iOS/Desktop/Web)
+  - BUG-005: Clear local data navigates to landing after clear
+  - BUG-006: setCurrent persists to storage (first unit save fix)
+  - BUG-007: Group create handles no-units, autofocus, inline validation
 - Completed Phase 4: Enhanced Agenda System
   - 12 core Crusade agendas from JSON data file (core_agendas.json)
-  - Pre-game multi-select with type indicators (tally/objective)
-  - In-game tracking: AgendaProgressCard, TierProgressIndicator, TallyProgressBar with milestones
-  - Post-game recap: completion status badges, VP/XP rewards per agenda, summary totals banner
-  - Full persistence via Game model (Hive + JSON serialization)
-- Completed Phase 3: Out of Action (OOA) Tests & Battle Scars
-  - OOA Resolution section in post-game for destroyed units
-  - D6 roll (2+ to pass), Epic Hero auto-pass
-  - Failure choice: Devastating Blow (lose honour) or Battle Scar
-  - Battle Scar D6 table roll with auto-application
-  - "Run All OOA Tests" batch button, visual status cards
-- Completed Phase 2: Battle Honours & Rank-Up full flow
-- Completed Phase 1: Reusable D6 roller widget
+  - Pre-game multi-select, in-game tracking, post-game recap with VP/XP rewards
+- Completed Phases 1–3: D6 roller, Battle Honours, OOA/Scars
 - Requisitions core (Phases 1–3) merged and polished
 
 **Completed Features (Updated)**
@@ -22,10 +17,11 @@
 - Enhanced agenda system with data-driven JSON agendas
 - Progression foundations: D6 roller + Battle Honours/Rank-Up + OOA/Scars system
 - Requisitions full core loop (Supply Increase, Fresh Recruits, Repair/Recuperate, Renowned Heroes, Legendary Veterans)
+- Bug fixes for core functionality (exit, data clear, save persistence, group creation)
 
 **In Progress**
-- Phase 5: Bug clearance (Exit button, data clear, save issues)
+- Polish: Consistent Supply/RP dashboard visuals, confirmation dialogs
 
 **Roadmap**
-- Bug clearance → narrative/export for beta/testable loop
+- Polish → narrative/export for beta/testable loop
 - Fill Deathwatch data (last faction)
