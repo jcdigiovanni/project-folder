@@ -16,11 +16,11 @@ Goal: Clear critical bugs from BACKLOG.md before or alongside new requisition wo
 Goal: Add Requisition Points (RP) tracking and purchasing flow for the universal/core requisitions from the 10th ed Crusade rules. Tie into existing OOB points (MFM v3.8+) and auto-handle Supply Limit exceeded rule.
 
 ### Phase 1 – RP Tracking & Requisition Menu Basics
-- [ ] Add Campaign-level RP field (start: 5, +1 per completed game, max: 10)
-- [ ] Create Requisitions screen (GoRoute: /requisitions or tab in Campaign view)
-- [ ] Display current RP, Supply Limit (start: 1000 pts), Supply Used (sum of OOB unit points)
-- [ ] List core requisitions with costs, descriptions, and purchase buttons (confirmation prompt)
-- [ ] Implement "Increase Supply Limit" (+200 pts for 1 RP, purchasable anytime; integrate BUG-002 persistence fix)
+- [x] Add Campaign-level RP field (start: 5, +1 per completed game, max: 10)
+- [x] Create Requisitions screen (GoRoute: /requisition)
+- [x] Display current RP, Supply Limit (start: 1000 pts), Supply Used (sum of OOB unit points)
+- [x] List core requisitions with costs, descriptions, and purchase buttons (confirmation prompt)
+- [x] Implement "Increase Supply Limit" (+200 pts for 1 RP, purchasable anytime; integrate BUG-002 persistence fix)
 
 ### Phase 2 – Unit Modification Requisitions
 - [ ] Implement "Fresh Recruits" (1–4 RP variable cost based on Battle Honours; add models up to datasheet max, recalculate points, enforce Supply Limit)
@@ -39,6 +39,7 @@ Goal: Add Requisition Points (RP) tracking and purchasing flow for the universal
 - [ ] Consistent explicit close/back buttons on all new requisition dialogs (per ENH-001)
 
 ## Completed This Session / Archive
+- **Requisitions Phase 1 (Jan 31):** RP max cap (10), Supply Used display with progress bar, /requisition route functional
 - **Prelude Bug Fixes (Jan 25):** BUG-004 (+3 XP for Mark), BUG-002/003 (data persistence), ENH-001 (close buttons), ENH-003 (RP/CP dashboard)
 - Backlog integration: Pulled high-priority bugs (BUG-002/003/004) and enhancements (ENH-001/003) into active sprint
 - Roster assembly polish: Checkbox OOB → multi-select → named roster save with points total, filters, notes

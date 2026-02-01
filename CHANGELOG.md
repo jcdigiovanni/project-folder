@@ -8,11 +8,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Requisitions Phase 1 Complete**
+  - RP display now shows X / 10 format (max cap enforced)
+  - Supply Used display with progress bar showing OOB points vs Supply Limit
+  - Over-limit warning when Supply Used exceeds Supply Limit
+  - Increase Supply Limit requisition functional (+200 pts for 1 RP)
+
 - **Post-Game Screen Enhancements**
   - Optional game notes field for recording battle details
   - Google Drive backup prompt after committing results
 
 ### Changed
+- **RP System**
+  - RP now caps at 10 maximum (per 10th ed Crusade rules)
+  - Post-game RP award only applies if under cap
+
 - **Active Game Screen Polish**
   - Kill tally now shows XP progress indicator (3 dots + earned XP badge)
   - Survived/Destroyed toggle redesigned as segmented button (clearer status)

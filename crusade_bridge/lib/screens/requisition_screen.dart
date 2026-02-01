@@ -26,7 +26,7 @@ class RequisitionScreen extends ConsumerWidget {
       ),
       body: Column(
         children: [
-          // RP Summary Banner
+          // RP & Supply Summary Banner
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(16),
@@ -39,43 +39,94 @@ class RequisitionScreen extends ConsumerWidget {
                 ),
               ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                // Top row: RP and Supply Limit
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'Available RP',
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Available RP',
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Text(
+                              '${currentCrusade.rp}',
+                              style: const TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFFFFF59D),
+                              ),
+                            ),
+                            const Text(
+                              ' / 10 RP',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    Text(
-                      '${currentCrusade.rp} RP',
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFFFF59D),
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        const Text(
+                          'Supply Used',
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                        Text(
+                          '${currentCrusade.totalOobPoints} / ${currentCrusade.supplyLimit} pts',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: currentCrusade.totalOobPoints > currentCrusade.supplyLimit
+                                ? Colors.red
+                                : const Color(0xFFFFB6C1),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    const Text(
-                      'Supply Limit',
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                const SizedBox(height: 12),
+                // Supply progress bar
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(4),
+                  child: LinearProgressIndicator(
+                    value: currentCrusade.supplyLimit > 0
+                        ? (currentCrusade.totalOobPoints / currentCrusade.supplyLimit).clamp(0.0, 1.0)
+                        : 0.0,
+                    minHeight: 8,
+                    backgroundColor: Colors.grey.shade800,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      currentCrusade.totalOobPoints > currentCrusade.supplyLimit
+                          ? Colors.red
+                          : const Color(0xFFFFB6C1),
                     ),
-                    Text(
-                      '${currentCrusade.supplyLimit} pts',
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFFFB6C1),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
+                if (currentCrusade.totalOobPoints > currentCrusade.supplyLimit)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.warning_amber, color: Colors.red, size: 16),
+                        const SizedBox(width: 4),
+                        Text(
+                          'Over supply limit by ${currentCrusade.totalOobPoints - currentCrusade.supplyLimit} pts',
+                          style: const TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
               ],
             ),
           ),
