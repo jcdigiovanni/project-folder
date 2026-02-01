@@ -5,6 +5,8 @@
 - **BUG-008 (Low)**: Minor async/sync mismatches in unit selection UI (occasional lag on OOB load)
 - **BUG-009 (Low)**: Navigation issues on crusade disband (rare backstack overflow)
 - **BUG-010 (Critical)**: Android app unable to log into google drive
+- **BUG-011 (Low)**: Trying to take focus off of the soft keyboard on Adroid app causes currently selected options and text to be cleared on the Add Unit screen
+- **BUG-012 (Low)**: In order to make edits to a unit (ie: change custom name) that is a part of a unit group, the unit first needs to be dropped from the group.  The unit can then be upgraded and then re-added to the group.  This is a clunky and unintuitive workflow
 
 ## Enhancements (Remaining – Polish Debt)
 - **ENH-004 (Low)**: Add optional sound effects to D6 roller (toggle in settings; non-essential)
