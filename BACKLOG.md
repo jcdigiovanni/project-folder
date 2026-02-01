@@ -38,6 +38,23 @@ Note: You can still click the visible ones and proceed.
 -- Impact: Makes the screen look broken/unprofessional (yellow/black stripe is a debug warning). On smaller phones or in portrait mode it could hide agendas completely, forcing users to guess or restart. Feels clunky even though you can proceed. Ties to overall polish and usability in the Play/Game flow.
 -- Potential Fix Notes: The error points to a Column widget in lib/screens/play_screen.dart (around line 651) that's inside a layout that doesn't allow scrolling. Wrapping the agenda list in something scrollable (like SingleChildScrollView or ListView) or making sure the Column uses Expanded/Flexible widgets should fix the overflow and enable scrolling.
 
+- **BUG-017 (Critical)**: Crusade Points Not Updated After Leveling Unit and Applying Battle Honor
+Description: When I leveled up a unit (like Serena from Battle Ready to Blooded), the app let me roll for a random Battle Honor but didn't let me pick one manually. The bigger problem is that after applying the random Honor, the unit's Crusade Points (CP) didn't increase, and that meant the whole Order of Battle (OOB) total CP and army roster CP stayed the same too. This messes up tracking the army's overall strength/value.
+-- Repro Steps: Have a unit in your OOB that's ready to level up (e.g., enough XP to go from Battle Ready to Blooded). Go to the level-up screen for that unit.
+Roll and apply a random Battle Honor (note: no option to manually select one). Check the unit's CP, OOB total CP, and any army roster CP – they don't change.
+-- Expected: After leveling up and adding a Battle Honor, the unit's CP should go up by the right amount (based on rules for that rank-up). This should also update the OOB total CP and army roster CP right away, so everything reflects the new stronger unit.
+-- Actual: CP stays the same on the unit, OOB, and roster – no update happens even after applying the Honor.
+-- Impact: Breaks core Crusade progression tracking, since CP is key for army limits and balance. Users end up with wrong totals, which could lead to invalid armies or frustration when building rosters. High priority because it affects every level-up.
+-- Potential Fix Notes: In the level-up / post-game progression screen (likely in lib/screens/post_game_screen.dart or a unit_edit_screen.dart), make sure applying a Battle Honor triggers a CP recalculation for the unit and bubbles up to OOB/roster totals. Also, add an option to manually select Honors if rules allow it (vs. only random roll).
+
+- **BUG-018 (Medium)**: Can't Level Up or Edit Units While in a Group – Forces Clunky Workflow
+-- Description: You can only level up or make general edits (like name changes) to a unit if it's directly on the OOB, not if it's inside a unit group. This means users have to constantly remove the unit from the group, edit/level it, then add it back – and repeat every time another change is needed. It doesn't crash the app, but it's a pain and feels like extra unnecessary steps.
+-- Repro Steps: Create a unit and add it to a new unit group on the OOB. Try to level up the unit or edit something simple (like its name) while it's in the group – you can't. Remove the unit from the group, then level/edit it. Add it back to the group. Notice you have to do steps 3-4 again for any future edits.
+-- Expected: Users should be able to level up or edit units right from within their group on the OOB, without needing to remove/add them each time. The app should handle groups smoothly so edits don't require this back-and-forth.
+-- Actual: Edits and level-ups are blocked while in a group, forcing the remove-edit-add-repeat dance every time.
+-- Impact: Makes managing grouped units tedious and frustrating, especially for armies with lots of squads/groups. Users might avoid groups altogether or make mistakes forgetting to re-add units. It's not a breaker but kills the flow and feels like bad design.
+-- Potential Fix Notes: In the OOB or unit group view (likely lib/screens/oob_screen.dart or group_edit.dart), enable editing/level-up directly on grouped units without requiring removal. Maybe show a warning or auto-handle the group update behind the scenes. This ties to any existing TODO items about group editing polish.
+
 ## Enhancements (Remaining – Polish Debt)
 - **ENH-007 (Medium)**: Support Draws/Ties in Battle Results for Crusade Tallies
 -- Description: The app currently only tracks victories or defeats after a game, but my buddy and I had a 45-45 draw (tie) in points. The app doesn't have an option to record a draw, so there's no way to log a tied result properly. This means the post-game progression (like experience, requisition points, or narrative notes) might not handle ties correctly or at all right now.
