@@ -4,10 +4,12 @@
 ## Bugs (Remaining – Low Priority)
 - **BUG-008 (Low)**: Minor async/sync mismatches in unit selection UI (occasional lag on OOB load)
 - **BUG-009 (Low)**: Navigation issues on crusade disband (rare backstack overflow)
+- **BUG-010 (Critical)**: Android app unable to log into google drive
 
 ## Enhancements (Remaining – Polish Debt)
 - **ENH-004 (Low)**: Add optional sound effects to D6 roller (toggle in settings; non-essential)
 - **ENH-005 (Low)**: Export campaign summary as basic text/CSV (beyond full narrative tools)
+- **ENH-006 (Medium)**: Android app shows buttons, but the text is cut off two-thirds of the way down on the button (currently looks like buttons done with Good Vibes font)
 
 ## Deferred / Honor-System Items (RP Spend Only – No Enforcement)
 - **DEF-001 (Low)**: Stub "Rearm and Resupply" (1 RP deduct, toast/log "Wargear swapped – honor system", no unit/wargear change or UI)
