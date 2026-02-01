@@ -1,6 +1,6 @@
 # Crusade Bridge - Project Status
 
-**Last Updated:** January 25, 2026 (Evening)
+**Last Updated:** January 31, 2026
 
 ### Executive Summary – Wins & Momentum
 Over the past few days (Jan 23–25), we've gone from solid maintenance base to **playable gameplay alpha** with real Crusade battle flow emerging — and today delivered **foundational Play screen functionality** that makes tallies, agendas, and post-game viable.  
@@ -17,6 +17,14 @@ Velocity strong (18+ commits in 3 days), quality high (atomic, co-authored polis
 **Vision Alignment:** Delivering requirements.md (clean flows, offline-first), design.md (intuitive/low-clutter), tasks.md (phased delivery).
 
 ### Recent Work Summary (Jan 23–25)
+- **Jan 25 (Evening)**
+Alpha ~0.3.1 – Bug Fixes & UX Polish Complete (Jan 25, 2026)
+- Resolved high-priority bugs: Marked for Greatness XP (+3), Supply Limit persistence, Renowned Heroes visibility, dialog close UX.
+- Added RP/CP dashboard on OOB screen.
+- In Progress: Core Requisitions System (Phase 1 pending – RP tracking & menu)
+- Milestone: Full battle → post-game → requisition loop targeted for ~0.4.0
+- Data: 27/28 factions complete; only Deathwatch remaining.
+  
 - **Jan 25 (Lunch + Morning)**  
   - Code: ActiveGameScreen routed (/game/:gameId), Game model enhancements (agenda limits, per-component states, group affiliation), crusade_provider game lifecycle (add/update/getGame), post-game stub.  
   - Agenda tracking Phases 1–4 complete: placeholder agendas, tally/tier UI, completion stub.  
@@ -53,11 +61,15 @@ Velocity strong (18+ commits in 3 days), quality high (atomic, co-authored polis
   - Drive backup prompt after commit
 
 ### In Progress
+- **Requisitions Immediate Polish:** Auto-increase Supply Limit, dashboard visuals, confirmation prompts
 - Agenda progress indicators (Immediate Polish phase)
 - D6 roller widget for OOA tests
 - Remaining data flags
 
 ### Recently Completed
+- **Requisitions Phase 3:** Repair and Recuperate, Renowned Heroes, Legendary Veterans implemented
+- **Requisitions Phase 2:** Fresh Recruits implemented (add models to units, variable RP cost based on Battle Honours)
+- **Requisitions Phase 1 Complete:** RP max cap (10), Supply Used display with progress bar, Increase Supply Limit functional
 - Kill tally XP progress indicator (3 dots showing progress to next XP)
 - Survived/Destroyed segmented toggle (clearer unit status)
 - **Bug fixes:** Marked for Greatness +3 XP, data persistence in OOB operations

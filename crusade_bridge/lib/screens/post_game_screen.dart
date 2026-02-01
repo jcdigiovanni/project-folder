@@ -249,8 +249,10 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
       }
     }
 
-    // Award +1 RP to the crusade for playing a battle
-    crusade.rp += 1;
+    // Award +1 RP to the crusade for playing a battle (max 10)
+    if (crusade.rp < 10) {
+      crusade.rp += 1;
+    }
 
     // Save the crusade with updated units
     StorageService.saveCrusade(crusade);

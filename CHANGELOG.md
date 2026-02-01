@@ -8,11 +8,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Requisitions Phase 3: Advanced/Healing Requisitions**
+  - Repair and Recuperate: Remove Battle Scars from units (cost = scar count)
+  - Renowned Heroes: Grant Enhancements to Characters (1-3 RP based on count)
+  - Legendary Veterans: Allow non-Characters to exceed 30 XP and 3 Honours caps
+
+- **Requisitions Phase 2: Fresh Recruits**
+  - Add models to existing units up to datasheet maximum
+  - Variable RP cost: 1 RP base + 1 per Battle Honour on the unit
+  - Shows eligible units with next size option and points difference
+  - Enforces Supply Limit (blocks if upgrade would exceed)
+  - Records requisition events in crusade history
+
+- **Requisitions Phase 1 Complete**
+  - RP display now shows X / 10 format (max cap enforced)
+  - Supply Used display with progress bar showing OOB points vs Supply Limit
+  - Over-limit warning when Supply Used exceeds Supply Limit
+  - Increase Supply Limit requisition functional (+200 pts for 1 RP)
+
 - **Post-Game Screen Enhancements**
   - Optional game notes field for recording battle details
   - Google Drive backup prompt after committing results
 
 ### Changed
+- **RP System**
+  - RP now caps at 10 maximum (per 10th ed Crusade rules)
+  - Post-game RP award only applies if under cap
+
 - **Active Game Screen Polish**
   - Kill tally now shows XP progress indicator (3 dots + earned XP badge)
   - Survived/Destroyed toggle redesigned as segmented button (clearer status)
