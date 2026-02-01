@@ -428,11 +428,47 @@ class _ResultBanner extends StatelessWidget {
   }
 }
 
-/// Section showing agenda recap
+/// Section showing agenda recap with rewards summary
 class _AgendaRecapSection extends StatelessWidget {
   final Game game;
 
   const _AgendaRecapSection({required this.game});
+
+  /// Calculate total VP from agendas
+  int _calculateTotalVP() {
+    int totalVP = 0;
+    for (final agenda in game.agendas) {
+      if (agenda.type == AgendaType.objective) {
+        // VP rewards based on agenda ID and completion
+        final tier = agenda.tier;
+        if (tier > 0) {
+          // Common VP rewards by agenda
+          if (agenda.id.contains('behind_enemy_lines')) {
+            totalVP += 3; // 3 VP if completed
+          } else if (agenda.id.contains('secure_objective')) {
+            totalVP += 2; // 2 VP if completed
+          } else if (agenda.id.contains('domination')) {
+            totalVP += 3; // 3 VP if completed
+          } else {
+            // Default: 1 VP per tier achieved
+            totalVP += tier;
+          }
+        }
+      }
+    }
+    return totalVP;
+  }
+
+  /// Get count of completed agendas
+  int _getCompletedCount() {
+    return game.agendas.where((a) {
+      if (a.type == AgendaType.objective) {
+        return a.tier > 0;
+      } else {
+        return a.totalTallies > 0;
+      }
+    }).length;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -440,17 +476,78 @@ class _AgendaRecapSection extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
+    final completedCount = _getCompletedCount();
+    final totalVP = _calculateTotalVP();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Agenda Recap',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+        // Header with summary stats
+        Row(
+          children: [
+            const Icon(Icons.emoji_events_outlined, size: 20, color: Color(0xFFFFB6C1)),
+            const SizedBox(width: 8),
+            const Text(
+              'Agenda Recap',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const Spacer(),
+            // Completion badge
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: completedCount == game.agendas.length
+                    ? Colors.green.withValues(alpha: 0.2)
+                    : Colors.orange.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                '$completedCount/${game.agendas.length} complete',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: completedCount == game.agendas.length ? Colors.green : Colors.orange,
+                ),
+              ),
+            ),
+          ],
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 8),
+
+        // Summary row showing total VP earned
+        if (totalVP > 0)
+          Container(
+            margin: const EdgeInsets.only(bottom: 12),
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.amber.withValues(alpha: 0.15),
+                  Colors.amber.withValues(alpha: 0.05),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.amber.withValues(alpha: 0.3)),
+            ),
+            child: Row(
+              children: [
+                const Icon(Icons.star, color: Colors.amber, size: 20),
+                const SizedBox(width: 8),
+                Text(
+                  'Agenda VP Earned: +$totalVP VP',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.amber,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+        // Agenda cards
         ...game.agendas.map((agenda) => _AgendaRecapCard(agenda: agenda, game: game)),
       ],
     );
@@ -463,39 +560,165 @@ class _AgendaRecapCard extends StatelessWidget {
 
   const _AgendaRecapCard({required this.agenda, required this.game});
 
+  /// Get the XP reward description for tally agendas
+  String _getTallyXPReward() {
+    final total = agenda.totalTallies;
+    if (total == 0) return 'No progress';
+
+    // Calculate XP based on agenda type
+    if (agenda.id.contains('assassins')) {
+      final xp = total.clamp(0, 3);
+      return '+$xp XP ($total character${total != 1 ? 's' : ''} destroyed)';
+    } else if (agenda.id.contains('reaper')) {
+      final xp = total.clamp(0, 3);
+      return '+$xp XP ($total unit${total != 1 ? 's' : ''} destroyed)';
+    } else if (agenda.id.contains('cull_the_horde')) {
+      final xp = total ~/ 10;
+      return xp > 0 ? '+$xp XP ($total melee kills)' : '$total/10 toward 1 XP';
+    } else if (agenda.id.contains('glory_seekers')) {
+      // Count units with 3+ kills
+      int unitsQualified = 0;
+      for (final entry in agenda.unitTallies.entries) {
+        if (entry.value >= 3) unitsQualified++;
+      }
+      return unitsQualified > 0
+          ? '+$unitsQualified XP ($unitsQualified unit${unitsQualified != 1 ? 's' : ''} with 3+ kills)'
+          : 'No units with 3+ kills';
+    }
+
+    return 'Total: $total';
+  }
+
+  /// Get the VP/XP reward for objective agendas
+  String _getObjectiveReward() {
+    final tier = agenda.tier;
+    if (tier == 0) return 'Not achieved';
+
+    // Known objective rewards
+    if (agenda.id.contains('behind_enemy_lines')) {
+      return '+3 VP';
+    } else if (agenda.id.contains('kingslayer')) {
+      return '+2 XP to destroyer';
+    } else if (agenda.id.contains('survivor')) {
+      if (tier >= 2) return '+2 XP (full strength)';
+      return '+1 XP (survived)';
+    } else if (agenda.id.contains('secure_objective')) {
+      return '+2 VP';
+    } else if (agenda.id.contains('priority_target')) {
+      return '+2 XP to destroyer';
+    } else if (agenda.id.contains('domination')) {
+      return '+3 VP';
+    } else if (agenda.id.contains('first_blood')) {
+      return '+1 XP';
+    }
+
+    return 'Tier $tier achieved';
+  }
+
+  bool get _isCompleted {
+    if (agenda.type == AgendaType.objective) {
+      return agenda.tier > 0;
+    }
+    return agenda.totalTallies > 0;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final isTally = agenda.type == AgendaType.tally;
+    final isCompleted = _isCompleted;
+
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
+      color: isCompleted
+          ? Colors.green.withValues(alpha: 0.05)
+          : null,
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Header row with name and type icon
             Row(
               children: [
+                // Type icon
+                Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    color: isTally
+                        ? Colors.blue.withValues(alpha: 0.2)
+                        : Colors.amber.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Icon(
+                    isTally ? Icons.leaderboard : Icons.emoji_events,
+                    size: 14,
+                    color: isTally ? Colors.blue : Colors.amber,
+                  ),
+                ),
+                const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     agenda.name,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                if (agenda.type == AgendaType.tally)
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFFFB6C1).withValues(alpha: 0.2),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Text(
-                      'Total: ${agenda.totalTallies}',
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
+                // Completion status
+                Icon(
+                  isCompleted ? Icons.check_circle : Icons.radio_button_unchecked,
+                  size: 20,
+                  color: isCompleted ? Colors.green : Colors.grey.shade600,
+                ),
               ],
             ),
-            if (agenda.type == AgendaType.objective && agenda.maxUnits != null) ...[
-              const SizedBox(height: 8),
+
+            // Description if available
+            if (agenda.description != null) ...[
+              const SizedBox(height: 6),
+              Text(
+                agenda.description!,
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
+              ),
+            ],
+
+            const SizedBox(height: 10),
+
+            // Reward/Progress row
+            if (isTally) ...[
+              // Tally progress with reward
+              Row(
+                children: [
+                  // Progress bar
+                  Expanded(
+                    child: _buildTallyProgressBar(),
+                  ),
+                  const SizedBox(width: 12),
+                  // Reward badge
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: agenda.totalTallies > 0
+                          ? const Color(0xFFFFB6C1).withValues(alpha: 0.2)
+                          : Colors.grey.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: agenda.totalTallies > 0
+                            ? const Color(0xFFFFB6C1).withValues(alpha: 0.5)
+                            : Colors.grey.withValues(alpha: 0.3),
+                      ),
+                    ),
+                    child: Text(
+                      _getTallyXPReward(),
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w500,
+                        color: agenda.totalTallies > 0 ? const Color(0xFFFFB6C1) : Colors.grey.shade500,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ] else ...[
+              // Objective status with unit and reward
               _buildObjectiveStatus(),
             ],
           ],
@@ -504,49 +727,133 @@ class _AgendaRecapCard extends StatelessWidget {
     );
   }
 
-  Widget _buildObjectiveStatus() {
-    if (agenda.assignedUnitIds.isEmpty) {
-      return Text(
-        'No unit assigned',
-        style: TextStyle(color: Colors.grey.shade500, fontStyle: FontStyle.italic),
-      );
-    }
+  Widget _buildTallyProgressBar() {
+    final total = agenda.totalTallies;
+    const maxDisplay = 10;
+    final progress = (total / maxDisplay).clamp(0.0, 1.0);
 
-    final unitId = agenda.assignedUnitIds.first;
-    final unitState = game.unitStates.where((u) => u.unitId == unitId).firstOrNull;
-    final tier = agenda.unitTallies[unitId] ?? 0;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Progress bar
+        Container(
+          height: 6,
+          decoration: BoxDecoration(
+            color: Colors.grey.withValues(alpha: 0.2),
+            borderRadius: BorderRadius.circular(3),
+          ),
+          child: FractionallySizedBox(
+            widthFactor: progress,
+            alignment: Alignment.centerLeft,
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    const Color(0xFFFFB6C1),
+                    const Color(0xFFFFB6C1).withValues(alpha: 0.7),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(3),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          'Total: $total',
+          style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildObjectiveStatus() {
+    final tier = agenda.tier;
+    final reward = _getObjectiveReward();
+
+    // Get assigned unit info
+    String? assignedUnitName;
+    if (agenda.maxUnits != null && agenda.assignedUnitIds.isNotEmpty) {
+      final unitId = agenda.assignedUnitIds.first;
+      final unitState = game.unitStates.where((u) => u.unitId == unitId).firstOrNull;
+      assignedUnitName = unitState?.unitName ?? 'Unknown';
+    }
 
     return Row(
       children: [
-        Text(
-          unitState?.unitName ?? 'Unknown',
-          style: TextStyle(color: Colors.grey.shade400),
-        ),
-        const SizedBox(width: 8),
-        if (tier > 0)
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-            decoration: BoxDecoration(
-              color: Colors.green.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(8),
+        // Assigned unit (if applicable)
+        if (agenda.maxUnits != null) ...[
+          if (agenda.assignedUnitIds.isEmpty)
+            Text(
+              'No unit assigned',
+              style: TextStyle(color: Colors.grey.shade500, fontStyle: FontStyle.italic, fontSize: 13),
+            )
+          else ...[
+            Icon(Icons.person, size: 14, color: Colors.grey.shade500),
+            const SizedBox(width: 4),
+            Text(
+              assignedUnitName ?? 'Unknown',
+              style: TextStyle(color: Colors.grey.shade400, fontSize: 13),
             ),
-            child: Text(
-              'Tier $tier',
-              style: const TextStyle(color: Colors.green, fontSize: 12),
-            ),
-          )
-        else
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-            decoration: BoxDecoration(
-              color: Colors.grey.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Text(
-              'Not achieved',
-              style: TextStyle(color: Colors.grey.shade500, fontSize: 12),
+          ],
+          const Spacer(),
+        ] else
+          const Spacer(),
+
+        // Tier indicator for multi-tier objectives
+        if (agenda.maxTier > 1) ...[
+          ...List.generate(agenda.maxTier, (index) {
+            final tierNum = index + 1;
+            final isAchieved = tier >= tierNum;
+            return Container(
+              margin: EdgeInsets.only(left: index > 0 ? 4 : 0),
+              width: 20,
+              height: 20,
+              decoration: BoxDecoration(
+                color: isAchieved
+                    ? Colors.green.withValues(alpha: 0.2)
+                    : Colors.grey.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(4),
+                border: Border.all(
+                  color: isAchieved ? Colors.green : Colors.grey.withValues(alpha: 0.3),
+                ),
+              ),
+              child: Center(
+                child: isAchieved
+                    ? const Icon(Icons.check, size: 12, color: Colors.green)
+                    : Text(
+                        '$tierNum',
+                        style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+                      ),
+              ),
+            );
+          }),
+          const SizedBox(width: 8),
+        ],
+
+        // Reward badge
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          decoration: BoxDecoration(
+            color: tier > 0
+                ? Colors.green.withValues(alpha: 0.2)
+                : Colors.grey.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: tier > 0
+                  ? Colors.green.withValues(alpha: 0.5)
+                  : Colors.grey.withValues(alpha: 0.3),
             ),
           ),
+          child: Text(
+            reward,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
+              color: tier > 0 ? Colors.green : Colors.grey.shade500,
+            ),
+          ),
+        ),
       ],
     );
   }

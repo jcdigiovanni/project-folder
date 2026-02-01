@@ -1,3 +1,5 @@
+import 'dart:io' show Platform, exit;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -338,20 +340,32 @@ class ScaffoldWithNavBar extends ConsumerWidget {
   }
 
   void _showExitConfirmation(BuildContext context) {
+    // On iOS, apps cannot programmatically close themselves
+    // On Web, we can't really exit either
+    if (kIsWeb) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Close this browser tab to exit.'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (dialogContext) => AlertDialog(
         title: const Text('Exit App'),
         content: const Text('Are you sure you want to exit Crusade Bridge?'),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pop(dialogContext),
             child: const Text('Cancel'),
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.pop(context);
-              SystemNavigator.pop();
+              Navigator.pop(dialogContext);
+              _exitApp();
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF8B0000),
@@ -361,5 +375,34 @@ class ScaffoldWithNavBar extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  void _exitApp() {
+    // Platform-specific exit handling
+    if (kIsWeb) {
+      // Can't exit on web
+      return;
+    }
+
+    try {
+      if (Platform.isAndroid) {
+        // Android: Use SystemNavigator
+        SystemNavigator.pop();
+      } else if (Platform.isIOS) {
+        // iOS: Apple doesn't allow programmatic app closure
+        // SystemNavigator.pop() does nothing on iOS by design
+        // The best we can do is minimize or show a message
+        exit(0); // Force exit (not recommended but works)
+      } else if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+        // Desktop platforms: Use dart:io exit
+        exit(0);
+      } else {
+        // Fallback
+        SystemNavigator.pop();
+      }
+    } catch (e) {
+      // Fallback if Platform checks fail
+      SystemNavigator.pop();
+    }
   }
 }

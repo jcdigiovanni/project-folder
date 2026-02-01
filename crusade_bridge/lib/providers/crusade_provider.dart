@@ -14,8 +14,11 @@ final currentCrusadeProvider = StateProvider<Crusade?>((ref) {
 class CurrentCrusadeNotifier extends StateNotifier<Crusade?> {
   CurrentCrusadeNotifier() : super(null);
 
-  void setCurrent(Crusade crusade) {
+  void setCurrent(Crusade crusade, {bool persist = true}) {
     state = crusade;
+    if (persist) {
+      StorageService.saveCrusade(crusade);
+    }
   }
 
   void clearCurrent() {

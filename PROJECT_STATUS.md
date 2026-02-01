@@ -1,29 +1,27 @@
-**Last Updated:** February 2, 2026 (Phases 1–3 Complete – OOA System)
+**Last Updated:** February 1, 2026 (Phases 1–5 Bug Fixes Complete)
 
-**Recent Work (Feb 1–2)**
-- Completed Phase 1: Reusable D6 roller widget (foundation for OOA, Scars, random Honours)
-  - Animated, Epic Hero skip, 1D6/2D6/D3 support, modal helper
-- Completed Phase 2: Battle Honours & Rank-Up full flow
-  - Rank-up trigger button, modal with manual/roll options
-  - Integrated D6/2D6 rolls for Traits/Weapon Enhancements
-  - Relics dropdown, Psychic Fortitudes, model fields added
-  - History logging and Renowned Heroes tie-in
-- Completed Phase 3: Out of Action (OOA) Tests & Battle Scars
-  - OOA Resolution section in post-game for destroyed units
-  - D6 roll (2+ to pass), Epic Hero auto-pass
-  - Failure choice: Devastating Blow (lose honour) or Battle Scar
-  - Battle Scar D6 table roll with auto-application
-  - "Run All OOA Tests" batch button, visual status cards
+**Recent Work (Feb 1)**
+- Completed Phase 5 Bug Clearance:
+  - BUG-001: Exit button platform-aware (Android/iOS/Desktop/Web)
+  - BUG-005: Clear local data navigates to landing after clear
+  - BUG-006: setCurrent persists to storage (first unit save fix)
+  - BUG-007: Group create handles no-units, autofocus, inline validation
+- Completed Phase 4: Enhanced Agenda System
+  - 12 core Crusade agendas from JSON data file (core_agendas.json)
+  - Pre-game multi-select, in-game tracking, post-game recap with VP/XP rewards
+- Completed Phases 1–3: D6 roller, Battle Honours, OOA/Scars
 - Requisitions core (Phases 1–3) merged and polished
 
 **Completed Features (Updated)**
-- Requisitions full core loop (Supply Increase, Fresh Recruits, Repair/Recuperate, Renowned Heroes, Legendary Veterans)
+- Full Crusade game loop: roster → play → agendas → in-game tracking → post-game → XP/progression
+- Enhanced agenda system with data-driven JSON agendas
 - Progression foundations: D6 roller + Battle Honours/Rank-Up + OOA/Scars system
+- Requisitions full core loop (Supply Increase, Fresh Recruits, Repair/Recuperate, Renowned Heroes, Legendary Veterans)
+- Bug fixes for core functionality (exit, data clear, save persistence, group creation)
 
 **In Progress**
-- Phase 4: Enhanced agendas (pre-game selection, in-game tracking)
-- Phase 5: Bug clearance (Exit button, data clear, save issues)
+- Polish: Consistent Supply/RP dashboard visuals, confirmation dialogs
 
 **Roadmap**
-- Enhanced agendas → bug clearance → narrative/export for beta/testable loop
+- Polish → narrative/export for beta/testable loop
 - Fill Deathwatch data (last faction)

@@ -568,18 +568,40 @@ class OOBModifyScreen extends ConsumerWidget {
     final currentCrusade = ref.read(currentCrusadeNotifierProvider);
     if (currentCrusade == null) return;
 
+    // Filter out only units (not groups) for selection - check before showing modal
+    final availableUnits = currentCrusade.oob.where((item) => item.type == 'unit').toList();
+
+    // If no units available, show a message instead of the full modal
+    if (availableUnits.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('No Units Available'),
+          content: const Text(
+            'You need to add some units to your Order of Battle before you can create a group.',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    // Use a TextEditingController to maintain focus
+    final groupNameController = TextEditingController();
+    final selectedUnitIds = <String>{};
+    String? nameError;
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       builder: (context) {
-        String groupName = '';
-        final selectedUnitIds = <String>{};
-
         return StatefulBuilder(
           builder: (context, setModalState) {
-            // Filter out only units (not groups) for selection
-            final availableUnits = currentCrusade.oob.where((item) => item.type == 'unit').toList();
-
             // Calculate total points from selected units
             final totalPoints = availableUnits
                 .where((unit) => selectedUnitIds.contains(unit.id))
@@ -610,47 +632,48 @@ class OOBModifyScreen extends ConsumerWidget {
                   const SizedBox(height: 16),
 
                   TextField(
-                    decoration: const InputDecoration(
+                    controller: groupNameController,
+                    autofocus: true,
+                    decoration: InputDecoration(
                       labelText: 'Group Name',
                       hintText: 'e.g., Sailor Venus Squad',
+                      errorText: nameError,
                     ),
-                    onChanged: (value) => groupName = value,
+                    onChanged: (value) {
+                      if (nameError != null && value.trim().isNotEmpty) {
+                        setModalState(() => nameError = null);
+                      }
+                    },
                   ),
                   const SizedBox(height: 16),
 
                   const Text('Select Units to Add:', style: TextStyle(fontSize: 16)),
                   const SizedBox(height: 8),
 
-                  if (availableUnits.isEmpty)
-                    const Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Text('No units available. Add some units first!'),
-                    )
-                  else
-                    ConstrainedBox(
-                      constraints: const BoxConstraints(maxHeight: 300),
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: availableUnits.length,
-                        itemBuilder: (context, index) {
-                          final unit = availableUnits[index];
-                          return CheckboxListTile(
-                            title: Text(unit.customName ?? unit.name),
-                            subtitle: Text('${unit.points} pts • ${unit.modelsCurrent}/${unit.modelsMax} models'),
-                            value: selectedUnitIds.contains(unit.id),
-                            onChanged: (bool? value) {
-                              setModalState(() {
-                                if (value == true) {
-                                  selectedUnitIds.add(unit.id);
-                                } else {
-                                  selectedUnitIds.remove(unit.id);
-                                }
-                              });
-                            },
-                          );
-                        },
-                      ),
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(maxHeight: 300),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: availableUnits.length,
+                      itemBuilder: (context, index) {
+                        final unit = availableUnits[index];
+                        return CheckboxListTile(
+                          title: Text(unit.customName ?? unit.name),
+                          subtitle: Text('${unit.points} pts • ${unit.modelsCurrent}/${unit.modelsMax} models'),
+                          value: selectedUnitIds.contains(unit.id),
+                          onChanged: (bool? value) {
+                            setModalState(() {
+                              if (value == true) {
+                                selectedUnitIds.add(unit.id);
+                              } else {
+                                selectedUnitIds.remove(unit.id);
+                              }
+                            });
+                          },
+                        );
+                      },
                     ),
+                  ),
 
                   const SizedBox(height: 16),
                   Text('Total Points: $totalPoints', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
@@ -659,8 +682,9 @@ class OOBModifyScreen extends ConsumerWidget {
                   Center(
                     child: ElevatedButton(
                       onPressed: () {
+                        final groupName = groupNameController.text;
                         if (groupName.trim().isEmpty) {
-                          SnackBarUtils.showError(context, 'Enter a group name');
+                          setModalState(() => nameError = 'Enter a group name');
                           return;
                         }
                         if (selectedUnitIds.isEmpty) {
