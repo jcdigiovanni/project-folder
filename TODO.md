@@ -1,17 +1,10 @@
 # TODO - Active Sprint Tracker
-**Last Updated:** February 2, 2026 (Sprint: Progression Depth Foundations – Phases 1–3 Complete)
+**Last Updated:** February 1, 2026 (Sprint: Progression Depth Foundations – Phases 1–3 Complete)
 
 **Follow the guidelines in AGENTS.md exactly.**
 
-## Current Focus: Progression Depth Foundations
-Goal: Leverage the new D6 roller to complete post-battle progression (OOA/Scars), then polish agendas and clear bugs for a smooth end-to-end Crusade experience.
-
-### Phase 3 – Out of Action (OOA) Tests & Battle Scars (Relies on D6 Roller) ✅
-- [x] Integrate D6 roller into post-game flow for destroyed units (per-unit or batch "Run All" option)
-- [x] OOA test logic: Roll 1D6; auto-pass for Epic Hero; on 1 → choice: Devastating Blow (lose honour) or Battle Scar
-- [x] Battle Scars application: On scar → roll D6 on core table, apply scar name to unit.scars list
-- [x] Track scars per unit in model; Repair and Recuperate requisition already exists to remove
-- [x] UI: Dedicated OOA Resolution section in post-game, unit cards show pass/fail status
+## Current Focus: Progression Depth Completion
+Goal: Finish enhanced agendas, then clear bugs and polish to solidify the full Crusade loop (battle → post-game → progression → agendas).
 
 ### Phase 4 – Enhanced Agenda System & Polish
 - [ ] Pre-game agenda selection: Allow 1–2 agendas per player (dropdown/multi-select from core agenda list)
@@ -32,9 +25,9 @@ Goal: Leverage the new D6 roller to complete post-battle progression (OOA/Scars)
 - [ ] Stub any maintenance/upgrade reqs if needed (same pattern)
 
 ## Completed This Session / Archive
-- **Feb 2 Morning Merge**: Phase 1 (Reusable D6 Roller Widget) fully complete: lib/widgets/d6_roller.dart built, supports 1D6/2D6/D3, animated shake, Epic Hero skip, reroll, modal helper (showD6RollerModal), DiceResult class, widget tests.
-- **Feb 2 Morning Merge**: Phase 2 (Battle Honours & Rank-Up Flow) fully complete: Claim button in unit details, modal with manual/roll options, integrated D6/2D6 rolls (Traits, Weapon Enhancements with duplicate reroll), Crusade Relics dropdown (Characters only, limit 1), Psychic Fortitudes, model fields (battleTraits, weaponEnhancements, crusadeRelic), honours.json data file, history logging, Renowned Heroes integration.
-- Prior wins: Requisitions Phases 1–3 full core loop (Supply Increase, Fresh Recruits variable cost, Repair/Recuperate, Renowned Heroes, Legendary Veterans), Immediate Polish (notes field, RP cap/bar, Supply progress, over-limit warning), roster assembly, post-game/XP loop, active game polish (tallies/XP dots/segmented toggle), data layer (27/28 factions; Deathwatch pending)
+- **Feb 1 Morning Merge**: Phase 3 (Out of Action Tests & Battle Scars) fully complete: D6 roller integration in post-game, per-unit/batch OOA resolution, 1D6 logic with auto-pass, prompt on 1 for Devastating Blow or Scar, scar table roll, effect application, scar tracking in model, Repair requisition link, dedicated UI step, visual indicators on unit cards.
+- **Prior Feb 1**: Phase 1 (Reusable D6 Roller Widget) + Phase 2 (Battle Honours & Rank-Up Flow) complete: roller built (animated, Epic skip, modes, modal), rank-up trigger/modal, rolls for Traits/Enhancements/Relics/Psychic, model fields, honours.json, logging, Renowned tie-in.
+- Earlier: Requisitions Phases 1–3 full core loop (Supply Increase, Fresh Recruits variable cost, Repair/Recuperate, Renowned Heroes, Legendary Veterans), Immediate Polish (notes field, RP cap/bar, Supply progress, over-limit warning), roster assembly, post-game/XP loop, active game polish (tallies/XP dots/segmented toggle), data layer (27/28 factions; Deathwatch pending)
 
 ## Next After This Sprint
 - Campaign narrative tools (battle tally/victories log, export/share OOB JSON/text, multi-campaign switcher)
