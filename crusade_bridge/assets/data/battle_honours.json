@@ -1,0 +1,64 @@
+{
+  "battleTraits": {
+    "description": "Roll 1D6 or choose from the table below",
+    "table": [
+      {"roll": 1, "name": "Seasoned Fighters", "effect": "+1 to hit rolls in melee on turn unit charged or was charged"},
+      {"roll": 2, "name": "Grizzled", "effect": "Unit ignores modifiers to Combat Attrition tests"},
+      {"roll": 3, "name": "Battle-tested", "effect": "+1 to Leadership characteristic"},
+      {"roll": 4, "name": "Inured to Hardship", "effect": "Unit ignores first failed wound each phase"},
+      {"roll": 5, "name": "Blooded Survivors", "effect": "+1 to Objective Control characteristic"},
+      {"roll": 6, "name": "Relentless Assault", "effect": "Advance and Charge in the same turn"}
+    ]
+  },
+  "weaponEnhancements": {
+    "description": "Roll 2D6 (reroll duplicates) or choose from the table below",
+    "table": [
+      {"roll": 2, "name": "Master-crafted", "effect": "+1 to wound rolls"},
+      {"roll": 3, "name": "Brutal", "effect": "+1 Damage"},
+      {"roll": 4, "name": "Armour-piercing", "effect": "Improve AP by 1"},
+      {"roll": 5, "name": "Swift Strike", "effect": "+1 to hit rolls"},
+      {"roll": 6, "name": "Shredder", "effect": "Wound rolls of 6 cause 1 mortal wound (max 3 per phase)"},
+      {"roll": 7, "name": "Heirloom", "effect": "+1 Strength"},
+      {"roll": 8, "name": "Digital Destruction", "effect": "Bearer gains Devastating Wounds for this weapon"},
+      {"roll": 9, "name": "Auto-loader", "effect": "+1 Attacks"},
+      {"roll": 10, "name": "Targeting System", "effect": "Ignore cover when making attacks"},
+      {"roll": 11, "name": "Volatile", "effect": "Critical hit on 5+"},
+      {"roll": 12, "name": "Legendary", "effect": "Choose two enhancements from this table"}
+    ]
+  },
+  "crusadeRelics": {
+    "description": "Characters only - choose one relic (limit 1 per Character)",
+    "relics": [
+      {"name": "Blackstone Shard Amulet", "effect": "4+ Feel No Pain against mortal wounds"},
+      {"name": "Laurels of Victory", "effect": "Once per battle, auto-pass one Morale test"},
+      {"name": "The Burning Blade", "effect": "Melee weapons gain +1 Strength and Damage"},
+      {"name": "Vortex Grenade", "effect": "Once per battle: 6\" range, D6 mortal wounds (2D6 vs Vehicles/Monsters)"},
+      {"name": "Adamantine Mantle", "effect": "-1 to wound rolls against bearer"},
+      {"name": "Digital Weapons", "effect": "Bearer gains 3 additional melee attacks at S4 AP-1 D1"},
+      {"name": "The Honour Vehement", "effect": "Re-roll hit and wound rolls for bearer's melee attacks"},
+      {"name": "Artificer Armour", "effect": "+1 to Save and +1 Wound"}
+    ]
+  },
+  "psychicFortitudes": {
+    "description": "Psykers only - roll 1D6 or choose from the table below",
+    "table": [
+      {"roll": 1, "name": "Warp Shielding", "effect": "4+ invulnerable save"},
+      {"roll": 2, "name": "Empyric Channelling", "effect": "+1 to Psychic tests"},
+      {"roll": 3, "name": "Psychic Barrier", "effect": "5+ Feel No Pain vs mortal wounds from Psychic attacks"},
+      {"roll": 4, "name": "Ghost Walk", "effect": "Can move through models and terrain"},
+      {"roll": 5, "name": "Warp Siphon", "effect": "Once per battle, regain D3 wounds when manifesting"},
+      {"roll": 6, "name": "Mind Fortress", "effect": "Cannot be targeted by enemy Psychic abilities unless closest unit"}
+    ]
+  },
+  "battleScars": {
+    "description": "Roll 1D6 when a unit fails an Out of Action test",
+    "table": [
+      {"roll": 1, "name": "Deep Scars", "effect": "-1 to Combat Attrition tests"},
+      {"roll": 2, "name": "Battle-weary", "effect": "-1 to Advance and Charge rolls"},
+      {"roll": 3, "name": "Fatigued", "effect": "-1 Movement characteristic"},
+      {"roll": 4, "name": "Disordered", "effect": "-1 to hit rolls in the first battle round"},
+      {"roll": 5, "name": "Mark of Shame", "effect": "-1 Leadership characteristic"},
+      {"roll": 6, "name": "Traumatised", "effect": "-1 Objective Control characteristic"}
+    ]
+  }
+}
