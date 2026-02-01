@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../providers/app_settings_provider.dart';
@@ -122,19 +123,19 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Future<void> _clearLocalData() async {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (dialogContext) => AlertDialog(
         title: const Text('Clear Local Data'),
         content: const Text(
           'This will delete all locally stored crusades and campaigns. This action cannot be undone. Make sure you have backups on Google Drive.',
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pop(dialogContext),
             child: const Text('Cancel'),
           ),
           ElevatedButton(
             onPressed: () async {
-              Navigator.pop(context);
+              Navigator.pop(dialogContext);
               setState(() => _isLoading = true);
               try {
                 // Clear all crusades from Hive
@@ -155,6 +156,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   'Local data cleared successfully',
                   settings: settings,
                 );
+
+                // Navigate to landing page to ensure clean state
+                if (mounted) {
+                  context.go('/landing');
+                }
               } catch (e) {
                 setState(() => _isLoading = false);
                 if (!mounted) return;
