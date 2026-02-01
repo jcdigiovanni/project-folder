@@ -1,9 +1,9 @@
 # Crusade Bridge - Project Status
 
-**Last Updated:** January 31, 2026 (Post-Merge)
+**Last Updated:** February 1, 2026 (Battle Honours System)
 
 ### Executive Summary – Wins & Momentum
-Over the past week (Jan 23–31), we've advanced from maintenance foundation to a **playable alpha with full battle loop potential** — today merging **requisitions phases 1–3** (Supply Limit, Fresh Recruits, Repair/Recuperate, Renowned Heroes, Legendary Veterans) brings us closer to complete Crusade progression.
+Over the past week (Jan 23–Feb 1), we've advanced from maintenance foundation to a **playable alpha with full battle loop potential** — completing **Battle Honours & Rank-Up** system brings the progression loop near completion.
 
 Brass highlights:
 - Jan 31 merge: Requisitions phase 3 (advanced/healing), phase 2 (Fresh Recruits with variable RP), phase 1 (RP cap/display/progress bar, Supply Limit increase) — direct delivery of requirements.md progression stories.
@@ -17,7 +17,13 @@ Velocity high (20+ commits), quality strong (atomic, co-authored), vision intact
 **Current Phase:** Gameplay Implementation (Post-Game & XP active)
 **Vision Alignment:** Delivering requirements.md (clean flows, offline-first), design.md (intuitive/low-clutter), tasks.md (phased delivery).
 
-### Recent Work Summary (Jan 23–31)
+### Recent Work Summary (Jan 23–Feb 1)
+- **Feb 1 (Battle Honours & D6 Roller)**
+  - **Battle Honours System**: "Claim Battle Honour" button on ranked-up units, selection modal with 4 honour types (Battle Traits, Weapon Enhancements, Crusade Relics, Psychic Fortitudes), choose manually or roll random.
+  - **D6 Roller Widget**: Reusable dice roller (lib/widgets/d6_roller.dart) — 1D6, D3, 2D6 modes, animated shake, Epic Hero auto-pass, duplicate reroll.
+  - **Model Updates**: UnitOrGroup extended with battleTraits, weaponEnhancements, crusadeRelic fields.
+  - **Data**: battle_honours.json with core tables for all honour types and battle scars.
+
 - **Jan 31 Merge (1 commit)**  
   - Requisitions phase 3: Repair/Recuperate (remove scars, cost = count), Renowned Heroes (enhancements to Characters, 1–3 RP), Legendary Veterans (non-Characters exceed 30 XP/3 Honours).  
   - Phase 2: Fresh Recruits (add models, base 1 RP +1 per Honour, Supply Limit check).  

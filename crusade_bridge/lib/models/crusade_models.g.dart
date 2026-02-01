@@ -113,13 +113,16 @@ class UnitOrGroupAdapter extends TypeAdapter<UnitOrGroup> {
       crusadePoints: fields[11] as int?,
       tallies: (fields[12] as Map?)?.cast<String, int>(),
       pendingRankUp: fields[19] as bool?,
+      battleTraits: (fields[20] as List?)?.cast<String>(),
+      weaponEnhancements: (fields[21] as List?)?.cast<String>(),
+      crusadeRelic: fields[22] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UnitOrGroup obj) {
     writer
-      ..writeByte(20)
+      ..writeByte(23)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -159,7 +162,13 @@ class UnitOrGroupAdapter extends TypeAdapter<UnitOrGroup> {
       ..writeByte(18)
       ..write(obj.isCharacter)
       ..writeByte(19)
-      ..write(obj.pendingRankUp);
+      ..write(obj.pendingRankUp)
+      ..writeByte(20)
+      ..write(obj.battleTraits)
+      ..writeByte(21)
+      ..write(obj.weaponEnhancements)
+      ..writeByte(22)
+      ..write(obj.crusadeRelic);
   }
 
   @override

@@ -8,6 +8,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **D6 Roller Widget (Progression Foundation)**
+  - Reusable dice roller widget at lib/widgets/d6_roller.dart
+  - Supports 1D6, D3 (ceil(d6/2)), and 2D6 modes
+  - Animated shake effect during rolls
+  - Epic Hero auto-pass logic (automatic success with visual indicator)
+  - Optional duplicate reroll for 2D6 mode
+  - Configurable reroll button with count display
+  - Card-style UI with title, subtitle, unit info display
+  - Modal bottom sheet helper function (showD6RollerModal)
+  - DiceResult class with rolls, total, and metadata
+
+- **Battle Honours & Rank-Up System**
+  - "Claim Battle Honour" button appears on units with pending rank-up
+  - Battle Honours selection modal with four honour types:
+    - Battle Traits (1D6 table): Tactical abilities from experience
+    - Weapon Enhancements (2D6 table): Weapon upgrades with duplicate reroll
+    - Crusade Relics: Powerful artifacts (Characters only, limit 1)
+    - Psychic Fortitudes (1D6 table): Warp abilities for Psykers
+  - Choose manually or roll random with integrated dice roller
+  - New UnitOrGroup fields: battleTraits, weaponEnhancements, crusadeRelic
+  - Battle honours data file (assets/data/battle_honours.json) with core tables
+  - History logging for honour claims
+
 - **Requisitions Phase 3: Advanced/Healing Requisitions**
   - Repair and Recuperate: Remove Battle Scars from units (cost = scar count)
   - Renowned Heroes: Grant Enhancements to Characters (1-3 RP based on count)

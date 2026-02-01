@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
@@ -329,6 +331,18 @@ class OOBModifyScreen extends ConsumerWidget {
                     ),
                   );
                   expansionChildren.add(const Divider());
+                }
+
+                // Add Claim Battle Honour button if unit has pending rank up
+                if (item.type != 'group' && item.pendingRankUp) {
+                  expansionChildren.add(
+                    ListTile(
+                      leading: const Icon(Icons.emoji_events, color: Colors.amber),
+                      title: const Text('Claim Battle Honour', style: TextStyle(color: Colors.amber, fontWeight: FontWeight.bold)),
+                      subtitle: const Text('Select your rank-up reward'),
+                      onTap: () => _showBattleHonourModal(context, ref, index, item),
+                    ),
+                  );
                 }
 
                 // Add Edit and Delete options
@@ -1678,6 +1692,772 @@ class OOBModifyScreen extends ConsumerWidget {
           },
         );
       },
+    );
+  }
+
+  /// Shows the Battle Honour selection modal for a unit that has ranked up
+  static void _showBattleHonourModal(BuildContext context, WidgetRef ref, int unitIndex, UnitOrGroup unit) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return DraggableScrollableSheet(
+          initialChildSize: 0.7,
+          minChildSize: 0.5,
+          maxChildSize: 0.9,
+          expand: false,
+          builder: (context, scrollController) {
+            return _BattleHonourModalContent(
+              unitIndex: unitIndex,
+              unit: unit,
+              scrollController: scrollController,
+            );
+          },
+        );
+      },
+    );
+  }
+}
+
+/// Modal content for Battle Honour selection - StatefulWidget for managing state
+class _BattleHonourModalContent extends ConsumerStatefulWidget {
+  final int unitIndex;
+  final UnitOrGroup unit;
+  final ScrollController scrollController;
+
+  const _BattleHonourModalContent({
+    required this.unitIndex,
+    required this.unit,
+    required this.scrollController,
+  });
+
+  @override
+  ConsumerState<_BattleHonourModalContent> createState() => _BattleHonourModalContentState();
+}
+
+class _BattleHonourModalContentState extends ConsumerState<_BattleHonourModalContent> {
+  String? _selectedHonourType;
+  String? _selectedHonour;
+  Map<String, dynamic>? _battleHonoursData;
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBattleHonoursData();
+  }
+
+  Future<void> _loadBattleHonoursData() async {
+    try {
+      final jsonString = await DefaultAssetBundle.of(context).loadString('assets/data/battle_honours.json');
+      final data = await Future.value(jsonString).then((s) {
+        return Map<String, dynamic>.from(
+          (const JsonDecoder().convert(s)) as Map,
+        );
+      });
+      if (mounted) {
+        setState(() {
+          _battleHonoursData = data;
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _isLoading = false);
+        SnackBarUtils.showError(context, 'Failed to load Battle Honours data');
+      }
+    }
+  }
+
+  List<Map<String, dynamic>> _getHonourOptions() {
+    if (_battleHonoursData == null || _selectedHonourType == null) return [];
+
+    final typeData = _battleHonoursData![_selectedHonourType];
+    if (typeData == null) return [];
+
+    if (_selectedHonourType == 'crusadeRelics') {
+      return List<Map<String, dynamic>>.from(typeData['relics'] ?? []);
+    } else {
+      return List<Map<String, dynamic>>.from(typeData['table'] ?? []);
+    }
+  }
+
+  void _applyBattleHonour() {
+    if (_selectedHonour == null) return;
+
+    final currentCrusade = ref.read(currentCrusadeNotifierProvider);
+    if (currentCrusade == null) return;
+
+    // Update the unit with the new honour
+    final updatedOob = List<UnitOrGroup>.from(currentCrusade.oob);
+    final updatedUnit = updatedOob[widget.unitIndex];
+
+    // Add to appropriate list based on honour type
+    switch (_selectedHonourType) {
+      case 'battleTraits':
+        updatedUnit.battleTraits.add(_selectedHonour!);
+        updatedUnit.honours.add('Trait: $_selectedHonour');
+        break;
+      case 'weaponEnhancements':
+        updatedUnit.weaponEnhancements.add(_selectedHonour!);
+        updatedUnit.honours.add('Weapon: $_selectedHonour');
+        break;
+      case 'crusadeRelics':
+        updatedUnit.crusadeRelic = _selectedHonour;
+        updatedUnit.honours.add('Relic: $_selectedHonour');
+        break;
+      case 'psychicFortitudes':
+        updatedUnit.battleTraits.add(_selectedHonour!);
+        updatedUnit.honours.add('Psychic: $_selectedHonour');
+        break;
+    }
+
+    // Clear pending rank up flag
+    updatedUnit.pendingRankUp = false;
+
+    // Create history event
+    final honourEvent = CrusadeEvent.create(
+      type: CrusadeEventType.honour,
+      description: 'Battle Honour gained: $_selectedHonour',
+      unitId: updatedUnit.id,
+      unitName: updatedUnit.customName ?? updatedUnit.name,
+      metadata: {
+        'honourType': _selectedHonourType,
+        'honour': _selectedHonour,
+      },
+    );
+
+    // Update crusade
+    final updatedCrusade = Crusade(
+      id: currentCrusade.id,
+      name: currentCrusade.name,
+      faction: currentCrusade.faction,
+      detachment: currentCrusade.detachment,
+      supplyLimit: currentCrusade.supplyLimit,
+      rp: currentCrusade.rp,
+      armyIconPath: currentCrusade.armyIconPath,
+      factionIconAsset: currentCrusade.factionIconAsset,
+      oob: updatedOob,
+      templates: currentCrusade.templates,
+      usedFirstCharacterEnhancement: currentCrusade.usedFirstCharacterEnhancement,
+      history: [...currentCrusade.history, honourEvent],
+      rosters: currentCrusade.rosters,
+      games: currentCrusade.games,
+    );
+
+    ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
+    Navigator.pop(context);
+
+    SnackBarUtils.showSuccess(
+      context,
+      'Battle Honour "$_selectedHonour" added to ${widget.unit.customName ?? widget.unit.name}!',
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final unit = widget.unit;
+    final isCharacter = unit.isCharacter == true;
+    final hasRelic = unit.crusadeRelic != null;
+
+    if (_isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    return Container(
+      decoration: BoxDecoration(
+        color: colorScheme.surface,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      child: Column(
+        children: [
+          // Handle bar
+          Container(
+            margin: const EdgeInsets.only(top: 8),
+            width: 40,
+            height: 4,
+            decoration: BoxDecoration(
+              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+
+          // Header
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Claim Battle Honour',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  unit.customName ?? unit.name,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                Text(
+                  '${unit.rank} • ${unit.xp} XP',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const Divider(height: 1),
+
+          // Content
+          Expanded(
+            child: ListView(
+              controller: widget.scrollController,
+              padding: const EdgeInsets.all(16),
+              children: [
+                // Honour type selection
+                const Text(
+                  'Select Honour Type',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 12),
+
+                // Battle Trait option
+                _HonourTypeCard(
+                  title: 'Battle Trait',
+                  subtitle: 'Tactical ability from battle experience',
+                  icon: Icons.shield,
+                  color: Colors.blue,
+                  isSelected: _selectedHonourType == 'battleTraits',
+                  onTap: () => setState(() {
+                    _selectedHonourType = 'battleTraits';
+                    _selectedHonour = null;
+                  }),
+                ),
+
+                // Weapon Enhancement option
+                _HonourTypeCard(
+                  title: 'Weapon Enhancement',
+                  subtitle: 'Upgrade a weapon with special properties',
+                  icon: Icons.gpp_good,
+                  color: Colors.orange,
+                  isSelected: _selectedHonourType == 'weaponEnhancements',
+                  onTap: () => setState(() {
+                    _selectedHonourType = 'weaponEnhancements';
+                    _selectedHonour = null;
+                  }),
+                ),
+
+                // Crusade Relic option (Characters only, limit 1)
+                if (isCharacter && !hasRelic)
+                  _HonourTypeCard(
+                    title: 'Crusade Relic',
+                    subtitle: 'Powerful artifact (Characters only, limit 1)',
+                    icon: Icons.auto_awesome,
+                    color: Colors.purple,
+                    isSelected: _selectedHonourType == 'crusadeRelics',
+                    onTap: () => setState(() {
+                      _selectedHonourType = 'crusadeRelics';
+                      _selectedHonour = null;
+                    }),
+                  ),
+
+                // Psychic Fortitude option (could check for PSYKER keyword if data available)
+                _HonourTypeCard(
+                  title: 'Psychic Fortitude',
+                  subtitle: 'Warp-enhanced ability (Psykers only)',
+                  icon: Icons.psychology,
+                  color: Colors.indigo,
+                  isSelected: _selectedHonourType == 'psychicFortitudes',
+                  onTap: () => setState(() {
+                    _selectedHonourType = 'psychicFortitudes';
+                    _selectedHonour = null;
+                  }),
+                ),
+
+                // Honour selection (if type selected)
+                if (_selectedHonourType != null) ...[
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Select Honour',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      TextButton.icon(
+                        onPressed: () => _rollForHonour(),
+                        icon: const Icon(Icons.casino, size: 18),
+                        label: const Text('Roll Random'),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+
+                  // Honour options list
+                  ..._getHonourOptions().map((honour) {
+                    final name = honour['name'] as String;
+                    final effect = honour['effect'] as String;
+                    final roll = honour['roll'];
+
+                    return _HonourOptionCard(
+                      name: name,
+                      effect: effect,
+                      roll: roll?.toString(),
+                      isSelected: _selectedHonour == name,
+                      onTap: () => setState(() => _selectedHonour = name),
+                    );
+                  }),
+                ],
+              ],
+            ),
+          ),
+
+          // Confirm button
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: SizedBox(
+                width: double.infinity,
+                child: FilledButton.icon(
+                  onPressed: _selectedHonour != null ? _applyBattleHonour : null,
+                  icon: const Icon(Icons.check),
+                  label: const Text('Claim Honour'),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _rollForHonour() {
+    // Show D6 roller for trait selection
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => _DiceRollScreen(
+          title: _getHonourTypeTitle(),
+          mode: _selectedHonourType == 'weaponEnhancements' ? '2d6' : '1d6',
+          options: _getHonourOptions(),
+          onResult: (honour) {
+            setState(() => _selectedHonour = honour);
+            Navigator.pop(context);
+          },
+        ),
+      ),
+    );
+  }
+
+  String _getHonourTypeTitle() {
+    switch (_selectedHonourType) {
+      case 'battleTraits':
+        return 'Battle Trait Roll';
+      case 'weaponEnhancements':
+        return 'Weapon Enhancement Roll';
+      case 'crusadeRelics':
+        return 'Crusade Relic';
+      case 'psychicFortitudes':
+        return 'Psychic Fortitude Roll';
+      default:
+        return 'Honour Roll';
+    }
+  }
+}
+
+/// Card for selecting honour type
+class _HonourTypeCard extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final Color color;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _HonourTypeCard({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.color,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 8),
+      color: isSelected ? color.withValues(alpha: 0.15) : null,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(
+          color: isSelected ? color : Colors.transparent,
+          width: 2,
+        ),
+      ),
+      child: ListTile(
+        leading: Icon(icon, color: color),
+        title: Text(title, style: TextStyle(fontWeight: isSelected ? FontWeight.bold : null)),
+        subtitle: Text(subtitle, style: const TextStyle(fontSize: 12)),
+        trailing: isSelected ? Icon(Icons.check_circle, color: color) : null,
+        onTap: onTap,
+      ),
+    );
+  }
+}
+
+/// Card for selecting specific honour option
+class _HonourOptionCard extends StatelessWidget {
+  final String name;
+  final String effect;
+  final String? roll;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _HonourOptionCard({
+    required this.name,
+    required this.effect,
+    this.roll,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Card(
+      margin: const EdgeInsets.only(bottom: 8),
+      color: isSelected ? colorScheme.primaryContainer : null,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: BorderSide(
+          color: isSelected ? colorScheme.primary : colorScheme.outlineVariant,
+          width: isSelected ? 2 : 1,
+        ),
+      ),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (roll != null)
+                Container(
+                  width: 32,
+                  height: 32,
+                  margin: const EdgeInsets.only(right: 12),
+                  decoration: BoxDecoration(
+                    color: colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Center(
+                    child: Text(
+                      roll!,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ),
+                ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: isSelected ? colorScheme.onPrimaryContainer : null,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      effect,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: isSelected
+                            ? colorScheme.onPrimaryContainer.withValues(alpha: 0.8)
+                            : colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              if (isSelected)
+                Icon(Icons.check_circle, color: colorScheme.primary, size: 20),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Screen for rolling dice to determine honour
+class _DiceRollScreen extends StatefulWidget {
+  final String title;
+  final String mode; // '1d6' or '2d6'
+  final List<Map<String, dynamic>> options;
+  final void Function(String honour) onResult;
+
+  const _DiceRollScreen({
+    required this.title,
+    required this.mode,
+    required this.options,
+    required this.onResult,
+  });
+
+  @override
+  State<_DiceRollScreen> createState() => _DiceRollScreenState();
+}
+
+class _DiceRollScreenState extends State<_DiceRollScreen> {
+  int? _roll1;
+  int? _roll2;
+  bool _isRolling = false;
+  String? _resultHonour;
+
+  int get _total {
+    if (widget.mode == '2d6') {
+      return (_roll1 ?? 0) + (_roll2 ?? 0);
+    }
+    return _roll1 ?? 0;
+  }
+
+  void _rollDice() async {
+    setState(() {
+      _isRolling = true;
+      _resultHonour = null;
+    });
+
+    // Animate through random values
+    for (int i = 0; i < 10; i++) {
+      await Future.delayed(const Duration(milliseconds: 50));
+      if (!mounted) return;
+      setState(() {
+        _roll1 = (DateTime.now().millisecondsSinceEpoch % 6) + 1;
+        if (widget.mode == '2d6') {
+          _roll2 = ((DateTime.now().millisecondsSinceEpoch ~/ 7) % 6) + 1;
+        }
+      });
+    }
+
+    // Final roll
+    final random = DateTime.now().millisecondsSinceEpoch;
+    int finalRoll1 = (random % 6) + 1;
+    int? finalRoll2;
+
+    if (widget.mode == '2d6') {
+      finalRoll2 = ((random ~/ 7) % 6) + 1;
+
+      // Reroll if duplicates
+      if (finalRoll1 == finalRoll2) {
+        await Future.delayed(const Duration(milliseconds: 300));
+        if (!mounted) return;
+        finalRoll2 = ((DateTime.now().millisecondsSinceEpoch ~/ 13) % 6) + 1;
+        if (finalRoll1 == finalRoll2) {
+          // Try once more
+          finalRoll2 = (finalRoll2 % 6) + 1;
+        }
+      }
+    }
+
+    setState(() {
+      _roll1 = finalRoll1;
+      _roll2 = finalRoll2;
+      _isRolling = false;
+    });
+
+    // Find matching honour
+    final total = widget.mode == '2d6' ? (finalRoll1 + (finalRoll2 ?? 0)) : finalRoll1;
+    for (final option in widget.options) {
+      if (option['roll'] == total) {
+        setState(() => _resultHonour = option['name'] as String);
+        break;
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Dice display
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _DiceDisplay(value: _roll1, isRolling: _isRolling),
+                  if (widget.mode == '2d6') ...[
+                    const SizedBox(width: 16),
+                    Text('+', style: TextStyle(fontSize: 32, color: colorScheme.onSurfaceVariant)),
+                    const SizedBox(width: 16),
+                    _DiceDisplay(value: _roll2, isRolling: _isRolling),
+                    const SizedBox(width: 16),
+                    Text('=', style: TextStyle(fontSize: 32, color: colorScheme.onSurfaceVariant)),
+                    const SizedBox(width: 16),
+                    Container(
+                      width: 56,
+                      height: 56,
+                      decoration: BoxDecoration(
+                        color: colorScheme.primary,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Text(
+                          '$_total',
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: colorScheme.onPrimary,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+
+              const SizedBox(height: 32),
+
+              // Result display
+              if (_resultHonour != null) ...[
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: colorScheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Result:',
+                        style: TextStyle(color: colorScheme.onPrimaryContainer),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        _resultHonour!,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: colorScheme.onPrimaryContainer,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
+              ],
+
+              // Action buttons
+              if (_roll1 == null)
+                FilledButton.icon(
+                  onPressed: _rollDice,
+                  icon: const Icon(Icons.casino),
+                  label: Text('Roll ${widget.mode.toUpperCase()}'),
+                )
+              else if (!_isRolling) ...[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    OutlinedButton.icon(
+                      onPressed: _rollDice,
+                      icon: const Icon(Icons.refresh),
+                      label: const Text('Reroll'),
+                    ),
+                    const SizedBox(width: 16),
+                    if (_resultHonour != null)
+                      FilledButton.icon(
+                        onPressed: () => widget.onResult(_resultHonour!),
+                        icon: const Icon(Icons.check),
+                        label: const Text('Accept'),
+                      ),
+                  ],
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Single dice display widget
+class _DiceDisplay extends StatelessWidget {
+  final int? value;
+  final bool isRolling;
+
+  const _DiceDisplay({this.value, this.isRolling = false});
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Container(
+      width: 64,
+      height: 64,
+      decoration: BoxDecoration(
+        color: value != null ? colorScheme.primaryContainer : colorScheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: value != null ? colorScheme.primary : colorScheme.outline,
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.1),
+            blurRadius: 4,
+            offset: const Offset(2, 2),
+          ),
+        ],
+      ),
+      child: Center(
+        child: value != null
+            ? Text(
+                '$value',
+                style: TextStyle(
+                  fontSize: 36,
+                  fontWeight: FontWeight.bold,
+                  color: colorScheme.onPrimaryContainer,
+                ),
+              )
+            : Icon(
+                Icons.casino,
+                size: 32,
+                color: colorScheme.onSurfaceVariant,
+              ),
+      ),
     );
   }
 }

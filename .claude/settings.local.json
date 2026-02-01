@@ -11,7 +11,8 @@
       "Bash(cd:*)",
       "Bash(git checkout:*)",
       "Bash(git push:*)",
-      "Bash(git pull:*)"
+      "Bash(git pull:*)",
+      "Bash(dart run build_runner:*)"
     ]
   }
 }

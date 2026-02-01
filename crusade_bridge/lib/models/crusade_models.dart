@@ -211,6 +211,15 @@ class UnitOrGroup {
   @HiveField(19)
   bool pendingRankUp; // True when unit has ranked up and needs attention (e.g., select Battle Honour)
 
+  @HiveField(20)
+  List<String> battleTraits = []; // Battle Traits from D6 table roll or manual selection
+
+  @HiveField(21)
+  List<String> weaponEnhancements = []; // Weapon Enhancements from 2D6 table roll
+
+  @HiveField(22)
+  String? crusadeRelic; // Crusade Relic (Characters only, limit 1)
+
   UnitOrGroup({
     required this.id,
     required this.type,
@@ -232,13 +241,18 @@ class UnitOrGroup {
     int? crusadePoints,
     Map<String, int>? tallies,
     bool? pendingRankUp,
+    List<String>? battleTraits,
+    List<String>? weaponEnhancements,
+    this.crusadeRelic,
   })  : xp = xp ?? 0,
         honours = honours ?? [],
         scars = scars ?? [],
         enhancements = enhancements ?? [],
         crusadePoints = crusadePoints ?? 0,
         tallies = tallies ?? {'played': 0, 'survived': 0, 'destroyed': 0},
-        pendingRankUp = pendingRankUp ?? false;
+        pendingRankUp = pendingRankUp ?? false,
+        battleTraits = battleTraits ?? [],
+        weaponEnhancements = weaponEnhancements ?? [];
 
   // Calculate rank based on XP (Epic Heroes don't gain XP)
   String get rank {
@@ -280,6 +294,9 @@ class UnitOrGroup {
       'isWarlord': isWarlord,
       'isEpicHero': isEpicHero,
       'isCharacter': isCharacter,
+      'battleTraits': battleTraits,
+      'weaponEnhancements': weaponEnhancements,
+      'crusadeRelic': crusadeRelic,
     };
   }
 
@@ -306,6 +323,9 @@ class UnitOrGroup {
       enhancements: (json['enhancements'] as List<dynamic>?)?.cast<String>(),
       crusadePoints: json['crusadePoints'] as int?,
       tallies: (json['tallies'] as Map<String, dynamic>?)?.cast<String, int>(),
+      battleTraits: (json['battleTraits'] as List<dynamic>?)?.cast<String>(),
+      weaponEnhancements: (json['weaponEnhancements'] as List<dynamic>?)?.cast<String>(),
+      crusadeRelic: json['crusadeRelic'] as String?,
     );
   }
 }

@@ -6,24 +6,25 @@
 ## Current Focus: Progression Depth Foundations
 Goal: Build shared dice infrastructure first, then layer on rank-up progression (Honours), OOA/Scars, and agenda polish for a complete post-battle flow.
 
-### Phase 1 – Reusable D6 Roller Widget (Foundation – Do This First)
-- [ ] Create shared D6 roller widget (lib/widgets/d6_roller.dart or similar)
-- [ ] Support 1D6 (default), configurable for 2D6 (with duplicate reroll logic if needed), D3 via scaling
-- [ ] Features: Animated roll (simple spinner or shake), result display, reroll button, Epic Hero auto-skip/pass logic (check unit.isEpicHero flag)
-- [ ] UI: Card-style, title param (e.g., "OOA Test", "Trait Roll"), confirmation on final result, callback for result value(s)
-- [ ] Reusable across screens: Pass unit/model as param for Epic skip; optional allowReroll flag
-- [ ] Test: Standalone preview screen or widget tests; ensure Hive-safe (no state persistence needed)
+### Phase 1 – Reusable D6 Roller Widget (Foundation – Do This First) ✅
+- [x] Create shared D6 roller widget (lib/widgets/d6_roller.dart)
+- [x] Support 1D6 (default), configurable for 2D6 (with duplicate reroll logic), D3 via scaling
+- [x] Features: Animated roll (shake effect), result display, reroll button, Epic Hero auto-skip/pass logic
+- [x] UI: Card-style, title param, subtitle, confirmation callback, cancel option
+- [x] Reusable across screens: Unit param for Epic skip, allowReroll flag, showD6RollerModal helper
+- [x] Widget analysis passes, Hive-safe (no persistence)
 
-### Phase 2 – Battle Honours & Rank-Up Flow (Relies on D6 Roller)
-- [ ] Add rank-up detection & UI trigger (post-game or unit detail; show when XP crosses threshold)
-- [ ] Implement Battle Honours selection modal:
+### Phase 2 – Battle Honours & Rank-Up Flow (Relies on D6 Roller) ✅
+- [x] Add rank-up detection & UI trigger ("Claim Battle Honour" button in expanded unit details)
+- [x] Implement Battle Honours selection modal:
   - "Choose Manually" vs "Roll Random" buttons
-  - On random: Use D6 roller for Traits table roll (1D6 → map to rule entry)
-  - Weapon mods: Optional 2D6 roll with duplicate reroll (honor-system entry)
-  - Crusade Relics: Dropdown/choice for Characters (limit 1; core relics list only)
-- [ ] Update UnitOrGroup model: Add fields for traits (list), weapon mods (list/string), relic (string), honours count
-- [ ] Integrate Renowned Heroes requisition if applicable (already built; use for Enhancement grant)
-- [ ] UI: Confirmation, cost RP if rules require, log to crusade history
+  - D6 roller for Battle Traits (1D6 table)
+  - 2D6 roller for Weapon Enhancements (with duplicate reroll)
+  - Crusade Relics dropdown for Characters (limit 1)
+  - Psychic Fortitudes option for Psykers
+- [x] Update UnitOrGroup model: battleTraits, weaponEnhancements, crusadeRelic fields
+- [x] Renowned Heroes requisition already integrated
+- [x] UI: Confirmation, history logging, pendingRankUp cleared on claim
 
 ### Phase 3 – Out of Action (OOA) Tests & Battle Scars (Relies on D6 Roller)
 - [ ] Integrate D6 roller into post-game flow for destroyed units (per-unit or batch)
