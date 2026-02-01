@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Requisitions Phase 2: Fresh Recruits**
+  - Add models to existing units up to datasheet maximum
+  - Variable RP cost: 1 RP base + 1 per Battle Honour on the unit
+  - Shows eligible units with next size option and points difference
+  - Enforces Supply Limit (blocks if upgrade would exceed)
+  - Records requisition events in crusade history
+
 - **Requisitions Phase 1 Complete**
   - RP display now shows X / 10 format (max cap enforced)
   - Supply Used display with progress bar showing OOB points vs Supply Limit
