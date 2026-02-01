@@ -28,7 +28,28 @@
 -- Impact: High risk of permanent data loss; defeats the purpose of backups. Affects core non-functional reqs (offline-first with sync). Ties to Story: Full Backup and Restore of Campaigns.
 -- Potential Fix Notes: Verify export JSON includes top-level Campaign objects (not just OOB units). Debug Drive file parsing in restore provider; add error logging for missing keys.
 
+- **BUG-016 (Medium)**: Select Agenda Screen Won't Scroll and Shows Bottom Overflow Warning
+-- Description: On the Select Agenda screen (part of starting/playing a game), the list of agendas is visible but the screen doesn't scroll properly. A big yellow and black "caution tape" stripe appears at the bottom saying "Bottom Overflowed by 396 pixels". You can still tap the two visible agendas and move to the next screen, but the overflow warning looks bad and means some content might be cut off or hard to reach on smaller screens/phones.
+-- Repro Steps: Start a new game or go to the Play section of a Crusade. Reach the screen where you select an Agenda. Look at the agenda list – you'll see the yellow/black overflow stripe at the bottom.
+Try to scroll down – it doesn't let you see more agendas if there are many.
+Note: You can still click the visible ones and proceed.
+-- Expected: The agenda list should scroll smoothly if there are more agendas than fit on the screen (no yellow/black warning stripe). Everything should be visible and tappable without cutoff.
+-- Actual: Yellow and black overflow stripe shows ("Bottom Overflowed by 396 pixels"), screen doesn't scroll, but the visible agendas still work.
+-- Impact: Makes the screen look broken/unprofessional (yellow/black stripe is a debug warning). On smaller phones or in portrait mode it could hide agendas completely, forcing users to guess or restart. Feels clunky even though you can proceed. Ties to overall polish and usability in the Play/Game flow.
+-- Potential Fix Notes: The error points to a Column widget in lib/screens/play_screen.dart (around line 651) that's inside a layout that doesn't allow scrolling. Wrapping the agenda list in something scrollable (like SingleChildScrollView or ListView) or making sure the Column uses Expanded/Flexible widgets should fix the overflow and enable scrolling.
+
 ## Enhancements (Remaining – Polish Debt)
+- **ENH-007 (Medium)**: Support Draws/Ties in Battle Results for Crusade Tallies
+-- Description: The app currently only tracks victories or defeats after a game, but my buddy and I had a 45-45 draw (tie) in points. The app doesn't have an option to record a draw, so there's no way to log a tied result properly. This means the post-game progression (like experience, requisition points, or narrative notes) might not handle ties correctly or at all right now.
+-- Repro Steps: Finish a battle where both players end up with the same victory points (e.g., 45-45 draw/tie).
+Go to the post-game / tally screen in the app.
+Try to enter the result – only win or loss options are available (no draw/tie button or field).
+-- Expected: There should be a clear way to select/record a "Draw" or "Tie" outcome (maybe a third button or dropdown choice). Once selected, the app should:
+Award the standard 1 Requisition Point (RP) to each player (as per rules – you get 1 RP per battle regardless of result). Handle any Agenda experience or other Crusade progression that applies on draws (or at least not block it).
+Let me note it was a draw in the battle log or Crusade history for narrative flavor.
+-- Actual: No draw option exists, so I can't accurately record the result. The app probably forces a win/loss, which could mess up tracking or feel wrong for tied games.
+-- Impact: Draws happen in 40k (especially close games), and not supporting them makes the Crusade tracking feel incomplete or inaccurate. It breaks immersion for narrative campaigns where ties have meaning (e.g., "stalemate in the ruins"). Since the rules give RP on any result (win/lose/draw), the app should reflect that without forcing a fake winner. Fixing this would make the Play/Post-Game flow more robust and fun for multiplayer games.
+-- Potential Fix Notes: Add a "Draw" / "Tie" button or toggle on the battle result screen (likely in lib/screens/play_screen.dart or a new post_game_result_screen.dart). Update the logic to award 1 RP to both sides on draw, and ensure any Agenda/XP checks don't assume a winner. Keep it simple – no need for VP input if the mission already handles scoring; just the outcome type.
 
 ## Deferred / Honor-System Items (RP Spend Only – No Enforcement)
 - **DEF-001 (Low)**: Stub "Rearm and Resupply" (1 RP deduct, toast/log "Wargear swapped – honor system", no unit/wargear change or UI)
