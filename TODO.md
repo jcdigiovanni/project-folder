@@ -9,10 +9,10 @@ Goal: Clear backlog bugs/enhancements to make the full loop robust and bug-free 
 ### Current Work: Bugs and Enhancements (30 JAN-6 FEB)
 - Guidance for Claude: Tackle remaining items. Use existing patterns (Hive transactions, modal confirmations). Keep commits atomic, test on Android/Web/Desktop.
 
-- All items from this sprint have been completed!
+- All sprint items complete! Ready for next sprint.
 
 ## Completed This Session / Archive
-- **Feb 2**: BUG-018 (edit/level-up units while in a group), ENH-007 (draw/tie support in battle results - added Draw button, updated end-game dialog, updated result banner display).
+- **Feb 2**: BUG-018 (edit/level-up units in groups), ENH-007 (draw/tie support), BUG-015 update (campaign restore - fixed missing await on save calls), ENH-008 (Crusade Points display on in-game screen).
 - **Feb 1 Phase 6**: BUG-010 (Android GDrive auth), BUG-013/014/015 (Campaign provider state sync on clear/restore), BUG-016 (agenda scroll overflow), BUG-017 (CP not updating after Battle Honour/Scars), ENH-006 (Android button text cutoff with Great Vibes font).
 - **Feb 1 Phase 5**: Polish complete: Reusable CrusadeStatsBar widget for consistent Supply/CP/RP dashboard visuals across OOB, dashboard, and requisition screens; confirmation dialog added for Battle Honour rank-up selection.
 - **Feb 1 Phase 4**: Enhanced Agenda System complete: 12 core agendas from JSON, pre-game multi-select, in-game progress tracking (icons/tiers/tally bars/milestones), post-game recap (status/VP/XP rewards/summary), persistence via Game model.
