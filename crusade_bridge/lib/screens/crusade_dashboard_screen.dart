@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../models/crusade_models.dart';
 import '../providers/crusade_provider.dart';
 import '../providers/sync_provider.dart';
+import '../services/google_drive_service.dart';
 import '../services/sync_service.dart';
 import '../widgets/army_avatar.dart';
 import '../widgets/crusade_stats_bar.dart';
@@ -175,6 +176,19 @@ class CrusadeDashboardScreen extends ConsumerWidget {
                     onTap: isSyncing
                         ? null
                         : () async {
+                            // Check if signed in, attempt sign-in if not
+                            if (!GoogleDriveService.isSignedIn) {
+                              final user = await GoogleDriveService.signIn();
+                              if (user == null) {
+                                // Show the detailed error message
+                                if (context.mounted) {
+                                  final errorMsg = GoogleDriveService.lastError ??
+                                      'Sign-in failed. Please try again from Settings.';
+                                  SnackBarUtils.showError(context, errorMsg);
+                                }
+                                return;
+                              }
+                            }
                             await syncNotifier.pushCrusade(currentCrusade);
                           },
                   ),

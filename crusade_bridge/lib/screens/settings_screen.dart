@@ -47,9 +47,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         );
       } else {
         final settings = ref.read(appSettingsProvider);
+        // Use the detailed error message from GoogleDriveService if available
+        final errorMessage = GoogleDriveService.lastError ?? 'Sign-in failed';
         SnackBarUtils.showError(
           context,
-          'Sign-in failed',
+          errorMessage,
           settings: settings,
         );
       }
