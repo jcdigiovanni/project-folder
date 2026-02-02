@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../services/google_drive_service.dart';
 import '../services/storage_service.dart';
+import '../providers/campaign_provider.dart';
 import '../providers/crusade_provider.dart';
 import '../providers/app_settings_provider.dart';
 import 'snackbar_utils.dart';
@@ -268,11 +269,17 @@ class DriveRestoreHelper {
         ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusades.first);
       }
 
+      // Reload campaigns from storage (BUG-015 fix)
+      ref.read(campaignsProvider.notifier).reload();
+      final campaigns = StorageService.loadAllCampaigns();
+
       if (!context.mounted) return;
 
+      // Show count of both crusades and campaigns restored
+      final campaignText = campaigns.isNotEmpty ? ' and ${campaigns.length} campaign(s)' : '';
       SnackBarUtils.showSuccess(
         context,
-        'Restored ${crusades.length} crusade(s) from backup',
+        'Restored ${crusades.length} crusade(s)$campaignText from backup',
         settings: settings,
       );
 

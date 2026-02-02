@@ -21,6 +21,16 @@ class CampaignsNotifier extends StateNotifier<List<Campaign>> {
     state = StorageService.loadAllCampaigns();
   }
 
+  /// Reload campaigns from storage (useful after restore operations)
+  void reload() {
+    _loadCampaigns();
+  }
+
+  /// Clear all campaigns from state (useful after local data clear)
+  void clear() {
+    state = [];
+  }
+
   /// Create a new campaign
   Future<Campaign> createCampaign({
     required String name,
