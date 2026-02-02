@@ -7,6 +7,7 @@ import '../providers/crusade_provider.dart';
 import '../providers/sync_provider.dart';
 import '../services/sync_service.dart';
 import '../widgets/army_avatar.dart';
+import '../widgets/crusade_stats_bar.dart';
 import '../utils/snackbar_utils.dart';
 import '../widgets/sync_conflict_dialog.dart';
 
@@ -97,39 +98,11 @@ class CrusadeDashboardScreen extends ConsumerWidget {
                   currentCrusade.detachment,
                   style: const TextStyle(fontSize: 14, color: Colors.grey),
                 ),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '${currentCrusade.totalOobPoints}/${currentCrusade.supplyLimit} pts',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: currentCrusade.remainingPoints < 0 ? Colors.red : const Color(0xFFFFB6C1),
-                      ),
-                    ),
-                    Text(
-                      '${currentCrusade.totalCrusadePoints} CP',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFFFF59D),
-                      ),
-                    ),
-                    Text(
-                      '${currentCrusade.rp} RP',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFFFF59D),
-                      ),
-                    ),
-                  ],
-                ),
               ],
             ),
           ),
+          // Consistent stats bar with progress indicators
+          CrusadeStatsBar(crusade: currentCrusade),
 
           // Action Tiles Grid
           Expanded(
