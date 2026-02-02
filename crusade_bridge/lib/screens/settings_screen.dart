@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../providers/app_settings_provider.dart';
+import '../providers/campaign_provider.dart';
 import '../providers/crusade_provider.dart';
 import '../services/google_drive_service.dart';
 import '../services/storage_service.dart';
@@ -148,6 +149,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
                 // Reset the current crusade in the provider
                 ref.read(currentCrusadeNotifierProvider.notifier).clearCurrent();
+
+                // Clear campaigns from provider state (BUG-013/014 fix)
+                ref.read(campaignsProvider.notifier).clear();
 
                 setState(() => _isLoading = false);
 
