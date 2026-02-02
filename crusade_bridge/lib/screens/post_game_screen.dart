@@ -252,6 +252,11 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
         xpGained += 3;
       }
 
+      // 4. Agenda XP: Calculate XP from each agenda for this unit
+      for (final agenda in game.agendas) {
+        xpGained += agenda.calculateXpForUnit(unitState.unitId);
+      }
+
       // Apply XP (Epic Heroes don't gain XP)
       if (unit.isEpicHero != true) {
         final previousRank = unit.rank;

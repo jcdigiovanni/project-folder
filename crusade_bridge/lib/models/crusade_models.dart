@@ -847,6 +847,19 @@ class GameAgenda {
   @HiveField(9)
   List<String> assignedUnitIds; // Units assigned to attempt this agenda
 
+  // XP reward configuration
+  @HiveField(10)
+  int? xpPerTally; // XP gained per tally (for tally agendas)
+
+  @HiveField(11)
+  int? tallyDivisor; // Divide tallies by this before applying XP (e.g., 10 for "1 XP per 10 kills")
+
+  @HiveField(12)
+  int? maxXp; // Maximum XP from this agenda (optional cap)
+
+  @HiveField(13)
+  int? xpPerTier; // XP gained per tier level (for objective agendas)
+
   GameAgenda({
     required this.id,
     required this.name,
@@ -858,6 +871,10 @@ class GameAgenda {
     Map<String, int>? unitTallies,
     this.maxUnits,
     List<String>? assignedUnitIds,
+    this.xpPerTally,
+    this.tallyDivisor,
+    this.maxXp,
+    this.xpPerTier,
   })  : unitTallies = unitTallies ?? {},
         assignedUnitIds = assignedUnitIds ?? [];
 
@@ -881,6 +898,10 @@ class GameAgenda {
       unitTallies: (json['unitTallies'] as Map<String, dynamic>?)?.cast<String, int>(),
       maxUnits: json['maxUnits'] as int?,
       assignedUnitIds: (json['assignedUnitIds'] as List<dynamic>?)?.cast<String>(),
+      xpPerTally: json['xpPerTally'] as int?,
+      tallyDivisor: json['tallyDivisor'] as int?,
+      maxXp: json['maxXp'] as int?,
+      xpPerTier: json['xpPerTier'] as int?,
     );
   }
 
@@ -896,7 +917,43 @@ class GameAgenda {
       'unitTallies': unitTallies,
       'maxUnits': maxUnits,
       'assignedUnitIds': assignedUnitIds,
+      'xpPerTally': xpPerTally,
+      'tallyDivisor': tallyDivisor,
+      'maxXp': maxXp,
+      'xpPerTier': xpPerTier,
     };
+  }
+
+  /// Calculate XP earned from this agenda for a specific unit
+  int calculateXpForUnit(String unitId) {
+    if (type == AgendaType.tally) {
+      // Tally agenda: XP based on unit's tally count
+      final tally = unitTallies[unitId] ?? 0;
+      if (tally == 0) return 0;
+
+      final divisor = tallyDivisor ?? 1;
+      final perTally = xpPerTally ?? 1;
+      int xp = (tally ~/ divisor) * perTally;
+
+      // Apply cap if set
+      if (maxXp != null && xp > maxXp!) {
+        xp = maxXp!;
+      }
+      return xp;
+    } else {
+      // Objective agenda: XP based on tier achieved, only for assigned units
+      if (tier == 0) return 0;
+      if (!isUnitAssigned(unitId)) return 0;
+
+      final perTier = xpPerTier ?? 1;
+      int xp = tier * perTier;
+
+      // Apply cap if set
+      if (maxXp != null && xp > maxXp!) {
+        xp = maxXp!;
+      }
+      return xp;
+    }
   }
 
   /// Check if a unit is assigned to this agenda

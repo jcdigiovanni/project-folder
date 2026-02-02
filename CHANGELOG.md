@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Play screen agenda selection now loads from JSON data file with async loading and fallback.
 
 ### Fixed
+- **Agenda XP Application** — Agendas now properly award XP to units on commit. Added xpPerTally, tallyDivisor, maxXp, xpPerTier fields to GameAgenda model; calculateXpForUnit() method computes rewards; _commitResults() applies agenda XP to each unit.
 - BUG-013/014/015: Campaign data management - Clearing local data now immediately removes campaigns from UI (added `clear()` method to CampaignsNotifier); restoring from Google Drive backup now properly reloads campaigns into provider state (added `reload()` method).
 - BUG-010: Android Google Drive auth - Added Google services Gradle plugin, improved error handling with detailed messages for common sign-in failures (SHA-1 mismatch, missing google-services.json, network errors), dashboard now attempts sign-in with helpful feedback.
 - BUG-001: Exit button now platform-aware (Android SystemNavigator, iOS/Desktop dart:io exit, Web message).

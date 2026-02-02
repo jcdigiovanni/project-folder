@@ -420,13 +420,17 @@ class GameAgendaAdapter extends TypeAdapter<GameAgenda> {
       unitTallies: (fields[7] as Map?)?.cast<String, int>(),
       maxUnits: fields[8] as int?,
       assignedUnitIds: (fields[9] as List?)?.cast<String>(),
+      xpPerTally: fields[10] as int?,
+      tallyDivisor: fields[11] as int?,
+      maxXp: fields[12] as int?,
+      xpPerTier: fields[13] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, GameAgenda obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(14)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -446,7 +450,15 @@ class GameAgendaAdapter extends TypeAdapter<GameAgenda> {
       ..writeByte(8)
       ..write(obj.maxUnits)
       ..writeByte(9)
-      ..write(obj.assignedUnitIds);
+      ..write(obj.assignedUnitIds)
+      ..writeByte(10)
+      ..write(obj.xpPerTally)
+      ..writeByte(11)
+      ..write(obj.tallyDivisor)
+      ..writeByte(12)
+      ..write(obj.maxXp)
+      ..writeByte(13)
+      ..write(obj.xpPerTier);
   }
 
   @override
