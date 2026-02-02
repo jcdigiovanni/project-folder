@@ -1715,6 +1715,63 @@ class _BattleHonourModalContentState extends ConsumerState<_BattleHonourModalCon
   void _applyBattleHonour() {
     if (_selectedHonour == null) return;
 
+    // Show confirmation dialog before applying
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Confirm Battle Honour'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Unit: ${widget.unit.customName ?? widget.unit.name}'),
+            const SizedBox(height: 8),
+            Text('Honour Type: ${_getHonourTypeName()}'),
+            const SizedBox(height: 4),
+            Text(
+              _selectedHonour!,
+              style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.amber),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'This will clear the pending rank-up status.',
+              style: TextStyle(fontSize: 12, color: Colors.grey.shade400),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(dialogContext);
+              _doApplyBattleHonour();
+            },
+            child: const Text('Confirm'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _getHonourTypeName() {
+    switch (_selectedHonourType) {
+      case 'battleTraits':
+        return 'Battle Trait';
+      case 'weaponEnhancements':
+        return 'Weapon Enhancement';
+      case 'crusadeRelics':
+        return 'Crusade Relic';
+      case 'psychicFortitudes':
+        return 'Psychic Fortitude';
+      default:
+        return 'Unknown';
+    }
+  }
+
+  void _doApplyBattleHonour() {
     final currentCrusade = ref.read(currentCrusadeNotifierProvider);
     if (currentCrusade == null) return;
 
