@@ -3,10 +3,12 @@
 
 **Follow the guidelines in AGENTS.md exactly.**
 
-## Current Focus: Agenda Data Sanitization ✓ COMPLETE
+## Current Focus: Agenda Data Import ✓ COMPLETE
 
 Goal: Import new Agenda items.
 Process: Import FEA items one-by-one from the BACKLOG.md and create the Agenda specified in the FEA item. Make sure you process AGENTS.md as it may have changed.
+
+✓ All 11 Tyrannic War agendas imported (FEA-001 to FEA-011).
 
 
 
@@ -16,7 +18,7 @@ Process: Import FEA items one-by-one from the BACKLOG.md and create the Agenda s
 - All sprint items complete! Ready for next sprint.
 
 ## Completed This Session / Archive
-- **Feb 2**: Agenda Data Sanitization (emptied core_agendas.json, removed fallback agendas, added empty state UI), BUG-018 (edit/level-up units in groups), ENH-007 (draw/tie support), BUG-015 update (campaign restore), ENH-008 (Crusade Points display).
+- **Feb 2**: FEA-001 to FEA-011 (11 Tyrannic War agendas imported: Battlefield Survivors, Swarm the Planet, Headhunters, Monstrous Targets, Eradicate the Swarm, Critical Objectives, Drive Home the Blade, Cleanse Infestation, Forward Observers, Recover Mission Archives, Malefic Hunter). Agenda Data Sanitization (emptied core_agendas.json, removed fallback agendas, added empty state UI), BUG-018 (edit/level-up units in groups), ENH-007 (draw/tie support), BUG-015 update (campaign restore), ENH-008 (Crusade Points display).
 
 ## Next After This Sprint
 - Campaign narrative tools (battle tally/victories log, export/share OOB JSON/text, multi-campaign switcher)
