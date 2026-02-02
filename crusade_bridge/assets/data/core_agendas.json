@@ -4,103 +4,102 @@
       "id": "assassins",
       "name": "Assassins",
       "type": "tally",
-      "description": "Track how many enemy Characters your units destroy",
-      "tallyTarget": "enemy_characters_destroyed",
-      "xpReward": "1 XP per Character destroyed (max 3)"
+      "description": "Track how many enemy Characters your units destroy. Each unit gains 1 XP per Character destroyed (max 3 XP).",
+      "xpPerTally": 1,
+      "maxXp": 3
     },
     {
       "id": "behind_enemy_lines",
       "name": "Behind Enemy Lines",
       "type": "objective",
-      "description": "Select 1 unit - if it ends the battle wholly within the enemy deployment zone, score 3 VP",
+      "description": "Select 1 unit - if it ends the battle wholly within the enemy deployment zone, it gains 3 XP.",
       "maxUnits": 1,
       "maxTier": 1,
-      "vpReward": 3
+      "xpPerTier": 3
     },
     {
       "id": "cull_the_horde",
       "name": "Cull the Horde",
       "type": "tally",
-      "description": "Track how many enemy models your units destroy in melee",
-      "tallyTarget": "melee_kills",
-      "xpReward": "1 XP per 10 models destroyed"
+      "description": "Track how many enemy models your units destroy in melee. Each unit gains 1 XP per 10 models destroyed.",
+      "xpPerTally": 1,
+      "tallyDivisor": 10
     },
     {
       "id": "kingslayer",
       "name": "Kingslayer",
       "type": "objective",
-      "description": "Select 1 unit - if it destroys the enemy Warlord, it gains 2 XP",
+      "description": "Select 1 unit - if it destroys the enemy Warlord, it gains 2 XP.",
       "maxUnits": 1,
       "maxTier": 1,
-      "xpReward": 2
+      "xpPerTier": 2
     },
     {
       "id": "reaper",
       "name": "Reaper",
       "type": "tally",
-      "description": "Track how many enemy units your units destroy",
-      "tallyTarget": "units_destroyed",
-      "xpReward": "1 XP per unit destroyed (max 3)"
+      "description": "Track how many enemy units your units destroy. Each unit gains 1 XP per unit destroyed (max 3 XP).",
+      "xpPerTally": 1,
+      "maxXp": 3
     },
     {
       "id": "survivor",
       "name": "Survivor",
       "type": "objective",
-      "description": "Select 1 unit - if it survives the battle at full strength, it gains 2 XP",
+      "description": "Select 1 unit - if it survives the battle, it gains 1 XP. If it survives at full strength, it gains 2 XP instead.",
       "maxUnits": 1,
       "maxTier": 2,
-      "tier1": "Survives battle (1 XP)",
-      "tier2": "Survives at full strength (2 XP)"
+      "xpPerTier": 1
     },
     {
       "id": "secure_objective",
       "name": "Secure Objective",
       "type": "objective",
-      "description": "Select 1 unit - if it controls an objective marker at end of battle, score 2 VP",
+      "description": "Select 1 unit - if it controls an objective marker at end of battle, it gains 2 XP.",
       "maxUnits": 1,
       "maxTier": 1,
-      "vpReward": 2
+      "xpPerTier": 2
     },
     {
       "id": "priority_target",
       "name": "Priority Target",
       "type": "objective",
-      "description": "Select 1 enemy unit - if you destroy it, the destroying unit gains 2 XP",
+      "description": "Select 1 enemy unit as the priority target. If you destroy it, the destroying unit gains 2 XP.",
       "maxUnits": 1,
       "maxTier": 1,
-      "xpReward": 2
+      "xpPerTier": 2
     },
     {
       "id": "domination",
       "name": "Domination",
       "type": "objective",
-      "description": "If you control more objective markers than your opponent at end of battle, score 3 VP",
+      "description": "If you control more objective markers than your opponent at end of battle, all surviving units gain 1 XP.",
       "maxTier": 1,
-      "vpReward": 3
+      "xpPerTier": 1
     },
     {
       "id": "glory_seekers",
       "name": "Glory Seekers",
       "type": "tally",
-      "description": "Track kills by each unit - units with 3+ kills gain 1 bonus XP",
-      "tallyTarget": "kills",
-      "xpReward": "1 bonus XP for units with 3+ kills"
+      "description": "Track kills by each unit. Units with 3+ kills gain 1 bonus XP.",
+      "xpPerTally": 1,
+      "tallyDivisor": 3,
+      "maxXp": 1
     },
     {
       "id": "righteous_purgation",
       "name": "Righteous Purgation",
       "type": "tally",
-      "description": "Track all enemy models destroyed by your army",
-      "tallyTarget": "total_kills",
-      "xpReward": "Army-wide tally for narrative"
+      "description": "Track all enemy models destroyed by your army. Narrative tally - no XP reward.",
+      "xpPerTally": 0
     },
     {
       "id": "first_blood",
       "name": "First Blood",
       "type": "objective",
-      "description": "If you destroy the first enemy unit, that unit gains 1 XP",
+      "description": "If you destroy the first enemy unit, the unit that destroyed it gains 1 XP.",
       "maxTier": 1,
-      "xpReward": 1
+      "xpPerTier": 1
     }
   ]
 }

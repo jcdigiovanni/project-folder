@@ -612,6 +612,10 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
           description: a['description'] as String?,
           maxTier: a['maxTier'] as int? ?? 1,
           maxUnits: a['maxUnits'] as int?,
+          xpPerTally: a['xpPerTally'] as int?,
+          tallyDivisor: a['tallyDivisor'] as int?,
+          maxXp: a['maxXp'] as int?,
+          xpPerTier: a['xpPerTier'] as int?,
         );
       }).toList();
     } catch (e) {
