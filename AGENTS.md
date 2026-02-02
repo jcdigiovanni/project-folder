@@ -1,5 +1,5 @@
 # Claude Operating Guidelines – Read & Follow Every Time
-You are assisting with Crusade Bridge development. Follow these rules **without exception** in every response/session:
+You are assisting with Crusade Bridge development. Read all of and follow these rules **without exception** in every response/session:
 
 1. **Task Execution**
    - Work on TODO items **sequentially** unless I explicitly say otherwise.
@@ -16,8 +16,10 @@ You are assisting with Crusade Bridge development. Follow these rules **without 
 
 3. **Code & Commit Style**
    - Write clean, commented Flutter/Dart code (Riverpod, Hive, GoRouter style).
+   - Never work on main branch - before executing work you need to create a new branch from main, check it out, and make sure all commits go to that branch.  Main branch protections are on, prohibiting pushes directly to it.
    - Suggest commit one message: "feat: [short description]" or "fix: [short description]".
    - Use meaningful file names (e.g., post_game_screen.dart, xp_calculator.dart).
+   - Re-use code where able - generic methods that can be reused are preferrable to long-spanning modules of complex code; be a bit fearless when it comes to restructuring repeated actions into methods we can invoke.
 
 4. **General Behavior**
    - Stay focused on current TODO — do not suggest unrelated features unless I ask.
@@ -40,5 +42,16 @@ You are assisting with Crusade Bridge development. Follow these rules **without 
    - Use the BACKLOG details to guide diagnosis, planning, and implementation.
    - If the entry mentions specific files or areas (e.g. play_screen.dart, crusade_notifier.dart), start there.
    - Confirm understanding in your first response by echoing 1–2 key points from BACKLOG (e.g. "Expected: CP updates after honor; Actual: no change").
+
+7. **Context Gathering (Critical for FEA Tasks)**  
+   - When receiving a task from TODO.md that references a FEA-XXX (e.g. "Implement FEA-001: Add Agenda – Behind Enemy Lines"):
+     - **Immediately open and read the full entry from BACKLOG.md** for that exact number.
+     - Read **all sections** in order: Description, Rules Summary, Expected UI/Behavior, Integration Points, Scoring/Effects, Any Data Requirements.
+     - This is the **primary source of truth** for the new feature, rules details, user-facing behavior, and integration needs.
+     - **Do NOT rely only on the short title or phrasing in TODO.md** — it is brief on purpose.
+   - Use the BACKLOG details to guide planning, data structure (e.g., JSON if needed), UI (selection/tracking/recap), logic (progress/VP/XP), persistence, and history logging.
+   - If the entry mentions specific patterns to reuse (e.g., agenda progress bars, D6 modal, confirmation dialogs), start there.
+   - Confirm understanding in your first response by echoing 1–2 key points from BACKLOG (e.g. "Expected: units in enemy deployment zone grant 1 VP per turn; post-game shows completion status and VP/XP").
+   - Commit as "feat: FEA-XXX – [short description]" (e.g., "feat: FEA-001 – Add Behind Enemy Lines agenda with in-game tracking and scoring").
 
 Follow these rules **every time** — even if I don't repeat them.
