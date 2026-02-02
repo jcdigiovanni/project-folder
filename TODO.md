@@ -1,5 +1,5 @@
 # TODO - Active Sprint Tracker
-**Last Updated:** February 1, 2026 (Sprint: Progression Depth Foundations – Phase 5 Complete)
+**Last Updated:** February 1, 2026 (Sprint: Phase 6 Backlog Clearance In Progress)
 
 **Follow the guidelines in AGENTS.md exactly.**
 
@@ -7,15 +7,13 @@
 Goal: Clear backlog bugs/enhancements to make the full loop robust and bug-free before narrative/export features.
 
 ### Phase 6 – Backlog Integration & Remaining Fixes (Active – Pull from BACKLOG.md)
-- [ ] BUG-008 (Low): Async/sync mismatches in unit selection UI (lag on OOB load)
-- [ ] BUG-009 (Low): Navigation issues on crusade disband (backstack overflow)
 - [ ] BUG-010 (Critical): Android app unable to log into Google Drive (auth flow fix)
 - [ ] ENH-004 (Low): Optional sound effects for D6 roller (toggle in settings)
 - [ ] ENH-005 (Low): Basic campaign summary export (text/CSV beyond narrative tools)
-- [ ] ENH-006 (Medium): Fix Android button text cutoff (Good Vibes font issue – buttons cut off 2/3 down)
-- Guidance for Claude: Tackle critical/medium first (BUG-010, ENH-006), then low-priority polish. Use existing patterns (Hive transactions, modal confirmations). Keep commits atomic, test on Android/Web/Desktop.
+- Guidance for Claude: Tackle remaining items. Use existing patterns (Hive transactions, modal confirmations). Keep commits atomic, test on Android/Web/Desktop.
 
 ## Completed This Session / Archive
+- **Feb 1 Phase 6 (Partial)**: BUG-016 (agenda scroll overflow), BUG-017 (CP not updating after Battle Honour/Scars), ENH-006 (Android button text cutoff with Great Vibes font).
 - **Feb 1 Phase 5**: Polish complete: Reusable CrusadeStatsBar widget for consistent Supply/CP/RP dashboard visuals across OOB, dashboard, and requisition screens; confirmation dialog added for Battle Honour rank-up selection.
 - **Feb 1 Phase 4**: Enhanced Agenda System complete: 12 core agendas from JSON, pre-game multi-select, in-game progress tracking (icons/tiers/tally bars/milestones), post-game recap (status/VP/XP rewards/summary), persistence via Game model.
 - **Feb 1 Morning Merge**: Phase 3 (OOA & Battle Scars) complete: D6 roller integration, 1D6 logic/auto-pass/prompt, scar roll/application/tracking, Repair link, UI step/indicators.
