@@ -47,22 +47,23 @@ final ThemeData darkTheme = ThemeData(
       backgroundColor: WidgetStateProperty.all(const Color(0xFF1E1E1E)),
       foregroundColor: WidgetStateProperty.all(const Color(0xFFFFB6C1)),
       minimumSize: WidgetStateProperty.all(
-        const Size(double.infinity, 60),  // Full width, taller height
+        const Size(double.infinity, 72),  // Increased height for Great Vibes font
       ),
       fixedSize: WidgetStateProperty.all(
-        const Size.fromHeight(60),  // Enforce taller touch target
+        const Size.fromHeight(72),  // Taller to accommodate script font descenders
       ),
       shape: WidgetStateProperty.all(
         BeveledRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
       padding: WidgetStateProperty.all(
-        const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+        const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
       ),
       textStyle: WidgetStateProperty.resolveWith<TextStyle>((states) {
         final baseStyle = GoogleFonts.greatVibes(
-          fontSize: 28,
+          fontSize: 26,  // Slightly smaller for better fit
           fontWeight: FontWeight.w900,
           letterSpacing: 1.5,
+          height: 1.3,  // Add line height to prevent clipping
         );
 
         // Resting state
