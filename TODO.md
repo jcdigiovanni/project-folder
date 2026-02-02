@@ -3,8 +3,11 @@
 
 **Follow the guidelines in AGENTS.md exactly.**
 
-## Current Focus: Stabilization & Backlog Clearance
-Goal: Clear backlog bugs/enhancements to make the full loop robust and bug-free before narrative/export features.
+## Current Focus: Agenda Data Sanitization ✓ COMPLETE
+
+Goal: Prepare Agenda system for correct content replacement
+
+**Status: DONE** - Agenda data has been sanitized. The system now shows "No Agendas Available" with the option to start games without agendas. See BACKLOG.md FEA items for future agenda implementations.
 
 ### Current Work: Bugs and Enhancements (30 JAN-6 FEB)
 - Guidance for Claude: Tackle remaining items. Use existing patterns (Hive transactions, modal confirmations). Keep commits atomic, test on Android/Web/Desktop.
@@ -12,7 +15,7 @@ Goal: Clear backlog bugs/enhancements to make the full loop robust and bug-free 
 - All sprint items complete! Ready for next sprint.
 
 ## Completed This Session / Archive
-- **Feb 2**: BUG-018 (edit/level-up units in groups), ENH-007 (draw/tie support), BUG-015 update (campaign restore - fixed missing await on save calls), ENH-008 (Crusade Points display on in-game screen).
+- **Feb 2**: Agenda Data Sanitization (emptied core_agendas.json, removed fallback agendas, added empty state UI), BUG-018 (edit/level-up units in groups), ENH-007 (draw/tie support), BUG-015 update (campaign restore), ENH-008 (Crusade Points display).
 - **Feb 1 Phase 6**: BUG-010 (Android GDrive auth), BUG-013/014/015 (Campaign provider state sync on clear/restore), BUG-016 (agenda scroll overflow), BUG-017 (CP not updating after Battle Honour/Scars), ENH-006 (Android button text cutoff with Great Vibes font).
 - **Feb 1 Phase 5**: Polish complete: Reusable CrusadeStatsBar widget for consistent Supply/CP/RP dashboard visuals across OOB, dashboard, and requisition screens; confirmation dialog added for Battle Honour rank-up selection.
 - **Feb 1 Phase 4**: Enhanced Agenda System complete: 12 core agendas from JSON, pre-game multi-select, in-game progress tracking (icons/tiers/tally bars/milestones), post-game recap (status/VP/XP rewards/summary), persistence via Game model.
