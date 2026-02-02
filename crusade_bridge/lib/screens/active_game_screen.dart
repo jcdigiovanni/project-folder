@@ -78,6 +78,8 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> {
       ),
       body: Column(
         children: [
+          // Crusade Points display (ENH-008)
+          _CrusadePointsBar(crusadePoints: currentCrusade.totalCrusadePoints),
           // Agenda summary header
           _AgendaSummaryHeader(
             game: game,
@@ -1309,6 +1311,49 @@ class _TierControl extends StatelessWidget {
     return List.generate(
       agenda.maxTier + 1,
       (i) => i == 0 ? 'None' : 'Tier $i',
+    );
+  }
+}
+
+/// Displays total Crusade Points for the army (ENH-008)
+/// Uses full label "Crusade Points" to avoid confusion with Command Points
+class _CrusadePointsBar extends StatelessWidget {
+  final int crusadePoints;
+
+  const _CrusadePointsBar({required this.crusadePoints});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFB6C1).withValues(alpha: 0.1),
+        border: Border(
+          bottom: BorderSide(
+            color: const Color(0xFFFFB6C1).withValues(alpha: 0.3),
+          ),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.military_tech,
+            size: 18,
+            color: Color(0xFFFFB6C1),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            'Crusade Points: $crusadePoints',
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFFFFB6C1),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
