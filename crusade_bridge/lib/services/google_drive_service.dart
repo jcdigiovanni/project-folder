@@ -16,6 +16,9 @@ class GoogleDriveService {
   static GoogleSignInAccount? _currentUser;
   static drive.DriveApi? _driveApi;
 
+  /// Last error message from sign-in attempt (null if no error)
+  static String? lastError;
+
   /// Get current signed-in user
   static GoogleSignInAccount? get currentUser => _currentUser;
 
@@ -53,8 +56,11 @@ class GoogleDriveService {
 
   /// Sign in to Google account
   static Future<GoogleSignInAccount?> signIn() async {
+    lastError = null;
+
     if (!_isSupported) {
-      print('Google Sign-In is not supported on this platform');
+      lastError = 'Google Sign-In is not supported on this platform';
+      print(lastError);
       return null;
     }
 
@@ -66,11 +72,42 @@ class GoogleDriveService {
         final authHeaders = await account.authHeaders;
         final authenticateClient = GoogleAuthClient(authHeaders);
         _driveApi = drive.DriveApi(authenticateClient);
+      } else {
+        // User cancelled sign-in
+        lastError = 'Sign-in was cancelled';
       }
 
       return account;
     } catch (e) {
+      // Parse Google Sign-In specific errors for helpful messages
+      final errorString = e.toString();
+      if (errorString.contains('ApiException: 10') ||
+          errorString.contains('DEVELOPER_ERROR')) {
+        // Error 10: SHA-1 fingerprint mismatch or missing google-services.json
+        lastError =
+            'Google Sign-In configuration error. Please ensure google-services.json '
+            'is present in android/app/ and SHA-1 fingerprint is registered in Firebase Console.';
+      } else if (errorString.contains('ApiException: 12500') ||
+          errorString.contains('SIGN_IN_FAILED')) {
+        // Error 12500: General sign-in failure
+        lastError =
+            'Google Sign-In failed. Check your internet connection and Google Play Services.';
+      } else if (errorString.contains('ApiException: 12501') ||
+          errorString.contains('SIGN_IN_CANCELLED')) {
+        // Error 12501: User cancelled
+        lastError = 'Sign-in was cancelled';
+      } else if (errorString.contains('ApiException: 12502') ||
+          errorString.contains('SIGN_IN_CURRENTLY_IN_PROGRESS')) {
+        // Error 12502: Already signing in
+        lastError = 'Sign-in already in progress. Please wait.';
+      } else if (errorString.contains('network')) {
+        lastError = 'Network error. Please check your internet connection.';
+      } else {
+        // Unknown error - show raw message for debugging
+        lastError = 'Sign-in error: $e';
+      }
       print('Error signing in: $e');
+      print('User-friendly message: $lastError');
       return null;
     }
   }
@@ -334,14 +371,14 @@ class GoogleDriveService {
         }
       }
 
-      // Save each crusade
+      // Save each crusade (await to ensure persistence completes)
       for (final crusade in crusades) {
-        StorageService.saveCrusade(crusade);
+        await StorageService.saveCrusade(crusade);
       }
 
-      // Save each campaign
+      // Save each campaign (await to ensure persistence completes - BUG-015 fix)
       for (final campaign in campaigns) {
-        StorageService.saveCampaign(campaign);
+        await StorageService.saveCampaign(campaign);
       }
 
       return true;

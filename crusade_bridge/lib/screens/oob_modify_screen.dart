@@ -74,7 +74,8 @@ class OOBModifyScreen extends ConsumerWidget {
 
                 // If it's a group, show component units in hierarchical style
                 if (item.type == 'group' && item.components != null && item.components!.isNotEmpty) {
-                  for (final component in item.components!) {
+                  for (var componentIndex = 0; componentIndex < item.components!.length; componentIndex++) {
+                    final component = item.components![componentIndex];
                     // Build nested unit details
                     final List<Widget> nestedExpansionChildren = [];
                     nestedExpansionChildren.add(
@@ -124,6 +125,28 @@ class OOBModifyScreen extends ConsumerWidget {
                             ],
                           ],
                         ),
+                      ),
+                    );
+
+                    // Add Claim Battle Honour button if component has pending rank up (BUG-018 fix)
+                    if (component.pendingRankUp) {
+                      nestedExpansionChildren.add(
+                        ListTile(
+                          dense: true,
+                          leading: const Icon(Icons.emoji_events, color: Colors.amber, size: 20),
+                          title: const Text('Claim Battle Honour', style: TextStyle(color: Colors.amber, fontWeight: FontWeight.bold, fontSize: 14)),
+                          onTap: () => _showComponentBattleHonourModal(context, ref, index, componentIndex, component),
+                        ),
+                      );
+                    }
+
+                    // Add Edit button for component units (BUG-018 fix)
+                    nestedExpansionChildren.add(
+                      ListTile(
+                        dense: true,
+                        leading: const Icon(Icons.edit, size: 20),
+                        title: const Text('Edit Unit', style: TextStyle(fontSize: 14)),
+                        onTap: () => _editComponentUnit(context, ref, index, componentIndex, component),
                       ),
                     );
 
@@ -1094,6 +1117,167 @@ class OOBModifyScreen extends ConsumerWidget {
               ],
             ),
           ),
+        );
+      },
+    );
+  }
+
+  /// Edit a component unit within a group (BUG-018 fix)
+  void _editComponentUnit(BuildContext context, WidgetRef ref, int groupIndex, int componentIndex, UnitOrGroup component) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        String customName = component.customName ?? '';
+        String notes = component.notes ?? '';
+
+        return StatefulBuilder(
+          builder: (context, setModalState) => Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+              left: 16,
+              right: 16,
+              top: 16,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Edit Unit: ${component.name}', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                const Text('(in group)', style: TextStyle(fontSize: 12, color: Colors.grey)),
+                const SizedBox(height: 16),
+
+                TextField(
+                  decoration: const InputDecoration(
+                    labelText: 'Custom Name',
+                    hintText: 'Leave empty to use default name',
+                  ),
+                  controller: TextEditingController(text: customName),
+                  onChanged: (value) => customName = value,
+                ),
+                const SizedBox(height: 16),
+
+                TextField(
+                  decoration: const InputDecoration(
+                    labelText: 'Notes',
+                    hintText: 'Add any custom notes here',
+                  ),
+                  controller: TextEditingController(text: notes),
+                  maxLines: 3,
+                  onChanged: (value) => notes = value,
+                ),
+                const SizedBox(height: 24),
+
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Create updated component with all existing fields preserved
+                      final updatedComponent = UnitOrGroup(
+                        id: component.id,
+                        type: component.type,
+                        name: component.name,
+                        customName: customName.trim().isEmpty ? null : customName.trim(),
+                        points: component.points,
+                        components: component.components,
+                        modelsCurrent: component.modelsCurrent,
+                        modelsMax: component.modelsMax,
+                        notes: notes.trim().isEmpty ? null : notes.trim(),
+                        statsText: component.statsText,
+                        isWarlord: component.isWarlord,
+                        isEpicHero: component.isEpicHero,
+                        isCharacter: component.isCharacter,
+                        xp: component.xp,
+                        honours: component.honours,
+                        scars: component.scars,
+                        enhancements: component.enhancements,
+                        crusadePoints: component.crusadePoints,
+                        tallies: component.tallies,
+                        pendingRankUp: component.pendingRankUp,
+                        battleTraits: component.battleTraits,
+                        weaponEnhancements: component.weaponEnhancements,
+                        crusadeRelic: component.crusadeRelic,
+                      );
+                      _updateComponentInGroup(ref, groupIndex, componentIndex, updatedComponent);
+                      Navigator.pop(context);
+                      SnackBarUtils.showSuccess(context, 'Unit updated!');
+                    },
+                    child: const Text('Save Changes'),
+                  ),
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  /// Helper to update a component unit within its parent group
+  void _updateComponentInGroup(WidgetRef ref, int groupIndex, int componentIndex, UnitOrGroup updatedComponent) {
+    final currentCrusade = ref.read(currentCrusadeNotifierProvider);
+    if (currentCrusade == null) return;
+
+    final group = currentCrusade.oob[groupIndex];
+    if (group.type != 'group' || group.components == null) return;
+
+    // Create updated components list
+    final updatedComponents = List<UnitOrGroup>.from(group.components!);
+    updatedComponents[componentIndex] = updatedComponent;
+
+    // Create updated group with new components (preserving all other fields)
+    final updatedGroup = UnitOrGroup(
+      id: group.id,
+      type: group.type,
+      name: group.name,
+      customName: group.customName,
+      points: group.points,
+      components: updatedComponents,
+      modelsCurrent: group.modelsCurrent,
+      modelsMax: group.modelsMax,
+      notes: group.notes,
+      statsText: group.statsText,
+      isWarlord: group.isWarlord,
+      isEpicHero: group.isEpicHero,
+      isCharacter: group.isCharacter,
+      xp: group.xp,
+      honours: group.honours,
+      scars: group.scars,
+      enhancements: group.enhancements,
+      crusadePoints: group.crusadePoints,
+      tallies: group.tallies,
+      pendingRankUp: group.pendingRankUp,
+      battleTraits: group.battleTraits,
+      weaponEnhancements: group.weaponEnhancements,
+      crusadeRelic: group.crusadeRelic,
+    );
+
+    // Update the group in OOB
+    ref.read(currentCrusadeNotifierProvider.notifier).updateUnitOrGroup(groupIndex, updatedGroup);
+  }
+
+  /// Show Battle Honour modal for a component unit within a group (BUG-018 fix)
+  void _showComponentBattleHonourModal(BuildContext context, WidgetRef ref, int groupIndex, int componentIndex, UnitOrGroup component) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return DraggableScrollableSheet(
+          initialChildSize: 0.7,
+          minChildSize: 0.5,
+          maxChildSize: 0.9,
+          expand: false,
+          builder: (context, scrollController) {
+            return _ComponentBattleHonourModalContent(
+              groupIndex: groupIndex,
+              componentIndex: componentIndex,
+              component: component,
+              scrollController: scrollController,
+              updateCallback: (updatedComponent) {
+                _updateComponentInGroup(ref, groupIndex, componentIndex, updatedComponent);
+              },
+            );
+          },
         );
       },
     );
@@ -2523,6 +2707,392 @@ class _HighlightedXPRow extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Modal content for Battle Honour selection for component units within groups (BUG-018 fix)
+class _ComponentBattleHonourModalContent extends ConsumerStatefulWidget {
+  final int groupIndex;
+  final int componentIndex;
+  final UnitOrGroup component;
+  final ScrollController scrollController;
+  final void Function(UnitOrGroup) updateCallback;
+
+  const _ComponentBattleHonourModalContent({
+    required this.groupIndex,
+    required this.componentIndex,
+    required this.component,
+    required this.scrollController,
+    required this.updateCallback,
+  });
+
+  @override
+  ConsumerState<_ComponentBattleHonourModalContent> createState() => _ComponentBattleHonourModalContentState();
+}
+
+class _ComponentBattleHonourModalContentState extends ConsumerState<_ComponentBattleHonourModalContent> {
+  String? _selectedHonourType;
+  String? _selectedHonour;
+  Map<String, dynamic>? _battleHonoursData;
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBattleHonoursData();
+  }
+
+  Future<void> _loadBattleHonoursData() async {
+    try {
+      final jsonString = await DefaultAssetBundle.of(context).loadString('assets/data/battle_honours.json');
+      final data = await Future.value(jsonString).then((s) {
+        return Map<String, dynamic>.from(
+          (const JsonDecoder().convert(s)) as Map,
+        );
+      });
+      if (mounted) {
+        setState(() {
+          _battleHonoursData = data;
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _isLoading = false);
+        SnackBarUtils.showError(context, 'Failed to load Battle Honours data');
+      }
+    }
+  }
+
+  List<Map<String, dynamic>> _getHonourOptions() {
+    if (_battleHonoursData == null || _selectedHonourType == null) return [];
+
+    final typeData = _battleHonoursData![_selectedHonourType];
+    if (typeData == null) return [];
+
+    if (_selectedHonourType == 'crusadeRelics') {
+      return List<Map<String, dynamic>>.from(typeData['relics'] ?? []);
+    } else {
+      return List<Map<String, dynamic>>.from(typeData['table'] ?? []);
+    }
+  }
+
+  void _applyBattleHonour() {
+    if (_selectedHonour == null) return;
+
+    // Show confirmation dialog
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Confirm Battle Honour'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Unit: ${widget.component.customName ?? widget.component.name}'),
+            const SizedBox(height: 4),
+            const Text('(in group)', style: TextStyle(fontSize: 12, color: Colors.grey)),
+            const SizedBox(height: 8),
+            Text('Honour Type: ${_getHonourTypeName()}'),
+            const SizedBox(height: 4),
+            Text(
+              _selectedHonour!,
+              style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.amber),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(dialogContext);
+              _doApplyBattleHonour();
+            },
+            child: const Text('Confirm'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _getHonourTypeName() {
+    switch (_selectedHonourType) {
+      case 'battleTraits':
+        return 'Battle Trait';
+      case 'weaponEnhancements':
+        return 'Weapon Enhancement';
+      case 'crusadeRelics':
+        return 'Crusade Relic';
+      case 'psychicFortitudes':
+        return 'Psychic Fortitude';
+      default:
+        return 'Unknown';
+    }
+  }
+
+  void _doApplyBattleHonour() {
+    final component = widget.component;
+
+    // Create updated lists
+    final updatedHonours = List<String>.from(component.honours);
+    final updatedBattleTraits = List<String>.from(component.battleTraits);
+    final updatedWeaponEnhancements = List<String>.from(component.weaponEnhancements);
+    String? updatedCrusadeRelic = component.crusadeRelic;
+
+    // Add to appropriate list based on honour type
+    switch (_selectedHonourType) {
+      case 'battleTraits':
+        updatedBattleTraits.add(_selectedHonour!);
+        updatedHonours.add('Trait: $_selectedHonour');
+        break;
+      case 'weaponEnhancements':
+        updatedWeaponEnhancements.add(_selectedHonour!);
+        updatedHonours.add('Weapon: $_selectedHonour');
+        break;
+      case 'crusadeRelics':
+        updatedCrusadeRelic = _selectedHonour;
+        updatedHonours.add('Relic: $_selectedHonour');
+        break;
+      case 'psychicFortitudes':
+        updatedBattleTraits.add(_selectedHonour!);
+        updatedHonours.add('Psychic: $_selectedHonour');
+        break;
+    }
+
+    // Create updated component with all fields preserved
+    final updatedComponent = UnitOrGroup(
+      id: component.id,
+      type: component.type,
+      name: component.name,
+      customName: component.customName,
+      points: component.points,
+      components: component.components,
+      modelsCurrent: component.modelsCurrent,
+      modelsMax: component.modelsMax,
+      notes: component.notes,
+      statsText: component.statsText,
+      isWarlord: component.isWarlord,
+      isEpicHero: component.isEpicHero,
+      isCharacter: component.isCharacter,
+      xp: component.xp,
+      honours: updatedHonours,
+      scars: component.scars,
+      enhancements: component.enhancements,
+      crusadePoints: component.crusadePoints + 1, // +1 CP for honour
+      tallies: component.tallies,
+      pendingRankUp: false, // Clear pending flag
+      battleTraits: updatedBattleTraits,
+      weaponEnhancements: updatedWeaponEnhancements,
+      crusadeRelic: updatedCrusadeRelic,
+    );
+
+    // Use callback to update
+    widget.updateCallback(updatedComponent);
+
+    // Close modal
+    Navigator.pop(context);
+    SnackBarUtils.showSuccess(context, 'Battle Honour claimed!');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final component = widget.component;
+    final isCharacter = component.isCharacter == true;
+    final hasRelic = component.crusadeRelic != null;
+
+    if (_isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    return Container(
+      decoration: BoxDecoration(
+        color: colorScheme.surface,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      child: Column(
+        children: [
+          // Drag handle
+          Container(
+            margin: const EdgeInsets.only(top: 8),
+            width: 40,
+            height: 4,
+            decoration: BoxDecoration(
+              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+
+          // Header
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Claim Battle Honour',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  component.customName ?? component.name,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                Text(
+                  '${component.rank} • ${component.xp} XP (in group)',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const Divider(height: 1),
+
+          // Content
+          Expanded(
+            child: ListView(
+              controller: widget.scrollController,
+              padding: const EdgeInsets.all(16),
+              children: [
+                const Text(
+                  'Select Honour Type',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 12),
+
+                // Battle Trait option
+                _HonourTypeCard(
+                  title: 'Battle Trait',
+                  subtitle: 'Tactical ability from battle experience',
+                  icon: Icons.shield,
+                  color: Colors.blue,
+                  isSelected: _selectedHonourType == 'battleTraits',
+                  onTap: () => setState(() {
+                    _selectedHonourType = 'battleTraits';
+                    _selectedHonour = null;
+                  }),
+                ),
+
+                // Weapon Enhancement option
+                _HonourTypeCard(
+                  title: 'Weapon Enhancement',
+                  subtitle: 'Upgrade a weapon with special properties',
+                  icon: Icons.gpp_good,
+                  color: Colors.orange,
+                  isSelected: _selectedHonourType == 'weaponEnhancements',
+                  onTap: () => setState(() {
+                    _selectedHonourType = 'weaponEnhancements';
+                    _selectedHonour = null;
+                  }),
+                ),
+
+                // Crusade Relic option (Characters only, limit 1)
+                if (isCharacter && !hasRelic)
+                  _HonourTypeCard(
+                    title: 'Crusade Relic',
+                    subtitle: 'Powerful artifact (Characters only, limit 1)',
+                    icon: Icons.auto_awesome,
+                    color: Colors.purple,
+                    isSelected: _selectedHonourType == 'crusadeRelics',
+                    onTap: () => setState(() {
+                      _selectedHonourType = 'crusadeRelics';
+                      _selectedHonour = null;
+                    }),
+                  ),
+
+                // Honour selection
+                if (_selectedHonourType != null) ...[
+                  const SizedBox(height: 24),
+                  const Divider(),
+                  const SizedBox(height: 16),
+
+                  Text(
+                    'Select ${_getHonourTypeName()}',
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 12),
+
+                  ..._getHonourOptions().map((option) {
+                    final name = option['name'] as String? ?? 'Unknown';
+                    final effect = option['effect'] as String? ?? '';
+                    final isSelected = _selectedHonour == name;
+
+                    return Card(
+                      margin: const EdgeInsets.only(bottom: 8),
+                      color: isSelected ? Colors.amber.withValues(alpha: 0.2) : null,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        side: BorderSide(
+                          color: isSelected ? Colors.amber : Colors.transparent,
+                          width: 2,
+                        ),
+                      ),
+                      child: ListTile(
+                        title: Text(
+                          name,
+                          style: TextStyle(
+                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                          ),
+                        ),
+                        subtitle: Text(
+                          effect,
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                        trailing: isSelected ? const Icon(Icons.check, color: Colors.amber) : null,
+                        onTap: () => setState(() => _selectedHonour = name),
+                      ),
+                    );
+                  }),
+                ],
+              ],
+            ),
+          ),
+
+          // Apply button
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: colorScheme.surface,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.1),
+                  blurRadius: 4,
+                  offset: const Offset(0, -2),
+                ),
+              ],
+            ),
+            child: SafeArea(
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: _selectedHonour != null ? _applyBattleHonour : null,
+                  icon: const Icon(Icons.check),
+                  label: const Text('Claim Honour'),
+                ),
+              ),
+            ),
           ),
         ],
       ),

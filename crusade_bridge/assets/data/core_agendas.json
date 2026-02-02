@@ -1,106 +1,78 @@
 {
   "agendas": [
     {
-      "id": "assassins",
-      "name": "Assassins",
-      "type": "tally",
-      "description": "Track how many enemy Characters your units destroy",
-      "tallyTarget": "enemy_characters_destroyed",
-      "xpReward": "1 XP per Character destroyed (max 3)"
-    },
-    {
-      "id": "behind_enemy_lines",
-      "name": "Behind Enemy Lines",
+      "id": "battlefield_survivors",
+      "name": "Battlefield Survivors",
       "type": "objective",
-      "description": "Select 1 unit - if it ends the battle wholly within the enemy deployment zone, score 3 VP",
-      "maxUnits": 1,
-      "maxTier": 1,
-      "vpReward": 3
-    },
-    {
-      "id": "cull_the_horde",
-      "name": "Cull the Horde",
-      "type": "tally",
-      "description": "Track how many enemy models your units destroy in melee",
-      "tallyTarget": "melee_kills",
-      "xpReward": "1 XP per 10 models destroyed"
-    },
-    {
-      "id": "kingslayer",
-      "name": "Kingslayer",
-      "type": "objective",
-      "description": "Select 1 unit - if it destroys the enemy Warlord, it gains 2 XP",
-      "maxUnits": 1,
-      "maxTier": 1,
-      "xpReward": 2
-    },
-    {
-      "id": "reaper",
-      "name": "Reaper",
-      "type": "tally",
-      "description": "Track how many enemy units your units destroy",
-      "tallyTarget": "units_destroyed",
-      "xpReward": "1 XP per unit destroyed (max 3)"
-    },
-    {
-      "id": "survivor",
-      "name": "Survivor",
-      "type": "objective",
-      "description": "Select 1 unit - if it survives the battle at full strength, it gains 2 XP",
-      "maxUnits": 1,
+      "description": "Select up to 3 units at battle start. At battle end: if a selected unit was not destroyed, it gains 2XP. If it was also not Below Half-strength, it gains 1 additional XP (3XP total).",
       "maxTier": 2,
-      "tier1": "Survives battle (1 XP)",
-      "tier2": "Survives at full strength (2 XP)"
+      "maxUnits": 3
     },
     {
-      "id": "secure_objective",
-      "name": "Secure Objective",
+      "id": "swarm_the_planet",
+      "name": "Swarm the Planet",
       "type": "objective",
-      "description": "Select 1 unit - if it controls an objective marker at end of battle, score 2 VP",
-      "maxUnits": 1,
+      "description": "At battle end, for each table quarter you control (more of your units wholly within it than opponent's), select one of your units there to gain 2XP. Up to 4 quarters can be controlled.",
       "maxTier": 1,
-      "vpReward": 2
+      "maxUnits": 4
     },
     {
-      "id": "priority_target",
-      "name": "Priority Target",
-      "type": "objective",
-      "description": "Select 1 enemy unit - if you destroy it, the destroying unit gains 2 XP",
-      "maxUnits": 1,
-      "maxTier": 1,
-      "xpReward": 2
-    },
-    {
-      "id": "domination",
-      "name": "Domination",
-      "type": "objective",
-      "description": "If you control more objective markers than your opponent at end of battle, score 3 VP",
-      "maxTier": 1,
-      "vpReward": 3
-    },
-    {
-      "id": "glory_seekers",
-      "name": "Glory Seekers",
+      "id": "headhunters",
+      "name": "Headhunters",
       "type": "tally",
-      "description": "Track kills by each unit - units with 3+ kills gain 1 bonus XP",
-      "tallyTarget": "kills",
-      "xpReward": "1 bonus XP for units with 3+ kills"
+      "description": "Each time one of your models destroys an enemy CHARACTER unit, its unit gains 2XP. If the destroyed CHARACTER was the enemy Warlord, it gains 4XP instead."
     },
     {
-      "id": "righteous_purgation",
-      "name": "Righteous Purgation",
+      "id": "monstrous_targets",
+      "name": "Monstrous Targets",
       "type": "tally",
-      "description": "Track all enemy models destroyed by your army",
-      "tallyTarget": "total_kills",
-      "xpReward": "Army-wide tally for narrative"
+      "description": "Each time one of your models destroys an enemy MONSTER or VEHICLE unit (excluding Dedicated Transports), its unit gains 2XP. If the destroyed unit had the TITANIC keyword, it gains 4XP instead."
     },
     {
-      "id": "first_blood",
-      "name": "First Blood",
+      "id": "eradicate_the_swarm",
+      "name": "Eradicate the Swarm",
+      "type": "tally",
+      "description": "Each time one of your units shoots or fights and destroys 6 or more enemy models in that phase, it gains 1XP."
+    },
+    {
+      "id": "critical_objectives",
+      "name": "Critical Objectives",
       "type": "objective",
-      "description": "If you destroy the first enemy unit, that unit gains 1 XP",
+      "description": "Your opponent selects 2 objectives before battle. At battle end, if you control one of those objectives, select up to 3 of your units within range of it to each gain 2XP.",
       "maxTier": 1,
-      "xpReward": 1
+      "maxUnits": 3
+    },
+    {
+      "id": "drive_home_the_blade",
+      "name": "Drive Home the Blade",
+      "type": "objective",
+      "description": "At battle end, select up to 3 non-AIRCRAFT units that are wholly within 6\" of your opponent's battlefield edge (or deployment zone if no edge). Each selected unit gains 3XP.",
+      "maxTier": 1,
+      "maxUnits": 3
+    },
+    {
+      "id": "cleanse_infestation",
+      "name": "Cleanse Infestation",
+      "type": "tally",
+      "description": "Before shooting, task a non-Battle-shocked unit to cleanse (cannot shoot or charge that turn). At end of turn, if that unit is in range of a controlled infested objective, cleanse it and gain 2XP."
+    },
+    {
+      "id": "forward_observers",
+      "name": "Forward Observers",
+      "type": "tally",
+      "description": "Before shooting, task a non-Battle-shocked unit that Remained Stationary to recon (cannot shoot or charge). At end of opponent's next turn (or battle end), if wholly in opponent's deployment zone, gain 2XP + 1CP."
+    },
+    {
+      "id": "recover_mission_archives",
+      "name": "Recover Mission Archives",
+      "type": "tally",
+      "description": "Before shooting, task an INFANTRY or MOUNTED non-Battle-shocked unit to recover (cannot shoot or charge). At turn end, if in range of controlled objective outside your deployment zone, roll D6: 4-5 = 1XP, 6 = 2XP + 1CP."
+    },
+    {
+      "id": "malefic_hunter",
+      "name": "Malefic Hunter",
+      "type": "tally",
+      "description": "Each time one of your models destroys an enemy PSYKER or SYNAPSE unit, its unit gains 1XP. If the destroyed unit was also a CHARACTER, it gains 1 additional XP (2XP total)."
     }
   ]
 }

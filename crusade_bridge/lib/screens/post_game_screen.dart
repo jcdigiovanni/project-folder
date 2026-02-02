@@ -64,6 +64,7 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
     }
 
     final isVictory = game.result == GameResult.win;
+    final isDraw = game.result == GameResult.draw;
 
     return Scaffold(
       appBar: AppBar(
@@ -76,7 +77,7 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
       body: Column(
         children: [
           // Result banner
-          _ResultBanner(game: game, isVictory: isVictory),
+          _ResultBanner(game: game, isVictory: isVictory, isDraw: isDraw),
 
           // Scrollable content
           Expanded(
@@ -377,25 +378,43 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
   }
 }
 
-/// Banner showing victory/defeat and score
+/// Banner showing victory/defeat/draw and score (ENH-007: added draw support)
 class _ResultBanner extends StatelessWidget {
   final Game game;
   final bool isVictory;
+  final bool isDraw;
 
-  const _ResultBanner({required this.game, required this.isVictory});
+  const _ResultBanner({required this.game, required this.isVictory, required this.isDraw});
 
   @override
   Widget build(BuildContext context) {
+    // Determine colors and text based on result
+    Color resultColor;
+    IconData resultIcon;
+    String resultText;
+
+    if (isDraw) {
+      resultColor = Colors.orange;
+      resultIcon = Icons.handshake;
+      resultText = 'DRAW';
+    } else if (isVictory) {
+      resultColor = Colors.green;
+      resultIcon = Icons.emoji_events;
+      resultText = 'VICTORY';
+    } else {
+      resultColor = Colors.red;
+      resultIcon = Icons.sentiment_dissatisfied;
+      resultText = 'DEFEAT';
+    }
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
       decoration: BoxDecoration(
-        color: isVictory
-            ? Colors.green.withValues(alpha: 0.2)
-            : Colors.red.withValues(alpha: 0.2),
+        color: resultColor.withValues(alpha: 0.2),
         border: Border(
           bottom: BorderSide(
-            color: isVictory ? Colors.green : Colors.red,
+            color: resultColor,
             width: 2,
           ),
         ),
@@ -404,19 +423,19 @@ class _ResultBanner extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
-            isVictory ? Icons.emoji_events : Icons.sentiment_dissatisfied,
-            color: isVictory ? Colors.green : Colors.red,
+            resultIcon,
+            color: resultColor,
             size: 32,
           ),
           const SizedBox(width: 16),
           Column(
             children: [
               Text(
-                isVictory ? 'VICTORY' : 'DEFEAT',
+                resultText,
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: isVictory ? Colors.green : Colors.red,
+                  color: resultColor,
                 ),
               ),
               if (game.playerScore != null || game.opponentScore != null)

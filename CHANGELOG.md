@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- **Enhanced Agenda System** — 12 core Crusade agendas from JSON data (assets/data/core_agendas.json), pre-game multi-select with tally/objective type indicators, in-game progress tracking (AgendaProgressCard with type icons, TierProgressIndicator for objectives, TallyProgressBar with milestone markers), post-game recap with completion status badges, VP/XP rewards display, summary totals banner, full persistence via Game model.
+- **Tyrannic War Agendas** — 11 thematic Crusade agendas (FEA-001 to FEA-011): Battlefield Survivors, Swarm the Planet, Headhunters, Monstrous Targets, Eradicate the Swarm, Critical Objectives, Drive Home the Blade, Cleanse Infestation, Forward Observers, Recover Mission Archives, Malefic Hunter. Supports XP/CP rewards, unit selection limits, tally/objective types.
+- **Enhanced Agenda System** — Agenda infrastructure supporting JSON data (assets/data/core_agendas.json), pre-game multi-select with tally/objective type indicators, in-game progress tracking (AgendaProgressCard with type icons, TierProgressIndicator for objectives, TallyProgressBar with milestone markers), post-game recap with completion status badges, VP/XP rewards display, summary totals banner, full persistence via Game model.
 - **Out of Action (OOA) & Battle Scars system** — Post-game integration, per-unit/batch resolution, 1D6 roll with auto-pass (Epic/Fort/Swarm), prompt on 1 for Devastating Blow or Scar, scar table roll (D6), effect application, scar tracking in model, Repair requisition link, dedicated UI step, visual indicators on unit cards.
 - **Battle Honours & Rank-Up Flow** — Claim button in unit details, modal with manual/roll options, integrated D6/2D6 rolls for Traits/Weapon Enhancements (duplicate reroll), Crusade Relics dropdown (Characters only, limit 1), Psychic Fortitudes, model fields (battleTraits, weaponEnhancements, crusadeRelic), honours.json data file, history logging, Renowned Heroes integration.
 - **Reusable D6 Roller Widget** — lib/widgets/d6_roller.dart, supports 1D6/2D6/D3, animated shake, Epic Hero skip, reroll button, modal helper (showD6RollerModal), DiceResult class, widget tests.
@@ -19,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Play screen agenda selection now loads from JSON data file with async loading and fallback.
 
 ### Fixed
+- BUG-013/014/015: Campaign data management - Clearing local data now immediately removes campaigns from UI (added `clear()` method to CampaignsNotifier); restoring from Google Drive backup now properly reloads campaigns into provider state (added `reload()` method).
+- BUG-010: Android Google Drive auth - Added Google services Gradle plugin, improved error handling with detailed messages for common sign-in failures (SHA-1 mismatch, missing google-services.json, network errors), dashboard now attempts sign-in with helpful feedback.
 - BUG-001: Exit button now platform-aware (Android SystemNavigator, iOS/Desktop dart:io exit, Web message).
 - BUG-004: Marked for Greatness +3 XP (was +1).
 - BUG-005: Clear local data now navigates to landing screen after clearing.
