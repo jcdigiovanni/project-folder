@@ -7,6 +7,7 @@ import 'package:uuid/uuid.dart';
 import '../models/crusade_models.dart';
 import '../services/reference_data_service.dart';
 import '../widgets/army_avatar.dart';
+import '../widgets/crusade_stats_bar.dart';
 import '../providers/crusade_provider.dart';
 import '../utils/snackbar_utils.dart';
 
@@ -44,103 +45,8 @@ class OOBModifyScreen extends ConsumerWidget {
       ),
       body: Column(
         children: [
-          // Points summary banner
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surfaceContainerHighest,
-              border: Border(
-                bottom: BorderSide(
-                  color: currentCrusade.remainingPoints < 0
-                      ? Colors.red
-                      : Theme.of(context).dividerColor,
-                  width: 2,
-                ),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                // Supply Used / Limit
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Supply',
-                      style: TextStyle(fontSize: 11, color: Colors.grey),
-                    ),
-                    Text(
-                      '${currentCrusade.totalOobPoints}/${currentCrusade.supplyLimit}',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: currentCrusade.remainingPoints < 0
-                            ? Colors.red
-                            : Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-                // Remaining Points
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Remaining',
-                      style: TextStyle(fontSize: 11, color: Colors.grey),
-                    ),
-                    Text(
-                      '${currentCrusade.remainingPoints}',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: currentCrusade.remainingPoints < 0
-                            ? Colors.red
-                            : const Color(0xFFFFB6C1),
-                      ),
-                    ),
-                  ],
-                ),
-                // Total CP
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Total CP',
-                      style: TextStyle(fontSize: 11, color: Colors.grey),
-                    ),
-                    Text(
-                      '${currentCrusade.totalCrusadePoints}',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF90CAF9),
-                      ),
-                    ),
-                  ],
-                ),
-                // Available RP
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'RP',
-                      style: TextStyle(fontSize: 11, color: Colors.grey),
-                    ),
-                    Text(
-                      '${currentCrusade.rp}',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFFFF59D),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          // Points summary banner - using reusable widget
+          CrusadeStatsBar(crusade: currentCrusade),
 
           // OOB list
           Expanded(
@@ -1809,6 +1715,63 @@ class _BattleHonourModalContentState extends ConsumerState<_BattleHonourModalCon
   void _applyBattleHonour() {
     if (_selectedHonour == null) return;
 
+    // Show confirmation dialog before applying
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Confirm Battle Honour'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Unit: ${widget.unit.customName ?? widget.unit.name}'),
+            const SizedBox(height: 8),
+            Text('Honour Type: ${_getHonourTypeName()}'),
+            const SizedBox(height: 4),
+            Text(
+              _selectedHonour!,
+              style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.amber),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'This will clear the pending rank-up status.',
+              style: TextStyle(fontSize: 12, color: Colors.grey.shade400),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(dialogContext);
+              _doApplyBattleHonour();
+            },
+            child: const Text('Confirm'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _getHonourTypeName() {
+    switch (_selectedHonourType) {
+      case 'battleTraits':
+        return 'Battle Trait';
+      case 'weaponEnhancements':
+        return 'Weapon Enhancement';
+      case 'crusadeRelics':
+        return 'Crusade Relic';
+      case 'psychicFortitudes':
+        return 'Psychic Fortitude';
+      default:
+        return 'Unknown';
+    }
+  }
+
+  void _doApplyBattleHonour() {
     final currentCrusade = ref.read(currentCrusadeNotifierProvider);
     if (currentCrusade == null) return;
 
@@ -1835,6 +1798,9 @@ class _BattleHonourModalContentState extends ConsumerState<_BattleHonourModalCon
         updatedUnit.honours.add('Psychic: $_selectedHonour');
         break;
     }
+
+    // Increment Crusade Points for the Battle Honour (+1 CP per honour)
+    updatedUnit.crusadePoints += 1;
 
     // Clear pending rank up flag
     updatedUnit.pendingRankUp = false;

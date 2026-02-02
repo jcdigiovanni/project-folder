@@ -648,8 +648,8 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
           title: const Text('Select Agendas'),
           content: SizedBox(
             width: double.maxFinite,
+            height: MediaQuery.of(context).size.height * 0.6,
             child: Column(
-              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -660,102 +660,109 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                ...availableAgendas.map((agenda) {
-                  final isSelected = selectedAgendas.any((a) => a.id == agenda.id);
-                  final canSelect = selectedAgendas.length < 2 || isSelected;
+                // Scrollable agenda list
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: availableAgendas.length,
+                    itemBuilder: (context, index) {
+                      final agenda = availableAgendas[index];
+                      final isSelected = selectedAgendas.any((a) => a.id == agenda.id);
+                      final canSelect = selectedAgendas.length < 2 || isSelected;
 
-                  return Card(
-                    margin: const EdgeInsets.only(bottom: 8),
-                    color: isSelected
-                        ? const Color(0xFFFFB6C1).withValues(alpha: 0.15)
-                        : null,
-                    child: InkWell(
-                      onTap: canSelect
-                          ? () {
-                              setDialogState(() {
-                                if (isSelected) {
-                                  selectedAgendas.removeWhere((a) => a.id == agenda.id);
-                                } else {
-                                  selectedAgendas.add(agenda);
+                      return Card(
+                        margin: const EdgeInsets.only(bottom: 8),
+                        color: isSelected
+                            ? const Color(0xFFFFB6C1).withValues(alpha: 0.15)
+                            : null,
+                        child: InkWell(
+                          onTap: canSelect
+                              ? () {
+                                  setDialogState(() {
+                                    if (isSelected) {
+                                      selectedAgendas.removeWhere((a) => a.id == agenda.id);
+                                    } else {
+                                      selectedAgendas.add(agenda);
+                                    }
+                                  });
                                 }
-                              });
-                            }
-                          : null,
-                      borderRadius: BorderRadius.circular(12),
-                      child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Row(
-                          children: [
-                            Icon(
-                              isSelected
-                                  ? Icons.check_circle
-                                  : Icons.circle_outlined,
-                              color: isSelected
-                                  ? const Color(0xFFFFB6C1)
-                                  : canSelect
-                                      ? Colors.grey
-                                      : Colors.grey.shade700,
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
+                              : null,
+                          borderRadius: BorderRadius.circular(12),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  isSelected
+                                      ? Icons.check_circle
+                                      : Icons.circle_outlined,
+                                  color: isSelected
+                                      ? const Color(0xFFFFB6C1)
+                                      : canSelect
+                                          ? Colors.grey
+                                          : Colors.grey.shade700,
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Expanded(
-                                        child: Text(
-                                          agenda.name,
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              agenda.name,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: canSelect ? null : Colors.grey.shade600,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 8,
+                                              vertical: 2,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: agenda.type == AgendaType.tally
+                                                  ? Colors.blue.withValues(alpha: 0.2)
+                                                  : Colors.orange.withValues(alpha: 0.2),
+                                              borderRadius: BorderRadius.circular(8),
+                                            ),
+                                            child: Text(
+                                              agenda.type == AgendaType.tally ? 'Tally' : 'Tiered',
+                                              style: TextStyle(
+                                                fontSize: 11,
+                                                color: agenda.type == AgendaType.tally
+                                                    ? Colors.blue.shade300
+                                                    : Colors.orange.shade300,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      if (agenda.description != null) ...[
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          agenda.description!,
                                           style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: canSelect ? null : Colors.grey.shade600,
+                                            fontSize: 12,
+                                            color: canSelect
+                                                ? Colors.grey.shade400
+                                                : Colors.grey.shade600,
                                           ),
                                         ),
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                          vertical: 2,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: agenda.type == AgendaType.tally
-                                              ? Colors.blue.withValues(alpha: 0.2)
-                                              : Colors.orange.withValues(alpha: 0.2),
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                        child: Text(
-                                          agenda.type == AgendaType.tally ? 'Tally' : 'Tiered',
-                                          style: TextStyle(
-                                            fontSize: 11,
-                                            color: agenda.type == AgendaType.tally
-                                                ? Colors.blue.shade300
-                                                : Colors.orange.shade300,
-                                          ),
-                                        ),
-                                      ),
+                                      ],
                                     ],
                                   ),
-                                  if (agenda.description != null) ...[
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      agenda.description!,
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: canSelect
-                                            ? Colors.grey.shade400
-                                            : Colors.grey.shade600,
-                                      ),
-                                    ),
-                                  ],
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  );
-                }),
+                      );
+                    },
+                  ),
+                ),
                 const SizedBox(height: 8),
                 Text(
                   '${selectedAgendas.length}/2 selected',

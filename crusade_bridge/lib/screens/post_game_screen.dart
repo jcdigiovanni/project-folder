@@ -266,12 +266,19 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
       // Apply OOA outcomes (battle scars or devastating blow)
       if (unitState.wasDestroyed && unitState.ooaTestResolved && unitState.ooaTestPassed == false) {
         if (unitState.ooaOutcome == 'battle_scar' && unitState.battleScarGained != null) {
-          // Add battle scar to unit
+          // Add battle scar to unit (-1 CP, min 0)
           unit.scars.add(unitState.battleScarGained!);
+          if (unit.crusadePoints > 0) {
+            unit.crusadePoints -= 1;
+          }
         } else if (unitState.ooaOutcome == 'devastating_blow') {
           // Remove one Battle Honour (last one added)
           if (unit.honours.isNotEmpty) {
             final removedHonour = unit.honours.removeLast();
+            // Decrement CP for lost honour (-1 CP, min 0)
+            if (unit.crusadePoints > 0) {
+              unit.crusadePoints -= 1;
+            }
             // Also remove from specific lists if applicable
             if (removedHonour.startsWith('Trait: ')) {
               final traitName = removedHonour.substring(7);
