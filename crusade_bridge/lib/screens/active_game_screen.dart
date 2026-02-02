@@ -58,13 +58,19 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> {
         actions: [
           // Defeat button
           TextButton.icon(
-            onPressed: () => _showEndGameDialog(context, game, isVictory: false),
+            onPressed: () => _showEndGameDialog(context, game, result: GameResult.loss),
             icon: Icon(Icons.cancel_outlined, color: Colors.red.shade300),
             label: Text('Defeat', style: TextStyle(color: Colors.red.shade300)),
           ),
+          // Draw button (ENH-007)
+          TextButton.icon(
+            onPressed: () => _showEndGameDialog(context, game, result: GameResult.draw),
+            icon: Icon(Icons.handshake_outlined, color: Colors.orange.shade300),
+            label: Text('Draw', style: TextStyle(color: Colors.orange.shade300)),
+          ),
           // Victory button
           TextButton.icon(
-            onPressed: () => _showEndGameDialog(context, game, isVictory: true),
+            onPressed: () => _showEndGameDialog(context, game, result: GameResult.win),
             icon: Icon(Icons.emoji_events_outlined, color: Colors.green.shade300),
             label: Text('Victory', style: TextStyle(color: Colors.green.shade300)),
           ),
@@ -195,11 +201,34 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> {
     }
   }
 
-  void _showEndGameDialog(BuildContext context, Game game, {required bool isVictory}) {
-    final title = isVictory ? 'Claim Victory?' : 'Concede Defeat?';
-    final message = isVictory
-        ? 'Mark this game as a victory? This will end the battle and prepare for post-game paperwork.'
-        : 'Mark this game as a defeat? This will end the battle and prepare for post-game paperwork.';
+  void _showEndGameDialog(BuildContext context, Game game, {required String result}) {
+    // Determine dialog text based on result type (ENH-007)
+    String title;
+    String message;
+    String buttonLabel;
+    Color buttonColor;
+
+    switch (result) {
+      case GameResult.win:
+        title = 'Claim Victory?';
+        message = 'Mark this game as a victory? This will end the battle and prepare for post-game paperwork.';
+        buttonLabel = 'Victory';
+        buttonColor = Colors.green.shade700;
+        break;
+      case GameResult.draw:
+        title = 'Declare Draw?';
+        message = 'Mark this game as a draw? This will end the battle and prepare for post-game paperwork.';
+        buttonLabel = 'Draw';
+        buttonColor = Colors.orange.shade700;
+        break;
+      case GameResult.loss:
+      default:
+        title = 'Concede Defeat?';
+        message = 'Mark this game as a defeat? This will end the battle and prepare for post-game paperwork.';
+        buttonLabel = 'Defeat';
+        buttonColor = Colors.red.shade700;
+        break;
+    }
 
     final playerScoreController = TextEditingController();
     final opponentScoreController = TextEditingController();
@@ -269,21 +298,21 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> {
               final playerScore = int.tryParse(playerScoreController.text);
               final opponentScore = int.tryParse(opponentScoreController.text);
               Navigator.pop(context);
-              _endGame(game, isVictory: isVictory, playerScore: playerScore, opponentScore: opponentScore);
+              _endGame(game, result: result, playerScore: playerScore, opponentScore: opponentScore);
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: isVictory ? Colors.green.shade700 : Colors.red.shade700,
+              backgroundColor: buttonColor,
             ),
-            child: Text(isVictory ? 'Victory' : 'Defeat'),
+            child: Text(buttonLabel),
           ),
         ],
       ),
     );
   }
 
-  void _endGame(Game game, {required bool isVictory, int? playerScore, int? opponentScore}) {
+  void _endGame(Game game, {required String result, int? playerScore, int? opponentScore}) {
     game.completedAt = DateTime.now().millisecondsSinceEpoch;
-    game.result = isVictory ? GameResult.win : GameResult.loss;
+    game.result = result;
     game.playerScore = playerScore;
     game.opponentScore = opponentScore;
     ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
