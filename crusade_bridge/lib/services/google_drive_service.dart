@@ -371,14 +371,14 @@ class GoogleDriveService {
         }
       }
 
-      // Save each crusade
+      // Save each crusade (await to ensure persistence completes)
       for (final crusade in crusades) {
-        StorageService.saveCrusade(crusade);
+        await StorageService.saveCrusade(crusade);
       }
 
-      // Save each campaign
+      // Save each campaign (await to ensure persistence completes - BUG-015 fix)
       for (final campaign in campaigns) {
-        StorageService.saveCampaign(campaign);
+        await StorageService.saveCampaign(campaign);
       }
 
       return true;
