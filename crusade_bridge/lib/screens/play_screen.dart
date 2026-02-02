@@ -615,24 +615,8 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
         );
       }).toList();
     } catch (e) {
-      // Fallback to basic agendas if loading fails
-      final timestamp = DateTime.now().millisecondsSinceEpoch;
-      return [
-        GameAgenda(
-          id: 'agenda_purgation_$timestamp',
-          name: 'Righteous Purgation',
-          type: AgendaType.tally,
-          description: 'Track kills and destruction wrought by each unit',
-        ),
-        GameAgenda(
-          id: 'agenda_survival_$timestamp',
-          name: 'Survivor',
-          type: AgendaType.objective,
-          description: 'Select 1 unit to attempt survival',
-          maxTier: 2,
-          maxUnits: 1,
-        ),
-      ];
+      // Return empty list if loading fails (agenda data sanitized)
+      return [];
     }
   }
 
@@ -660,9 +644,36 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                // Scrollable agenda list
+                // Scrollable agenda list (or empty state message)
                 Expanded(
-                  child: ListView.builder(
+                  child: availableAgendas.isEmpty
+                      ? Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.playlist_remove, size: 48, color: Colors.grey.shade600),
+                              const SizedBox(height: 16),
+                              Text(
+                                'No Agendas Available',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey.shade500,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                'Agenda data is being updated.\nYou can still start a game without agendas.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey.shade600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : ListView.builder(
                     itemCount: availableAgendas.length,
                     itemBuilder: (context, index) {
                       final agenda = availableAgendas[index];
@@ -780,13 +791,14 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
               child: const Text('Cancel'),
             ),
             ElevatedButton(
-              onPressed: selectedAgendas.isNotEmpty
+              // Allow starting without agendas if none are available, otherwise require selection
+              onPressed: (selectedAgendas.isNotEmpty || availableAgendas.isEmpty)
                   ? () {
                       Navigator.pop(context);
                       _startGame(context, roster, totalPoints, totalCP, selectedAgendas);
                     }
                   : null,
-              child: const Text('Start Game'),
+              child: Text(availableAgendas.isEmpty ? 'Start Without Agendas' : 'Start Game'),
             ),
           ],
         ),
