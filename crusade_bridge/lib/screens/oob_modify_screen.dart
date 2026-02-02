@@ -1799,6 +1799,9 @@ class _BattleHonourModalContentState extends ConsumerState<_BattleHonourModalCon
         break;
     }
 
+    // Increment Crusade Points for the Battle Honour (+1 CP per honour)
+    updatedUnit.crusadePoints += 1;
+
     // Clear pending rank up flag
     updatedUnit.pendingRankUp = false;
 

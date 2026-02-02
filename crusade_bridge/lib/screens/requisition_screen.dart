@@ -661,8 +661,9 @@ class RequisitionScreen extends ConsumerWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              // Remove the scar
+              // Remove the scar and restore CP (+1 since scars reduce CP)
               unit.scars.remove(scar);
+              unit.crusadePoints += 1;
 
               // Update crusade RP
               crusade.rp -= rpCost;
