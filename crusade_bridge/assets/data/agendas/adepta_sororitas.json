@@ -1,0 +1,37 @@
+{
+  "faction": "Adepta Sororitas",
+  "agendas": [
+    {
+      "id": "test_of_faith",
+      "name": "Test of Faith",
+      "type": "tally",
+      "description": "Each time a unit performs an Act of Faith, you may discard 1 additional Miracle dice and place it on that unit's card. If a unit fails a Battle-shock test, remove all dice from its card. At battle end, each unit gains 1XP per Miracle dice on its card (max 3XP). SAINT POTENTIA models also gain 1 Saint point.",
+      "xpPerTally": 1,
+      "maxXp": 3
+    },
+    {
+      "id": "atonement_in_battle",
+      "name": "Atonement in Battle",
+      "type": "objective",
+      "description": "Select up to 3 ADEPTA SORORITAS units that are PENITENT or have Fatigued/Disgraced/Mark of Shame/Battle-weary scars. At battle end, each that destroyed 1+ enemy units gains 3XP, loses one listed scar, and REPENTIA SQUAD gains 1 Redemption point.",
+      "maxTier": 1,
+      "maxUnits": 3,
+      "xpPerTier": 3
+    },
+    {
+      "id": "defend_the_shrine",
+      "name": "Defend the Shrine",
+      "type": "tally",
+      "description": "After deployment, opponent selects 1 objective (not in their zone) as Sacred Shrine. Each turn you control it, select 1 unit in range for 1XP. At battle end: if not controlled, lose 1 Requisition point; if controlled, select 1 model for a Weapon Modification, Crusade Relic (Characters), or 3 Saint points (Potentia).",
+      "xpPerTally": 1
+    },
+    {
+      "id": "pious_purgation",
+      "name": "Pious Purgation",
+      "type": "tally",
+      "description": "Each time an ADEPTA SORORITAS unit shoots/fights and destroys 1+ enemy units, it gains 1XP. +1XP if any destroyed were PSYKER; +1XP if destroyed by Torrent or Melta weapon (max 3XP per unit). SAINT POTENTIA gains +1 Saint point if any XP earned.",
+      "xpPerTally": 1,
+      "maxXp": 3
+    }
+  ]
+}

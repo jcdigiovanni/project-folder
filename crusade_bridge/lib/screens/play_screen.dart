@@ -595,45 +595,53 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
     );
   }
 
-  /// Load available agendas from core_agendas.json
-  /// Filters to include only universal agendas (no faction) and faction-specific agendas matching playerFaction
+  /// Load available agendas from modular JSON files
+  /// Loads core agendas (universal) + faction-specific agendas if player faction matches
   Future<List<GameAgenda>> _loadAvailableAgendas(BuildContext context, String? playerFaction) async {
-    try {
-      final jsonString = await DefaultAssetBundle.of(context).loadString('assets/data/core_agendas.json');
-      final data = json.decode(jsonString) as Map<String, dynamic>;
-      final agendasList = data['agendas'] as List<dynamic>;
-      final timestamp = DateTime.now().millisecondsSinceEpoch;
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    final allAgendas = <GameAgenda>[];
 
-      return agendasList
-          .map((agendaData) {
-            final a = agendaData as Map<String, dynamic>;
-            return MapEntry(
-              a['faction'] as String?, // faction restriction (null = universal)
-              GameAgenda(
-                id: '${a['id']}_$timestamp',
-                name: a['name'] as String,
-                type: a['type'] as String,
-                description: a['description'] as String?,
-                maxTier: a['maxTier'] as int? ?? 1,
-                maxUnits: a['maxUnits'] as int?,
-                xpPerTally: a['xpPerTally'] as int?,
-                tallyDivisor: a['tallyDivisor'] as int?,
-                maxXp: a['maxXp'] as int?,
-                xpPerTier: a['xpPerTier'] as int?,
-              ),
-            );
-          })
-          .where((entry) {
-            // Include if universal (no faction) or faction matches player's faction
-            final agendaFaction = entry.key;
-            return agendaFaction == null || agendaFaction == playerFaction;
-          })
-          .map((entry) => entry.value)
-          .toList();
-    } catch (e) {
-      // Return empty list if loading fails (agenda data sanitized)
-      return [];
+    // Helper to parse agenda JSON into GameAgenda objects
+    List<GameAgenda> parseAgendas(List<dynamic> agendasList) {
+      return agendasList.map((agendaData) {
+        final a = agendaData as Map<String, dynamic>;
+        return GameAgenda(
+          id: '${a['id']}_$timestamp',
+          name: a['name'] as String,
+          type: a['type'] as String,
+          description: a['description'] as String?,
+          maxTier: a['maxTier'] as int? ?? 1,
+          maxUnits: a['maxUnits'] as int?,
+          xpPerTally: a['xpPerTally'] as int?,
+          tallyDivisor: a['tallyDivisor'] as int?,
+          maxXp: a['maxXp'] as int?,
+          xpPerTier: a['xpPerTier'] as int?,
+        );
+      }).toList();
     }
+
+    // 1. Load core agendas (universal, always available)
+    try {
+      final coreJson = await DefaultAssetBundle.of(context).loadString('assets/data/agendas/core.json');
+      final coreData = json.decode(coreJson) as Map<String, dynamic>;
+      allAgendas.addAll(parseAgendas(coreData['agendas'] as List<dynamic>));
+    } catch (e) {
+      // Core agendas failed to load
+    }
+
+    // 2. Load faction-specific agendas if player has a faction
+    if (playerFaction != null && playerFaction.isNotEmpty) {
+      final factionFileName = playerFaction.toLowerCase().replaceAll(' ', '_');
+      try {
+        final factionJson = await DefaultAssetBundle.of(context).loadString('assets/data/agendas/$factionFileName.json');
+        final factionData = json.decode(factionJson) as Map<String, dynamic>;
+        allAgendas.addAll(parseAgendas(factionData['agendas'] as List<dynamic>));
+      } catch (e) {
+        // No faction-specific agendas for this faction (expected for most factions)
+      }
+    }
+
+    return allAgendas;
   }
 
   void _showAgendaSelectionDialog(BuildContext context, Roster roster, int totalPoints, int totalCP) async {
