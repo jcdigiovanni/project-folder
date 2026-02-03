@@ -4,7 +4,8 @@ plugins {
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
     // Google services plugin for Google Sign-In (requires google-services.json in this directory)
-    id("com.google.gms.google-services")
+    // TEMPORARILY DISABLED - uncomment when google-services.json is added
+    // id("com.google.gms.google-services")
 }
 
 android {
