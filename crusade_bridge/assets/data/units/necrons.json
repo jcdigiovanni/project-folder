@@ -38,8 +38,8 @@
     {
       "name": "Canoptek Scarab Swarms",
       "role": "Fast Attack",
-      "sizeOptions": [3],
-      "pointsOptions": [40],
+      "sizeOptions": [3, 6],
+      "pointsOptions": [40, 80],
       "isEpicHero": false,
       "isCharacter": false
     },
@@ -54,8 +54,8 @@
     {
       "name": "Canoptek Wraiths",
       "role": "Fast Attack",
-      "sizeOptions": [3],
-      "pointsOptions": [110],
+      "sizeOptions": [3, 6],
+      "pointsOptions": [110, 220],
       "isEpicHero": false,
       "isCharacter": false
     },

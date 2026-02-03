@@ -5,11 +5,11 @@
 
 ## Current Focus: Post-game experience validation ✓ COMPLETE
 
-Goal: Validate all experience points gained for a unit during post-game resolution - make sure we're tracking total experience as 1/3 of their kills + all extra experience points from agendas, participation, marked for greatness, etc.  Validate that we're awarding experience points in line with the description of the agenda (2 for headhunters per character, not 1, etc.)
+Goal: Update unit sizes and points. ✓ COMPLETE
+Direction: Read POINTS.md and make the various changes to the faction .json files for the referenced unit size options and points.
 
-✓ Fixed: Added missing xpPerTally/xpPerTier values to core_agendas.json. Agendas now award correct XP (2XP for Headhunters, 3XP for Drive Home the Blade, etc.)
-
-Note: EXP = Kills/3 + games played + total earned from agendas + 3x times it was Marked for Greatness.
+✓ Fixed: Necrons (Canoptek Scarab Swarms, Canoptek Wraiths) - added size 6 options.
+Note: Adepta Sororitas and Adeptus Mechanicus already had correct values. Custodes FW units not in file.
 
 ### Current Work: Bugs and Enhancements (30 JAN-6 FEB)
 - Guidance for Claude: Tackle remaining items. Use existing patterns (Hive transactions, modal confirmations). Keep commits atomic, test on Android/Web/Desktop.
