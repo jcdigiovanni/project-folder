@@ -3,18 +3,15 @@
 
 **Follow the guidelines in AGENTS.md exactly.**
 
-## Current Focus: BUGS AND ENHANCEMENTS ✓ COMPLETE
+## Current Focus: BUGS AND ENHANCEMENTS
 
-Goal: Complete BUG, FEA, and ENH items in BACKLOG.md ✓ COMPLETE
-
-✓ ENH-009: Total Kills display in OOB unit details
-✓ ENH-010: XP Preview section in post-game screen
+Goal: Complete BUG, FEA, and ENH items in BACKLOG.md
 
 ### Current Work: Bugs and Enhancements (30 JAN-6 FEB)
 - All sprint items complete! Ready for next sprint.
 
 ## Completed This Session / Archive
-- **Feb 3**: ENH-009 (Total Kills in OOB unit details), ENH-010 (XP Preview in post-game screen with per-unit breakdown).
+- **Feb 3**: ENH-009 (Total Kills in OOB unit details), ENH-010 (XP Preview in post-game screen with per-unit breakdown), ENH-011 (Post-game layout overhaul: collapsible agenda recap, inline XP preview per unit card, per-unit agenda tally adjustments).
 - **Feb 2**: Fixed agenda XP values (added xpPerTally/xpPerTier to JSON - Headhunters 2XP, Drive Home the Blade 3XP, etc.), FEA-001 to FEA-011 (11 Tyrannic War agendas imported: Battlefield Survivors, Swarm the Planet, Headhunters, Monstrous Targets, Eradicate the Swarm, Critical Objectives, Drive Home the Blade, Cleanse Infestation, Forward Observers, Recover Mission Archives, Malefic Hunter). Agenda Data Sanitization (emptied core_agendas.json, removed fallback agendas, added empty state UI), BUG-018 (edit/level-up units in groups), ENH-007 (draw/tie support), BUG-015 update (campaign restore), ENH-008 (Crusade Points display).
 
 ## Next After This Sprint

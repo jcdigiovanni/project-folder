@@ -101,15 +101,20 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
                 ),
                 const SizedBox(height: 24),
 
-                // Unit Summary Section
+                // Unit Summary Section (with integrated XP preview and agenda controls)
                 _UnitSummarySection(
                   game: game,
+                  crusade: crusade!,
                   markedForGreatnessUnitId: _markedForGreatnessUnitId,
+                  xpPreviews: _calculateXpPreviews(game, crusade),
                   onKillsChanged: (unitId, newKills) {
                     _updateKills(game, unitId, newKills);
                   },
                   onDestroyedChanged: (unitId, wasDestroyed) {
                     _updateDestroyed(game, unitId, wasDestroyed);
+                  },
+                  onAgendaTallyChanged: (agendaId, unitId, newTally) {
+                    _updateAgendaTally(game, agendaId, unitId, newTally);
                   },
                 ),
                 const SizedBox(height: 24),
@@ -132,13 +137,6 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
                   controller: _notesController,
                   onChanged: (value) => _updateNotes(game, value),
                 ),
-                const SizedBox(height: 24),
-
-                // XP Preview Section (ENH-010)
-                _XPPreviewSection(
-                  previews: _calculateXpPreviews(game, crusade!),
-                ),
-
                 const SizedBox(height: 32),
               ],
             ),
@@ -183,6 +181,20 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
     if (unitState != null) {
       setState(() {
         unitState.wasDestroyed = wasDestroyed;
+      });
+      ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
+    }
+  }
+
+  void _updateAgendaTally(Game game, String agendaId, String unitId, int newTally) {
+    final agenda = game.agendas.where((a) => a.id == agendaId).firstOrNull;
+    if (agenda != null) {
+      setState(() {
+        if (newTally <= 0) {
+          agenda.unitTallies.remove(unitId);
+        } else {
+          agenda.unitTallies[unitId] = newTally;
+        }
       });
       ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
     }
@@ -521,10 +533,19 @@ class _ResultBanner extends StatelessWidget {
 }
 
 /// Section showing agenda recap with rewards summary
-class _AgendaRecapSection extends StatelessWidget {
+class _AgendaRecapSection extends StatefulWidget {
   final Game game;
 
   const _AgendaRecapSection({required this.game});
+
+  @override
+  State<_AgendaRecapSection> createState() => _AgendaRecapSectionState();
+}
+
+class _AgendaRecapSectionState extends State<_AgendaRecapSection> {
+  bool _isExpanded = false;
+
+  Game get game => widget.game;
 
   /// Calculate total VP from agendas
   int _calculateTotalVP() {
@@ -574,73 +595,100 @@ class _AgendaRecapSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Header with summary stats
-        Row(
-          children: [
-            const Icon(Icons.emoji_events_outlined, size: 20, color: Color(0xFFFFB6C1)),
-            const SizedBox(width: 8),
-            const Text(
-              'Agenda Recap',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const Spacer(),
-            // Completion badge
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: completedCount == game.agendas.length
-                    ? Colors.green.withValues(alpha: 0.2)
-                    : Colors.orange.withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                '$completedCount/${game.agendas.length} complete',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: completedCount == game.agendas.length ? Colors.green : Colors.orange,
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-
-        // Summary row showing total VP earned
-        if (totalVP > 0)
-          Container(
-            margin: const EdgeInsets.only(bottom: 12),
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Colors.amber.withValues(alpha: 0.15),
-                  Colors.amber.withValues(alpha: 0.05),
-                ],
-              ),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.amber.withValues(alpha: 0.3)),
-            ),
+        // Tappable header row - toggles expand/collapse
+        InkWell(
+          onTap: () => setState(() => _isExpanded = !_isExpanded),
+          borderRadius: BorderRadius.circular(8),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
             child: Row(
               children: [
-                const Icon(Icons.star, color: Colors.amber, size: 20),
+                const Icon(Icons.emoji_events_outlined, size: 20, color: Color(0xFFFFB6C1)),
                 const SizedBox(width: 8),
-                Text(
-                  'Agenda VP Earned: +$totalVP VP',
-                  style: const TextStyle(
+                const Text(
+                  'Agenda Recap',
+                  style: TextStyle(
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.amber,
                   ),
+                ),
+                const SizedBox(width: 8),
+                // Completion badge
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: completedCount == game.agendas.length
+                        ? Colors.green.withValues(alpha: 0.2)
+                        : Colors.orange.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    '$completedCount/${game.agendas.length} complete',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: completedCount == game.agendas.length ? Colors.green : Colors.orange,
+                    ),
+                  ),
+                ),
+                const Spacer(),
+                Icon(
+                  _isExpanded ? Icons.expand_less : Icons.expand_more,
+                  color: Colors.grey.shade400,
                 ),
               ],
             ),
           ),
+        ),
 
-        // Agenda cards
-        ...game.agendas.map((agenda) => _AgendaRecapCard(agenda: agenda, game: game)),
+        // Collapsed summary
+        if (!_isExpanded) ...[
+          const SizedBox(height: 4),
+          Text(
+            '${game.agendas.map((a) => a.name).join(", ")}${totalVP > 0 ? " \u2022 +$totalVP VP" : ""}',
+            style: TextStyle(fontSize: 13, color: Colors.grey.shade500),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+
+        // Expanded content
+        if (_isExpanded) ...[
+          const SizedBox(height: 8),
+
+          // Summary row showing total VP earned
+          if (totalVP > 0)
+            Container(
+              margin: const EdgeInsets.only(bottom: 12),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.amber.withValues(alpha: 0.15),
+                    Colors.amber.withValues(alpha: 0.05),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.amber.withValues(alpha: 0.3)),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.star, color: Colors.amber, size: 20),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Agenda VP Earned: +$totalVP VP',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.amber,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+          // Agenda cards
+          ...game.agendas.map((agenda) => _AgendaRecapCard(agenda: agenda, game: game)),
+        ],
       ],
     );
   }
@@ -1014,15 +1062,21 @@ class _MarkForGreatnessSection extends StatelessWidget {
 /// Section showing unit summaries with editable kills and destroyed status
 class _UnitSummarySection extends StatelessWidget {
   final Game game;
+  final Crusade crusade;
   final String? markedForGreatnessUnitId;
+  final List<_UnitXPPreview> xpPreviews;
   final Function(String unitId, int newKills) onKillsChanged;
   final Function(String unitId, bool wasDestroyed) onDestroyedChanged;
+  final Function(String agendaId, String unitId, int newTally) onAgendaTallyChanged;
 
   const _UnitSummarySection({
     required this.game,
+    required this.crusade,
     required this.markedForGreatnessUnitId,
+    required this.xpPreviews,
     required this.onKillsChanged,
     required this.onDestroyedChanged,
+    required this.onAgendaTallyChanged,
   });
 
   @override
@@ -1043,12 +1097,19 @@ class _UnitSummarySection extends StatelessWidget {
           style: TextStyle(color: Colors.grey.shade400, fontSize: 14),
         ),
         const SizedBox(height: 12),
-        ...game.unitStates.map((unitState) => _UnitSummaryCard(
-          unitState: unitState,
-          isMarkedForGreatness: markedForGreatnessUnitId == unitState.unitId,
-          onKillsChanged: (newKills) => onKillsChanged(unitState.unitId, newKills),
-          onDestroyedChanged: (wasDestroyed) => onDestroyedChanged(unitState.unitId, wasDestroyed),
-        )),
+        ...game.unitStates.map((unitState) {
+          // Find matching XP preview for this unit
+          final preview = xpPreviews.where((p) => p.unitName == unitState.unitName).firstOrNull;
+          return _UnitSummaryCard(
+            unitState: unitState,
+            game: game,
+            isMarkedForGreatness: markedForGreatnessUnitId == unitState.unitId,
+            xpPreview: preview,
+            onKillsChanged: (newKills) => onKillsChanged(unitState.unitId, newKills),
+            onDestroyedChanged: (wasDestroyed) => onDestroyedChanged(unitState.unitId, wasDestroyed),
+            onAgendaTallyChanged: (agendaId, newTally) => onAgendaTallyChanged(agendaId, unitState.unitId, newTally),
+          );
+        }),
       ],
     );
   }
@@ -1056,19 +1117,28 @@ class _UnitSummarySection extends StatelessWidget {
 
 class _UnitSummaryCard extends StatelessWidget {
   final UnitGameState unitState;
+  final Game game;
   final bool isMarkedForGreatness;
+  final _UnitXPPreview? xpPreview;
   final Function(int) onKillsChanged;
   final Function(bool) onDestroyedChanged;
+  final Function(String agendaId, int newTally) onAgendaTallyChanged;
 
   const _UnitSummaryCard({
     required this.unitState,
+    required this.game,
     required this.isMarkedForGreatness,
+    required this.xpPreview,
     required this.onKillsChanged,
     required this.onDestroyedChanged,
+    required this.onAgendaTallyChanged,
   });
 
   @override
   Widget build(BuildContext context) {
+    // Get tally agendas relevant to this unit
+    final tallyAgendas = game.agendas.where((a) => a.type == AgendaType.tally).toList();
+
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
       child: Padding(
@@ -1076,7 +1146,7 @@ class _UnitSummaryCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Unit name row
+            // Unit name row with XP badge
             Row(
               children: [
                 if (isMarkedForGreatness) ...[
@@ -1092,6 +1162,31 @@ class _UnitSummaryCard extends StatelessWidget {
                     ),
                   ),
                 ),
+                // XP preview badge
+                if (xpPreview != null)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    margin: const EdgeInsets.only(right: 8),
+                    decoration: BoxDecoration(
+                      color: xpPreview!.isEpicHero
+                          ? Colors.purple.withValues(alpha: 0.2)
+                          : Colors.amber.withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: xpPreview!.isEpicHero
+                            ? Colors.purple.withValues(alpha: 0.5)
+                            : Colors.amber.withValues(alpha: 0.5),
+                      ),
+                    ),
+                    child: Text(
+                      xpPreview!.isEpicHero ? 'Epic Hero' : '+${xpPreview!.totalXp} XP',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        color: xpPreview!.isEpicHero ? Colors.purple : Colors.amber,
+                      ),
+                    ),
+                  ),
                 // Destroyed status chip
                 GestureDetector(
                   onTap: () => onDestroyedChanged(!unitState.wasDestroyed),
@@ -1120,7 +1215,8 @@ class _UnitSummaryCard extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
+
             // Kill tally row
             Row(
               children: [
@@ -1156,7 +1252,132 @@ class _UnitSummaryCard extends StatelessWidget {
                 ),
               ],
             ),
+
+            // Per-unit agenda tally controls (ENH-011)
+            if (tallyAgendas.isNotEmpty) ...[
+              const SizedBox(height: 6),
+              Divider(color: Colors.grey.shade800, height: 1),
+              const SizedBox(height: 8),
+              Text(
+                'Agenda Tallies',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.grey.shade400),
+              ),
+              const SizedBox(height: 4),
+              ...tallyAgendas.map((agenda) {
+                final tally = agenda.unitTallies[unitState.unitId] ?? 0;
+                final agendaXp = agenda.calculateXpForUnit(unitState.unitId);
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 2),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          agenda.name,
+                          style: TextStyle(fontSize: 12, color: Colors.grey.shade300),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.remove_circle_outline, size: 16),
+                        onPressed: tally > 0 ? () => onAgendaTallyChanged(agenda.id, tally - 1) : null,
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
+                        iconSize: 16,
+                        color: Colors.grey.shade500,
+                      ),
+                      SizedBox(
+                        width: 24,
+                        child: Text(
+                          '$tally',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.add_circle_outline, size: 16),
+                        onPressed: () => onAgendaTallyChanged(agenda.id, tally + 1),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
+                        iconSize: 16,
+                        color: Colors.grey.shade500,
+                      ),
+                      if (agendaXp > 0)
+                        Text(
+                          '+${agendaXp}XP',
+                          style: const TextStyle(fontSize: 11, color: Colors.amber, fontWeight: FontWeight.w500),
+                        )
+                      else
+                        Text(
+                          '0XP',
+                          style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+                        ),
+                    ],
+                  ),
+                );
+              }),
+            ],
+
+            // XP breakdown (compact, below controls)
+            if (xpPreview != null && !xpPreview!.isEpicHero) ...[
+              const SizedBox(height: 6),
+              Divider(color: Colors.grey.shade800, height: 1),
+              const SizedBox(height: 6),
+              Row(
+                children: [
+                  _XPBreakdownChip(label: 'Battle', value: xpPreview!.participation),
+                  const SizedBox(width: 6),
+                  _XPBreakdownChip(label: 'Kills', value: xpPreview!.killsXp),
+                  if (xpPreview!.markedXp > 0) ...[
+                    const SizedBox(width: 6),
+                    _XPBreakdownChip(label: 'Marked', value: xpPreview!.markedXp),
+                  ],
+                  if (xpPreview!.agendaXp > 0) ...[
+                    const SizedBox(width: 6),
+                    _XPBreakdownChip(label: 'Agendas', value: xpPreview!.agendaXp),
+                  ],
+                ],
+              ),
+            ] else if (xpPreview != null && xpPreview!.isEpicHero) ...[
+              const SizedBox(height: 4),
+              Text(
+                'Epic Heroes do not gain XP',
+                style: TextStyle(fontSize: 11, color: Colors.grey.shade600, fontStyle: FontStyle.italic),
+              ),
+            ],
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Compact chip for XP breakdown display within unit cards
+class _XPBreakdownChip extends StatelessWidget {
+  final String label;
+  final int value;
+
+  const _XPBreakdownChip({required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(
+        color: value > 0
+            ? Colors.white.withValues(alpha: 0.05)
+            : Colors.transparent,
+        borderRadius: BorderRadius.circular(4),
+        border: Border.all(
+          color: value > 0
+              ? Colors.grey.withValues(alpha: 0.3)
+              : Colors.grey.withValues(alpha: 0.15),
+        ),
+      ),
+      child: Text(
+        '$label +$value',
+        style: TextStyle(
+          fontSize: 10,
+          color: value > 0 ? Colors.grey.shade300 : Colors.grey.shade600,
         ),
       ),
     );
@@ -1890,133 +2111,6 @@ class _UnitXPPreview {
   });
 
   int get totalXp => participation + killsXp + markedXp + agendaXp;
-}
-
-/// XP Preview section showing estimated XP per unit before commit (ENH-010)
-class _XPPreviewSection extends StatelessWidget {
-  final List<_UnitXPPreview> previews;
-
-  const _XPPreviewSection({required this.previews});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            const Icon(Icons.preview, color: Colors.amber, size: 20),
-            const SizedBox(width: 8),
-            const Text(
-              'XP Preview',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 4),
-        Text(
-          'Estimated XP awards when results are committed',
-          style: TextStyle(color: Colors.grey.shade400, fontSize: 14),
-        ),
-        const SizedBox(height: 12),
-        ...previews.map((preview) => Card(
-          margin: const EdgeInsets.only(bottom: 8),
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        preview.unitName,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: preview.isEpicHero
-                            ? Colors.purple.withValues(alpha: 0.2)
-                            : Colors.amber.withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: preview.isEpicHero
-                              ? Colors.purple.withValues(alpha: 0.5)
-                              : Colors.amber.withValues(alpha: 0.5),
-                        ),
-                      ),
-                      child: Text(
-                        preview.isEpicHero ? 'Epic Hero' : '+${preview.totalXp} XP',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: preview.isEpicHero ? Colors.purple : Colors.amber,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                if (!preview.isEpicHero) ...[
-                  const SizedBox(height: 8),
-                  _XPBreakdownRow(label: 'Participation', value: preview.participation),
-                  _XPBreakdownRow(label: 'Kills (${preview.killsThisGame} this game)', value: preview.killsXp),
-                  if (preview.markedXp > 0)
-                    _XPBreakdownRow(label: 'Marked for Greatness', value: preview.markedXp),
-                  if (preview.agendaXp > 0)
-                    _XPBreakdownRow(label: 'Agendas', value: preview.agendaXp),
-                ] else
-                  Padding(
-                    padding: const EdgeInsets.only(top: 4),
-                    child: Text(
-                      'Epic Heroes do not gain XP',
-                      style: TextStyle(fontSize: 12, color: Colors.grey.shade500, fontStyle: FontStyle.italic),
-                    ),
-                  ),
-              ],
-            ),
-          ),
-        )),
-      ],
-    );
-  }
-}
-
-class _XPBreakdownRow extends StatelessWidget {
-  final String label;
-  final int value;
-
-  const _XPBreakdownRow({required this.label, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 1),
-      child: Row(
-        children: [
-          Text(
-            label,
-            style: TextStyle(fontSize: 13, color: Colors.grey.shade400),
-          ),
-          const Spacer(),
-          Text(
-            '+$value',
-            style: TextStyle(
-              fontSize: 13,
-              color: value > 0 ? Colors.white : Colors.grey.shade600,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }
 
 /// Commit button fixed at bottom

@@ -3,6 +3,7 @@
 **Recent Work (Feb 3)**
 - ENH-009: Total Kills display in OOB unit details
 - ENH-010: XP Preview section in post-game screen (per-unit breakdown before commit)
+- ENH-011: Post-game layout overhaul — collapsible agenda recap, inline XP preview per unit card, per-unit agenda tally adjustments
 
 **Recent Work (Feb 1)**
 - Phase 6 Bug Clearance:
