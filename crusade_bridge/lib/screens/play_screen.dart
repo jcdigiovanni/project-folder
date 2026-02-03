@@ -596,28 +596,40 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
   }
 
   /// Load available agendas from core_agendas.json
-  Future<List<GameAgenda>> _loadAvailableAgendas(BuildContext context) async {
+  /// Filters to include only universal agendas (no faction) and faction-specific agendas matching playerFaction
+  Future<List<GameAgenda>> _loadAvailableAgendas(BuildContext context, String? playerFaction) async {
     try {
       final jsonString = await DefaultAssetBundle.of(context).loadString('assets/data/core_agendas.json');
       final data = json.decode(jsonString) as Map<String, dynamic>;
       final agendasList = data['agendas'] as List<dynamic>;
       final timestamp = DateTime.now().millisecondsSinceEpoch;
 
-      return agendasList.map((agendaData) {
-        final a = agendaData as Map<String, dynamic>;
-        return GameAgenda(
-          id: '${a['id']}_$timestamp',
-          name: a['name'] as String,
-          type: a['type'] as String,
-          description: a['description'] as String?,
-          maxTier: a['maxTier'] as int? ?? 1,
-          maxUnits: a['maxUnits'] as int?,
-          xpPerTally: a['xpPerTally'] as int?,
-          tallyDivisor: a['tallyDivisor'] as int?,
-          maxXp: a['maxXp'] as int?,
-          xpPerTier: a['xpPerTier'] as int?,
-        );
-      }).toList();
+      return agendasList
+          .map((agendaData) {
+            final a = agendaData as Map<String, dynamic>;
+            return MapEntry(
+              a['faction'] as String?, // faction restriction (null = universal)
+              GameAgenda(
+                id: '${a['id']}_$timestamp',
+                name: a['name'] as String,
+                type: a['type'] as String,
+                description: a['description'] as String?,
+                maxTier: a['maxTier'] as int? ?? 1,
+                maxUnits: a['maxUnits'] as int?,
+                xpPerTally: a['xpPerTally'] as int?,
+                tallyDivisor: a['tallyDivisor'] as int?,
+                maxXp: a['maxXp'] as int?,
+                xpPerTier: a['xpPerTier'] as int?,
+              ),
+            );
+          })
+          .where((entry) {
+            // Include if universal (no faction) or faction matches player's faction
+            final agendaFaction = entry.key;
+            return agendaFaction == null || agendaFaction == playerFaction;
+          })
+          .map((entry) => entry.value)
+          .toList();
     } catch (e) {
       // Return empty list if loading fails (agenda data sanitized)
       return [];
@@ -625,7 +637,9 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
   }
 
   void _showAgendaSelectionDialog(BuildContext context, Roster roster, int totalPoints, int totalCP) async {
-    final availableAgendas = await _loadAvailableAgendas(context);
+    final currentCrusade = ref.read(currentCrusadeNotifierProvider);
+    final playerFaction = currentCrusade?.faction;
+    final availableAgendas = await _loadAvailableAgendas(context, playerFaction);
     if (!mounted) return;
     final selectedAgendas = <GameAgenda>[];
 
