@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - **ENH-009**: Total Kills now displayed in unit details on OOB screen (standalone and group component units), pulled from cumulative kill tally.
-- **ENH-010**: XP Preview section added to post-game screen before commit, showing per-unit breakdown (participation, kills, Marked for Greatness, agendas) with total XP badge.
+- **ENH-010/011**: Post-game review layout overhaul — Agenda Recap now collapsible (collapsed by default with summary line), XP Preview integrated inline per unit card with compact breakdown chips, per-unit agenda tally adjustment controls (+/- buttons with live XP recalculation).
 - RP cap enforced at 10; post-game RP award only if under cap.
 - Active game kill tally now shows XP progress (3 dots + earned badge); survived/destroyed toggle as segmented button.
 - Play screen agenda selection now loads from JSON data file with async loading and fallback.

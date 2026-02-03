@@ -20,8 +20,4 @@
 - **DATA-001 (Medium)**: Full Deathwatch unit data (MFM v3.8 page 19 reference; extract points/flags like prior factions – generate externally)
 
 ## Archived/Resolved This Sprint
-- **ENH-009 (Medium)**: Display "Total Kills" in unit details on OOB screen - Added Total Kills row using cumulative kill tally.
-- **ENH-010 (Medium)**: Preview XP awards in post-game screen before commit - Added _XPPreviewSection with per-unit breakdown (participation, kills, Marked for Greatness, agendas).
-- **FEA-001 to FEA-015 (Medium)**: 11 Tyrannic War agendas added to core_agendas.json - Battlefield Survivors, Swarm the Planet, Headhunters, Monstrous Targets, Eradicate the Swarm, Critical Objectives, Drive Home the Blade, Cleanse Infestation, Forward Observers, Recover Mission Archives, Malefic Hunter.
-- **BUG-015 Update (Critical)**: Restore from Google Drive Backup Does Not Recover Campaign Data - Fixed missing await on saveCrusade/saveCampaign calls in restoreFromBackup().
-- **ENH-008 (Medium)**: Display Crusade Points on In-Game Screen - Added _CrusadePointsBar widget showing "Crusade Points: X" at top of active game screen.
+- **ENH-011 (Medium)**: Improve Post-Game Review Screen Layout — Collapsible agenda recap (collapsed by default with summary), inline XP preview per unit card with breakdown chips, per-unit agenda tally +/- controls with live XP recalculation.
