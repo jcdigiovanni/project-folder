@@ -132,6 +132,12 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
                   controller: _notesController,
                   onChanged: (value) => _updateNotes(game, value),
                 ),
+                const SizedBox(height: 24),
+
+                // XP Preview Section (ENH-010)
+                _XPPreviewSection(
+                  previews: _calculateXpPreviews(game, crusade!),
+                ),
 
                 const SizedBox(height: 32),
               ],
@@ -367,6 +373,61 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
         ],
       ),
     );
+  }
+
+  /// Calculate XP preview for all units without applying changes (ENH-010)
+  List<_UnitXPPreview> _calculateXpPreviews(Game game, Crusade crusade) {
+    final previews = <_UnitXPPreview>[];
+
+    for (final unitState in game.unitStates) {
+      final unit = _findUnitInOOB(crusade, unitState.unitId);
+      if (unit == null) continue;
+
+      // Epic Heroes don't gain XP
+      if (unit.isEpicHero == true) {
+        previews.add(_UnitXPPreview(
+          unitName: unitState.unitName,
+          participation: 0,
+          killsXp: 0,
+          markedXp: 0,
+          agendaXp: 0,
+          isEpicHero: true,
+          killsThisGame: unitState.kills,
+        ));
+        continue;
+      }
+
+      // 1. Participation XP
+      const participation = 1;
+
+      // 2. Kill tally XP: 1 XP per 3 cumulative kills
+      final previousKills = unit.tallies['kills'] ?? 0;
+      final projectedTotalKills = previousKills + unitState.kills;
+      final previousKillXP = previousKills ~/ 3;
+      final newKillXP = projectedTotalKills ~/ 3;
+      final killsXp = newKillXP - previousKillXP;
+
+      // 3. Marked for Greatness
+      final markedXp = unitState.markedForGreatness ? 3 : 0;
+
+      // 4. Agenda XP
+      int agendaXp = 0;
+      for (final agenda in game.agendas) {
+        agendaXp += agenda.calculateXpForUnit(unitState.unitId);
+      }
+
+      previews.add(_UnitXPPreview(
+        unitName: unitState.unitName,
+        participation: participation,
+        killsXp: killsXp,
+        markedXp: markedXp,
+        agendaXp: agendaXp,
+        isEpicHero: false,
+        killsThisGame: unitState.kills,
+      ));
+    }
+
+    return previews;
   }
 
   UnitOrGroup? _findUnitInOOB(Crusade crusade, String unitId) {
@@ -1803,6 +1864,156 @@ class _OutcomeCard extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// Data class for XP preview per unit (ENH-010)
+class _UnitXPPreview {
+  final String unitName;
+  final int participation;
+  final int killsXp;
+  final int markedXp;
+  final int agendaXp;
+  final bool isEpicHero;
+  final int killsThisGame;
+
+  const _UnitXPPreview({
+    required this.unitName,
+    required this.participation,
+    required this.killsXp,
+    required this.markedXp,
+    required this.agendaXp,
+    required this.isEpicHero,
+    required this.killsThisGame,
+  });
+
+  int get totalXp => participation + killsXp + markedXp + agendaXp;
+}
+
+/// XP Preview section showing estimated XP per unit before commit (ENH-010)
+class _XPPreviewSection extends StatelessWidget {
+  final List<_UnitXPPreview> previews;
+
+  const _XPPreviewSection({required this.previews});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const Icon(Icons.preview, color: Colors.amber, size: 20),
+            const SizedBox(width: 8),
+            const Text(
+              'XP Preview',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Text(
+          'Estimated XP awards when results are committed',
+          style: TextStyle(color: Colors.grey.shade400, fontSize: 14),
+        ),
+        const SizedBox(height: 12),
+        ...previews.map((preview) => Card(
+          margin: const EdgeInsets.only(bottom: 8),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        preview.unitName,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: preview.isEpicHero
+                            ? Colors.purple.withValues(alpha: 0.2)
+                            : Colors.amber.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: preview.isEpicHero
+                              ? Colors.purple.withValues(alpha: 0.5)
+                              : Colors.amber.withValues(alpha: 0.5),
+                        ),
+                      ),
+                      child: Text(
+                        preview.isEpicHero ? 'Epic Hero' : '+${preview.totalXp} XP',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: preview.isEpicHero ? Colors.purple : Colors.amber,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                if (!preview.isEpicHero) ...[
+                  const SizedBox(height: 8),
+                  _XPBreakdownRow(label: 'Participation', value: preview.participation),
+                  _XPBreakdownRow(label: 'Kills (${preview.killsThisGame} this game)', value: preview.killsXp),
+                  if (preview.markedXp > 0)
+                    _XPBreakdownRow(label: 'Marked for Greatness', value: preview.markedXp),
+                  if (preview.agendaXp > 0)
+                    _XPBreakdownRow(label: 'Agendas', value: preview.agendaXp),
+                ] else
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: Text(
+                      'Epic Heroes do not gain XP',
+                      style: TextStyle(fontSize: 12, color: Colors.grey.shade500, fontStyle: FontStyle.italic),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        )),
+      ],
+    );
+  }
+}
+
+class _XPBreakdownRow extends StatelessWidget {
+  final String label;
+  final int value;
+
+  const _XPBreakdownRow({required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 1),
+      child: Row(
+        children: [
+          Text(
+            label,
+            style: TextStyle(fontSize: 13, color: Colors.grey.shade400),
+          ),
+          const Spacer(),
+          Text(
+            '+$value',
+            style: TextStyle(
+              fontSize: 13,
+              color: value > 0 ? Colors.white : Colors.grey.shade600,
+            ),
+          ),
+        ],
       ),
     );
   }
