@@ -5,11 +5,11 @@
 
 ## Current Focus: Post-game experience validation ✓ COMPLETE
 
-Goal: Update unit sizes and points. ✓ COMPLETE
-Direction: Read POINTS.md and make the various changes to the faction .json files for the referenced unit size options and points.
+Goal: Implement new Adepta Sororitas faction-specific agendas. ✓ COMPLETE
+Instructions - follow all normal instructions.  Read BACKLOG.md FEATURE items and implement these factions-specific agendas.  To be clear - these Agendas should only appear if the player's roster faction matches the agenda faction.
 
-✓ Fixed: Necrons (Canoptek Scarab Swarms, Canoptek Wraiths) - added size 6 options.
-Note: Adepta Sororitas and Adeptus Mechanicus already had correct values. Custodes FW units not in file.
+✓ Added faction filtering to agenda loading (play_screen.dart)
+✓ Added 4 Adepta Sororitas agendas: Test of Faith, Atonement in Battle, Defend the Shrine, Pious Purgation
 
 ### Current Work: Bugs and Enhancements (30 JAN-6 FEB)
 - Guidance for Claude: Tackle remaining items. Use existing patterns (Hive transactions, modal confirmations). Keep commits atomic, test on Android/Web/Desktop.
