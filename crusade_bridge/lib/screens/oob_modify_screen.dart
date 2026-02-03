@@ -91,6 +91,7 @@ class OOBModifyScreen extends ConsumerWidget {
                             _DetailRow(label: 'Crusade Points', value: '${component.crusadePoints}'),
                             if (component.tallies['played'] != null)
                               _DetailRow(label: 'Battles Played', value: '${component.tallies['played']}'),
+                            _DetailRow(label: 'Total Kills', value: '${component.tallies['kills'] ?? 0}'),
                             if (component.honours.isNotEmpty) ...[
                               const SizedBox(height: 8),
                               const Text('Battle Honours:', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
@@ -223,6 +224,7 @@ class OOBModifyScreen extends ConsumerWidget {
                           _DetailRow(label: 'Crusade Points', value: '${item.crusadePoints}'),
                           if (item.tallies['played'] != null)
                             _DetailRow(label: 'Battles Played', value: '${item.tallies['played']}'),
+                          _DetailRow(label: 'Total Kills', value: '${item.tallies['kills'] ?? 0}'),
                           if (item.honours.isNotEmpty) ...[
                             const SizedBox(height: 8),
                             const Text('Battle Honours:', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),

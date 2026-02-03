@@ -1,4 +1,8 @@
-**Last Updated:** February 1, 2026 (Phase 6 Backlog Clearance In Progress)
+**Last Updated:** February 3, 2026 (Phase 6 Backlog Clearance In Progress)
+
+**Recent Work (Feb 3)**
+- ENH-009: Total Kills display in OOB unit details
+- ENH-010: XP Preview section in post-game screen (per-unit breakdown before commit)
 
 **Recent Work (Feb 1)**
 - Phase 6 Bug Clearance:

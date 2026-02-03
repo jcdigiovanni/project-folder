@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Reusable D6 Roller Widget** — lib/widgets/d6_roller.dart, supports 1D6/2D6/D3, animated shake, Epic Hero skip, reroll button, modal helper (showD6RollerModal), DiceResult class, widget tests.
 
 ### Changed
+- **ENH-009**: Total Kills now displayed in unit details on OOB screen (standalone and group component units), pulled from cumulative kill tally.
+- **ENH-010**: XP Preview section added to post-game screen before commit, showing per-unit breakdown (participation, kills, Marked for Greatness, agendas) with total XP badge.
 - RP cap enforced at 10; post-game RP award only if under cap.
 - Active game kill tally now shows XP progress (3 dots + earned badge); survived/destroyed toggle as segmented button.
 - Play screen agenda selection now loads from JSON data file with async loading and fallback.
