@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/crusade_models.dart';
 import '../providers/crusade_provider.dart';
-import '../services/storage_service.dart';
 import '../services/reference_data_service.dart';
 import '../utils/snackbar_utils.dart';
 import '../widgets/crusade_stats_bar.dart';
@@ -140,6 +139,17 @@ class RequisitionScreen extends ConsumerWidget {
           ),
           TextButton(
             onPressed: () {
+              final event = CrusadeEvent.create(
+                type: CrusadeEventType.requisition,
+                description: 'Supply Increase: Supply limit raised from ${crusade.supplyLimit} to ${crusade.supplyLimit + 200} pts',
+                metadata: {
+                  'requisition': 'supply_increase',
+                  'rpCost': 1,
+                  'oldLimit': crusade.supplyLimit,
+                  'newLimit': crusade.supplyLimit + 200,
+                },
+              );
+
               final updatedCrusade = Crusade(
                 id: crusade.id,
                 name: crusade.name,
@@ -153,13 +163,12 @@ class RequisitionScreen extends ConsumerWidget {
                 templates: crusade.templates,
                 lastModified: DateTime.now().millisecondsSinceEpoch,
                 usedFirstCharacterEnhancement: crusade.usedFirstCharacterEnhancement,
-                history: crusade.history,
+                history: [...crusade.history, event],
                 rosters: crusade.rosters,
                 games: crusade.games,
               );
 
               ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
-              StorageService.saveCrusade(updatedCrusade);
 
               Navigator.pop(context);
               SnackBarUtils.showSuccess(
@@ -410,8 +419,11 @@ class RequisitionScreen extends ConsumerWidget {
               crusade.rp -= rpCost;
               crusade.lastModified = DateTime.now().millisecondsSinceEpoch;
 
-              // Add history event
-              crusade.addEvent(CrusadeEvent.create(
+              // Save mutations
+              ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
+
+              // Add history event via provider (immutable pattern)
+              ref.read(currentCrusadeNotifierProvider.notifier).addEvent(CrusadeEvent.create(
                 type: CrusadeEventType.requisition,
                 description: 'Fresh Recruits: ${eligible.unit.customName ?? eligible.unit.name} expanded to ${eligible.newModels} models',
                 unitId: eligible.unit.id,
@@ -424,10 +436,6 @@ class RequisitionScreen extends ConsumerWidget {
                   'pointsDiff': pointsDiff,
                 },
               ));
-
-              // Save
-              ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
-              StorageService.saveCrusade(crusade);
 
               Navigator.pop(dialogContext); // Close dialog
               Navigator.pop(context); // Close modal
@@ -669,8 +677,11 @@ class RequisitionScreen extends ConsumerWidget {
               crusade.rp -= rpCost;
               crusade.lastModified = DateTime.now().millisecondsSinceEpoch;
 
-              // Add history event
-              crusade.addEvent(CrusadeEvent.create(
+              // Save mutations
+              ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
+
+              // Add history event via provider (immutable pattern)
+              ref.read(currentCrusadeNotifierProvider.notifier).addEvent(CrusadeEvent.create(
                 type: CrusadeEventType.requisition,
                 description: 'Repair and Recuperate: Removed "$scar" from ${unit.customName ?? unit.name}',
                 unitId: unit.id,
@@ -681,10 +692,6 @@ class RequisitionScreen extends ConsumerWidget {
                   'removedScar': scar,
                 },
               ));
-
-              // Save
-              ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
-              StorageService.saveCrusade(crusade);
 
               Navigator.pop(dialogContext); // Close dialog
               Navigator.pop(context); // Close modal
@@ -962,8 +969,11 @@ class RequisitionScreen extends ConsumerWidget {
               crusade.rp -= rpCost;
               crusade.lastModified = DateTime.now().millisecondsSinceEpoch;
 
-              // Add history event
-              crusade.addEvent(CrusadeEvent.create(
+              // Save mutations
+              ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
+
+              // Add history event via provider (immutable pattern)
+              ref.read(currentCrusadeNotifierProvider.notifier).addEvent(CrusadeEvent.create(
                 type: CrusadeEventType.enhancement,
                 description: 'Renowned Heroes: ${unit.customName ?? unit.name} gained $enhancementName',
                 unitId: unit.id,
@@ -975,10 +985,6 @@ class RequisitionScreen extends ConsumerWidget {
                   'enhancementPoints': enhancementPoints,
                 },
               ));
-
-              // Save
-              ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
-              StorageService.saveCrusade(crusade);
 
               Navigator.pop(dialogContext); // Close dialog
               Navigator.pop(context); // Close modal
@@ -1161,8 +1167,11 @@ class RequisitionScreen extends ConsumerWidget {
               crusade.rp -= rpCost;
               crusade.lastModified = DateTime.now().millisecondsSinceEpoch;
 
-              // Add history event
-              crusade.addEvent(CrusadeEvent.create(
+              // Save mutations
+              ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
+
+              // Add history event via provider (immutable pattern)
+              ref.read(currentCrusadeNotifierProvider.notifier).addEvent(CrusadeEvent.create(
                 type: CrusadeEventType.requisition,
                 description: 'Legendary Veterans: ${unit.customName ?? unit.name} can now exceed XP and Honours caps',
                 unitId: unit.id,
@@ -1172,10 +1181,6 @@ class RequisitionScreen extends ConsumerWidget {
                   'rpCost': rpCost,
                 },
               ));
-
-              // Save
-              ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
-              StorageService.saveCrusade(crusade);
 
               Navigator.pop(dialogContext); // Close dialog
               Navigator.pop(context); // Close modal

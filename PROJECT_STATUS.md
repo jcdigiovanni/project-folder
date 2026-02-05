@@ -1,6 +1,8 @@
 **Last Updated:** February 5, 2026 (Phase 6 Backlog Clearance In Progress)
 
 **Recent Work (Feb 5)**
+- BUG-019: History logging fixed — all significant events now logged (unit add/remove, supply increase, game results, requisitions); mutation pattern fixed for reliable persistence
+- ENH-014: Landing screen crusade list multi-line layout (name/faction/points/detachment on separate lines)
 - ENH-012: Settings backup/restore buttons stacked vertically for mobile readability
 - ENH-013: Landing screen edge-to-edge with transparent status bar and notch-safe top padding
 - Google Drive re-enabled for Android and Chrome/Web — OAuth consolidated to Crusade Tracker GCP project, SHA-1 fingerprint registered, web client ID updated. Verified working on both platforms.

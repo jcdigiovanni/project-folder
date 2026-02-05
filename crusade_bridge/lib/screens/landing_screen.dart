@@ -73,28 +73,68 @@ class _LandingScreenState extends ConsumerState<LandingScreen> with WidgetsBindi
                     final crusade = _savedCrusades[index];
                     return Card(
                       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: ListTile(
-                        leading: ArmyAvatar(
-                          factionAsset: crusade.factionIconAsset,
-                          customPath: crusade.armyIconPath,
-                          radius: 24,
-                        ),
-                        title: Text(crusade.name),
-                        subtitle: Text(
-                          '${crusade.faction} - ${crusade.detachment}',
-                          style: Theme.of(context).textTheme.labelLarge,
-                        ),
-                        trailing: Text(
-                          '${crusade.totalOobPoints}/${crusade.supplyLimit} pts',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: crusade.remainingPoints < 0 ? Colors.red : null,
-                          ),
-                        ),
+                      child: InkWell(
                         onTap: () {
                           ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
                           context.go('/dashboard');
                         },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                          child: Row(
+                            children: [
+                              ArmyAvatar(
+                                factionAsset: crusade.factionIconAsset,
+                                customPath: crusade.armyIconPath,
+                                radius: 24,
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      crusade.name,
+                                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    const SizedBox(height: 2),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            crusade.faction,
+                                            style: Theme.of(context).textTheme.bodyMedium,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                        Text(
+                                          '${crusade.totalOobPoints}/${crusade.supplyLimit} pts',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: crusade.remainingPoints < 0 ? Colors.red : null,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    if (crusade.detachment.isNotEmpty)
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 8, top: 1),
+                                        child: Text(
+                                          crusade.detachment,
+                                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                            color: Colors.grey,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     );
                   },

@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Reusable D6 Roller Widget** — lib/widgets/d6_roller.dart, supports 1D6/2D6/D3, animated shake, Epic Hero skip, reroll button, modal helper (showD6RollerModal), DiceResult class, widget tests.
 
 ### Changed
+- **ENH-014**: Landing screen Recent Crusades list reformatted — structured multi-line layout with crusade name (bold) on first line, faction + points on second line (left/right aligned), detachment on third line (indented, grey). Prevents mid-phrase word wrapping.
 - **ENH-012**: Settings screen backup/restore buttons stacked vertically (full-width) instead of side-by-side Row to prevent text overflow on mobile.
 - **ENH-013**: Landing screen edge-to-edge — transparent status bar with light icons, dynamic top padding accounts for status bar/notch height so "Recent Crusades" heading is never clipped.
 - **ENH-009**: Total Kills now displayed in unit details on OOB screen (standalone and group component units), pulled from cumulative kill tally.
@@ -24,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Play screen agenda selection now loads from JSON data file with async loading and fallback.
 
 ### Fixed
+- **BUG-019**: Crusade History now logs all significant events — added missing history entries for basic unit add, unit removal, Supply Increase requisition, and game results (battle outcome). Fixed existing requisition history entries (Fresh Recruits, Repair, Renowned Heroes, Legendary Veterans) to use immutable provider `addEvent()` instead of direct object mutation, ensuring reliable persistence across sessions.
 - **Agenda XP Application** — Agendas now properly award XP to units on commit. Added xpPerTally, tallyDivisor, maxXp, xpPerTier fields to GameAgenda model; calculateXpForUnit() method computes rewards; _commitResults() applies agenda XP to each unit.
 - BUG-013/014/015: Campaign data management - Clearing local data now immediately removes campaigns from UI (added `clear()` method to CampaignsNotifier); restoring from Google Drive backup now properly reloads campaigns into provider state (added `reload()` method).
 - BUG-010: Android Google Drive auth - Added Google services Gradle plugin, improved error handling with detailed messages for common sign-in failures (SHA-1 mismatch, missing google-services.json, network errors), dashboard now attempts sign-in with helpful feedback.
