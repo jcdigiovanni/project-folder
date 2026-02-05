@@ -1,5 +1,5 @@
 # BACKLOG.md
-**Last Updated:** February 3, 2026 (Post-Sprint Cleanup)
+**Last Updated:** February 5, 2026 (Post-Sprint Cleanup)
 
 ## Tasks
 
@@ -20,4 +20,6 @@
 - **DATA-001 (Medium)**: Full Deathwatch unit data (MFM v3.8 page 19 reference; extract points/flags like prior factions – generate externally)
 
 ## Archived/Resolved This Sprint
+- **ENH-012 (Medium)**: Stack Backup/Restore buttons vertically on Settings page — replaced Row with full-width stacked buttons for mobile readability.
+- **ENH-013 (Medium)**: Landing screen edge-to-edge — transparent status bar, dynamic top padding for notch/status bar, dark theme icons.
 - **ENH-011 (Medium)**: Improve Post-Game Review Screen Layout — Collapsible agenda recap (collapsed by default with summary), inline XP preview per unit card with breakdown chips, per-unit agenda tally +/- controls with live XP recalculation.

@@ -13,7 +13,16 @@
       "Bash(git push:*)",
       "Bash(git pull:*)",
       "Bash(dart run build_runner:*)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "Bash(where:*)",
+      "Bash(dir /s /b \"C:\\\\Program Files\\\\Java\\\\*keytool.exe\")",
+      "Bash(dir /s /b \"C:\\\\Program Files\\\\Microsoft\\\\*keytool.exe\")",
+      "Bash(dir /s /b \"C:\\\\Program Files\\\\Eclipse Adoptium\\\\*keytool.exe\")",
+      "Bash(dir /s /b \"C:\\\\Program Files\\\\*keytool.exe\")",
+      "Bash(flutter doctor:*)",
+      "Bash(findstr:*)",
+      "Bash(flutter build:*)",
+      "Bash(dart analyze:*)"
     ]
   }
 }

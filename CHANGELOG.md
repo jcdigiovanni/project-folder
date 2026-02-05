@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Reusable D6 Roller Widget** — lib/widgets/d6_roller.dart, supports 1D6/2D6/D3, animated shake, Epic Hero skip, reroll button, modal helper (showD6RollerModal), DiceResult class, widget tests.
 
 ### Changed
+- **ENH-012**: Settings screen backup/restore buttons stacked vertically (full-width) instead of side-by-side Row to prevent text overflow on mobile.
+- **ENH-013**: Landing screen edge-to-edge — transparent status bar with light icons, dynamic top padding accounts for status bar/notch height so "Recent Crusades" heading is never clipped.
 - **ENH-009**: Total Kills now displayed in unit details on OOB screen (standalone and group component units), pulled from cumulative kill tally.
 - **ENH-010/011**: Post-game review layout overhaul — Agenda Recap now collapsible (collapsed by default with summary line), XP Preview integrated inline per unit card with compact breakdown chips, per-unit agenda tally adjustment controls (+/- buttons with live XP recalculation).
 - RP cap enforced at 10; post-game RP award only if under cap.

@@ -47,11 +47,12 @@ class _LandingScreenState extends ConsumerState<LandingScreen> with WidgetsBindi
 
   @override
   Widget build(BuildContext context) {
-    return Column(  // ← No Scaffold here - parent handles it
+    final topPadding = MediaQuery.of(context).padding.top;
+    return Column(
       children: [
-        // Recent Crusades section
+        // Recent Crusades section — top padding accounts for status bar/notch
         Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.fromLTRB(16, topPadding + 16, 16, 0),
           child: Text(
             'Recent Crusades',
             style: Theme.of(context).textTheme.headlineSmall,
