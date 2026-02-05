@@ -28,6 +28,14 @@ import 'providers/crusade_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Edge-to-edge: transparent status bar, dark theme icons
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.light,
+    statusBarBrightness: Brightness.dark,
+  ));
+
   await StorageService.init();
   await GoogleDriveService.init();
   await ReferenceDataService.init();

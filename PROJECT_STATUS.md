@@ -1,6 +1,8 @@
 **Last Updated:** February 5, 2026 (Phase 6 Backlog Clearance In Progress)
 
 **Recent Work (Feb 5)**
+- ENH-012: Settings backup/restore buttons stacked vertically for mobile readability
+- ENH-013: Landing screen edge-to-edge with transparent status bar and notch-safe top padding
 - Google Drive re-enabled for Android and Chrome/Web — OAuth consolidated to Crusade Tracker GCP project, SHA-1 fingerprint registered, web client ID updated. Verified working on both platforms.
 
 **Recent Work (Feb 3)**

@@ -322,32 +322,30 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ElevatedButton.icon(
-                            onPressed: _isLoading ? null : _handleBackup,
-                            icon: const Icon(Icons.backup),
-                            label: const Text('Backup to Drive'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue[700],
-                              foregroundColor: Colors.white,
-                            ),
-                          ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        onPressed: _isLoading ? null : _handleBackup,
+                        icon: const Icon(Icons.backup),
+                        label: const Text('Backup to Drive'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue[700],
+                          foregroundColor: Colors.white,
                         ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: ElevatedButton.icon(
-                            onPressed: _isLoading ? null : _handleRestore,
-                            icon: const Icon(Icons.restore),
-                            label: const Text('Restore from Drive'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.orange[700],
-                              foregroundColor: Colors.white,
-                            ),
-                          ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        onPressed: _isLoading ? null : _handleRestore,
+                        icon: const Icon(Icons.restore),
+                        label: const Text('Restore from Drive'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange[700],
+                          foregroundColor: Colors.white,
                         ),
-                      ],
+                      ),
                     ),
                     const SizedBox(height: 8),
                     Center(
