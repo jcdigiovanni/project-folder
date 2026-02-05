@@ -301,6 +301,15 @@ class OOBModifyScreen extends ConsumerWidget {
                       } else {
                         // Direct delete for units or empty groups
                         ref.read(currentCrusadeNotifierProvider.notifier).removeUnitOrGroup(index);
+                        ref.read(currentCrusadeNotifierProvider.notifier).addEvent(CrusadeEvent.create(
+                          type: CrusadeEventType.unitRemoved,
+                          description: 'Removed ${item.customName ?? item.name} (${item.points} pts)',
+                          unitId: item.id,
+                          unitName: item.customName ?? item.name,
+                          metadata: {
+                            'points': item.points,
+                          },
+                        ));
                       }
                     },
                   ),
@@ -1033,6 +1042,16 @@ class OOBModifyScreen extends ConsumerWidget {
                       );
                     } else {
                       ref.read(currentCrusadeNotifierProvider.notifier).addUnitOrGroup(newUnit);
+                      ref.read(currentCrusadeNotifierProvider.notifier).addEvent(CrusadeEvent.create(
+                        type: CrusadeEventType.unitAdded,
+                        description: 'Added ${newUnit.customName ?? newUnit.name} (${newUnit.points} pts)',
+                        unitId: newUnit.id,
+                        unitName: newUnit.customName ?? newUnit.name,
+                        metadata: {
+                          'points': newUnit.points,
+                          'unitType': newUnit.type,
+                        },
+                      ));
                       Navigator.pop(context);
                     }
                   },

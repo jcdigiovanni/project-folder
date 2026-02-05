@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../models/crusade_models.dart';
 import '../providers/crusade_provider.dart';
-import '../services/storage_service.dart';
 import '../services/google_drive_service.dart';
 
 /// Post-game screen for reviewing and finalizing battle results
@@ -326,8 +325,21 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
       crusade.rp += 1;
     }
 
-    // Save the crusade with updated units
-    StorageService.saveCrusade(crusade);
+    // Save the crusade with updated units via provider
+    ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
+
+    // Log battle history event via provider (immutable pattern)
+    final totalUnits = game.unitStates.length;
+    final resultLabel = game.result == 'win' ? 'Victory' : game.result == 'loss' ? 'Defeat' : 'Draw';
+    ref.read(currentCrusadeNotifierProvider.notifier).addEvent(CrusadeEvent.create(
+      type: CrusadeEventType.battle,
+      description: 'Battle: $resultLabel ($totalUnits units deployed)',
+      metadata: {
+        'gameId': game.id,
+        'result': game.result,
+        'unitsDeployed': totalUnits,
+      },
+    ));
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
