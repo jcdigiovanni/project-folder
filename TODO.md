@@ -5,7 +5,9 @@
 
 ## Current Focus: BUGS AND ENHANCEMENTS
 
-Goal: Complete BUG, FEA, and ENH items in BACKLOG.md
+Goal: Re-enable Google Drive access for backup and restoring.  Ensure it is functional for chrome, windows, and android.  Instruct on additional packaging/release information if needed.  Create keys and all as necessary.
+
+Goal: Complete BUG, FEA, and ENH items in BACKLOG.md *COMPLETED*
 
 ### Current Work: Bugs and Enhancements (30 JAN-6 FEB)
 - All sprint items complete! Ready for next sprint.
