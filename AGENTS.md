@@ -36,7 +36,7 @@ You are assisting with Crusade Bridge development. Read all of and follow these 
 6. **Context Gathering (Critical for BUG/ENH Tasks)**
    - When receiving a task from TODO.md that references a BUG-XXX or ENH-XXX (e.g. "Fix BUG-017: Unit CP must update after rank-up"):
      - **Immediately open and read the full entry from BACKLOG.md** for that exact number.
-     - Read **all sections** in order: Description, Repro Steps, Expected, Actual, Impact, Potential Fix Notes.
+     - Read **all sections** in order: Description, Repro Steps, Expected, Actual, Impact.
      - This is the **primary source of truth** for the issue, user pain, desired behavior, and any rules context.
      - **Do NOT rely only on the short title or phrasing in TODO.md** — it is brief on purpose.
    - Use the BACKLOG details to guide diagnosis, planning, and implementation.
