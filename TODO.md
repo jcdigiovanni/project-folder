@@ -1,11 +1,11 @@
 # TODO - Active Sprint Tracker
-**Last Updated:** February 2, 2026 (Sprint: Phase 6 Backlog Clearance In Progress)
+**Last Updated:** February 5, 2026 (Sprint: Phase 6 Backlog Clearance In Progress)
 
 **Follow the guidelines in AGENTS.md exactly.**
 
 ## Current Focus: BUGS AND ENHANCEMENTS
 
-Goal: Re-enable Google Drive access for backup and restoring.  Ensure it is functional for chrome, windows, and android.  Instruct on additional packaging/release information if needed.  Create keys and all as necessary.
+Goal: Re-enable Google Drive access for backup and restoring.  Ensure it is functional for chrome, windows, and android.  Instruct on additional packaging/release information if needed.  Create keys and all as necessary. *COMPLETED*
 
 Goal: Complete BUG, FEA, and ENH items in BACKLOG.md *COMPLETED*
 
@@ -13,6 +13,7 @@ Goal: Complete BUG, FEA, and ENH items in BACKLOG.md *COMPLETED*
 - All sprint items complete! Ready for next sprint.
 
 ## Completed This Session / Archive
+- **Feb 5**: Google Drive re-enabled — Android sign-in fixed (OAuth client IDs consolidated to Crusade Tracker GCP project, SHA-1 fingerprint registered, google-services.json with populated oauth_client), Web client ID updated to match. Verified working on Android and Chrome. Windows uses Chrome/web for Drive (google_sign_in plugin does not support Windows desktop).
 - **Feb 3**: ENH-009 (Total Kills in OOB unit details), ENH-010 (XP Preview in post-game screen with per-unit breakdown), ENH-011 (Post-game layout overhaul: collapsible agenda recap, inline XP preview per unit card, per-unit agenda tally adjustments).
 - **Feb 2**: Fixed agenda XP values (added xpPerTally/xpPerTier to JSON - Headhunters 2XP, Drive Home the Blade 3XP, etc.), FEA-001 to FEA-011 (11 Tyrannic War agendas imported: Battlefield Survivors, Swarm the Planet, Headhunters, Monstrous Targets, Eradicate the Swarm, Critical Objectives, Drive Home the Blade, Cleanse Infestation, Forward Observers, Recover Mission Archives, Malefic Hunter). Agenda Data Sanitization (emptied core_agendas.json, removed fallback agendas, added empty state UI), BUG-018 (edit/level-up units in groups), ENH-007 (draw/tie support), BUG-015 update (campaign restore), ENH-008 (Crusade Points display).
 

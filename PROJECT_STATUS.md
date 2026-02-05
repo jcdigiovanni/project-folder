@@ -1,4 +1,7 @@
-**Last Updated:** February 3, 2026 (Phase 6 Backlog Clearance In Progress)
+**Last Updated:** February 5, 2026 (Phase 6 Backlog Clearance In Progress)
+
+**Recent Work (Feb 5)**
+- Google Drive re-enabled for Android and Chrome/Web — OAuth consolidated to Crusade Tracker GCP project, SHA-1 fingerprint registered, web client ID updated. Verified working on both platforms.
 
 **Recent Work (Feb 3)**
 - ENH-009: Total Kills display in OOB unit details
@@ -26,6 +29,7 @@
 - Progression foundations: D6 roller + Battle Honours/Rank-Up + OOA/Scars system
 - Requisitions full core loop (Supply Increase, Fresh Recruits, Repair/Recuperate, Renowned Heroes, Legendary Veterans)
 - Bug fixes for core functionality (exit, data clear, save persistence, group creation)
+- Google Drive backup/restore: Android (Firebase/GMS) + Chrome/Web (OAuth 2.0) — verified working
 
 **In Progress**
 - Polish: Consistent Supply/RP dashboard visuals, confirmation dialogs
