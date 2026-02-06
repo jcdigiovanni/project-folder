@@ -1,5 +1,5 @@
 # BACKLOG.md
-**Last Updated:** February 5, 2026 (Post-Sprint Cleanup)
+**Last Updated:** February 6, 2026 (Post-Sprint Cleanup)
 
 ## Tasks
 
@@ -20,6 +20,7 @@
 - **DATA-001 (Medium)**: Full Deathwatch unit data (MFM v3.8 page 19 reference; extract points/flags like prior factions – generate externally)
 
 ## Archived/Resolved This Sprint
+- **ENH-015 (High)**: Made Agenda Section Collapsible on Active Game Screen — default collapsed with summary bar showing agenda names + total progress, tap to expand for full agenda cards with tracking controls. Animated chevron and crossfade transitions. Frees up screen space for unit management during battle.
 - **BUG-019 (High)**: History logging fixed — added missing events for unit add/remove, supply increase, game results. Fixed requisition mutation pattern (direct mutation → immutable provider addEvent). Added 100-event rolling cap to prevent unbounded history growth.
 - **ENH-014 (Medium)**: Landing screen crusade list multi-line layout — name (bold) on first line, faction + points on second line, detachment (indented, grey) on third line.
 - **ENH-012 (Medium)**: Stack Backup/Restore buttons vertically on Settings page — replaced Row with full-width stacked buttons for mobile readability.

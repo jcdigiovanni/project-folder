@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Reusable D6 Roller Widget** — lib/widgets/d6_roller.dart, supports 1D6/2D6/D3, animated shake, Epic Hero skip, reroll button, modal helper (showD6RollerModal), DiceResult class, widget tests.
 
 ### Changed
+- **ENH-015**: Active Game Screen Agenda section now collapsible — default collapsed with summary bar (agenda names + total progress), tap to expand for full agenda cards. Animated chevron rotation and crossfade transition. Frees screen space for unit list during battle.
 - **ENH-014**: Landing screen Recent Crusades list reformatted — structured multi-line layout with crusade name (bold) on first line, faction + points on second line (left/right aligned), detachment on third line (indented, grey). Prevents mid-phrase word wrapping.
 - **ENH-012**: Settings screen backup/restore buttons stacked vertically (full-width) instead of side-by-side Row to prevent text overflow on mobile.
 - **ENH-013**: Landing screen edge-to-edge — transparent status bar with light icons, dynamic top padding accounts for status bar/notch height so "Recent Crusades" heading is never clipped.
