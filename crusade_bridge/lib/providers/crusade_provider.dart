@@ -127,11 +127,15 @@ class CurrentCrusadeNotifier extends StateNotifier<Crusade?> {
     StorageService.saveCrusade(state!);
   }
 
-  /// Add event to history
+  /// Add event to history (capped at 100 entries, oldest trimmed first)
   void addEvent(CrusadeEvent event) {
     if (state == null) return;
 
-    state = _copyWith(history: [...state!.history, event]);
+    var updatedHistory = [...state!.history, event];
+    if (updatedHistory.length > 100) {
+      updatedHistory = updatedHistory.sublist(updatedHistory.length - 100);
+    }
+    state = _copyWith(history: updatedHistory);
     StorageService.saveCrusade(state!);
   }
 
