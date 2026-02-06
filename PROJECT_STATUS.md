@@ -1,4 +1,7 @@
-**Last Updated:** February 5, 2026 (Phase 6 Backlog Clearance In Progress)
+**Last Updated:** February 6, 2026 (Phase 6 Backlog Clearance In Progress)
+
+**Recent Work (Feb 6)**
+- ENH-015: Active Game Screen agenda section now collapsible — default collapsed with summary bar (agenda names + progress total), tap to expand, animated transitions. Frees screen space for unit management during battle.
 
 **Recent Work (Feb 5-6)**
 - BUG-019: History logging fixed — all significant events now logged (unit add/remove, supply increase, game results, requisitions); mutation pattern fixed for reliable persistence; 100-event rolling cap added to prevent unbounded growth

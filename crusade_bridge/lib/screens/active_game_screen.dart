@@ -405,8 +405,8 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> {
   }
 }
 
-/// Header showing agenda summary with progress tracking
-class _AgendaSummaryHeader extends StatelessWidget {
+/// Collapsible header showing agenda summary with progress tracking
+class _AgendaSummaryHeader extends StatefulWidget {
   final Game game;
   final Function(GameAgenda agenda) onSelectUnit;
 
@@ -416,8 +416,15 @@ class _AgendaSummaryHeader extends StatelessWidget {
   });
 
   @override
+  State<_AgendaSummaryHeader> createState() => _AgendaSummaryHeaderState();
+}
+
+class _AgendaSummaryHeaderState extends State<_AgendaSummaryHeader> {
+  bool _isExpanded = false; // Default collapsed per ENH-015
+
+  @override
   Widget build(BuildContext context) {
-    if (game.agendas.isEmpty) {
+    if (widget.game.agendas.isEmpty) {
       return Container(
         padding: const EdgeInsets.all(16),
         color: Theme.of(context).colorScheme.surfaceContainerHighest,
@@ -434,41 +441,107 @@ class _AgendaSummaryHeader extends StatelessWidget {
       );
     }
 
+    // Build collapsed summary (agenda names + total tally)
+    final agendaNames = widget.game.agendas.map((a) => a.name).join(', ');
+    final totalTallies = widget.game.agendas.fold<int>(
+      0,
+      (sum, a) => sum + (a.type == AgendaType.tally ? a.totalTallies : a.tier),
+    );
+
     return Container(
-      padding: const EdgeInsets.all(16),
       color: Theme.of(context).colorScheme.surfaceContainerHighest,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Agendas',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
+          // Tappable header row (always visible)
+          InkWell(
+            onTap: () => setState(() => _isExpanded = !_isExpanded),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  // Expand/collapse chevron
+                  AnimatedRotation(
+                    turns: _isExpanded ? 0.25 : 0,
+                    duration: const Duration(milliseconds: 200),
+                    child: const Icon(
+                      Icons.chevron_right,
+                      size: 24,
+                      color: Color(0xFFFFB6C1),
                     ),
+                  ),
+                  const SizedBox(width: 8),
+                  // Agendas label
+                  Text(
+                    'Agendas',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  const Spacer(),
+                  // Collapsed summary or active count
+                  if (!_isExpanded)
+                    Flexible(
+                      child: Text(
+                        agendaNames,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey.shade400,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  const SizedBox(width: 8),
+                  // Progress badge
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFFB6C1).withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          Icons.stacked_bar_chart,
+                          size: 14,
+                          color: Color(0xFFFFB6C1),
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          '$totalTallies',
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFFFB6C1),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              // Quick stats
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFB6C1).withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  '${game.agendas.length} active',
-                  style: const TextStyle(fontSize: 12, color: Color(0xFFFFB6C1)),
-                ),
-              ),
-            ],
+            ),
           ),
-          const SizedBox(height: 12),
-          ...game.agendas.map((agenda) => _AgendaProgressCard(
-                agenda: agenda,
-                game: game,
-                onSelectUnit: () => onSelectUnit(agenda),
-              )),
+          // Expanded content (agenda cards)
+          AnimatedCrossFade(
+            firstChild: const SizedBox.shrink(),
+            secondChild: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              child: Column(
+                children: widget.game.agendas
+                    .map((agenda) => _AgendaProgressCard(
+                          agenda: agenda,
+                          game: widget.game,
+                          onSelectUnit: () => widget.onSelectUnit(agenda),
+                        ))
+                    .toList(),
+              ),
+            ),
+            crossFadeState:
+                _isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+            duration: const Duration(milliseconds: 200),
+          ),
         ],
       ),
     );
