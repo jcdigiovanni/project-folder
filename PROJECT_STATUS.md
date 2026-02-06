@@ -1,7 +1,8 @@
 **Last Updated:** February 5, 2026 (Phase 6 Backlog Clearance In Progress)
 
-**Recent Work (Feb 5)**
-- BUG-019: History logging fixed — all significant events now logged (unit add/remove, supply increase, game results, requisitions); mutation pattern fixed for reliable persistence
+**Recent Work (Feb 5-6)**
+- BUG-019: History logging fixed — all significant events now logged (unit add/remove, supply increase, game results, requisitions); mutation pattern fixed for reliable persistence; 100-event rolling cap added to prevent unbounded growth
+- History confirmed to travel with Google Drive backup/restore
 - ENH-014: Landing screen crusade list multi-line layout (name/faction/points/detachment on separate lines)
 - ENH-012: Settings backup/restore buttons stacked vertically for mobile readability
 - ENH-013: Landing screen edge-to-edge with transparent status bar and notch-safe top padding

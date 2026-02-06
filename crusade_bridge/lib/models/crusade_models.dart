@@ -69,9 +69,17 @@ Crusade({
       templates = templates ?? [],
       lastModified = lastModified ?? DateTime.now().millisecondsSinceEpoch,
       usedFirstCharacterEnhancement = usedFirstCharacterEnhancement ?? false,
-      history = history ?? [],
+      history = _capHistory(history ?? []),
       rosters = rosters ?? [],
       games = games ?? [];
+
+  /// Cap history to 100 entries (oldest trimmed first)
+  static List<CrusadeEvent> _capHistory(List<CrusadeEvent> events) {
+    if (events.length > 100) {
+      return events.sublist(events.length - 100);
+    }
+    return events;
+  }
 
   // Calculate total points used in OOB
   int get totalOobPoints => oob.fold<int>(0, (sum, item) => sum + item.points);
