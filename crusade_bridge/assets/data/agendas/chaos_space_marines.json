@@ -1,0 +1,52 @@
+{
+  "faction": "Chaos Space Marines",
+  "agendas": [
+    {
+      "id": "claim_and_despoil",
+      "name": "Claim and Despoil",
+      "type": "objective",
+      "description": "Pre-game: opponent places 3 warband prize markers (>9\" apart, >6\" from edges, not in their deployment zone). Shooting phase: select eligible HERETIC ASTARTES INFANTRY/MOUNTED unit in range with no enemy nearby. Next Command phase: if no enemy in range, remove marker (unit holds prize). At battle end: holding unit gains 3XP. If 1+ holders wholly in your deployment zone, increase Warfleet Glory level by 1.",
+      "maxTier": 1,
+      "xpPerTier": 3
+    },
+    {
+      "id": "blasphemous_ritual",
+      "name": "Blasphemous Ritual",
+      "type": "tally",
+      "description": "Pre-game: select up to 3 HERETIC ASTARTES INFANTRY units. Each successful Dark Pact Leadership test grants that unit 1XP (max 3XP per unit). If all selected units reach 3XP, increase Dark God Glory level by 1.",
+      "xpPerTally": 1,
+      "maxXp": 3
+    },
+    {
+      "id": "path_to_glory",
+      "name": "Path to Glory",
+      "type": "tally",
+      "description": "Post-game: the WARBAND CHAMPION gains 1XP for each condition satisfied: destroyed 1+ enemy CHARACTER; destroyed enemy WARLORD; destroyed 3+ enemy units; ended battle wholly in opponent's deployment zone. If 3+ XP gained, increase Personal Glory level by 1.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "warlords_glory",
+      "name": "Warlord's Glory",
+      "type": "objective",
+      "description": "Glory Agenda (Personal Glory — Favoured only). Completed if WARBAND CHAMPION: destroys 12+ INFANTRY models; destroys 2+ CHARACTERs; ends in opponent's deployment zone controlling an objective. On success: 5XP and eligible for Daemon Weapon. On failure: subtract 3 from Personal Glory.",
+      "maxTier": 1,
+      "xpPerTier": 5
+    },
+    {
+      "id": "glory_of_the_gods",
+      "name": "Glory of the Gods",
+      "type": "objective",
+      "description": "Glory Agenda (Dark God Glory — Favoured only). Completed if Crusade army: destroys 6+ MONSTER/VEHICLE in Fight phase; destroys 5+ models with Psychic Attacks; wins the battle. On success: WARBAND CHAMPION gains 5XP and is eligible for Daemon Weapon. On failure: subtract 3 from Dark God Glory.",
+      "maxTier": 1,
+      "xpPerTier": 5
+    },
+    {
+      "id": "glory_of_conquest",
+      "name": "Glory of Conquest",
+      "type": "objective",
+      "description": "Glory Agenda (Warfleet Glory — Favoured only). Completed if Crusade army: controls objectives in all 3 zones at end of any round; has 3+ units wholly in enemy deployment at battle end; controls more objectives than opponent at battle end. On success: WARBAND CHAMPION gains 5XP and is eligible for Daemon Weapon. On failure: subtract 3 from Warfleet Glory.",
+      "maxTier": 1,
+      "xpPerTier": 5
+    }
+  ]
+}

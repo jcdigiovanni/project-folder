@@ -1,0 +1,43 @@
+{
+  "faction": "Astra Militarum",
+  "agendas": [
+    {
+      "id": "advance_for_the_emperor",
+      "name": "Advance, For the Emperor!",
+      "type": "objective",
+      "description": "At battle end, select up to 6 ASTRA MILITARUM units wholly within the opponent's deployment zone. Each gains 1XP. If the WARLORD is among those selected, the force gains 1 Commendation point.",
+      "maxTier": 1,
+      "maxUnits": 6,
+      "xpPerTier": 1
+    },
+    {
+      "id": "propaganda_targets",
+      "name": "Propaganda Targets",
+      "type": "tally",
+      "description": "Pre-game: opponent selects up to 3 of their units as Extermination Targets. Each time an ASTRA MILITARUM unit destroys an Extermination Target, the destroying unit gains 3XP. If all targets are destroyed, the force gains 1 Commendation point.",
+      "xpPerTally": 3
+    },
+    {
+      "id": "inspired_command",
+      "name": "Inspired Command",
+      "type": "tally",
+      "description": "Each time a unit affected by an Order destroys an enemy unit, the OFFICER who issued the Order gains 1XP (max 3XP per OFFICER per battle). If 5+ OFFICERS gain XP, the force gains 1 Commendation point.",
+      "xpPerTally": 1,
+      "maxXp": 3
+    },
+    {
+      "id": "hold_the_line",
+      "name": "Hold the Line",
+      "type": "tally",
+      "description": "From round 2 onward, at end of each turn: if no enemy units are in your deployment zone and your WARLORD is on the battlefield, the WARLORD gains 1XP. If any enemy enters your deployment zone, this agenda ends. If the WARLORD earns 4XP, the force gains 1 Commendation point.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "arming_the_assault",
+      "name": "Arming the Assault",
+      "type": "tally",
+      "description": "All objectives start Unsecured. During Shooting phase: task an eligible unit to secure an Unsecured objective (no shoot/charge). At end of turn, if in range: secure it and gain 2XP. Post-game: all No Man's Land objectives secured = +1 Requisition; opponent's deployment objective secured = +1 Commendation.",
+      "xpPerTally": 2
+    }
+  ]
+}

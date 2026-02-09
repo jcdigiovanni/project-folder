@@ -1,0 +1,44 @@
+{
+  "faction": "Adeptus Mechanicus",
+  "agendas": [
+    {
+      "id": "cold_logic",
+      "name": "Cold Logic",
+      "type": "tally",
+      "description": "Each time a SKITARII unit destroys an enemy unit with a ranged attack, it gains 1XP (max 3XP per unit) if either: Protector Imperative is active and the unit is wholly within your deployment zone, or Conqueror Imperative is active and the enemy unit was wholly within the opponent's deployment zone.",
+      "xpPerTally": 1,
+      "maxXp": 3
+    },
+    {
+      "id": "tech_scavengers",
+      "name": "Tech Scavengers",
+      "type": "objective",
+      "description": "Pre-game: select the highest-points enemy VEHICLE as target. If an ADEPTUS MECHANICUS unit destroys it, that unit gains 3XP. Place a marker where it was destroyed. At battle end, if an ADEPTUS MECHANICUS unit is within 3\" of the marker, acquire one Archeotech Part.",
+      "maxTier": 1,
+      "maxUnits": 1,
+      "xpPerTier": 3
+    },
+    {
+      "id": "omnissiahs_will",
+      "name": "Omnissiah's Will",
+      "type": "tally",
+      "description": "Once per battle at the start of Command phase: bring glory to the Omnissiah. Until your next turn, each time a CULT MECHANICUS unit destroys an enemy unit, it gains 1XP. Each TECH-PRIEST on the battlefield also gains 1XP. Track tallies per unit.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "break_the_seals",
+      "name": "Break the Seals",
+      "type": "tally",
+      "description": "Start of Shooting phase: task an eligible ADEPTUS MECHANICUS CHARACTER unit in range of a target objective (no shoot/charge). At end of turn, if still in range, roll D6: on 3+, gain 1XP; on 6, also gain 1 Archeotech Part.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "claim_legendary_archeotech",
+      "name": "Claim Legendary Archeotech",
+      "type": "objective",
+      "description": "Pre-game: opponent places a Legendary Archeotech marker in their deployment zone. If an ADEPTUS MECHANICUS CHARACTER controls it at battle end, claim one Legendary Archeotech (re-roll duplicates). If opponent controls it, their CHARACTER gains 3XP. Always reduce Location Data by 10.",
+      "maxTier": 1,
+      "xpPerTier": 3
+    }
+  ]
+}
