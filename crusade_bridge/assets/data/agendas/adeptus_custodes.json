@@ -1,0 +1,37 @@
+{
+  "faction": "Adeptus Custodes",
+  "agendas": [
+    {
+      "id": "pursuit_of_excellence",
+      "name": "Pursuit of Excellence",
+      "type": "tally",
+      "description": "At battle end, the ADEPTUS CUSTODES unit with the lowest XP (select if tied) gains 1XP for each condition satisfied: not destroyed; within range of a controlled objective outside your deployment zone; destroyed 1+ enemy units; destroyed 3+ enemy units. Up to 4XP.",
+      "xpPerTally": 1,
+      "maxXp": 4
+    },
+    {
+      "id": "judgement_delivered",
+      "name": "Judgement Delivered",
+      "type": "objective",
+      "description": "At battle end, if no enemy models remain on the battlefield, each ADEPTUS CUSTODES unit still on the battlefield gains 2XP.",
+      "maxTier": 1,
+      "xpPerTier": 2
+    },
+    {
+      "id": "great_tithe",
+      "name": "Great Tithe",
+      "type": "tally",
+      "description": "Each time an enemy PSYKER unit is destroyed, if destroyed by an ANATHEMA PSYKANA unit, that unit gains 2XP; otherwise, the closest ANATHEMA PSYKANA unit gains 1XP. Track tallies per unit.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "unto_the_dark_cells",
+      "name": "Unto the Dark Cells",
+      "type": "objective",
+      "description": "At battle end, if you control more objectives in No Man's Land than your opponent, select up to 3 ADEPTUS CUSTODES units within range of controlled No Man's Land objectives. Each selected unit gains 2XP.",
+      "maxTier": 1,
+      "maxUnits": 3,
+      "xpPerTier": 2
+    }
+  ]
+}

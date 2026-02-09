@@ -1,0 +1,46 @@
+{
+  "faction": "Grey Knights",
+  "agendas": [
+    {
+      "id": "purge_corruption",
+      "name": "Purge Corruption",
+      "type": "tally",
+      "description": "Before shooting, task a GREY KNIGHTS unit to purge a table quarter (no shoot/charge). If alone in that quarter at next turn start, success: 1XP. Max 3XP per unit. Post-game roll D6 + purged quarters: on 7+, change a Vision to Sanctic or gain +1 Banishment point.",
+      "xpPerTally": 1,
+      "maxXp": 3
+    },
+    {
+      "id": "empyric_interdiction",
+      "name": "Empyric Interdiction",
+      "type": "tally",
+      "description": "Each time a GREY KNIGHTS unit arrives from Deep Strike and destroys an enemy unit that turn, it gains 1XP. Max 3XP per unit. Post-game roll D6 + number of units that gained XP: on 7+, change a Vision to Sanctic or gain +1 Banishment point.",
+      "xpPerTally": 1,
+      "maxXp": 3
+    },
+    {
+      "id": "unmake_omens",
+      "name": "Unmake Omens",
+      "type": "objective",
+      "description": "At battle end, select up to 3 GREY KNIGHTS units each on a different controlled objective. Each gains 2XP. Roll D6 + number of controlled objectives: on 7+, change a Vision to Sanctic or gain +1 Banishment point.",
+      "maxTier": 1,
+      "maxUnits": 3,
+      "xpPerTier": 2
+    },
+    {
+      "id": "destroy_the_infernal",
+      "name": "Destroy the Infernal",
+      "type": "tally",
+      "description": "Each time a GREY KNIGHTS unit destroys a CHAOS unit, it gains 1XP (2XP if the destroyed unit was a Monster or Vehicle). Max 4XP per unit. If fighting a Chaos Incursion and 3+ units gained XP, gain D3 Banishment points.",
+      "xpPerTally": 1,
+      "maxXp": 4
+    },
+    {
+      "id": "no_witnesses",
+      "name": "No Witnesses",
+      "type": "objective",
+      "description": "At battle end, if no enemy units remain on the battlefield, each GREY KNIGHTS unit still on the battlefield gains 2XP. If fighting a Chaos Incursion, also gain +1 Banishment point and +1RP.",
+      "maxTier": 1,
+      "xpPerTier": 2
+    }
+  ]
+}

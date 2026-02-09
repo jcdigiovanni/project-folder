@@ -1,0 +1,35 @@
+{
+  "faction": "Orks",
+  "agendas": [
+    {
+      "id": "scrap_em",
+      "name": "Scrap 'Em",
+      "type": "tally",
+      "description": "Post-game: each ORKS unit that was in Engagement Range of an enemy VEHICLE or destroyed an enemy VEHICLE in melee gains 1XP. If a MEK unit gained XP, the force gains 2 Stompin' points.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "show_em_how_its_done",
+      "name": "Show 'Em How It's Done",
+      "type": "tally",
+      "description": "Each time your Warlord destroys an enemy Character, Monster, or Vehicle, it gains 2XP (3XP if the Warlord is a Waaagh!boss).",
+      "xpPerTally": 2
+    },
+    {
+      "id": "skrag_da_killiest_gitz",
+      "name": "Skrag Da Killiest Gitz",
+      "type": "tally",
+      "description": "Pre-game: opponent selects their highest-points unit as Da Killiest Gitz. If brought Below Half-strength by an ORKS attack, the attacking unit gains 3XP. If destroyed, the destroying unit gains 3XP and the force gains 3 Stompin' points.",
+      "xpPerTally": 3
+    },
+    {
+      "id": "overwhelming_aggression",
+      "name": "Overwhelming Aggression",
+      "type": "objective",
+      "description": "Post-game: for each table quarter where you have more ORKS units wholly within than your opponent, select 1 unit there for 2XP. If you dominate all 4 quarters, gain +2 Stompin' points.",
+      "maxTier": 1,
+      "maxUnits": 4,
+      "xpPerTier": 2
+    }
+  ]
+}

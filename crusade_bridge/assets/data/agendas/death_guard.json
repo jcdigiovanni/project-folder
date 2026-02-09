@@ -1,0 +1,36 @@
+{
+  "faction": "Death Guard",
+  "agendas": [
+    {
+      "id": "sow_the_seeds_of_corruption",
+      "name": "Sow the Seeds of Corruption",
+      "type": "tally",
+      "description": "Pre-game: select 1 objective per table zone. At end of turn, if a DEATH GUARD INFANTRY unit is in range of a selected objective with no enemy nearby, seed it and select that unit for 2XP. Post-game: 2 seeded objectives = D6 on 4+ gain +1 Fecundity; 3 seeded = +1 Fecundity automatically.",
+      "xpPerTally": 2
+    },
+    {
+      "id": "unwitting_vectors",
+      "name": "Unwitting Vectors",
+      "type": "objective",
+      "description": "Post-game: roll D6 per surviving enemy unit (+2 if Below Starting Strength). On 6+, gain +1 Survival Rate and select one non-destroyed DEATH GUARD unit for 3XP.",
+      "maxTier": 1,
+      "xpPerTier": 3
+    },
+    {
+      "id": "viral_harvest",
+      "name": "Viral Harvest",
+      "type": "tally",
+      "description": "Before shooting, task a DEATH GUARD INFANTRY unit to exhume a controlled Vector Target in No Man's Land (no shoot/charge). On success: 1XP. Max 3XP per unit. Post-game: roll D6 + total successful exhumes; on 7+, gain +1 Adaptability.",
+      "xpPerTally": 1,
+      "maxXp": 3
+    },
+    {
+      "id": "vile_research",
+      "name": "Vile Research",
+      "type": "tally",
+      "description": "Each time a DEATH GUARD unit destroys an Afflicted enemy unit, gain +1 research tally and the destroying unit gains 1XP (max 3XP per unit). Post-game: 1-3 research tally = use Tailor the Toxins once; 4+ = use it twice.",
+      "xpPerTally": 1,
+      "maxXp": 3
+    }
+  ]
+}

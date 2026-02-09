@@ -1,6 +1,9 @@
 **Last Updated:** February 9, 2026 (Phase 6 Backlog Clearance In Progress)
 
 **Recent Work (Feb 9)**
+- AdMech/AM/CSM Agendas: Added 16 agendas across 3 new factions — Adeptus Mechanicus (5), Astra Militarum (5), Chaos Space Marines (6).
+- Faction Agendas: Added 43 agendas across 10 factions (Drukhari, Thousand Sons, Grey Knights, Chaos Knights, Death Guard, World Eaters, Tyranids, Orks, Necrons, Space Marines) + 4 Aeldari + 4 Custodes. All data-driven JSON, auto-loaded per faction.
+- CUST-FEA-001–004: Added 4 Adeptus Custodes faction agendas — Pursuit of Excellence, Judgement Delivered, Great Tithe, Unto the Dark Cells. Data-driven JSON, auto-loaded for Custodes crusades.
 - BUG-020: Fixed Add/Edit Unit modals losing all form state on Android when keyboard opens/closes or text fields lose focus. Extracted modal content from inline StatefulBuilder closures into proper StatefulWidget classes with persistent state and TextEditingControllers.
 
 **Recent Work (Feb 6)**

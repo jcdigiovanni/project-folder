@@ -1,0 +1,37 @@
+{
+  "faction": "Thousand Sons",
+  "agendas": [
+    {
+      "id": "pursuit_of_knowledge",
+      "name": "Pursuit of Knowledge",
+      "type": "objective",
+      "description": "At battle end, if you have more units in your opponent's deployment zone than they have in yours (excluding Battle-shocked units), select up to 3 THOUSAND SONS units in their deployment zone. Each gains 2XP. Characters among them roll D6: on 2+, gain 1 Lore point.",
+      "maxTier": 1,
+      "maxUnits": 3,
+      "xpPerTier": 2
+    },
+    {
+      "id": "malefic_sigils",
+      "name": "Malefic Sigils",
+      "type": "tally",
+      "description": "Each turn, a PSYKER that manifests a power in a table quarter casts a sigil in that quarter. At battle end: if 3 quarters have sigils, each casting PSYKER gains 1XP; if all 4, each gains 1XP and your Warlord gains additional XP. If Warlord gained 2+ XP, re-roll your Plots and Schemes test.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "arcana_long_buried",
+      "name": "Arcana Long Buried",
+      "type": "tally",
+      "description": "Before shooting, task a THOUSAND SONS unit to search a controlled objective (no shoot/charge). Success: 2XP (3XP if in opponent's deployment zone). Characters roll D6: on 3+, gain 1 Arcana point. Max 3XP per unit.",
+      "xpPerTally": 2,
+      "maxXp": 3
+    },
+    {
+      "id": "sorcerous_prowess",
+      "name": "Sorcerous Prowess",
+      "type": "tally",
+      "description": "Each time a PSYKER unit destroys an enemy unit, it gains 1XP (2XP if destroyed by a Psychic attack). Max 3XP per unit. If a Character gained 2+ XP, select it for a free Diabolic Ritual (0RP cost).",
+      "xpPerTally": 1,
+      "maxXp": 3
+    }
+  ]
+}

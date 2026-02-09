@@ -1,0 +1,35 @@
+{
+  "faction": "Chaos Knights",
+  "agendas": [
+    {
+      "id": "malicious_hunt",
+      "name": "Malicious Hunt",
+      "type": "objective",
+      "description": "Pre-game: the highest-Wounds enemy unit (excluding Transports) is your Prey. If destroyed by a CHAOS KNIGHTS unit, that unit gains 3XP. If the destroying unit is a War Dog, also gain +1 War Dog Domination level.",
+      "maxTier": 1,
+      "maxUnits": 1,
+      "xpPerTier": 3
+    },
+    {
+      "id": "tear_down_the_false_gods",
+      "name": "Tear Down the False Gods",
+      "type": "tally",
+      "description": "Pre-game: opponent places 3 Sacred Sites (objectives). When you control and desecrate a Sacred Site, select a CHAOS KNIGHTS unit in range for 2XP. If 2+ sites are desecrated, gain +1 Dark Gods level.",
+      "xpPerTally": 2
+    },
+    {
+      "id": "seize_riches",
+      "name": "Seize Riches",
+      "type": "tally",
+      "description": "Each time a CHAOS KNIGHTS unit destroys an enemy unit within 6\" that has an Enhancement or Relic, the destroying unit gains 2XP and +1 tech-trophy. If 2+ tech-trophies are collected, gain +1 Idolators Influence level.",
+      "xpPerTally": 2
+    },
+    {
+      "id": "tyrannical_domination",
+      "name": "Tyrannical Domination",
+      "type": "tally",
+      "description": "Rounds 3-5: for each non-deployment controlled objective, select a TITANIC CHAOS KNIGHTS unit in range for 1XP. Post-game: your Warlord gains XP equal to the number of non-deployment objectives you control.",
+      "xpPerTally": 1
+    }
+  ]
+}
