@@ -1,0 +1,35 @@
+{
+  "faction": "World Eaters",
+  "agendas": [
+    {
+      "id": "blood_for_the_blood_god",
+      "name": "Blood for the Blood God!",
+      "type": "tally",
+      "description": "Each time a WORLD EATERS unit destroys an enemy unit in melee, it gains 1XP (max 3XP per battle). Note any units that Fall Back; post-game each unit that Fell Back must take an Out of Action test.",
+      "xpPerTally": 1,
+      "maxXp": 3
+    },
+    {
+      "id": "skulls_for_the_skull_throne",
+      "name": "Skulls for the Skull Throne!",
+      "type": "tally",
+      "description": "Each time a WORLD EATERS unit destroys an enemy Character or Monster in melee, it gains 2XP (4XP if the enemy Warlord). Max 5XP per unit. If any unit gained 4+ XP, gain +1 Skull point.",
+      "xpPerTally": 2,
+      "maxXp": 5
+    },
+    {
+      "id": "anoint_the_field",
+      "name": "Anoint the Field",
+      "type": "tally",
+      "description": "Each time an enemy unit wholly within a table quarter is destroyed, anoint that quarter (twice = drowned). Post-game: 3 drowned quarters = each non-destroyed WORLD EATERS unit gains 2XP; 4 drowned = 3XP each + +1 to your Judgement roll.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "a_tribute_to_murder",
+      "name": "A Tribute to Murder",
+      "type": "tally",
+      "description": "Before shooting, task a WORLD EATERS unit to exalt a controlled, unexalted Veneration Site (no shoot/charge). On success: 2XP. If 3+ sites are exalted post-game, one World Eaters Requisition costs 0RP.",
+      "xpPerTally": 2
+    }
+  ]
+}

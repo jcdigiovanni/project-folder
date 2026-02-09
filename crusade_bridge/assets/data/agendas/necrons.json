@@ -1,0 +1,35 @@
+{
+  "faction": "Necrons",
+  "agendas": [
+    {
+      "id": "the_unending_tally",
+      "name": "The Unending Tally",
+      "type": "tally",
+      "description": "Each time a DESTROYER CULT unit destroys 2+ enemy units in a single battle round, it gains 2XP. Track per round.",
+      "xpPerTally": 2
+    },
+    {
+      "id": "supremacy_through_annihilation",
+      "name": "Supremacy Through Annihilation",
+      "type": "tally",
+      "description": "Pre-game: select up to 3 of your opponent's highest-points units as Annihilation targets. Each time a NECRONS unit destroys an Annihilation target, the destroying unit gains 2XP.",
+      "xpPerTally": 2
+    },
+    {
+      "id": "territorial_imperative",
+      "name": "Territorial Imperative",
+      "type": "tally",
+      "description": "Each time a NECRONS unit destroys an enemy unit that started the turn in objective range, the destroying unit gains 1XP. Before shooting, select a NECRONS INFANTRY unit in objective range outside your deployment zone to conquer it (no shoot/charge; once per objective): 2XP.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "inescapable_retribution",
+      "name": "Inescapable Retribution",
+      "type": "objective",
+      "description": "Pre-game: opponent selects a No Man's Land objective as the Dynastic Treasure. At end of Movement, a CHARACTER in range can attempt to reclaim (no shoot/charge). If still in range at next Command phase: success, remove marker. Reclaiming Character gains 4XP. Post-game: exchange 1 Crusade Relic for an eligible Necrons Relic.",
+      "maxTier": 1,
+      "maxUnits": 1,
+      "xpPerTier": 4
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "faction": "Tyranids",
+  "agendas": [
+    {
+      "id": "infest_the_prey_world",
+      "name": "Infest the Prey World",
+      "type": "tally",
+      "description": "At battle end, gain 1 Biomass point for each table quarter where you have more ENDLESS MULTITUDE units wholly within it (not within 6\" of battlefield center). Each ENDLESS MULTITUDE unit wholly within the opponent's deployment zone gains 2XP.",
+      "xpPerTally": 2
+    },
+    {
+      "id": "hunt_and_slay",
+      "name": "Hunt and Slay",
+      "type": "tally",
+      "description": "Pre-game: opponent selects up to 5 Prey Targets. Each Fight phase, note which TYRANIDS units destroy Prey Targets. Post-game: destroying units gain XP equal to 2x the number of Prey Targets they destroyed. Force gains Biomass (1 for 2-3 total destroyed, D3 for 4+).",
+      "xpPerTally": 2
+    },
+    {
+      "id": "tyrannoform_the_prey_world",
+      "name": "Tyrannoform the Prey World",
+      "type": "tally",
+      "description": "Before shooting, select a TYRANIDS INFANTRY (non-Character) unit >12\" from existing spore markers to implant a spore (no shoot/charge). At end of turn, place marker within 1\". Post-game: implanting units gain XP equal to 2x their markers placed. Force gains Biomass (1 for 3 markers, D3 for 4, 3 for 5+).",
+      "xpPerTally": 2
+    },
+    {
+      "id": "tyranid_attack",
+      "name": "Tyranid Attack",
+      "type": "objective",
+      "description": "At battle end, if no enemy models remain on the battlefield, each TYRANIDS unit still on the battlefield gains 3XP. Force gains 4 Biomass points and 2 Battles Played points (instead of 1).",
+      "maxTier": 1,
+      "xpPerTier": 3
+    }
+  ]
+}

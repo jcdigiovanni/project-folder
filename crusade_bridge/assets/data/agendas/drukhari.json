@@ -1,0 +1,45 @@
+{
+  "faction": "Drukhari",
+  "agendas": [
+    {
+      "id": "sublime_agonies",
+      "name": "Sublime Agonies",
+      "type": "tally",
+      "description": "On Empower with a Pain token, spend 1 extra and place it on the unit's card. Post-game: select up to 6 DRUKHARI units with tokens; each gains 1XP per token (max 3XP). If the Ascendant Lord gained 2+ XP from this agenda, +1 to your next territory D6 roll.",
+      "xpPerTally": 1,
+      "maxXp": 3
+    },
+    {
+      "id": "demonstrate_superiority",
+      "name": "Demonstrate Superiority",
+      "type": "tally",
+      "description": "Post-game the Ascendant Lord gains 1XP for each condition satisfied: Beasts of the Arena (destroyed a Monster/Vehicle); Trophy-hunter (destroyed a Character); Deadly Reaver (destroyed 3+ units); Send a Message (destroyed enemy Warlord); Power Monger (Empowered 3+ times). If the Ascendant Lord gained 3+ XP, select your next territory instead of rolling.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "to_feed_the_dark_city",
+      "name": "To Feed the Dark City",
+      "type": "tally",
+      "description": "Each time a DRUKHARI unit destroys an enemy unit in melee, it gains 1XP (2XP if the destroyed unit was a Character or Monster). Max 4XP per unit. If the Ascendant Lord gained 3+ XP from this agenda, you may re-roll your Rival Activity test.",
+      "xpPerTally": 1,
+      "maxXp": 4
+    },
+    {
+      "id": "fears_cold_grip",
+      "name": "Fear's Cold Grip",
+      "type": "tally",
+      "description": "Each time an enemy unit fails a Battle-shock test, select one DRUKHARI unit within 12\" to gain 2XP. Each time a DRUKHARI unit destroys a Battle-shocked enemy unit, that unit gains 2XP. Max 4XP per unit.",
+      "xpPerTally": 2,
+      "maxXp": 4
+    },
+    {
+      "id": "herd_the_prey",
+      "name": "Herd the Prey",
+      "type": "objective",
+      "description": "Post-game select 3 DRUKHARI units on the battlefield to form a triangle. If 1+ enemy units are wholly within the triangle, each selected unit gains 2XP. If 2+ enemy units are within, each gains 3XP instead and you gain 1RP.",
+      "maxTier": 1,
+      "maxUnits": 3,
+      "xpPerTier": 3
+    }
+  ]
+}
