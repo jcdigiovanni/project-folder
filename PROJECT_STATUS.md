@@ -1,4 +1,7 @@
-**Last Updated:** February 6, 2026 (Phase 6 Backlog Clearance In Progress)
+**Last Updated:** February 9, 2026 (Phase 6 Backlog Clearance In Progress)
+
+**Recent Work (Feb 9)**
+- BUG-020: Fixed Add/Edit Unit modals losing all form state on Android when keyboard opens/closes or text fields lose focus. Extracted modal content from inline StatefulBuilder closures into proper StatefulWidget classes with persistent state and TextEditingControllers.
 
 **Recent Work (Feb 6)**
 - ENH-015: Active Game Screen agenda section now collapsible — default collapsed with summary bar (agenda names + progress total), tap to expand, animated transitions. Frees screen space for unit management during battle.

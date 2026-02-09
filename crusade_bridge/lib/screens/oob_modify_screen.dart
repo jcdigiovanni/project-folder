@@ -684,385 +684,10 @@ class OOBModifyScreen extends ConsumerWidget {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (context) {
-        String? selectedFaction = crusadeFaction; // Pre-populate with crusade faction
-        String? selectedUnit;
-        int points = 0;
-        int models = 1;
-        String customName = '';
-        bool isWarlord = false;
-        int? selectedSizeIndex;
-        bool addEnhancement = false; // For first character enhancement option
-        String? selectedEnhancementKey; // Use string key instead of Map for dropdown value
-
-      return StatefulBuilder(
-        builder: (context, setModalState) => Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-            left: 16,
-            right: 16,
-            top: 16,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('Add Unit', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => Navigator.pop(context),
-                    tooltip: 'Close',
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-
-              // Faction dropdown
-              DropdownButtonFormField<String>(
-                initialValue: selectedFaction,
-                decoration: const InputDecoration(labelText: 'Faction'),
-                items: ReferenceDataService.getFactions().map((f) => DropdownMenuItem(value: f, child: Text(f))).toList(),
-                onChanged: (value) async {
-                  if (value != null) {
-                    // Preload units for this faction
-                    await ReferenceDataService.getUnits(value);
-                  }
-                  setModalState(() {
-                    selectedFaction = value;
-                    selectedUnit = null;
-                    selectedSizeIndex = null;
-                  });
-                },
-              ),
-              const SizedBox(height: 16),
-
-              if (selectedFaction != null)
-                DropdownButtonFormField<String>(
-                  initialValue: selectedUnit,
-                  decoration: const InputDecoration(labelText: 'Unit Name'),
-                  items: ReferenceDataService.getUnitsSync(selectedFaction!).map((unitData) {
-                    final unitName = (unitData as Map<String, dynamic>)['name'] as String? ?? 'Unknown Unit';
-                    return DropdownMenuItem<String>(
-                      value: unitName,
-                      child: Text(unitName),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    setModalState(() {
-                      selectedUnit = value;
-                      // Pre-select the smallest unit size (first option)
-                      if (value != null && selectedFaction != null) {
-                        final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, value);
-                        final sizeOptions = unitData['sizeOptions'] as List? ?? [];
-                        final pointsOptions = unitData['pointsOptions'] as List? ?? [];
-                        if (sizeOptions.isNotEmpty) {
-                          selectedSizeIndex = 0;
-                          final sizeValue = sizeOptions[0];
-                          models = (sizeValue is int) ? sizeValue : int.tryParse(sizeValue.toString()) ?? 1;
-                          if (pointsOptions.isNotEmpty) {
-                            final pointsValue = pointsOptions[0];
-                            points = (pointsValue is int) ? pointsValue : int.tryParse(pointsValue.toString()) ?? 0;
-                          }
-                        } else {
-                          selectedSizeIndex = null;
-                        }
-                      } else {
-                        selectedSizeIndex = null;
-                      }
-                    });
-                  },
-                ),
-              const SizedBox(height: 16),
-
-              // Size variant dropdown
-              if (selectedUnit != null)
-                DropdownButtonFormField<int>(
-                  initialValue: selectedSizeIndex,
-                  decoration: const InputDecoration(labelText: 'Size'),
-                  items: () {
-                    final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, selectedUnit!);
-                    final sizeOptions = unitData['sizeOptions'] as List? ?? [];
-                    final pointsOptions = unitData['pointsOptions'] as List? ?? [];
-                    return sizeOptions.asMap().entries.map((entry) {
-                      final index = entry.key;
-                      final sizeValue = entry.value;
-                      final size = (sizeValue is int) ? sizeValue : int.tryParse(sizeValue.toString()) ?? 0;
-                      final pointsValue = pointsOptions.isNotEmpty && index < pointsOptions.length ? pointsOptions[index] : 0;
-                      final pointsOption = (pointsValue is int) ? pointsValue : int.tryParse(pointsValue.toString()) ?? 0;
-                      return DropdownMenuItem<int>(
-                        value: index,
-                        child: Text('$size models - $pointsOption pts'),
-                      );
-                    }).toList();
-                  }(),
-                  onChanged: (value) {
-                    setModalState(() {
-                      selectedSizeIndex = value;
-                      if (value != null) {
-                        final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, selectedUnit!);
-                        final sizeOptions = unitData['sizeOptions'] as List? ?? [];
-                        final pointsOptions = unitData['pointsOptions'] as List? ?? [];
-                        if (value < sizeOptions.length) {
-                          final sizeValue = sizeOptions[value];
-                          models = (sizeValue is int) ? sizeValue : int.tryParse(sizeValue.toString()) ?? 1;
-                        }
-                        if (value < pointsOptions.length) {
-                          final pointsValue = pointsOptions[value];
-                          points = (pointsValue is int) ? pointsValue : int.tryParse(pointsValue.toString()) ?? 0;
-                        }
-                      }
-                    });
-                  },
-                ),
-              const SizedBox(height: 16),
-
-              // Custom name
-              TextField(
-                decoration: const InputDecoration(labelText: 'Custom Name (optional)'),
-                onChanged: (value) => customName = value,
-              ),
-              const SizedBox(height: 16),
-
-              // Warlord toggle (show only for HQ units that are NOT Epic Heroes, and only if no warlord exists)
-              if (selectedUnit != null && selectedFaction != null && currentCrusade != null)
-                Builder(
-                  builder: (context) {
-                    final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, selectedUnit!);
-                    final role = unitData['role'] as String? ?? '';
-                    final isEpicHeroUnit = unitData['isEpicHero'] as bool? ?? false;
-
-                    // Check if there's already a warlord in the OOB (including in groups)
-                    bool hasExistingWarlord = false;
-                    for (final item in currentCrusade.oob) {
-                      if (item.isWarlord == true) {
-                        hasExistingWarlord = true;
-                        break;
-                      }
-                      if (item.type == 'group' && item.components != null) {
-                        for (final component in item.components!) {
-                          if (component.isWarlord == true) {
-                            hasExistingWarlord = true;
-                            break;
-                          }
-                        }
-                      }
-                      if (hasExistingWarlord) break;
-                    }
-
-                    // Only show toggle if: HQ role, not Epic Hero, and no existing warlord
-                    if (role == 'HQ' && !isEpicHeroUnit && !hasExistingWarlord) {
-                      return SwitchListTile(
-                        title: const Text('Designate as Warlord'),
-                        value: isWarlord,
-                        onChanged: (value) => setModalState(() => isWarlord = value),
-                      );
-                    }
-                    return const SizedBox.shrink();
-                  },
-                ),
-
-              // First Character Enhancement option (Renowned Heroes requisition)
-              if (selectedUnit != null && selectedFaction != null && currentCrusade != null)
-                Builder(
-                  builder: (context) {
-                    final crusade = currentCrusade;
-                    final faction = selectedFaction!;
-                    final unit = selectedUnit!;
-                    final unitData = ReferenceDataService.getUnitDataSync(faction, unit);
-                    final isEpicHeroUnit = unitData['isEpicHero'] as bool? ?? false;
-                    final isCharacterUnit = unitData['isCharacter'] as bool? ?? false;
-
-                    // Check if eligible for first character enhancement
-                    final canUseFirstCharacterEnhancement =
-                        isCharacterUnit &&
-                        !isEpicHeroUnit &&
-                        !crusade.usedFirstCharacterEnhancement &&
-                        crusade.rp >= 1;
-
-                    if (!canUseFirstCharacterEnhancement) {
-                      return const SizedBox.shrink();
-                    }
-
-                    // Get enhancements for the crusade's detachment only
-                    final detachmentEnhancements = ReferenceDataService.getEnhancements(
-                      crusade.faction,
-                      crusade.detachment,
-                    );
-                    if (detachmentEnhancements.isEmpty) {
-                      return const SizedBox.shrink();
-                    }
-
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Divider(),
-                        SwitchListTile(
-                          title: const Text('Add Enhancement (Renowned Heroes)'),
-                          subtitle: Text(
-                            'First character bonus! Costs 1 RP (${crusade.rp} available)',
-                            style: const TextStyle(fontSize: 12),
-                          ),
-                          value: addEnhancement,
-                          onChanged: (value) => setModalState(() {
-                            addEnhancement = value;
-                            if (!value) selectedEnhancementKey = null;
-                          }),
-                        ),
-                        if (addEnhancement)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: DropdownButtonFormField<String>(
-                              decoration: const InputDecoration(
-                                labelText: 'Select Enhancement',
-                                border: OutlineInputBorder(),
-                              ),
-                              items: detachmentEnhancements.map((enh) {
-                                final name = enh['name'] as String;
-                                final points = enh['points'] as int;
-                                return DropdownMenuItem<String>(
-                                  value: name,
-                                  child: Text(
-                                    '$name (+$points pts)',
-                                    style: const TextStyle(fontSize: 14),
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (value) => setModalState(() => selectedEnhancementKey = value),
-                            ),
-                          ),
-                      ],
-                    );
-                  },
-                ),
-
-              const SizedBox(height: 32),
-
-              // Add button
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (selectedUnit == null || points <= 0) {
-                      SnackBarUtils.showError(context, 'Select unit and enter points');
-                      return;
-                    }
-
-                    // Validate enhancement selection if enabled
-                    if (addEnhancement && selectedEnhancementKey == null) {
-                      SnackBarUtils.showError(context, 'Select an enhancement or disable the option');
-                      return;
-                    }
-
-                    // Get unit data to check for Epic Hero and Character flags
-                    final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, selectedUnit!);
-                    final isEpicHero = unitData['isEpicHero'] as bool? ?? false;
-                    final isCharacter = unitData['isCharacter'] as bool? ?? false;
-
-                    // Look up enhancement points if selected
-                    int enhancementPoints = 0;
-                    String? enhancementName;
-                    if (addEnhancement && selectedEnhancementKey != null && currentCrusade != null) {
-                      final enhancements = ReferenceDataService.getEnhancements(
-                        currentCrusade.faction,
-                        currentCrusade.detachment,
-                      );
-                      for (final enh in enhancements) {
-                        if (enh['name'] == selectedEnhancementKey) {
-                          enhancementPoints = enh['points'] as int;
-                          enhancementName = selectedEnhancementKey;
-                          break;
-                        }
-                      }
-                    }
-
-                    final newUnit = UnitOrGroup(
-                      id: const Uuid().v4(),
-                      type: 'unit',
-                      name: selectedUnit!,
-                      customName: customName.isNotEmpty ? customName : null,
-                      points: points + enhancementPoints,
-                      modelsCurrent: models,
-                      modelsMax: models,
-                      isWarlord: isWarlord,
-                      isEpicHero: isEpicHero,
-                      isCharacter: isCharacter,
-                      enhancements: enhancementName != null ? [enhancementName] : null,
-                    );
-
-                    // Add unit and update crusade state if enhancement was used
-                    if (addEnhancement && currentCrusade != null) {
-                      // Create history events for the addition and enhancement
-                      final unitAddedEvent = CrusadeEvent.create(
-                        type: CrusadeEventType.unitAdded,
-                        description: 'Added ${newUnit.customName ?? newUnit.name} to Order of Battle',
-                        unitId: newUnit.id,
-                        unitName: newUnit.customName ?? newUnit.name,
-                        metadata: {'points': newUnit.points - enhancementPoints},
-                      );
-
-                      final enhancementEvent = CrusadeEvent.create(
-                        type: CrusadeEventType.requisition,
-                        description: 'Renowned Heroes: Added $enhancementName to ${newUnit.customName ?? newUnit.name}',
-                        unitId: newUnit.id,
-                        unitName: newUnit.customName ?? newUnit.name,
-                        metadata: {
-                          'requisition': 'Renowned Heroes',
-                          'enhancement': enhancementName,
-                          'enhancementPoints': enhancementPoints,
-                          'rpCost': 1,
-                          'firstCharacter': true,
-                        },
-                      );
-
-                      // Create updated crusade with enhancement flag, RP deduction, and history
-                      final updatedCrusade = Crusade(
-                        id: currentCrusade.id,
-                        name: currentCrusade.name,
-                        faction: currentCrusade.faction,
-                        detachment: currentCrusade.detachment,
-                        supplyLimit: currentCrusade.supplyLimit,
-                        rp: currentCrusade.rp - 1,
-                        armyIconPath: currentCrusade.armyIconPath,
-                        factionIconAsset: currentCrusade.factionIconAsset,
-                        oob: [...currentCrusade.oob, newUnit],
-                        templates: currentCrusade.templates,
-                        usedFirstCharacterEnhancement: true,
-                        history: [...currentCrusade.history, unitAddedEvent, enhancementEvent],
-                        rosters: currentCrusade.rosters,
-                        games: currentCrusade.games,
-                      );
-                      ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
-
-                      Navigator.pop(context);
-                      SnackBarUtils.showSuccess(
-                        context,
-                        'Added ${newUnit.customName ?? newUnit.name} with $enhancementName enhancement!',
-                      );
-                    } else {
-                      ref.read(currentCrusadeNotifierProvider.notifier).addUnitOrGroup(newUnit);
-                      ref.read(currentCrusadeNotifierProvider.notifier).addEvent(CrusadeEvent.create(
-                        type: CrusadeEventType.unitAdded,
-                        description: 'Added ${newUnit.customName ?? newUnit.name} (${newUnit.points} pts)',
-                        unitId: newUnit.id,
-                        unitName: newUnit.customName ?? newUnit.name,
-                        metadata: {
-                          'points': newUnit.points,
-                          'unitType': newUnit.type,
-                        },
-                      ));
-                      Navigator.pop(context);
-                    }
-                  },
-                  child: Text(addEnhancement ? 'Add (1 RP)' : 'Add'),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-      },
+      builder: (context) => _AddUnitModalContent(
+        currentCrusade: currentCrusade,
+        ref: ref,
+      ),
     );
   }
 
@@ -1070,76 +695,27 @@ class OOBModifyScreen extends ConsumerWidget {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (context) {
-        String customName = unit.customName ?? '';
-        String notes = unit.notes ?? '';
-
-        return StatefulBuilder(
-          builder: (context, setModalState) => Padding(
-            padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom,
-              left: 16,
-              right: 16,
-              top: 16,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Edit Unit: ${unit.name}', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 16),
-
-                TextField(
-                  decoration: const InputDecoration(
-                    labelText: 'Custom Name',
-                    hintText: 'Leave empty to use default name',
-                  ),
-                  controller: TextEditingController(text: customName),
-                  onChanged: (value) => customName = value,
-                ),
-                const SizedBox(height: 16),
-
-                TextField(
-                  decoration: const InputDecoration(
-                    labelText: 'Notes',
-                    hintText: 'Add any custom notes here',
-                  ),
-                  controller: TextEditingController(text: notes),
-                  maxLines: 3,
-                  onChanged: (value) => notes = value,
-                ),
-                const SizedBox(height: 24),
-
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      final updatedUnit = UnitOrGroup(
-                        id: unit.id,
-                        type: unit.type,
-                        name: unit.name,
-                        customName: customName.trim().isEmpty ? null : customName.trim(),
-                        points: unit.points,
-                        modelsCurrent: unit.modelsCurrent,
-                        modelsMax: unit.modelsMax,
-                        notes: notes.trim().isEmpty ? null : notes.trim(),
-                        isWarlord: unit.isWarlord,
-                        isEpicHero: unit.isEpicHero,
-                      );
-
-                      ref.read(currentCrusadeNotifierProvider.notifier).updateUnitOrGroup(index, updatedUnit);
-                      Navigator.pop(context);
-
-                      SnackBarUtils.showSuccess(context, 'Unit updated!');
-                    },
-                    child: const Text('Save Changes'),
-                  ),
-                ),
-                const SizedBox(height: 16),
-              ],
-            ),
-          ),
-        );
-      },
+      builder: (context) => _EditUnitModalContent(
+        unit: unit,
+        title: 'Edit Unit: ${unit.name}',
+        onSave: (customName, notes) {
+          final updatedUnit = UnitOrGroup(
+            id: unit.id,
+            type: unit.type,
+            name: unit.name,
+            customName: customName,
+            points: unit.points,
+            modelsCurrent: unit.modelsCurrent,
+            modelsMax: unit.modelsMax,
+            notes: notes,
+            isWarlord: unit.isWarlord,
+            isEpicHero: unit.isEpicHero,
+          );
+          ref.read(currentCrusadeNotifierProvider.notifier).updateUnitOrGroup(index, updatedUnit);
+          Navigator.pop(context);
+          SnackBarUtils.showSuccess(context, 'Unit updated!');
+        },
+      ),
     );
   }
 
@@ -1148,89 +724,41 @@ class OOBModifyScreen extends ConsumerWidget {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (context) {
-        String customName = component.customName ?? '';
-        String notes = component.notes ?? '';
-
-        return StatefulBuilder(
-          builder: (context, setModalState) => Padding(
-            padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom,
-              left: 16,
-              right: 16,
-              top: 16,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Edit Unit: ${component.name}', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                const Text('(in group)', style: TextStyle(fontSize: 12, color: Colors.grey)),
-                const SizedBox(height: 16),
-
-                TextField(
-                  decoration: const InputDecoration(
-                    labelText: 'Custom Name',
-                    hintText: 'Leave empty to use default name',
-                  ),
-                  controller: TextEditingController(text: customName),
-                  onChanged: (value) => customName = value,
-                ),
-                const SizedBox(height: 16),
-
-                TextField(
-                  decoration: const InputDecoration(
-                    labelText: 'Notes',
-                    hintText: 'Add any custom notes here',
-                  ),
-                  controller: TextEditingController(text: notes),
-                  maxLines: 3,
-                  onChanged: (value) => notes = value,
-                ),
-                const SizedBox(height: 24),
-
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Create updated component with all existing fields preserved
-                      final updatedComponent = UnitOrGroup(
-                        id: component.id,
-                        type: component.type,
-                        name: component.name,
-                        customName: customName.trim().isEmpty ? null : customName.trim(),
-                        points: component.points,
-                        components: component.components,
-                        modelsCurrent: component.modelsCurrent,
-                        modelsMax: component.modelsMax,
-                        notes: notes.trim().isEmpty ? null : notes.trim(),
-                        statsText: component.statsText,
-                        isWarlord: component.isWarlord,
-                        isEpicHero: component.isEpicHero,
-                        isCharacter: component.isCharacter,
-                        xp: component.xp,
-                        honours: component.honours,
-                        scars: component.scars,
-                        enhancements: component.enhancements,
-                        crusadePoints: component.crusadePoints,
-                        tallies: component.tallies,
-                        pendingRankUp: component.pendingRankUp,
-                        battleTraits: component.battleTraits,
-                        weaponEnhancements: component.weaponEnhancements,
-                        crusadeRelic: component.crusadeRelic,
-                      );
-                      _updateComponentInGroup(ref, groupIndex, componentIndex, updatedComponent);
-                      Navigator.pop(context);
-                      SnackBarUtils.showSuccess(context, 'Unit updated!');
-                    },
-                    child: const Text('Save Changes'),
-                  ),
-                ),
-                const SizedBox(height: 16),
-              ],
-            ),
-          ),
-        );
-      },
+      builder: (context) => _EditUnitModalContent(
+        unit: component,
+        title: 'Edit Unit: ${component.name}',
+        subtitle: '(in group)',
+        onSave: (customName, notes) {
+          final updatedComponent = UnitOrGroup(
+            id: component.id,
+            type: component.type,
+            name: component.name,
+            customName: customName,
+            points: component.points,
+            components: component.components,
+            modelsCurrent: component.modelsCurrent,
+            modelsMax: component.modelsMax,
+            notes: notes,
+            statsText: component.statsText,
+            isWarlord: component.isWarlord,
+            isEpicHero: component.isEpicHero,
+            isCharacter: component.isCharacter,
+            xp: component.xp,
+            honours: component.honours,
+            scars: component.scars,
+            enhancements: component.enhancements,
+            crusadePoints: component.crusadePoints,
+            tallies: component.tallies,
+            pendingRankUp: component.pendingRankUp,
+            battleTraits: component.battleTraits,
+            weaponEnhancements: component.weaponEnhancements,
+            crusadeRelic: component.crusadeRelic,
+          );
+          _updateComponentInGroup(ref, groupIndex, componentIndex, updatedComponent);
+          Navigator.pop(context);
+          SnackBarUtils.showSuccess(context, 'Unit updated!');
+        },
+      ),
     );
   }
 
@@ -3113,6 +2641,505 @@ class _ComponentBattleHonourModalContentState extends ConsumerState<_ComponentBa
                   label: const Text('Claim Honour'),
                 ),
               ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Extracted StatefulWidget for Edit Unit modal — fixes BUG-020.
+/// Uses TextEditingControllers so text persists across MediaQuery rebuilds.
+class _EditUnitModalContent extends StatefulWidget {
+  final UnitOrGroup unit;
+  final String title;
+  final String? subtitle;
+  final void Function(String? customName, String? notes) onSave;
+
+  const _EditUnitModalContent({
+    required this.unit,
+    required this.title,
+    required this.onSave,
+    this.subtitle,
+  });
+
+  @override
+  State<_EditUnitModalContent> createState() => _EditUnitModalContentState();
+}
+
+class _EditUnitModalContentState extends State<_EditUnitModalContent> {
+  late final TextEditingController _customNameController;
+  late final TextEditingController _notesController;
+
+  @override
+  void initState() {
+    super.initState();
+    _customNameController = TextEditingController(text: widget.unit.customName ?? '');
+    _notesController = TextEditingController(text: widget.unit.notes ?? '');
+  }
+
+  @override
+  void dispose() {
+    _customNameController.dispose();
+    _notesController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+        left: 16,
+        right: 16,
+        top: 16,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(widget.title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          if (widget.subtitle != null)
+            Text(widget.subtitle!, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+          const SizedBox(height: 16),
+
+          TextField(
+            controller: _customNameController,
+            decoration: const InputDecoration(
+              labelText: 'Custom Name',
+              hintText: 'Leave empty to use default name',
+            ),
+            textInputAction: TextInputAction.next,
+          ),
+          const SizedBox(height: 16),
+
+          TextField(
+            controller: _notesController,
+            decoration: const InputDecoration(
+              labelText: 'Notes',
+              hintText: 'Add any custom notes here',
+            ),
+            maxLines: 3,
+            textInputAction: TextInputAction.done,
+          ),
+          const SizedBox(height: 24),
+
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                final name = _customNameController.text.trim();
+                final notes = _notesController.text.trim();
+                widget.onSave(
+                  name.isEmpty ? null : name,
+                  notes.isEmpty ? null : notes,
+                );
+              },
+              child: const Text('Save Changes'),
+            ),
+          ),
+          const SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+}
+
+/// Extracted StatefulWidget for Add Unit modal — fixes BUG-020.
+/// Form state is held in the State object so it persists when the modal
+/// rebuilds due to MediaQuery/keyboard inset changes on Android.
+class _AddUnitModalContent extends StatefulWidget {
+  final Crusade? currentCrusade;
+  final WidgetRef ref;
+
+  const _AddUnitModalContent({
+    required this.currentCrusade,
+    required this.ref,
+  });
+
+  @override
+  State<_AddUnitModalContent> createState() => _AddUnitModalContentState();
+}
+
+class _AddUnitModalContentState extends State<_AddUnitModalContent> {
+  late String? selectedFaction;
+  String? selectedUnit;
+  int points = 0;
+  int models = 1;
+  bool isWarlord = false;
+  int? selectedSizeIndex;
+  bool addEnhancement = false;
+  String? selectedEnhancementKey;
+  final TextEditingController _customNameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    selectedFaction = widget.currentCrusade?.faction;
+  }
+
+  @override
+  void dispose() {
+    _customNameController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final currentCrusade = widget.currentCrusade;
+    final ref = widget.ref;
+
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+        left: 16,
+        right: 16,
+        top: 16,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Add Unit', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: () => Navigator.pop(context),
+                tooltip: 'Close',
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+
+          // Faction dropdown
+          DropdownButtonFormField<String>(
+            initialValue: selectedFaction,
+            decoration: const InputDecoration(labelText: 'Faction'),
+            items: ReferenceDataService.getFactions().map((f) => DropdownMenuItem(value: f, child: Text(f))).toList(),
+            onChanged: (value) async {
+              if (value != null) {
+                await ReferenceDataService.getUnits(value);
+              }
+              setState(() {
+                selectedFaction = value;
+                selectedUnit = null;
+                selectedSizeIndex = null;
+              });
+            },
+          ),
+          const SizedBox(height: 16),
+
+          if (selectedFaction != null)
+            DropdownButtonFormField<String>(
+              initialValue: selectedUnit,
+              decoration: const InputDecoration(labelText: 'Unit Name'),
+              items: ReferenceDataService.getUnitsSync(selectedFaction!).map((unitData) {
+                final unitName = (unitData as Map<String, dynamic>)['name'] as String? ?? 'Unknown Unit';
+                return DropdownMenuItem<String>(
+                  value: unitName,
+                  child: Text(unitName),
+                );
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  selectedUnit = value;
+                  if (value != null && selectedFaction != null) {
+                    final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, value);
+                    final sizeOptions = unitData['sizeOptions'] as List? ?? [];
+                    final pointsOptions = unitData['pointsOptions'] as List? ?? [];
+                    if (sizeOptions.isNotEmpty) {
+                      selectedSizeIndex = 0;
+                      final sizeValue = sizeOptions[0];
+                      models = (sizeValue is int) ? sizeValue : int.tryParse(sizeValue.toString()) ?? 1;
+                      if (pointsOptions.isNotEmpty) {
+                        final pointsValue = pointsOptions[0];
+                        points = (pointsValue is int) ? pointsValue : int.tryParse(pointsValue.toString()) ?? 0;
+                      }
+                    } else {
+                      selectedSizeIndex = null;
+                    }
+                  } else {
+                    selectedSizeIndex = null;
+                  }
+                });
+              },
+            ),
+          const SizedBox(height: 16),
+
+          // Size variant dropdown
+          if (selectedUnit != null)
+            DropdownButtonFormField<int>(
+              initialValue: selectedSizeIndex,
+              decoration: const InputDecoration(labelText: 'Size'),
+              items: () {
+                final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, selectedUnit!);
+                final sizeOptions = unitData['sizeOptions'] as List? ?? [];
+                final pointsOptions = unitData['pointsOptions'] as List? ?? [];
+                return sizeOptions.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final sizeValue = entry.value;
+                  final size = (sizeValue is int) ? sizeValue : int.tryParse(sizeValue.toString()) ?? 0;
+                  final pointsValue = pointsOptions.isNotEmpty && index < pointsOptions.length ? pointsOptions[index] : 0;
+                  final pointsOption = (pointsValue is int) ? pointsValue : int.tryParse(pointsValue.toString()) ?? 0;
+                  return DropdownMenuItem<int>(
+                    value: index,
+                    child: Text('$size models - $pointsOption pts'),
+                  );
+                }).toList();
+              }(),
+              onChanged: (value) {
+                setState(() {
+                  selectedSizeIndex = value;
+                  if (value != null) {
+                    final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, selectedUnit!);
+                    final sizeOptions = unitData['sizeOptions'] as List? ?? [];
+                    final pointsOptions = unitData['pointsOptions'] as List? ?? [];
+                    if (value < sizeOptions.length) {
+                      final sizeValue = sizeOptions[value];
+                      models = (sizeValue is int) ? sizeValue : int.tryParse(sizeValue.toString()) ?? 1;
+                    }
+                    if (value < pointsOptions.length) {
+                      final pointsValue = pointsOptions[value];
+                      points = (pointsValue is int) ? pointsValue : int.tryParse(pointsValue.toString()) ?? 0;
+                    }
+                  }
+                });
+              },
+            ),
+          const SizedBox(height: 16),
+
+          // Custom name — uses TextEditingController so text persists across rebuilds
+          TextField(
+            controller: _customNameController,
+            decoration: const InputDecoration(labelText: 'Custom Name (optional)'),
+            textInputAction: TextInputAction.done,
+          ),
+          const SizedBox(height: 16),
+
+          // Warlord toggle
+          if (selectedUnit != null && selectedFaction != null && currentCrusade != null)
+            Builder(
+              builder: (context) {
+                final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, selectedUnit!);
+                final role = unitData['role'] as String? ?? '';
+                final isEpicHeroUnit = unitData['isEpicHero'] as bool? ?? false;
+
+                bool hasExistingWarlord = false;
+                for (final item in currentCrusade.oob) {
+                  if (item.isWarlord == true) {
+                    hasExistingWarlord = true;
+                    break;
+                  }
+                  if (item.type == 'group' && item.components != null) {
+                    for (final component in item.components!) {
+                      if (component.isWarlord == true) {
+                        hasExistingWarlord = true;
+                        break;
+                      }
+                    }
+                  }
+                  if (hasExistingWarlord) break;
+                }
+
+                if (role == 'HQ' && !isEpicHeroUnit && !hasExistingWarlord) {
+                  return SwitchListTile(
+                    title: const Text('Designate as Warlord'),
+                    value: isWarlord,
+                    onChanged: (value) => setState(() => isWarlord = value),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+            ),
+
+          // First Character Enhancement option (Renowned Heroes requisition)
+          if (selectedUnit != null && selectedFaction != null && currentCrusade != null)
+            Builder(
+              builder: (context) {
+                final crusade = currentCrusade;
+                final faction = selectedFaction!;
+                final unit = selectedUnit!;
+                final unitData = ReferenceDataService.getUnitDataSync(faction, unit);
+                final isEpicHeroUnit = unitData['isEpicHero'] as bool? ?? false;
+                final isCharacterUnit = unitData['isCharacter'] as bool? ?? false;
+
+                final canUseFirstCharacterEnhancement =
+                    isCharacterUnit &&
+                    !isEpicHeroUnit &&
+                    !crusade.usedFirstCharacterEnhancement &&
+                    crusade.rp >= 1;
+
+                if (!canUseFirstCharacterEnhancement) {
+                  return const SizedBox.shrink();
+                }
+
+                final detachmentEnhancements = ReferenceDataService.getEnhancements(
+                  crusade.faction,
+                  crusade.detachment,
+                );
+                if (detachmentEnhancements.isEmpty) {
+                  return const SizedBox.shrink();
+                }
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Divider(),
+                    SwitchListTile(
+                      title: const Text('Add Enhancement (Renowned Heroes)'),
+                      subtitle: Text(
+                        'First character bonus! Costs 1 RP (${crusade.rp} available)',
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                      value: addEnhancement,
+                      onChanged: (value) => setState(() {
+                        addEnhancement = value;
+                        if (!value) selectedEnhancementKey = null;
+                      }),
+                    ),
+                    if (addEnhancement)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: DropdownButtonFormField<String>(
+                          decoration: const InputDecoration(
+                            labelText: 'Select Enhancement',
+                            border: OutlineInputBorder(),
+                          ),
+                          items: detachmentEnhancements.map((enh) {
+                            final name = enh['name'] as String;
+                            final points = enh['points'] as int;
+                            return DropdownMenuItem<String>(
+                              value: name,
+                              child: Text(
+                                '$name (+$points pts)',
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (value) => setState(() => selectedEnhancementKey = value),
+                        ),
+                      ),
+                  ],
+                );
+              },
+            ),
+
+          const SizedBox(height: 32),
+
+          // Add button
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                if (selectedUnit == null || points <= 0) {
+                  SnackBarUtils.showError(context, 'Select unit and enter points');
+                  return;
+                }
+
+                if (addEnhancement && selectedEnhancementKey == null) {
+                  SnackBarUtils.showError(context, 'Select an enhancement or disable the option');
+                  return;
+                }
+
+                final unitData = ReferenceDataService.getUnitDataSync(selectedFaction!, selectedUnit!);
+                final isEpicHero = unitData['isEpicHero'] as bool? ?? false;
+                final isCharacter = unitData['isCharacter'] as bool? ?? false;
+
+                final customName = _customNameController.text;
+
+                int enhancementPoints = 0;
+                String? enhancementName;
+                if (addEnhancement && selectedEnhancementKey != null && currentCrusade != null) {
+                  final enhancements = ReferenceDataService.getEnhancements(
+                    currentCrusade.faction,
+                    currentCrusade.detachment,
+                  );
+                  for (final enh in enhancements) {
+                    if (enh['name'] == selectedEnhancementKey) {
+                      enhancementPoints = enh['points'] as int;
+                      enhancementName = selectedEnhancementKey;
+                      break;
+                    }
+                  }
+                }
+
+                final newUnit = UnitOrGroup(
+                  id: const Uuid().v4(),
+                  type: 'unit',
+                  name: selectedUnit!,
+                  customName: customName.isNotEmpty ? customName : null,
+                  points: points + enhancementPoints,
+                  modelsCurrent: models,
+                  modelsMax: models,
+                  isWarlord: isWarlord,
+                  isEpicHero: isEpicHero,
+                  isCharacter: isCharacter,
+                  enhancements: enhancementName != null ? [enhancementName] : null,
+                );
+
+                if (addEnhancement && currentCrusade != null) {
+                  final unitAddedEvent = CrusadeEvent.create(
+                    type: CrusadeEventType.unitAdded,
+                    description: 'Added ${newUnit.customName ?? newUnit.name} to Order of Battle',
+                    unitId: newUnit.id,
+                    unitName: newUnit.customName ?? newUnit.name,
+                    metadata: {'points': newUnit.points - enhancementPoints},
+                  );
+
+                  final enhancementEvent = CrusadeEvent.create(
+                    type: CrusadeEventType.requisition,
+                    description: 'Renowned Heroes: Added $enhancementName to ${newUnit.customName ?? newUnit.name}',
+                    unitId: newUnit.id,
+                    unitName: newUnit.customName ?? newUnit.name,
+                    metadata: {
+                      'requisition': 'Renowned Heroes',
+                      'enhancement': enhancementName,
+                      'enhancementPoints': enhancementPoints,
+                      'rpCost': 1,
+                      'firstCharacter': true,
+                    },
+                  );
+
+                  final updatedCrusade = Crusade(
+                    id: currentCrusade.id,
+                    name: currentCrusade.name,
+                    faction: currentCrusade.faction,
+                    detachment: currentCrusade.detachment,
+                    supplyLimit: currentCrusade.supplyLimit,
+                    rp: currentCrusade.rp - 1,
+                    armyIconPath: currentCrusade.armyIconPath,
+                    factionIconAsset: currentCrusade.factionIconAsset,
+                    oob: [...currentCrusade.oob, newUnit],
+                    templates: currentCrusade.templates,
+                    usedFirstCharacterEnhancement: true,
+                    history: [...currentCrusade.history, unitAddedEvent, enhancementEvent],
+                    rosters: currentCrusade.rosters,
+                    games: currentCrusade.games,
+                  );
+                  ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
+
+                  Navigator.pop(context);
+                  SnackBarUtils.showSuccess(
+                    context,
+                    'Added ${newUnit.customName ?? newUnit.name} with $enhancementName enhancement!',
+                  );
+                } else {
+                  ref.read(currentCrusadeNotifierProvider.notifier).addUnitOrGroup(newUnit);
+                  ref.read(currentCrusadeNotifierProvider.notifier).addEvent(CrusadeEvent.create(
+                    type: CrusadeEventType.unitAdded,
+                    description: 'Added ${newUnit.customName ?? newUnit.name} (${newUnit.points} pts)',
+                    unitId: newUnit.id,
+                    unitName: newUnit.customName ?? newUnit.name,
+                    metadata: {
+                      'points': newUnit.points,
+                      'unitType': newUnit.type,
+                    },
+                  ));
+                  Navigator.pop(context);
+                }
+              },
+              child: Text(addEnhancement ? 'Add (1 RP)' : 'Add'),
             ),
           ),
         ],
