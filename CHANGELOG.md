@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Aeldari Agendas** — 4 faction-specific Crusade agendas (AEL-FEA-001 to AEL-FEA-004): Fulcrum of Fate (Thread of Fate success for 3XP), Eldritch Supremacy (Psychic kill tally tiered XP), Few in Number (survival/destroy for selected units), Evasive Warfare (encircled corners tiered XP).
 - **Adeptus Custodes Agendas** — 4 faction-specific Crusade agendas (CUST-FEA-001 to CUST-FEA-004): Pursuit of Excellence (lowest XP unit conditions check, up to 4XP), Judgement Delivered (table wipe 2XP per unit), Great Tithe (Psyker destroy tracking with Anathema Psykana bonus), Unto the Dark Cells (No Man's Land objective control, up to 3 units for 2XP each).
 - **Tyrannic War Agendas** — 11 thematic Crusade agendas (FEA-001 to FEA-011): Battlefield Survivors, Swarm the Planet, Headhunters, Monstrous Targets, Eradicate the Swarm, Critical Objectives, Drive Home the Blade, Cleanse Infestation, Forward Observers, Recover Mission Archives, Malefic Hunter. Supports XP/CP rewards, unit selection limits, tally/objective types.
 - **Enhanced Agenda System** — Agenda infrastructure supporting JSON data (assets/data/core_agendas.json), pre-game multi-select with tally/objective type indicators, in-game progress tracking (AgendaProgressCard with type icons, TierProgressIndicator for objectives, TallyProgressBar with milestone markers), post-game recap with completion status badges, VP/XP rewards display, summary totals banner, full persistence via Game model.

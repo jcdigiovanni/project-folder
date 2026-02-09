@@ -1,0 +1,40 @@
+{
+  "faction": "Aeldari",
+  "agendas": [
+    {
+      "id": "fulcrum_of_fate",
+      "name": "Fulcrum of Fate",
+      "type": "objective",
+      "description": "Select one Thread of Fate that has not been ended. Current stage effects apply during the battle. At battle end, if the Thread is ended successfully, select one non-destroyed AELDARI unit to gain 3XP. If not successful, advance to the next stage (or end in failure if Frayed).",
+      "maxTier": 1,
+      "maxUnits": 1,
+      "xpPerTier": 3
+    },
+    {
+      "id": "eldritch_supremacy",
+      "name": "Eldritch Supremacy",
+      "type": "tally",
+      "description": "PSYKER units start with a tally of 0. Each time an enemy model is destroyed by a Psychic attack, +1 to that PSYKER's tally. At battle end: 3-5 tally = 1XP, 6-8 = 2XP, 9+ = 3XP per unit. Track tallies per PSYKER unit.",
+      "xpPerTally": 1,
+      "tallyDivisor": 3,
+      "maxXp": 3
+    },
+    {
+      "id": "few_in_number",
+      "name": "Few in Number",
+      "type": "objective",
+      "description": "Select up to 3 AELDARI units before battle. At battle end, each selected unit that was not destroyed and destroyed 1+ enemy units gains 1XP (3XP if also not Below Half-strength).",
+      "maxTier": 1,
+      "maxUnits": 3,
+      "xpPerTier": 3
+    },
+    {
+      "id": "evasive_warfare",
+      "name": "Evasive Warfare",
+      "type": "tally",
+      "description": "At battle end, for each battlefield corner with no enemy units within 12\", select one non-Battle-shocked AELDARI unit wholly within 12\" of that corner. XP is tiered by encircled corners: 2 corners = 1XP each, 3 = 2XP each, 4 = 3XP each. Track encircled corners as tallies per selected unit.",
+      "xpPerTally": 1,
+      "maxXp": 3
+    }
+  ]
+}

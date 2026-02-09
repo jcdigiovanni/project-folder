@@ -12,6 +12,7 @@
 - All sprint items complete! Ready for next sprint.
 
 ## Completed This Session / Archive
+- **Feb 9**: AEL-FEA-001–004 (Added 4 Aeldari faction agendas — Fulcrum of Fate, Eldritch Supremacy, Few in Number, Evasive Warfare).
 - **Feb 9**: CUST-FEA-001–004 (Added 4 Adeptus Custodes faction agendas — Pursuit of Excellence, Judgement Delivered, Great Tithe, Unto the Dark Cells).
 - **Feb 9**: BUG-020 (Add/Edit Unit modals losing form state on Android when keyboard opens/closes — extracted modals from inline StatefulBuilder closures into proper StatefulWidget classes with persistent state and TextEditingControllers).
 

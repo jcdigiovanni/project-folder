@@ -11,40 +11,6 @@
 
 ## Features
 
-## Features (FEA – Aeldari Agendas)
-
-- **AEL-FEA-001 (Medium)**: Add Agenda: Fulcrum of Fate
-  - **Description**: Implement Fulcrum of Fate, allowing attempt to end a Thread of Fate for XP reward or stage progression.
-  - **Rules Summary**: Select one Thread of Fate not ended. Current stage effects apply. At battle end, if ended successfully, select one non-destroyed unit for 3XP. If not successful, advance to next stage (or end in failure if Frayed).
-  - **Expected UI/Behavior**: Pre-game: Thread selection prompt. Post-game: Auto-check success, prompt unit select for XP if successful, display stage advance/failure.
-  - **Integration Points**: Thread of Fate tracking; post-game recap/XP apply.
-  - **Scoring/Effects**: 3XP on success.
-  - **Any Data Requirements**: JSON entry with name, deed text; Thread of Fate state tracking.
-
-- **AEL-FEA-002 (Medium)**: Add Agenda: Eldritch Supremacy
-  - **Description**: Implement Eldritch Supremacy, tallying Psychic Mastery for tiered XP.
-  - **Rules Summary**: PSYKER units start with tally 0. +1 tally per enemy model destroyed by Psychic attack. At battle end: 3-5 tally = 1XP, 6-8 = 2XP, 9+ = 3XP per unit.
-  - **Expected UI/Behavior**: In-game: Auto-tally on Psychic destroys. Post-game: Display tally/XP per PSYKER unit in recap.
-  - **Integration Points**: Psychic attack detection; post-game XP calc.
-  - **Scoring/Effects**: Tiered XP per unit (max 3).
-  - **Any Data Requirements**: JSON entry with name, deed text; per-unit tally field.
-
-- **AEL-FEA-003 (Medium)**: Add Agenda: Few in Number
-  - **Description**: Implement Few in Number, rewarding survival and destroys for selected units.
-  - **Rules Summary**: Pre-game select up to 3 units. At battle end, each not destroyed and destroyed 1+ enemies gains 1XP (3XP if not Below Half-strength).
-  - **Expected UI/Behavior**: Pre-game multi-select up to 3. Post-game auto-check/apply XP, display in recap.
-  - **Integration Points**: Pre-game selection; post-game survival/destroy check/XP apply.
-  - **Scoring/Effects**: 1 or 3XP per unit.
-  - **Any Data Requirements**: JSON entry with name, deed text, maxUnits: 3.
-
-- **AEL-FEA-004 (Medium)**: Add Agenda: Evasive Warfare
-  - **Description**: Implement Evasive Warfare, rewarding encircled battlefield corners.
-  - **Rules Summary**: At battle end, for each corner with no enemy units within 12", select one non-Battle-shocked unit wholly within 12" for tiered XP based on encircled corners (1=0, 2=1, 3=2, 4=3).
-  - **Expected UI/Behavior**: Post-game auto-detect encircled corners, prompt unit select per corner, apply XP.
-  - **Integration Points**: Post-game corner check, unit select/XP apply.
-  - **Scoring/Effects**: Tiered XP per selected unit.
-  - **Any Data Requirements**: JSON entry with name, deed text; corner logic.
-
 ## Features (FEA – Drukhari Agendas)
 
 - **DRU-FEA-001 (Medium)**: Add Agenda: Sublime Agonies
@@ -410,6 +376,7 @@
 - **DATA-001 (Medium)**: Full Deathwatch unit data (MFM v3.8 page 19 reference; extract points/flags like prior factions – generate externally)
 
 ## Archived/Resolved This Sprint
+- **AEL-FEA-001–004 (Medium)**: Added 4 Aeldari faction agendas — Fulcrum of Fate, Eldritch Supremacy, Few in Number, Evasive Warfare. Data-driven JSON file (aeldari.json), auto-loaded for Aeldari crusades.
 - **CUST-FEA-001–004 (Medium)**: Added 4 Adeptus Custodes faction agendas — Pursuit of Excellence, Judgement Delivered, Great Tithe, Unto the Dark Cells. Data-driven JSON file (adeptus_custodes.json), auto-loaded for Custodes crusades.
 - **BUG-020 (High)**: Fixed Add/Edit Unit modals losing all form state on Android when keyboard opens/closes or text fields lose focus. Root cause: form variables in showModalBottomSheet builder closure reinitialized on MediaQuery rebuilds. Fix: extracted into StatefulWidget classes with persistent State objects and TextEditingControllers.
 - **ENH-015 (High)**: Made Agenda Section Collapsible on Active Game Screen — default collapsed with summary bar showing agenda names + total progress, tap to expand for full agenda cards with tracking controls. Animated chevron and crossfade transitions. Frees up screen space for unit management during battle.

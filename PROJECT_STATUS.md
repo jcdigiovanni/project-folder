@@ -1,6 +1,7 @@
 **Last Updated:** February 9, 2026 (Phase 6 Backlog Clearance In Progress)
 
 **Recent Work (Feb 9)**
+- AEL-FEA-001–004: Added 4 Aeldari faction agendas — Fulcrum of Fate, Eldritch Supremacy, Few in Number, Evasive Warfare.
 - CUST-FEA-001–004: Added 4 Adeptus Custodes faction agendas — Pursuit of Excellence, Judgement Delivered, Great Tithe, Unto the Dark Cells. Data-driven JSON, auto-loaded for Custodes crusades.
 - BUG-020: Fixed Add/Edit Unit modals losing all form state on Android when keyboard opens/closes or text fields lose focus. Extracted modal content from inline StatefulBuilder closures into proper StatefulWidget classes with persistent state and TextEditingControllers.
 
