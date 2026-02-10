@@ -143,16 +143,7 @@ class CrusadeDashboardScreen extends ConsumerWidget {
                     color: Colors.orange,
                     onTap: () => context.go('/play'),
                   ),
-                  // 5. Post-Game Update
-                  _ActionTile(
-                    icon: Icons.update,
-                    label: 'Post-Game Update',
-                    color: Colors.amber,
-                    onTap: () {
-                      SnackBarUtils.showMessage(context, 'Post-game updates coming soon');
-                    },
-                  ),
-                  // 6. History
+                  // 5. History
                   _ActionTile(
                     icon: Icons.history,
                     label: 'History',
