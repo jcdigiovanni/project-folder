@@ -116,13 +116,18 @@ class UnitOrGroupAdapter extends TypeAdapter<UnitOrGroup> {
       battleTraits: (fields[20] as List?)?.cast<String>(),
       weaponEnhancements: (fields[21] as List?)?.cast<String>(),
       crusadeRelic: fields[22] as String?,
+      factionPoints1: fields[23] as int?,
+      factionPoints2: fields[24] as int?,
+      factionPoints3: fields[25] as int?,
+      factionFlag1: fields[26] as bool?,
+      factionFlag2: fields[27] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UnitOrGroup obj) {
     writer
-      ..writeByte(23)
+      ..writeByte(28)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -168,7 +173,17 @@ class UnitOrGroupAdapter extends TypeAdapter<UnitOrGroup> {
       ..writeByte(21)
       ..write(obj.weaponEnhancements)
       ..writeByte(22)
-      ..write(obj.crusadeRelic);
+      ..write(obj.crusadeRelic)
+      ..writeByte(23)
+      ..write(obj.factionPoints1)
+      ..writeByte(24)
+      ..write(obj.factionPoints2)
+      ..writeByte(25)
+      ..write(obj.factionPoints3)
+      ..writeByte(26)
+      ..write(obj.factionFlag1)
+      ..writeByte(27)
+      ..write(obj.factionFlag2);
   }
 
   @override

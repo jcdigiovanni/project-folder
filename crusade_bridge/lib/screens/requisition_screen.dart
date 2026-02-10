@@ -6,6 +6,9 @@ import '../providers/crusade_provider.dart';
 import '../services/reference_data_service.dart';
 import '../utils/snackbar_utils.dart';
 import '../widgets/crusade_stats_bar.dart';
+import '../widgets/requisition_option.dart';
+import 'requisitions/adepta_sororitas_requisitions.dart';
+import 'requisitions/requisition_utils.dart';
 
 class RequisitionScreen extends ConsumerWidget {
   const RequisitionScreen({super.key});
@@ -35,7 +38,7 @@ class RequisitionScreen extends ConsumerWidget {
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: [
-                _RequisitionOption(
+                RequisitionOption(
                   title: 'Increase Supply Limit',
                   description: 'Add 200 points to your army\'s supply limit',
                   cost: 1,
@@ -45,7 +48,7 @@ class RequisitionScreen extends ConsumerWidget {
                   onTap: () => _increaseSupplyLimit(context, ref, currentCrusade),
                 ),
                 const SizedBox(height: 12),
-                _RequisitionOption(
+                RequisitionOption(
                   title: 'Fresh Recruits',
                   description: 'Add models to an existing unit (1 RP + 1 per Battle Honour)',
                   cost: 1,
@@ -56,7 +59,7 @@ class RequisitionScreen extends ConsumerWidget {
                   onTap: () => _showFreshRecruitsModal(context, ref, currentCrusade),
                 ),
                 const SizedBox(height: 12),
-                _RequisitionOption(
+                RequisitionOption(
                   title: 'Rearm and Resupply',
                   description: 'Swap wargear on a unit before battle (honor system)',
                   cost: 1,
@@ -66,7 +69,7 @@ class RequisitionScreen extends ConsumerWidget {
                   onTap: () => _showRearmAndResupplyModal(context, ref, currentCrusade),
                 ),
                 const SizedBox(height: 12),
-                _RequisitionOption(
+                RequisitionOption(
                   title: 'Repair and Recuperate',
                   description: 'Remove a Battle Scar from a unit (cost = scar count)',
                   cost: 1,
@@ -77,7 +80,7 @@ class RequisitionScreen extends ConsumerWidget {
                   onTap: () => _showRepairAndRecuperateModal(context, ref, currentCrusade),
                 ),
                 const SizedBox(height: 12),
-                _RequisitionOption(
+                RequisitionOption(
                   title: 'Renowned Heroes',
                   description: 'Grant an Enhancement to a Character (1-3 RP)',
                   cost: 1,
@@ -88,7 +91,7 @@ class RequisitionScreen extends ConsumerWidget {
                   onTap: () => _showRenownedHeroesModal(context, ref, currentCrusade),
                 ),
                 const SizedBox(height: 12),
-                _RequisitionOption(
+                RequisitionOption(
                   title: 'Legendary Veterans',
                   description: 'Allow a unit to exceed 30 XP and 3 Honours cap',
                   cost: 3,
@@ -443,7 +446,7 @@ class RequisitionScreen extends ConsumerWidget {
   // ============ REPAIR AND RECUPERATE ============
 
   void _showRearmAndResupplyModal(BuildContext context, WidgetRef ref, Crusade crusade) {
-    _showHonorSystemRequisitionModal(
+    showHonorSystemRequisitionModal(
       context: context, ref: ref, crusade: crusade,
       title: 'Rearm and Resupply',
       subtitle: 'Select a unit to swap wargear (1 RP)',
@@ -1199,304 +1202,15 @@ class RequisitionScreen extends ConsumerWidget {
     );
   }
 
-  // ── Generic honor-system requisition flow ──────────────────────
-
-  void _showHonorSystemRequisitionModal({
-    required BuildContext context,
-    required WidgetRef ref,
-    required Crusade crusade,
-    required String title,
-    required String subtitle,
-    required String confirmTitle,
-    required String Function(String unitDisplayName) confirmMessage,
-    required String Function(String unitDisplayName) successMessage,
-    required String Function(String unitDisplayName) eventDescription,
-    required String requisitionKey,
-    required int rpCost,
-    required IconData icon,
-    required Color color,
-  }) {
-    final List<UnitOrGroup> allUnits = [];
-    for (final item in crusade.oob) {
-      if (item.type == 'group' && item.components != null) {
-        allUnits.addAll(item.components!);
-      } else {
-        allUnits.add(item);
-      }
-    }
-
-    if (allUnits.isEmpty) {
-      SnackBarUtils.showMessage(context, 'No units in Order of Battle');
-      return;
-    }
-
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.6,
-        minChildSize: 0.3,
-        maxChildSize: 0.9,
-        expand: false,
-        builder: (context, scrollController) => Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                        const SizedBox(height: 4),
-                        Text(subtitle, style: const TextStyle(color: Colors.grey, fontSize: 14)),
-                      ],
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => Navigator.pop(context),
-                    tooltip: 'Close',
-                  ),
-                ],
-              ),
-            ),
-            const Divider(height: 1),
-            Expanded(
-              child: ListView.builder(
-                controller: scrollController,
-                itemCount: allUnits.length,
-                itemBuilder: (context, index) {
-                  final unit = allUnits[index];
-                  return ListTile(
-                    leading: Container(
-                      width: 48,
-                      height: 48,
-                      decoration: BoxDecoration(
-                        color: color.withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Icon(icon, color: color),
-                    ),
-                    title: Text(unit.customName ?? unit.name),
-                    subtitle: Text(unit.name),
-                    trailing: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFFF59D).withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: const Color(0xFFFFF59D)),
-                      ),
-                      child: Text(
-                        '$rpCost RP',
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFFF59D)),
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      _confirmHonorSystemRequisition(
-                        context: context,
-                        ref: ref,
-                        crusade: crusade,
-                        unit: unit,
-                        confirmTitle: confirmTitle,
-                        confirmMessage: confirmMessage(unit.customName ?? unit.name),
-                        successMessage: successMessage(unit.customName ?? unit.name),
-                        eventDescription: eventDescription(unit.customName ?? unit.name),
-                        requisitionKey: requisitionKey,
-                        rpCost: rpCost,
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _confirmHonorSystemRequisition({
-    required BuildContext context,
-    required WidgetRef ref,
-    required Crusade crusade,
-    required UnitOrGroup unit,
-    required String confirmTitle,
-    required String confirmMessage,
-    required String successMessage,
-    required String eventDescription,
-    required String requisitionKey,
-    required int rpCost,
-  }) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(confirmTitle),
-        content: Text(confirmMessage),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              final event = CrusadeEvent.create(
-                type: CrusadeEventType.requisition,
-                description: eventDescription,
-                metadata: {
-                  'requisition': requisitionKey,
-                  'rpCost': rpCost,
-                  'unitName': unit.name,
-                  'unitCustomName': unit.customName,
-                },
-              );
-
-              final updatedCrusade = Crusade(
-                id: crusade.id,
-                name: crusade.name,
-                faction: crusade.faction,
-                detachment: crusade.detachment,
-                supplyLimit: crusade.supplyLimit,
-                rp: crusade.rp - rpCost,
-                armyIconPath: crusade.armyIconPath,
-                factionIconAsset: crusade.factionIconAsset,
-                oob: crusade.oob,
-                templates: crusade.templates,
-                lastModified: DateTime.now().millisecondsSinceEpoch,
-                usedFirstCharacterEnhancement: crusade.usedFirstCharacterEnhancement,
-                history: [...crusade.history, event],
-                rosters: crusade.rosters,
-                games: crusade.games,
-              );
-
-              ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
-
-              Navigator.pop(context);
-              SnackBarUtils.showSuccess(context, successMessage);
-            },
-            child: const Text('Confirm'),
-          ),
-        ],
-      ),
-    );
-  }
-
   // ── Faction-specific requisitions ─────────────────────────────
 
   List<Widget> _buildFactionRequisitions(BuildContext context, WidgetRef ref, Crusade crusade) {
     switch (crusade.faction) {
       case 'Adepta Sororitas':
-        return _buildSororitasRequisitions(context, ref, crusade);
+        return buildSororitasRequisitions(context, ref, crusade);
       default:
         return [];
     }
-  }
-
-  List<Widget> _buildSororitasRequisitions(BuildContext context, WidgetRef ref, Crusade crusade) {
-    return [
-      const SizedBox(height: 24),
-      Row(
-        children: [
-          const Expanded(child: Divider()),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Text(
-              'Sororitas Requisitions',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey.shade400,
-                letterSpacing: 1.2,
-              ),
-            ),
-          ),
-          const Expanded(child: Divider()),
-        ],
-      ),
-      const SizedBox(height: 12),
-      _RequisitionOption(
-        title: 'Saintly Blessing',
-        description: 'Grant 1 Miracle dice to a unit (honor system)',
-        cost: 1,
-        icon: Icons.auto_awesome,
-        color: Colors.amber,
-        enabled: crusade.rp >= 1,
-        onTap: () => _showHonorSystemRequisitionModal(
-          context: context, ref: ref, crusade: crusade,
-          title: 'Saintly Blessing',
-          subtitle: 'Select a unit to grant 1 Miracle dice (1 RP)',
-          confirmTitle: 'Saintly Blessing',
-          confirmMessage: (name) => 'Spend 1 RP to grant $name 1 Miracle dice?\n\nTrack on the tabletop.',
-          successMessage: (name) => 'Saintly Blessing granted to $name (-1 RP)',
-          eventDescription: (name) => 'Saintly Blessing: $name granted 1 Miracle dice',
-          requisitionKey: 'saintly_blessing',
-          rpCost: 1, icon: Icons.auto_awesome, color: Colors.amber,
-        ),
-      ),
-      const SizedBox(height: 12),
-      _RequisitionOption(
-        title: 'Divine Intervention',
-        description: 'Restore a destroyed unit or remove a Battle Scar (honor system)',
-        cost: 2,
-        icon: Icons.health_and_safety,
-        color: Colors.lightBlue,
-        enabled: crusade.rp >= 2,
-        onTap: () => _showHonorSystemRequisitionModal(
-          context: context, ref: ref, crusade: crusade,
-          title: 'Divine Intervention',
-          subtitle: 'Select a destroyed or scarred unit (2 RP)',
-          confirmTitle: 'Divine Intervention',
-          confirmMessage: (name) => 'Spend 2 RP for Divine Intervention on $name?\n\nRestore the unit or remove a Battle Scar as appropriate.',
-          successMessage: (name) => 'Divine Intervention on $name (-2 RP)',
-          eventDescription: (name) => 'Divine Intervention: $name restored or scar removed',
-          requisitionKey: 'divine_intervention',
-          rpCost: 2, icon: Icons.health_and_safety, color: Colors.lightBlue,
-        ),
-      ),
-      const SizedBox(height: 12),
-      _RequisitionOption(
-        title: 'Martyr\'s Strength',
-        description: 'Grant FNP 5+ and +1 Wound vs chosen enemy type (honor system)',
-        cost: 1,
-        icon: Icons.shield,
-        color: Colors.red,
-        enabled: crusade.rp >= 1,
-        onTap: () => _showHonorSystemRequisitionModal(
-          context: context, ref: ref, crusade: crusade,
-          title: 'Martyr\'s Strength',
-          subtitle: 'Select a unit to grant FNP 5+ and +1 Wound (1 RP)',
-          confirmTitle: 'Martyr\'s Strength',
-          confirmMessage: (name) => 'Spend 1 RP to grant $name FNP 5+ and +1 Wound vs a chosen enemy type?\n\nTrack the chosen type on the tabletop.',
-          successMessage: (name) => 'Martyr\'s Strength granted to $name (-1 RP)',
-          eventDescription: (name) => 'Martyr\'s Strength: $name granted FNP 5+ and +1 Wound',
-          requisitionKey: 'martyrs_strength',
-          rpCost: 1, icon: Icons.shield, color: Colors.red,
-        ),
-      ),
-      const SizedBox(height: 12),
-      _RequisitionOption(
-        title: 'Ecclesiarchy Support',
-        description: 'Add a Priest or Hospitaller temporarily (honor system)',
-        cost: 1,
-        icon: Icons.person_add_alt_1,
-        color: Colors.white70,
-        enabled: crusade.rp >= 1,
-        onTap: () => _showHonorSystemRequisitionModal(
-          context: context, ref: ref, crusade: crusade,
-          title: 'Ecclesiarchy Support',
-          subtitle: 'Select a unit to receive support (1 RP)',
-          confirmTitle: 'Ecclesiarchy Support',
-          confirmMessage: (name) => 'Spend 1 RP to temporarily add a Priest or Hospitaller alongside $name?\n\nAdd the model to your force on the tabletop.',
-          successMessage: (name) => 'Ecclesiarchy Support added near $name (-1 RP)',
-          eventDescription: (name) => 'Ecclesiarchy Support: Priest/Hospitaller temporarily added near $name',
-          requisitionKey: 'ecclesiarchy_support',
-          rpCost: 1, icon: Icons.person_add_alt_1, color: Colors.white70,
-        ),
-      ),
-    ];
   }
 }
 
@@ -1517,95 +1231,3 @@ class _EligibleUnit {
   });
 }
 
-class _RequisitionOption extends StatelessWidget {
-  final String title;
-  final String description;
-  final int cost;
-  final String? costSuffix; // e.g., '+' for variable costs like "1+"
-  final IconData icon;
-  final Color color;
-  final bool enabled;
-  final VoidCallback onTap;
-
-  const _RequisitionOption({
-    required this.title,
-    required this.description,
-    required this.cost,
-    this.costSuffix,
-    required this.icon,
-    required this.color,
-    required this.enabled,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      child: InkWell(
-        onTap: enabled ? onTap : null,
-        borderRadius: BorderRadius.circular(12),
-        child: Opacity(
-          opacity: enabled ? 1.0 : 0.5,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                // Icon
-                Container(
-                  width: 56,
-                  height: 56,
-                  decoration: BoxDecoration(
-                    color: color.withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Icon(icon, color: color, size: 32),
-                ),
-                const SizedBox(width: 16),
-                // Text content
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        description,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // Cost badge
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFF59D).withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: const Color(0xFFFFF59D)),
-                  ),
-                  child: Text(
-                    '$cost${costSuffix ?? ''} RP',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFFFFF59D),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}

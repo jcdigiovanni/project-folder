@@ -1,7 +1,7 @@
 **Last Updated:** February 9, 2026 (Phase 6 Backlog Clearance In Progress)
 
-**Recent Work (Feb 9)**
-- Sororitas Requisitions: Added 4 faction-specific requisitions (honor system) — Saintly Blessing, Divine Intervention, Martyr's Strength, Ecclesiarchy Support. Inline section with header, only for Sororitas crusades. Generic honor-system modal pattern established for future faction requisitions.
+**Recent Work (Feb 9-10)**
+- Sororitas Requisitions (Full Mechanics): Replaced 4 incorrect honor-system stubs with 6 correct full-mechanics requisitions — Divine Calling, Ascension to the Order, The Penitent Path, Glorious Redemption, In Suffering Enlightenment, Saintly Benedictions. Added generic faction tracking fields (factionPoints1-3, factionFlag1-2) to UnitOrGroup model with per-faction label mapping. Extracted shared widgets and utils. Separate file per faction for extensibility.
 - BT/IA Agendas: Added Black Templars (4+4 base SM) and Imperial Agents (5) faction agendas — 9 new chapter/faction-specific agendas.
 - SM Chapter Agendas: Added 15 chapter-specific agendas (+ base SM agendas in each) across 4 chapters — Deathwatch (4+4), Blood Angels (4+4), Dark Angels (4+4), Space Wolves (3+4). Each chapter JSON includes the 4 base Adeptus Astartes agendas.
 - EC/GSC/IK/VOT/TAU Agendas: Added 22 agendas across 5 new factions — Emperor's Children (4), Genestealer Cults (5), Imperial Knights (5), Leagues of Votann (4), T'au Empire (4).
