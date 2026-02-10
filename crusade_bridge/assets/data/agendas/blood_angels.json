@@ -1,0 +1,67 @@
+{
+  "faction": "Blood Angels",
+  "agendas": [
+    {
+      "id": "angels_of_death",
+      "name": "Angels of Death",
+      "type": "objective",
+      "description": "At battle end, if no enemy units remain on the battlefield, each ADEPTUS ASTARTES unit still on the battlefield gains 2XP. The force also gains 2 Honour points.",
+      "maxTier": 1,
+      "xpPerTier": 2
+    },
+    {
+      "id": "know_no_fear",
+      "name": "Know No Fear",
+      "type": "tally",
+      "description": "Post-game: each ADEPTUS ASTARTES unit that never failed a Battle-shock test gains 1XP (2XP if the unit was Below Half-strength at any point). Track Battle-shock pass/fail per unit during the game.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "armoured_assault",
+      "name": "Armoured Assault",
+      "type": "tally",
+      "description": "Post-game: each surviving ADEPTUS ASTARTES VEHICLE gains 1XP. Each destroyed VEHICLE that destroyed 2+ enemy units during the battle also gains 1XP.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "quest_of_atonement",
+      "name": "Quest of Atonement",
+      "type": "objective",
+      "description": "Pre-game: select 1 ADEPTUS ASTARTES unit with a Battle-weary, Disgraced, or Mark of Shame scar. If that unit destroyed an enemy Character, Monster, or Vehicle in melee, it loses 1 scar and gains 5XP.",
+      "maxTier": 1,
+      "maxUnits": 1,
+      "xpPerTier": 5
+    },
+    {
+      "id": "for_baal_and_the_angel",
+      "name": "For Baal and the Angel!",
+      "type": "objective",
+      "description": "At battle end, count your non-Below Half-strength units. If fewer than opponent's total units, each ADEPTUS ASTARTES unit on the battlefield gains 1XP and the force gains 1 Honour point. If the opponent has any TYRANIDS or CHAOS units, each of your units gains an additional 1XP and the force gains an additional 1 Honour point.",
+      "maxTier": 1,
+      "xpPerTier": 1
+    },
+    {
+      "id": "search_for_the_cure",
+      "name": "Search for the Cure",
+      "type": "tally",
+      "description": "All objectives start unsearched. During your Shooting phase, select a SANGUINARY PRIEST, APOTHECARY, Apothecary Biologis, or narthecium-equipped unit (not Battle-shocked, not in Engagement Range, eligible to shoot). It cannot shoot or charge this turn. At end of turn, if within range of an unsearched controlled objective: objective becomes searched, unit gains 2XP, force gains 1 Honour point.",
+      "xpPerTally": 2
+    },
+    {
+      "id": "against_the_darkness",
+      "name": "Against the Darkness",
+      "type": "objective",
+      "description": "Pre-game: select 3 units. At battle end, each selected unit that destroyed 1+ enemy units and is not destroyed gains 2XP (1XP if Below Half-strength).",
+      "maxTier": 1,
+      "maxUnits": 3,
+      "xpPerTier": 2
+    },
+    {
+      "id": "liberators_from_tyranny",
+      "name": "Liberators from Tyranny",
+      "type": "tally",
+      "description": "At battle end, for each objective you control, select one ADEPTUS ASTARTES unit in range for 1XP. If you control more than half the objectives, gain D3 Honour points. If you control all objectives, gain D3+3 Honour points instead.",
+      "xpPerTally": 1
+    }
+  ]
+}

@@ -20,13 +20,9 @@
 - **DATA-001 (Medium)**: Full Deathwatch unit data (MFM v3.8 page 19 reference; extract points/flags like prior factions – generate externally)
 
 ## Archived/Resolved This Sprint
-- **EC-FEA-001–004 (Medium)**: Added 4 Emperor's Children faction agendas — Excess of Indulgence, Flawless Performance, Perfect the Art, Captive Audience.
-- **GSC-FEA-001–005 (Medium)**: Added 5 Genestealer Cults faction agendas — Genestealer's Kiss, Silence Detractor, Telepathic Domination, Prepared for the Ordeal, Topple the False Temple.
-- **IK-FEA-001–005 (Medium)**: Added 5 Imperial Knights faction agendas — Sally Forth, Break Their Will, Petitioned for Aid, Honour Must Be Satisfied, Death Before Dishonour.
-- **VOT-FEA-001–004 (Medium)**: Added 4 Leagues of Votann faction agendas — Prospecting, Yield Prophecy, Exhaustive Pursuit, Debt to Be Paid.
-- **TAU-FEA-001–004 (Medium)**: Added 4 T'au Empire faction agendas — Coordinated Strike, Decisive Strike, For the Greater Good, Targeted Elimination.
-- **AdMech-FEA-001–005 (Medium)**: Added 5 Adeptus Mechanicus faction agendas — Cold Logic, Tech Scavengers, Omnissiah's Will, Break the Seals, Claim Legendary Archeotech.
-- **AM-FEA-006–010 (Medium)**: Added 5 Astra Militarum faction agendas — Advance For the Emperor!, Propaganda Targets, Inspired Command, Hold the Line, Arming the Assault.
-- **CSM-FEA-001–006 (Medium)**: Added 6 Chaos Space Marines faction agendas — Claim and Despoil, Blasphemous Ritual, Path to Glory, Warlord's Glory, Glory of the Gods, Glory of Conquest.
+- **DW-FEA-001–004 (Medium)**: Added 4 Deathwatch agendas (+ 4 base SM) — A Deadly Prize, Furor Tactics, Malleus Tactics, Purgatus Tactics.
+- **BA-FEA-001–004 (Medium)**: Added 4 Blood Angels agendas (+ 4 base SM) — For Baal and the Angel!, Search for the Cure, Against the Darkness, Liberators from Tyranny.
+- **DA-FEA-001–004 (Medium)**: Added 4 Dark Angels agendas (+ 4 base SM) — Interrogate the Mysterious Figure, Encircle the Foe, The Deathwing Cometh, Mental Interrogation.
+- **SW-FEA-001–003 (Medium)**: Added 3 Space Wolves agendas (+ 4 base SM) — Show Them How We Fight, Savage Fury, Howls of Vengeance.
 - **BUG-020 (High)**: Fixed Add/Edit Unit modals losing all form state on Android when keyboard opens/closes or text fields lose focus. Root cause: form variables in showModalBottomSheet builder closure reinitialized on MediaQuery rebuilds. Fix: extracted into StatefulWidget classes with persistent State objects and TextEditingControllers.
 - **ENH-015 (High)**: Made Agenda Section Collapsible on Active Game Screen — default collapsed with summary bar showing agenda names + total progress, tap to expand for full agenda cards with tracking controls. Animated chevron and crossfade transitions. Frees up screen space for unit management during battle.

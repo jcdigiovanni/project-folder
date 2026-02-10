@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Deathwatch Agendas** — 4 chapter-specific agendas + 4 base Space Marine agendas: A Deadly Prize, Furor Tactics, Malleus Tactics, Purgatus Tactics.
+- **Blood Angels Agendas** — 4 chapter-specific agendas + 4 base Space Marine agendas: For Baal and the Angel!, Search for the Cure, Against the Darkness, Liberators from Tyranny.
+- **Dark Angels Agendas** — 4 chapter-specific agendas + 4 base Space Marine agendas: Interrogate the Mysterious Figure, Encircle the Foe, The Deathwing Cometh, Mental Interrogation.
+- **Space Wolves Agendas** — 3 chapter-specific agendas + 4 base Space Marine agendas: Show Them How We Fight, Savage Fury, Howls of Vengeance.
 - **Emperor's Children Agendas** — 4 faction-specific agendas: Excess of Indulgence, Flawless Performance, Perfect the Art, Captive Audience.
 - **Genestealer Cults Agendas** — 5 faction-specific agendas: Genestealer's Kiss, Silence Detractor, Telepathic Domination, Prepared for the Ordeal, Topple the False Temple.
 - **Imperial Knights Agendas** — 5 faction-specific agendas: Sally Forth, Break Their Will, Petitioned for Aid, Honour Must Be Satisfied, Death Before Dishonour.
