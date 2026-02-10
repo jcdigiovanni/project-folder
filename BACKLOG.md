@@ -13,13 +13,13 @@
 - No remaining features in backlog.
 
 ## Deferred / Honor-System Items (RP Spend Only – No Enforcement)
-- **DEF-001 (Low)**: Stub "Rearm and Resupply" (1 RP deduct, toast/log "Wargear swapped – honor system", no unit/wargear change or UI)
 - **DEF-002 (Low)**: Stub "Maintenance and Upgrades" (if rules require; similar RP-only pattern: deduct 1–2 RP, log event)
 
 ## Data Fills (Separate Generation)
 - **DATA-001 (Medium)**: Full Deathwatch unit data (MFM v3.8 page 19 reference; extract points/flags like prior factions – generate externally)
 
 ## Archived/Resolved This Sprint
+- **FEA-013–016 (Medium)**: Added 4 Adepta Sororitas faction-specific requisitions (honor system) — Saintly Blessing, Divine Intervention, Martyr's Strength, Ecclesiarchy Support. Inline section with faction header, only shown for Sororitas crusades. Also refactored Rearm and Resupply to use generic honor-system modal. DEF-001 resolved.
 - **BT-FEA-001–004 (Medium)**: Added 4 Black Templars agendas (+ 4 base SM) — Fulfil Your Vows, Reconsecration, First-Hand Experience, Recovering Sacred Wargear.
 - **IA-FEA-001–005 (Medium)**: Added 5 Imperial Agents agendas — Aggressive Negotiation, Strategic Excruciation, Execution Order, Clandestine Infiltration, Long Vigil.
 - **DW-FEA-001–004 (Medium)**: Added 4 Deathwatch agendas (+ 4 base SM) — A Deadly Prize, Furor Tactics, Malleus Tactics, Purgatus Tactics.

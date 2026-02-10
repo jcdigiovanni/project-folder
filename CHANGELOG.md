@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Adepta Sororitas Requisitions** — 4 faction-specific requisitions (honor system, shown only for Sororitas crusades): Saintly Blessing (1 RP, Miracle dice), Divine Intervention (2 RP, restore/scar removal), Martyr's Strength (1 RP, FNP/+1 Wound), Ecclesiarchy Support (1 RP, temporary Priest/Hospitaller). Generic honor-system modal pattern for future faction requisitions.
 - **Black Templars Agendas** — 4 chapter-specific agendas + 4 base Space Marine agendas: Fulfil Your Vows, Reconsecration, First-Hand Experience, Recovering Sacred Wargear.
 - **Imperial Agents Agendas** — 5 faction-specific agendas: Aggressive Negotiation, Strategic Excruciation, Execution Order, Clandestine Infiltration, Long Vigil.
 - **Deathwatch Agendas** — 4 chapter-specific agendas + 4 base Space Marine agendas: A Deadly Prize, Furor Tactics, Malleus Tactics, Purgatus Tactics.

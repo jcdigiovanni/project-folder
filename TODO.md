@@ -5,12 +5,13 @@
 
 ## Current Focus: BUGS AND ENHANCEMENTS
 - Read BACKLOG.md and work on all BUG, ENH, and FEA items as needed.
-- Implement each FEA block individually, they are faction specific agendas separated by faction headers (GK for Grey Knights, WE for world eaters, break and query if unsure)
+- Generate workflows for properly implementing the faction-specific Requisitions - ask for clarity as needed since these can be complicated to introduce.
   
 ### Current Work: Bugs and Enhancements (9 FEB)
 - All sprint items complete! Ready for next sprint.
 
 ## Completed This Session / Archive
+- **Feb 9**: Added 4 Adepta Sororitas faction-specific requisitions (honor system) with inline faction header. Refactored Rearm and Resupply to generic honor-system modal. Extensible for future factions.
 - **Feb 9**: Added Black Templars (4+4 base SM) and Imperial Agents (5) faction agendas — 9 new agendas across 2 factions. All factions in factions_and_detachments.json now have agenda coverage (except Chaos Daemons — no faction-specific agendas).
 
 ## Next After This Sprint
