@@ -5,7 +5,7 @@
 
 ## Current Focus: BUGS AND ENHANCEMENTS
 - Read BACKLOG.md and work on all BUG, ENH, and FEA items as needed.
-- Generate workflows for properly implementing the faction-specific Requisitions - ask for clarity as needed since these can be complicated to introduce.
+- Replace the current Adepta Sororitas Requisitions with the CORRECT ones currently in the BACKLOG.  These should have more capability to implement.  Bear in mind we will need requisitions for all factions, make sure we're not going to create a monolithic file as more reqs get added.
   
 ### Current Work: Bugs and Enhancements (9 FEB)
 - All sprint items complete! Ready for next sprint.
