@@ -1,0 +1,46 @@
+{
+  "faction": "Imperial Knights",
+  "agendas": [
+    {
+      "id": "sally_forth",
+      "name": "Sally Forth",
+      "type": "tally",
+      "description": "At battle end, each IMPERIAL KNIGHTS unit wholly within the opponent's deployment zone gains 2XP. If 3+ units qualify, gain +1 Chivalric Quest tally.",
+      "xpPerTally": 2
+    },
+    {
+      "id": "break_their_will",
+      "name": "Break Their Will",
+      "type": "objective",
+      "description": "At battle end, if more than half of opponent's units are destroyed, Below Half-strength, or Battle-shocked, select up to 3 non-destroyed IMPERIAL KNIGHTS units for 2XP each. If all opponent units qualify, gain +1 Chivalric Quest tally.",
+      "maxTier": 1,
+      "maxUnits": 3,
+      "xpPerTier": 2
+    },
+    {
+      "id": "petitioned_for_aid",
+      "name": "Petitioned for Aid",
+      "type": "tally",
+      "description": "Pre-game: opponent selects a No Man's Land objective. Each turn you control it, select one IMPERIAL KNIGHTS unit in range for 1XP. At battle end, if you control it with no enemy within 6\", gain +1 Chivalric Quest tally.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "honour_must_be_satisfied",
+      "name": "Honour Must Be Satisfied",
+      "type": "objective",
+      "description": "Pre-game: opponent selects one of their MONSTER, VEHICLE, or CHARACTER units. If destroyed by an IMPERIAL KNIGHTS unit in melee, the destroyer gains 2XP. If destroyed by round 3, gain +1 Chivalric Quest tally.",
+      "maxTier": 1,
+      "maxUnits": 1,
+      "xpPerTier": 2
+    },
+    {
+      "id": "death_before_dishonour",
+      "name": "Death Before Dishonour",
+      "type": "objective",
+      "description": "Only available if Dishonoured or you have Burden units. Pre-game: select one unit. Completed if it: destroys 3+ enemy units, destroys the enemy WARLORD, or ends on a controlled objective in the opponent's deployment zone. On success: 3XP, remove 1 Burden. If the WARLORD, the force is no longer Dishonoured and may swear a new Quest.",
+      "maxTier": 1,
+      "maxUnits": 1,
+      "xpPerTier": 3
+    }
+  ]
+}

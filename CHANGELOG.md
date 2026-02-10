@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Emperor's Children Agendas** — 4 faction-specific agendas: Excess of Indulgence, Flawless Performance, Perfect the Art, Captive Audience.
+- **Genestealer Cults Agendas** — 5 faction-specific agendas: Genestealer's Kiss, Silence Detractor, Telepathic Domination, Prepared for the Ordeal, Topple the False Temple.
+- **Imperial Knights Agendas** — 5 faction-specific agendas: Sally Forth, Break Their Will, Petitioned for Aid, Honour Must Be Satisfied, Death Before Dishonour.
+- **Leagues of Votann Agendas** — 4 faction-specific agendas: Prospecting, Yield Prophecy, Exhaustive Pursuit, Debt to Be Paid.
+- **T'au Empire Agendas** — 4 faction-specific agendas: Coordinated Strike, Decisive Strike, For the Greater Good, Targeted Elimination.
 - **Adeptus Mechanicus Agendas** — 5 faction-specific agendas (AdMech-FEA-001 to 005): Cold Logic (Imperative ranged destroy tally), Tech Scavengers (Vehicle target + Archeotech), Omnissiah's Will (Command phase activation), Break the Seals (CHARACTER objective task + D6), Claim Legendary Archeotech (marker control).
 - **Astra Militarum Agendas** — 5 faction-specific agendas (AM-FEA-006 to 010): Advance For the Emperor! (deployment zone push), Propaganda Targets (Extermination Targets), Inspired Command (Officer Order tally), Hold the Line (deployment defense), Arming the Assault (objective securing).
 - **Chaos Space Marines Agendas** — 6 faction-specific agendas (CSM-FEA-001 to 006): Claim and Despoil (warband prizes + Warfleet Glory), Blasphemous Ritual (Dark Pact tally + Dark God Glory), Path to Glory (Champion conditions + Personal Glory), plus 3 Glory Agendas (Warlord's Glory, Glory of the Gods, Glory of Conquest).

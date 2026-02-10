@@ -1,0 +1,44 @@
+{
+  "faction": "Genestealer Cults",
+  "agendas": [
+    {
+      "id": "genestealers_kiss",
+      "name": "Genestealer's Kiss",
+      "type": "tally",
+      "description": "Each time a PATRIARCH or PURESTRAIN GENESTEALERS unit destroys an enemy unit, it gains 1XP. If on the Path of Ascension and total 3+ XP gained from this agenda, add 1 to your next Setback roll.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "silence_detractor",
+      "name": "Silence Detractor",
+      "type": "objective",
+      "description": "Pre-game: opponent selects one of their CHARACTERs as the Detractor. If destroyed by a GSC unit with SANCTUS, LOCUS, KELERMORPH, or JACKAL ALPHUS keyword, the Detractor is silenced: subtract 1 from your next Setback roll.",
+      "maxTier": 1,
+      "maxUnits": 1,
+      "xpPerTier": 2
+    },
+    {
+      "id": "telepathic_domination",
+      "name": "Telepathic Domination",
+      "type": "tally",
+      "description": "During Shooting phase, task an eligible PSYKER unit (no shoot/charge). At end of turn, if within 18\" of opponent's battlefield edge: 1XP. If total 2+ XP gained, add +1 to your next Setback roll.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "prepared_for_the_ordeal",
+      "name": "Prepared for the Ordeal",
+      "type": "tally",
+      "description": "During Shooting phase, task a BATTLELINE unit in a terrain feature not already Prepared (no shoot/charge). Next turn, if still in that terrain: 2XP, feature becomes Prepared. If 3+ features Prepared, you are Prepared for the Ordeal (+2 starting CP in the Great Ordeal).",
+      "xpPerTally": 2
+    },
+    {
+      "id": "topple_the_false_temple",
+      "name": "Topple the False Temple",
+      "type": "objective",
+      "description": "Pre-game: opponent selects a Ruins terrain feature as the false temple. During Shooting phase, task a BATTLELINE or REDUCTUS SABOTEUR unit in the temple (no shoot/charge). Next Command phase, if still in the temple: topple it (true line of sight applies), unit gains 4XP.",
+      "maxTier": 1,
+      "maxUnits": 1,
+      "xpPerTier": 4
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "faction": "Leagues of Votann",
+  "agendas": [
+    {
+      "id": "prospecting",
+      "name": "Prospecting",
+      "type": "tally",
+      "description": "At battle end, for each battlefield edge (not your own), select one LEAGUES OF VOTANN unit wholly within 9\" of that edge and not within 9\" of another edge: it gains 2XP. If total 4+ XP gained, the force gains +20 raw minerals.",
+      "xpPerTally": 2
+    },
+    {
+      "id": "yield_prophecy",
+      "name": "Yield Prophecy",
+      "type": "objective",
+      "description": "Pre-game: declare a Yield points number. At battle end, compare to actual: exact match = WARLORD gains 3XP; within 1 = 2XP; within 2 = 1XP. If WARLORD gains 2+ XP, the force gains +20 galactic intel.",
+      "maxTier": 1,
+      "xpPerTier": 3
+    },
+    {
+      "id": "exhaustive_pursuit",
+      "name": "Exhaustive Pursuit",
+      "type": "tally",
+      "description": "Each time you gain control of a previously uncontrolled objective, it becomes Searched. Select one LEAGUES OF VOTANN unit in range for 2XP (max 4XP per unit). If all objectives are Searched, choose a resource type; if total 6+ XP, gain +20 energy sources.",
+      "xpPerTally": 2,
+      "maxXp": 4
+    },
+    {
+      "id": "debt_to_be_paid",
+      "name": "Debt to Be Paid",
+      "type": "tally",
+      "description": "Each time a scarred LEAGUES OF VOTANN unit destroys an enemy unit, it gains 2XP (3XP if you have fought this opponent before). If total 4+ XP gained, the force gains +20 biomatter.",
+      "xpPerTally": 2
+    }
+  ]
+}

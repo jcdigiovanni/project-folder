@@ -20,6 +20,11 @@
 - **DATA-001 (Medium)**: Full Deathwatch unit data (MFM v3.8 page 19 reference; extract points/flags like prior factions – generate externally)
 
 ## Archived/Resolved This Sprint
+- **EC-FEA-001–004 (Medium)**: Added 4 Emperor's Children faction agendas — Excess of Indulgence, Flawless Performance, Perfect the Art, Captive Audience.
+- **GSC-FEA-001–005 (Medium)**: Added 5 Genestealer Cults faction agendas — Genestealer's Kiss, Silence Detractor, Telepathic Domination, Prepared for the Ordeal, Topple the False Temple.
+- **IK-FEA-001–005 (Medium)**: Added 5 Imperial Knights faction agendas — Sally Forth, Break Their Will, Petitioned for Aid, Honour Must Be Satisfied, Death Before Dishonour.
+- **VOT-FEA-001–004 (Medium)**: Added 4 Leagues of Votann faction agendas — Prospecting, Yield Prophecy, Exhaustive Pursuit, Debt to Be Paid.
+- **TAU-FEA-001–004 (Medium)**: Added 4 T'au Empire faction agendas — Coordinated Strike, Decisive Strike, For the Greater Good, Targeted Elimination.
 - **AdMech-FEA-001–005 (Medium)**: Added 5 Adeptus Mechanicus faction agendas — Cold Logic, Tech Scavengers, Omnissiah's Will, Break the Seals, Claim Legendary Archeotech.
 - **AM-FEA-006–010 (Medium)**: Added 5 Astra Militarum faction agendas — Advance For the Emperor!, Propaganda Targets, Inspired Command, Hold the Line, Arming the Assault.
 - **CSM-FEA-001–006 (Medium)**: Added 6 Chaos Space Marines faction agendas — Claim and Despoil, Blasphemous Ritual, Path to Glory, Warlord's Glory, Glory of the Gods, Glory of Conquest.
