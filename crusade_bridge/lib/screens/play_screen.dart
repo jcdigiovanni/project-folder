@@ -631,7 +631,7 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
 
     // 2. Load faction-specific agendas if player has a faction
     if (playerFaction != null && playerFaction.isNotEmpty) {
-      final factionFileName = playerFaction.toLowerCase().replaceAll(' ', '_');
+      final factionFileName = playerFaction.toLowerCase().replaceAll(' ', '_').replaceAll("'", '');
       try {
         final factionJson = await DefaultAssetBundle.of(context).loadString('assets/data/agendas/$factionFileName.json');
         final factionData = json.decode(factionJson) as Map<String, dynamic>;
