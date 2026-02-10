@@ -1,0 +1,39 @@
+{
+  "faction": "Emperor's Children",
+  "agendas": [
+    {
+      "id": "excess_of_indulgence",
+      "name": "Excess of Indulgence",
+      "type": "objective",
+      "description": "Pre-game: select up to 3 EMPEROR'S CHILDREN units to become Indulged. At battle end, each Indulged unit that destroyed 1+ enemy units gains 2XP. If it destroyed 3+ enemy units, it gains 4XP instead.",
+      "maxTier": 2,
+      "maxUnits": 3,
+      "xpPerTier": 2
+    },
+    {
+      "id": "flawless_performance",
+      "name": "Flawless Performance",
+      "type": "objective",
+      "description": "At battle end, each EMPEROR'S CHILDREN unit that never failed a Battle-shock test and was not destroyed gains 3XP.",
+      "maxTier": 1,
+      "xpPerTier": 3
+    },
+    {
+      "id": "perfect_the_art",
+      "name": "Perfect the Art",
+      "type": "tally",
+      "description": "Each time an EMPEROR'S CHILDREN unit destroys an enemy unit in the Fight phase using only melee attacks, it gains 1XP (max 3XP per unit). If it destroys an enemy CHARACTER or MONSTER this way, it gains an additional 2XP.",
+      "xpPerTally": 1,
+      "maxXp": 3
+    },
+    {
+      "id": "captive_audience",
+      "name": "Captive Audience",
+      "type": "objective",
+      "description": "At battle end, if your opponent has 3+ units that are Battle-shocked, select up to 3 EMPEROR'S CHILDREN units. Each selected unit gains 2XP.",
+      "maxTier": 1,
+      "maxUnits": 3,
+      "xpPerTier": 2
+    }
+  ]
+}

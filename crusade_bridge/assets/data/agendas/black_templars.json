@@ -1,0 +1,69 @@
+{
+  "faction": "Black Templars",
+  "agendas": [
+    {
+      "id": "angels_of_death",
+      "name": "Angels of Death",
+      "type": "objective",
+      "description": "At battle end, if no enemy units remain on the battlefield, each ADEPTUS ASTARTES unit still on the battlefield gains 2XP. The force also gains 2 Honour points.",
+      "maxTier": 1,
+      "xpPerTier": 2
+    },
+    {
+      "id": "know_no_fear",
+      "name": "Know No Fear",
+      "type": "tally",
+      "description": "Post-game: each ADEPTUS ASTARTES unit that never failed a Battle-shock test gains 1XP (2XP if the unit was Below Half-strength at any point). Track Battle-shock pass/fail per unit during the game.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "armoured_assault",
+      "name": "Armoured Assault",
+      "type": "tally",
+      "description": "Post-game: each surviving ADEPTUS ASTARTES VEHICLE gains 1XP. Each destroyed VEHICLE that destroyed 2+ enemy units during the battle also gains 1XP.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "quest_of_atonement",
+      "name": "Quest of Atonement",
+      "type": "objective",
+      "description": "Pre-game: select 1 ADEPTUS ASTARTES unit with a Battle-weary, Disgraced, or Mark of Shame scar. If that unit destroyed an enemy Character, Monster, or Vehicle in melee, it loses 1 scar and gains 5XP.",
+      "maxTier": 1,
+      "maxUnits": 1,
+      "xpPerTier": 5
+    },
+    {
+      "id": "fulfil_your_vows",
+      "name": "Fulfil Your Vows",
+      "type": "tally",
+      "description": "At battle end, per vow: select 1 qualifying unit (up to 3 if matching vow was active). Accept Any Challenge: destroyed CHARACTER/MONSTER/VEHICLE. Suffer Not the Unclean: within range of previously opponent-controlled objective. Uphold the Honour: wholly in opponent deployment zone. Abhor the Witch: destroyed PSYKER. Each selected unit gains 1XP (max 3XP per unit). If 2+ units selected for a vow, gain 2 Honour points.",
+      "xpPerTally": 1,
+      "maxXp": 3
+    },
+    {
+      "id": "reconsecration",
+      "name": "Reconsecration",
+      "type": "tally",
+      "description": "Post-deployment: opponent selects one objective not in their deployment zone as the Holy Relic. At end of your turn, if you control the Holy Relic, select one ADEPTUS ASTARTES unit in range for 3XP (max 3XP per unit). At battle end: if you control it, gain D3 Relic Fragments and 1 Honour point. If opponent controls it, you do not receive 1RP.",
+      "xpPerTally": 3,
+      "maxXp": 3
+    },
+    {
+      "id": "first_hand_experience",
+      "name": "First-Hand Experience",
+      "type": "tally",
+      "description": "Each time a CRUSADER SQUAD unit destroys an enemy unit, it gains 1XP (max 3XP per unit). At battle end: each unit that gained XP from this agenda gains an additional 1XP if it still contains Neophyte models. If 1+ units gained 2+ XP, the force gains 2 Honour points.",
+      "xpPerTally": 1,
+      "maxXp": 3
+    },
+    {
+      "id": "recovering_sacred_wargear",
+      "name": "Recovering Sacred Wargear",
+      "type": "objective",
+      "description": "At battle end, the player controlling the Sacred Wargear objective selects one unit in range for 3XP. If you do not control the Sacred Wargear at battle end, you lose 5 Honour points (minimum 0).",
+      "maxTier": 1,
+      "maxUnits": 1,
+      "xpPerTier": 3
+    }
+  ]
+}

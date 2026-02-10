@@ -1,0 +1,35 @@
+{
+  "faction": "T'au Empire",
+  "agendas": [
+    {
+      "id": "coordinated_strike",
+      "name": "Coordinated Strike",
+      "type": "tally",
+      "description": "Pre-game: select up to 3 T'AU EMPIRE units to be Guided. Each time a Guided unit destroys a Spotted enemy unit, the Guided unit gains 2XP.",
+      "xpPerTally": 2
+    },
+    {
+      "id": "decisive_strike",
+      "name": "Decisive Strike",
+      "type": "tally",
+      "description": "During the first battle round, each T'AU EMPIRE unit that destroys an enemy unit in the Shooting phase gains 2XP.",
+      "xpPerTally": 2
+    },
+    {
+      "id": "for_the_greater_good",
+      "name": "For the Greater Good",
+      "type": "tally",
+      "description": "Each time a Guided unit destroys a Spotted enemy unit while an Observer unit is within 6\", the Observer unit gains 1XP.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "targeted_elimination",
+      "name": "Targeted Elimination",
+      "type": "objective",
+      "description": "Pre-game: opponent selects one of their CHARACTER, MONSTER, or VEHICLE units as the target. If destroyed by a T'AU EMPIRE unit, the destroying unit gains 3XP.",
+      "maxTier": 1,
+      "maxUnits": 1,
+      "xpPerTier": 3
+    }
+  ]
+}

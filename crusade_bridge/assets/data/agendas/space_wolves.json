@@ -1,0 +1,58 @@
+{
+  "faction": "Space Wolves",
+  "agendas": [
+    {
+      "id": "angels_of_death",
+      "name": "Angels of Death",
+      "type": "objective",
+      "description": "At battle end, if no enemy units remain on the battlefield, each ADEPTUS ASTARTES unit still on the battlefield gains 2XP. The force also gains 2 Honour points.",
+      "maxTier": 1,
+      "xpPerTier": 2
+    },
+    {
+      "id": "know_no_fear",
+      "name": "Know No Fear",
+      "type": "tally",
+      "description": "Post-game: each ADEPTUS ASTARTES unit that never failed a Battle-shock test gains 1XP (2XP if the unit was Below Half-strength at any point). Track Battle-shock pass/fail per unit during the game.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "armoured_assault",
+      "name": "Armoured Assault",
+      "type": "tally",
+      "description": "Post-game: each surviving ADEPTUS ASTARTES VEHICLE gains 1XP. Each destroyed VEHICLE that destroyed 2+ enemy units during the battle also gains 1XP.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "quest_of_atonement",
+      "name": "Quest of Atonement",
+      "type": "objective",
+      "description": "Pre-game: select 1 ADEPTUS ASTARTES unit with a Battle-weary, Disgraced, or Mark of Shame scar. If that unit destroyed an enemy Character, Monster, or Vehicle in melee, it loses 1 scar and gains 5XP.",
+      "maxTier": 1,
+      "maxUnits": 1,
+      "xpPerTier": 5
+    },
+    {
+      "id": "show_them_how_we_fight",
+      "name": "Show Them How We Fight",
+      "type": "tally",
+      "description": "Each time an enemy unit is destroyed by a WOLF GUARD unit, select one friendly BLOOD CLAWS unit within 6\"; that unit gains 1XP. For each BLOOD CLAWS unit that gained 2+ XP from this agenda, the force gains 2 Honour points.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "savage_fury",
+      "name": "Savage Fury",
+      "type": "tally",
+      "description": "Each time an enemy unit is destroyed by a melee attack made by a SPACE WOLVES unit, that unit gains 1XP. Max 3XP per unit from this agenda.",
+      "xpPerTally": 1,
+      "maxXp": 3
+    },
+    {
+      "id": "howls_of_vengeance",
+      "name": "Howls of Vengeance",
+      "type": "tally",
+      "description": "Each time an enemy unit that has destroyed one or more of your units is itself destroyed by a SPACE WOLVES unit, that unit gains 2XP. At battle end, if 3+ such vengeance destroys were made, the force gains 4 Honour points.",
+      "xpPerTally": 2
+    }
+  ]
+}

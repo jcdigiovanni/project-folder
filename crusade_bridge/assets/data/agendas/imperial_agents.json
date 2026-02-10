@@ -1,0 +1,44 @@
+{
+  "faction": "Imperial Agents",
+  "agendas": [
+    {
+      "id": "aggressive_negotiation",
+      "name": "Aggressive Negotiation",
+      "type": "tally",
+      "description": "Post-deployment: opponent selects one objective not in their deployment zone as the Acquisition Target. At end of your turn, if you control it, select one AGENTS OF THE IMPERIUM unit in range for 1XP. At battle end, if you control it: gain D3 Influence points and select one non-Epic Hero AGENTS OF THE IMPERIUM CHARACTER for 1 Weapon Modification or 1 Crusade Relic.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "strategic_excruciation",
+      "name": "Strategic Excruciation",
+      "type": "tally",
+      "description": "Each time an AGENTS OF THE IMPERIUM unit destroys an enemy unit with a melee attack, it gains 1XP (max 3XP per battle). If the destroyed unit was a CHARACTER, gain 1 Intrigue point. If it was the opponent's WARLORD, gain D3 Intrigue points instead.",
+      "xpPerTally": 1,
+      "maxXp": 3
+    },
+    {
+      "id": "execution_order",
+      "name": "Execution Order",
+      "type": "objective",
+      "description": "At battle end, if the opponent's WARLORD has been destroyed, select one AGENTS OF THE IMPERIUM CHARACTER unit for 3XP. You also gain 1 Investigation point.",
+      "maxTier": 1,
+      "maxUnits": 1,
+      "xpPerTier": 3
+    },
+    {
+      "id": "clandestine_infiltration",
+      "name": "Clandestine Infiltration",
+      "type": "tally",
+      "description": "At end of your turn, select one AGENTS OF THE IMPERIUM unit wholly within your opponent's deployment zone for 1XP. At battle end, if 1+ AGENTS OF THE IMPERIUM units are wholly within 6\" of your opponent's battlefield edge, gain D3 Intrigue points.",
+      "xpPerTally": 1
+    },
+    {
+      "id": "long_vigil",
+      "name": "Long Vigil",
+      "type": "objective",
+      "description": "At battle end: if no opponent models are on the battlefield, each DEATHWATCH unit on the battlefield gains 2XP and you gain D3 Influence points. If opponent models are on the battlefield but none are in your deployment zone, each DEATHWATCH unit gains 1XP and you gain 1 Influence point.",
+      "maxTier": 2,
+      "xpPerTier": 1
+    }
+  ]
+}
