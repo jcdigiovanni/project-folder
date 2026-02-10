@@ -57,27 +57,13 @@ class RequisitionScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 12),
                 _RequisitionOption(
-                  title: 'Battle Honours',
-                  description: 'Grant a Battle Honour to one of your units',
-                  cost: 1,
-                  icon: Icons.military_tech,
-                  color: Colors.amber,
-                  enabled: false, // Coming soon
-                  onTap: () {
-                    SnackBarUtils.showMessage(context, 'Coming soon');
-                  },
-                ),
-                const SizedBox(height: 12),
-                _RequisitionOption(
                   title: 'Rearm and Resupply',
-                  description: 'Swap wargear before a battle (requires wargear data)',
+                  description: 'Swap wargear on a unit before battle (honor system)',
                   cost: 1,
                   icon: Icons.build,
                   color: Colors.purple,
-                  enabled: false, // Requires wargear data layer
-                  onTap: () {
-                    SnackBarUtils.showMessage(context, 'Coming soon - requires wargear data');
-                  },
+                  enabled: currentCrusade.rp >= 1,
+                  onTap: () => _showRearmAndResupplyModal(context, ref, currentCrusade),
                 ),
                 const SizedBox(height: 12),
                 _RequisitionOption(
@@ -453,6 +439,165 @@ class RequisitionScreen extends ConsumerWidget {
   }
 
   // ============ REPAIR AND RECUPERATE ============
+
+  void _showRearmAndResupplyModal(BuildContext context, WidgetRef ref, Crusade crusade) {
+    // Gather all units (flatten groups)
+    final List<UnitOrGroup> allUnits = [];
+    for (final item in crusade.oob) {
+      if (item.type == 'group' && item.components != null) {
+        allUnits.addAll(item.components!);
+      } else {
+        allUnits.add(item);
+      }
+    }
+
+    if (allUnits.isEmpty) {
+      SnackBarUtils.showMessage(context, 'No units in Order of Battle');
+      return;
+    }
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.6,
+        minChildSize: 0.3,
+        maxChildSize: 0.9,
+        expand: false,
+        builder: (context, scrollController) => Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Rearm and Resupply',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        'Select a unit to swap wargear (1 RP)',
+                        style: TextStyle(color: Colors.grey, fontSize: 14),
+                      ),
+                    ],
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.pop(context),
+                    tooltip: 'Close',
+                  ),
+                ],
+              ),
+            ),
+            const Divider(height: 1),
+            Expanded(
+              child: ListView.builder(
+                controller: scrollController,
+                itemCount: allUnits.length,
+                itemBuilder: (context, index) {
+                  final unit = allUnits[index];
+                  return ListTile(
+                    leading: Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: Colors.purple.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Icon(Icons.build, color: Colors.purple),
+                    ),
+                    title: Text(unit.customName ?? unit.name),
+                    subtitle: Text(unit.name),
+                    trailing: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFFF59D).withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: const Color(0xFFFFF59D)),
+                      ),
+                      child: const Text(
+                        '1 RP',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFFFF59D),
+                        ),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      _confirmRearmAndResupply(context, ref, crusade, unit);
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _confirmRearmAndResupply(BuildContext context, WidgetRef ref, Crusade crusade, UnitOrGroup unit) {
+    final unitDisplayName = unit.customName ?? unit.name;
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Rearm and Resupply'),
+        content: Text('Spend 1 RP to swap wargear on $unitDisplayName?\n\nUpdate the unit\'s wargear on the tabletop as needed.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              final event = CrusadeEvent.create(
+                type: CrusadeEventType.requisition,
+                description: 'Rearm and Resupply: Wargear swapped on $unitDisplayName',
+                metadata: {
+                  'requisition': 'rearm_and_resupply',
+                  'rpCost': 1,
+                  'unitName': unit.name,
+                  'unitCustomName': unit.customName,
+                },
+              );
+
+              final updatedCrusade = Crusade(
+                id: crusade.id,
+                name: crusade.name,
+                faction: crusade.faction,
+                detachment: crusade.detachment,
+                supplyLimit: crusade.supplyLimit,
+                rp: crusade.rp - 1,
+                armyIconPath: crusade.armyIconPath,
+                factionIconAsset: crusade.factionIconAsset,
+                oob: crusade.oob,
+                templates: crusade.templates,
+                lastModified: DateTime.now().millisecondsSinceEpoch,
+                usedFirstCharacterEnhancement: crusade.usedFirstCharacterEnhancement,
+                history: [...crusade.history, event],
+                rosters: crusade.rosters,
+                games: crusade.games,
+              );
+
+              ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
+
+              Navigator.pop(context);
+              SnackBarUtils.showSuccess(
+                context,
+                'Wargear swapped on $unitDisplayName (-1 RP)',
+              );
+            },
+            child: const Text('Confirm'),
+          ),
+        ],
+      ),
+    );
+  }
 
   bool _hasUnitsWithScars(Crusade crusade) {
     for (final item in crusade.oob) {
