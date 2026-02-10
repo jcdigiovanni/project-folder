@@ -119,6 +119,34 @@ class CurrentCrusadeNotifier extends StateNotifier<Crusade?> {
     }
   }
 
+  /// Replace a unit in the OOB by ID (supports top-level and group components).
+  /// Used by faction requisitions that upgrade/convert units (e.g. Ascension to the Order).
+  void replaceUnit(String oldUnitId, UnitOrGroup newUnit) {
+    if (state == null) return;
+
+    final updatedOob = List<UnitOrGroup>.from(state!.oob);
+    // Check top-level
+    final topIndex = updatedOob.indexWhere((u) => u.id == oldUnitId);
+    if (topIndex != -1) {
+      updatedOob[topIndex] = newUnit;
+    } else {
+      // Check inside groups
+      for (int i = 0; i < updatedOob.length; i++) {
+        final item = updatedOob[i];
+        if (item.type == 'group' && item.components != null) {
+          final compIndex = item.components!.indexWhere((c) => c.id == oldUnitId);
+          if (compIndex != -1) {
+            item.components![compIndex] = newUnit;
+            break;
+          }
+        }
+      }
+    }
+
+    state = _copyWith(oob: updatedOob);
+    StorageService.saveCrusade(state!);
+  }
+
   /// Update RP amount
   void updateRp(int newRp) {
     if (state == null) return;

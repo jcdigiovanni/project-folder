@@ -228,6 +228,25 @@ class UnitOrGroup {
   @HiveField(22)
   String? crusadeRelic; // Crusade Relic (Characters only, limit 1)
 
+  // Generic faction-specific tracking fields — mapped per faction
+  // e.g. Adepta Sororitas: factionPoints1=Saint Points, factionPoints2=Martyr Points, factionPoints3=Redemption Points
+  @HiveField(23)
+  int factionPoints1;
+
+  @HiveField(24)
+  int factionPoints2;
+
+  @HiveField(25)
+  int factionPoints3;
+
+  // Generic faction-specific boolean flags — mapped per faction
+  // e.g. Adepta Sororitas: factionFlag1=usedInSufferingEnlightenment, factionFlag2=dealersOfDeathBonus
+  @HiveField(26)
+  bool factionFlag1;
+
+  @HiveField(27)
+  bool factionFlag2;
+
   UnitOrGroup({
     required this.id,
     required this.type,
@@ -252,6 +271,11 @@ class UnitOrGroup {
     List<String>? battleTraits,
     List<String>? weaponEnhancements,
     this.crusadeRelic,
+    int? factionPoints1,
+    int? factionPoints2,
+    int? factionPoints3,
+    bool? factionFlag1,
+    bool? factionFlag2,
   })  : xp = xp ?? 0,
         honours = honours ?? [],
         scars = scars ?? [],
@@ -260,7 +284,12 @@ class UnitOrGroup {
         tallies = tallies ?? {'played': 0, 'survived': 0, 'destroyed': 0},
         pendingRankUp = pendingRankUp ?? false,
         battleTraits = battleTraits ?? [],
-        weaponEnhancements = weaponEnhancements ?? [];
+        weaponEnhancements = weaponEnhancements ?? [],
+        factionPoints1 = factionPoints1 ?? 0,
+        factionPoints2 = factionPoints2 ?? 0,
+        factionPoints3 = factionPoints3 ?? 0,
+        factionFlag1 = factionFlag1 ?? false,
+        factionFlag2 = factionFlag2 ?? false;
 
   // Calculate rank based on XP (Epic Heroes don't gain XP)
   String get rank {
@@ -305,6 +334,11 @@ class UnitOrGroup {
       'battleTraits': battleTraits,
       'weaponEnhancements': weaponEnhancements,
       'crusadeRelic': crusadeRelic,
+      'factionPoints1': factionPoints1,
+      'factionPoints2': factionPoints2,
+      'factionPoints3': factionPoints3,
+      'factionFlag1': factionFlag1,
+      'factionFlag2': factionFlag2,
     };
   }
 
@@ -334,8 +368,43 @@ class UnitOrGroup {
       battleTraits: (json['battleTraits'] as List<dynamic>?)?.cast<String>(),
       weaponEnhancements: (json['weaponEnhancements'] as List<dynamic>?)?.cast<String>(),
       crusadeRelic: json['crusadeRelic'] as String?,
+      factionPoints1: json['factionPoints1'] as int?,
+      factionPoints2: json['factionPoints2'] as int?,
+      factionPoints3: json['factionPoints3'] as int?,
+      factionFlag1: json['factionFlag1'] as bool?,
+      factionFlag2: json['factionFlag2'] as bool?,
     );
   }
+}
+
+/// Maps generic factionPoints/factionFlag fields to human-readable labels per faction.
+/// Used by faction-specific requisition UIs to display meaningful field names.
+class FactionFieldLabels {
+  final String? points1Label; // e.g. "Saint Points"
+  final String? points2Label; // e.g. "Martyr Points"
+  final String? points3Label; // e.g. "Redemption Points"
+  final String? flag1Label;   // e.g. "Used In Suffering, Enlightenment"
+  final String? flag2Label;   // e.g. "Dealers of Death Bonus"
+
+  const FactionFieldLabels({
+    this.points1Label,
+    this.points2Label,
+    this.points3Label,
+    this.flag1Label,
+    this.flag2Label,
+  });
+
+  static const Map<String, FactionFieldLabels> factionMap = {
+    'Adepta Sororitas': FactionFieldLabels(
+      points1Label: 'Saint Points',
+      points2Label: 'Martyr Points',
+      points3Label: 'Redemption Points',
+      flag1Label: 'Used In Suffering, Enlightenment',
+      flag2Label: 'Dealers of Death Bonus',
+    ),
+  };
+
+  static FactionFieldLabels? forFaction(String faction) => factionMap[faction];
 }
 
 /// Represents a detachment enhancement that can be purchased for character units

@@ -11,6 +11,7 @@
 - All sprint items complete! Ready for next sprint.
 
 ## Completed This Session / Archive
+- **Feb 9-10**: Replaced 4 incorrect Sororitas honor-system requisitions with 6 correct full-mechanics versions (FEA-001–006): Divine Calling, Ascension to the Order, The Penitent Path, Glorious Redemption, In Suffering Enlightenment, Saintly Benedictions. Added generic faction tracking fields to UnitOrGroup model. Extracted shared RequisitionOption widget and honor-system utils. Separate faction requisition file architecture.
 - **Feb 9**: Added 4 Adepta Sororitas faction-specific requisitions (honor system) with inline faction header. Refactored Rearm and Resupply to generic honor-system modal. Extensible for future factions.
 - **Feb 9**: Added Black Templars (4+4 base SM) and Imperial Agents (5) faction agendas — 9 new agendas across 2 factions. All factions in factions_and_detachments.json now have agenda coverage (except Chaos Daemons — no faction-specific agendas).
 
