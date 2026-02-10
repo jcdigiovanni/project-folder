@@ -20,6 +20,8 @@
 - **DATA-001 (Medium)**: Full Deathwatch unit data (MFM v3.8 page 19 reference; extract points/flags like prior factions – generate externally)
 
 ## Archived/Resolved This Sprint
+- **BT-FEA-001–004 (Medium)**: Added 4 Black Templars agendas (+ 4 base SM) — Fulfil Your Vows, Reconsecration, First-Hand Experience, Recovering Sacred Wargear.
+- **IA-FEA-001–005 (Medium)**: Added 5 Imperial Agents agendas — Aggressive Negotiation, Strategic Excruciation, Execution Order, Clandestine Infiltration, Long Vigil.
 - **DW-FEA-001–004 (Medium)**: Added 4 Deathwatch agendas (+ 4 base SM) — A Deadly Prize, Furor Tactics, Malleus Tactics, Purgatus Tactics.
 - **BA-FEA-001–004 (Medium)**: Added 4 Blood Angels agendas (+ 4 base SM) — For Baal and the Angel!, Search for the Cure, Against the Darkness, Liberators from Tyranny.
 - **DA-FEA-001–004 (Medium)**: Added 4 Dark Angels agendas (+ 4 base SM) — Interrogate the Mysterious Figure, Encircle the Foe, The Deathwing Cometh, Mental Interrogation.

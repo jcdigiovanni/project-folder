@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Black Templars Agendas** — 4 chapter-specific agendas + 4 base Space Marine agendas: Fulfil Your Vows, Reconsecration, First-Hand Experience, Recovering Sacred Wargear.
+- **Imperial Agents Agendas** — 5 faction-specific agendas: Aggressive Negotiation, Strategic Excruciation, Execution Order, Clandestine Infiltration, Long Vigil.
 - **Deathwatch Agendas** — 4 chapter-specific agendas + 4 base Space Marine agendas: A Deadly Prize, Furor Tactics, Malleus Tactics, Purgatus Tactics.
 - **Blood Angels Agendas** — 4 chapter-specific agendas + 4 base Space Marine agendas: For Baal and the Angel!, Search for the Cure, Against the Darkness, Liberators from Tyranny.
 - **Dark Angels Agendas** — 4 chapter-specific agendas + 4 base Space Marine agendas: Interrogate the Mysterious Figure, Encircle the Foe, The Deathwing Cometh, Mental Interrogation.
