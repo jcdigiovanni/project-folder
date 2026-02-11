@@ -2,39 +2,33 @@
   "trials": [
     {
       "id": 1,
-      "name": "Trial of Humility",
-      "description": "Gain 1 Saint point each time this model is targeted by an enemy unit's attack and survives.",
-      "requiredPoints": 5
+      "name": "Trial of Faith",
+      "description": "Beacon of Divine Grace: Gain 2 Saint points at the end of a battle if this model performed 3 or more Acts of Faith during that battle.\n\nMiraculous Feat: Gain 1 Saint point at the end of a battle for each Miracle dice remaining in your Miracle Dice pool (max 2 Saint points).",
+      "requiredPoints": 10
     },
     {
       "id": 2,
-      "name": "Trial of Purity",
-      "description": "Gain 1 Saint point each time this model destroys an enemy PSYKER unit.",
-      "requiredPoints": 3
+      "name": "Trial of Suffering",
+      "description": "Scars of the Penitent: Gain 3 Saint points each time this model gains a Martyr point.\n\nMartyr's Wounds: Gain 1 Saint point at the end of a battle if this model is below its Starting Strength. Gain 2 Saint points instead if this model was destroyed while within range of an objective marker.",
+      "requiredPoints": 10
     },
     {
       "id": 3,
-      "name": "Trial of Zeal",
-      "description": "Gain 1 Saint point each time this model destroys an enemy unit in the Fight phase.",
-      "requiredPoints": 5
+      "name": "Trial of Purity",
+      "description": "Consecrate Ground: Gain 2 Saint points at the end of a battle if this model is within 6\" of the centre of the battlefield.\n\nDivine Will: Gain 2 Saint points at the end of a battle if this model's unit did not fail a Battle-shock test during that battle.",
+      "requiredPoints": 10
     },
     {
       "id": 4,
-      "name": "Trial of Faith",
-      "description": "Gain 1 Saint point each time this model performs an Act of Faith.",
-      "requiredPoints": 6
+      "name": "Trial of Righteousness",
+      "description": "Slay the Demagogue: Gain 2 Saint points at the end of a battle if this model destroyed one or more enemy CHARACTER units during that battle. Gain an additional 2 Saint points if one contained the enemy WARLORD.\n\nSmite the Unbelievers: Gain 2 Saint points at the end of a battle if this model destroyed 5 or more enemy models during that battle.",
+      "requiredPoints": 10
     },
     {
       "id": 5,
-      "name": "Trial of Sacrifice",
-      "description": "Gain 1 Saint point each time this model suffers a Devastating Blow.",
-      "requiredPoints": 3
-    },
-    {
-      "id": 6,
-      "name": "Trial of Martyrdom",
-      "description": "Gain 1 Saint point each time this model is destroyed.",
-      "requiredPoints": 2
+      "name": "Trial of Valour",
+      "description": "Holy Crusader: Gain 3 Saint points at the end of a battle if this model is wholly within your opponent's deployment zone.\n\nPious Reputation: Gain 2 Saint points at the end of a battle if this model gained more XP than any other unit from your Crusade army during that battle.",
+      "requiredPoints": 10
     }
   ]
 }

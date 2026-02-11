@@ -880,9 +880,9 @@ void _showInSufferingForm(BuildContext context, WidgetRef ref, Crusade crusade, 
   final trialId = unit.tallies[ProgressionKeys.trialId] ?? 0;
   bool isSaintPotentia = trialId > 0;
 
-  // Trials of Sacrifice (5) and Martyrdom (6) grant a bonus Saint Point
+  // Trial of Suffering (2) grants a bonus Saint Point
   // because auto-failing OOA counts as suffering / being destroyed
-  final hasTrialBonus = trialId == 5 || trialId == 6;
+  final hasTrialBonus = trialId == 2;
 
   showDialog(
     context: context,
