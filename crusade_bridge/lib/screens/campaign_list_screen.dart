@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../models/crusade_models.dart';
 import '../providers/campaign_provider.dart';
+import '../utils/input_sanitizer.dart';
 import '../utils/snackbar_utils.dart';
 
 class CampaignListScreen extends ConsumerWidget {
@@ -131,6 +132,7 @@ class CampaignListScreen extends ConsumerWidget {
           children: [
             TextField(
               controller: nameController,
+              inputFormatters: nameFormatters,
               decoration: const InputDecoration(
                 labelText: 'Campaign Name',
                 hintText: 'e.g., The Armageddon Crusade',
@@ -140,6 +142,7 @@ class CampaignListScreen extends ConsumerWidget {
             const SizedBox(height: 16),
             TextField(
               controller: descriptionController,
+              inputFormatters: notesFormatters,
               decoration: const InputDecoration(
                 labelText: 'Description (optional)',
                 hintText: 'A brief description of the campaign...',

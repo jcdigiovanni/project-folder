@@ -8,6 +8,7 @@ import '../models/faction_crusade_system.dart';
 import '../providers/crusade_provider.dart';
 import '../services/google_drive_service.dart';
 import '../utils/game_state_utils.dart';
+import '../utils/input_sanitizer.dart';
 import '../utils/game_update_mixin.dart';
 import '../widgets/tally_progress_bar.dart';
 
@@ -1650,6 +1651,7 @@ class _NotesSection extends StatelessWidget {
         const SizedBox(height: 12),
         TextField(
           controller: controller,
+          inputFormatters: notesFormatters,
           onChanged: onChanged,
           maxLines: 3,
           decoration: InputDecoration(

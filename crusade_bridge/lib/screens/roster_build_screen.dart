@@ -4,8 +4,9 @@ import 'package:go_router/go_router.dart';
 
 import '../models/crusade_models.dart';
 import '../providers/crusade_provider.dart';
-import '../widgets/army_avatar.dart';
+import '../utils/input_sanitizer.dart';
 import '../utils/snackbar_utils.dart';
+import '../widgets/army_avatar.dart';
 
 class RosterBuildScreen extends ConsumerStatefulWidget {
   final String rosterId;
@@ -98,6 +99,7 @@ class _RosterBuildScreenState extends ConsumerState<RosterBuildScreen> {
                 // Roster name field
                 TextField(
                   controller: _nameController,
+                  inputFormatters: nameFormatters,
                   decoration: const InputDecoration(
                     labelText: 'Roster Name',
                     border: OutlineInputBorder(),

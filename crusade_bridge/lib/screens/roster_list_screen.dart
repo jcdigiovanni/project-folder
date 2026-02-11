@@ -4,8 +4,9 @@ import 'package:go_router/go_router.dart';
 
 import '../models/crusade_models.dart';
 import '../providers/crusade_provider.dart';
-import '../widgets/army_avatar.dart';
+import '../utils/input_sanitizer.dart';
 import '../utils/snackbar_utils.dart';
+import '../widgets/army_avatar.dart';
 
 class RosterListScreen extends ConsumerWidget {
   const RosterListScreen({super.key});
@@ -115,6 +116,7 @@ class RosterListScreen extends ConsumerWidget {
         title: const Text('Create New Roster'),
         content: TextField(
           controller: nameController,
+          inputFormatters: nameFormatters,
           decoration: const InputDecoration(
             labelText: 'Roster Name',
             hintText: 'e.g., Tournament List, 1000pt Strike Force',

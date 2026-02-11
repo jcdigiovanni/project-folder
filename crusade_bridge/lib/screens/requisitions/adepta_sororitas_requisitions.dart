@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/crusade_models.dart';
 import '../../models/faction_crusade_system.dart';
 import '../../providers/crusade_provider.dart';
+import '../../utils/input_sanitizer.dart';
 import '../../utils/snackbar_utils.dart';
 import '../../widgets/requisition_option.dart';
 import 'requisition_utils.dart';
@@ -686,6 +687,7 @@ void _enterBattleTrait(BuildContext context, WidgetRef ref, Crusade crusade, Uni
           const SizedBox(height: 12),
           TextField(
             controller: controller,
+            inputFormatters: nameFormatters,
             decoration: const InputDecoration(
               labelText: 'Battle Trait name',
               hintText: 'Enter the Battle Trait',
@@ -894,6 +896,7 @@ void _showInSufferingForm(BuildContext context, WidgetRef ref, Crusade crusade, 
               const SizedBox(height: 12),
               TextField(
                 controller: scarController,
+                inputFormatters: nameFormatters,
                 decoration: const InputDecoration(
                   labelText: 'Battle Scar gained',
                   hintText: 'Enter Battle Scar name',
@@ -904,6 +907,7 @@ void _showInSufferingForm(BuildContext context, WidgetRef ref, Crusade crusade, 
               const SizedBox(height: 12),
               TextField(
                 controller: honourController,
+                inputFormatters: nameFormatters,
                 decoration: const InputDecoration(
                   labelText: 'Battle Honour gained',
                   hintText: 'Enter Battle Honour name',
