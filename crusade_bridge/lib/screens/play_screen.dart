@@ -457,17 +457,18 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
           TextButton(
             onPressed: () {
               Navigator.pop(context);
+              context.go('/game/${activeGame.id}');
+            },
+            style: TextButton.styleFrom(foregroundColor: kAccentPink),
+            child: const Text('Return to Game'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
               _showEndBattleConfirmation(context, activeGame);
             },
             style: TextButton.styleFrom(foregroundColor: Colors.red.shade300),
             child: const Text('End Battle'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              context.go('/game/${activeGame.id}');
-            },
-            child: const Text('Return to Game'),
           ),
         ],
       ),
@@ -485,18 +486,16 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
               _endBattle(activeGame);
             },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red.shade700,
-            ),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
             child: const Text('End Battle'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
           ),
         ],
       ),
@@ -799,10 +798,6 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel'),
-            ),
-            ElevatedButton(
               // Allow starting without agendas if none are available, otherwise require selection
               onPressed: (selectedAgendas.isNotEmpty || availableAgendas.isEmpty)
                   ? () {
@@ -810,7 +805,12 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
                       _startGame(context, roster, totalPoints, totalCP, selectedAgendas);
                     }
                   : null,
+              style: TextButton.styleFrom(foregroundColor: kAccentPink),
               child: Text(availableAgendas.isEmpty ? 'Start Without Agendas' : 'Start Game'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
             ),
           ],
         ),

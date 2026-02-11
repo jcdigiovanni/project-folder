@@ -1620,11 +1620,6 @@ class OOBModifyScreen extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: system.color),
             onPressed: () {
               Navigator.pop(dialogContext);
               unit.tallies[ProgressionKeys.trialId] = trial.id;
@@ -1649,7 +1644,12 @@ class OOBModifyScreen extends ConsumerWidget {
                 );
               }
             },
-            child: const Text('Confirm', style: TextStyle(color: Colors.black)),
+            style: TextButton.styleFrom(foregroundColor: kAccentPink),
+            child: const Text('Confirm'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
           ),
         ],
       ),
@@ -1668,11 +1668,6 @@ class OOBModifyScreen extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             onPressed: () {
               Navigator.pop(dialogContext);
               unit.tallies.remove(ProgressionKeys.trialId);
@@ -1693,7 +1688,12 @@ class OOBModifyScreen extends ConsumerWidget {
                 );
               }
             },
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
             child: const Text('Remove'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
           ),
         ],
       ),
@@ -1784,15 +1784,16 @@ class _BattleHonourModalContentState extends ConsumerState<_BattleHonourModalCon
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
             onPressed: () {
               Navigator.pop(dialogContext);
               _doApplyBattleHonour();
             },
+            style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('Confirm'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
           ),
         ],
       ),
@@ -2775,15 +2776,16 @@ class _ComponentBattleHonourModalContentState extends ConsumerState<_ComponentBa
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
             onPressed: () {
               Navigator.pop(dialogContext);
               _doApplyBattleHonour();
             },
+            style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('Confirm'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
           ),
         ],
       ),
