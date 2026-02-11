@@ -23,7 +23,9 @@
       "Bash(findstr:*)",
       "Bash(flutter build:*)",
       "Bash(dart analyze:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(wc:*)"
     ]
   }
 }

@@ -511,13 +511,14 @@ class UnitGameStateAdapter extends TypeAdapter<UnitGameState> {
       ooaTestPassed: fields[10] as bool?,
       ooaOutcome: fields[11] as String?,
       battleScarGained: fields[12] as String?,
+      factionGameTracking: fields[13] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UnitGameState obj) {
     writer
-      ..writeByte(13)
+      ..writeByte(14)
       ..writeByte(0)
       ..write(obj.unitId)
       ..writeByte(1)
@@ -543,7 +544,9 @@ class UnitGameStateAdapter extends TypeAdapter<UnitGameState> {
       ..writeByte(11)
       ..write(obj.ooaOutcome)
       ..writeByte(12)
-      ..write(obj.battleScarGained);
+      ..write(obj.battleScarGained)
+      ..writeByte(13)
+      ..write(obj.factionGameTracking);
   }
 
   @override

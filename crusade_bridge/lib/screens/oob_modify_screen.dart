@@ -1,15 +1,17 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
 import '../models/crusade_models.dart';
+import '../models/faction_crusade_system.dart';
 import '../services/reference_data_service.dart';
 import '../widgets/army_avatar.dart';
 import '../widgets/crusade_stats_bar.dart';
+import '../widgets/d6_roller.dart';
 import '../providers/crusade_provider.dart';
+import '../utils/game_state_utils.dart';
 import '../utils/snackbar_utils.dart';
+import '../widgets/detail_row.dart';
 
 class OOBModifyScreen extends ConsumerWidget {
   const OOBModifyScreen({super.key});
@@ -24,6 +26,8 @@ class OOBModifyScreen extends ConsumerWidget {
         body: const Center(child: Text('No Crusade loaded. Create one first.')),
       );
     }
+
+    final factionSystem = FactionCrusadeSystemRegistry.forFaction(currentCrusade.faction);
 
     return Scaffold(
       appBar: AppBar(
@@ -86,12 +90,12 @@ class OOBModifyScreen extends ConsumerWidget {
                           children: [
                             const Text('Unit Details', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                             const SizedBox(height: 8),
-                            _DetailRow(label: 'Experience', value: '${component.xp} XP'),
-                            _DetailRow(label: 'Models', value: '${component.modelsCurrent}/${component.modelsMax}'),
-                            _DetailRow(label: 'Crusade Points', value: '${component.crusadePoints}'),
+                            DetailRow(label: 'Experience', value: '${component.xp} XP'),
+                            DetailRow(label: 'Models', value: '${component.modelsCurrent}/${component.modelsMax}'),
+                            DetailRow(label: 'Crusade Points', value: '${component.crusadePoints}'),
                             if (component.tallies['played'] != null)
-                              _DetailRow(label: 'Battles Played', value: '${component.tallies['played']}'),
-                            _DetailRow(label: 'Total Kills', value: '${component.tallies['kills'] ?? 0}'),
+                              DetailRow(label: 'Battles Played', value: '${component.tallies['played']}'),
+                            DetailRow(label: 'Total Kills', value: '${component.tallies['kills'] ?? 0}'),
                             if (component.honours.isNotEmpty) ...[
                               const SizedBox(height: 8),
                               const Text('Battle Honours:', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
@@ -124,10 +128,39 @@ class OOBModifyScreen extends ConsumerWidget {
                                 child: Text(component.notes!, style: const TextStyle(fontSize: 13, fontStyle: FontStyle.italic)),
                               ),
                             ],
+                            // Faction progression info (component units)
+                            if (factionSystem != null && (component.tallies[ProgressionKeys.trialId] ?? 0) > 0)
+                              _TrialInfoSection(unit: component, system: factionSystem),
+                            if (factionSystem != null && component.tallies[ProgressionKeys.isAscended] == 1)
+                              _AscendedBadge(system: factionSystem),
                           ],
                         ),
                       ),
                     );
+
+                    // Faction progression actions for component units
+                    if (factionSystem != null) {
+                      if (factionSystem.isDesignated(component)) {
+                        nestedExpansionChildren.add(
+                          ListTile(
+                            dense: true,
+                            leading: Icon(factionSystem.icon, color: factionSystem.color.withValues(alpha: 0.8), size: 20),
+                            title: Text(factionSystem.removeActionLabel, style: TextStyle(color: factionSystem.color.withValues(alpha: 0.8), fontSize: 14)),
+                            onTap: () => _removeDesignation(context, ref, component, factionSystem),
+                          ),
+                        );
+                      } else if (factionSystem.canDesignate(component) &&
+                          !factionSystem.hasExistingDesignation(currentCrusade)) {
+                        nestedExpansionChildren.add(
+                          ListTile(
+                            dense: true,
+                            leading: Icon(factionSystem.icon, color: factionSystem.color.withValues(alpha: 0.8), size: 20),
+                            title: Text(factionSystem.beginActionLabel, style: TextStyle(color: factionSystem.color.withValues(alpha: 0.8), fontWeight: FontWeight.bold, fontSize: 14)),
+                            onTap: () => _beginTrial(context, ref, component, factionSystem),
+                          ),
+                        );
+                      }
+                    }
 
                     // Add Claim Battle Honour button if component has pending rank up (BUG-018 fix)
                     if (component.pendingRankUp) {
@@ -193,6 +226,30 @@ class OOBModifyScreen extends ConsumerWidget {
                                   ),
                                 ),
                               ],
+                              if ((component.tallies['trialId'] ?? 0) > 0) ...[
+                                const SizedBox(width: 4),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                                  decoration: BoxDecoration(
+                                    color: Colors.amber.withValues(alpha: 0.15),
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(color: Colors.amber.withValues(alpha: 0.4)),
+                                  ),
+                                  child: const Text('Saint Potentia', style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: Colors.amber)),
+                                ),
+                              ],
+                              if (component.tallies[ProgressionKeys.isAscended] == 1) ...[
+                                const SizedBox(width: 4),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                                  decoration: BoxDecoration(
+                                    color: Colors.yellow.withValues(alpha: 0.2),
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(color: Colors.yellow.withValues(alpha: 0.5)),
+                                  ),
+                                  child: Text('Living Saint', style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: Colors.yellow.shade300)),
+                                ),
+                              ],
                             ],
                           ),
                           dense: true,
@@ -219,12 +276,12 @@ class OOBModifyScreen extends ConsumerWidget {
                           if (item.pendingRankUp)
                             _HighlightedXPRow(xp: item.xp, rank: item.rank)
                           else
-                            _DetailRow(label: 'Experience', value: '${item.xp} XP'),
-                          _DetailRow(label: 'Models', value: '${item.modelsCurrent}/${item.modelsMax}'),
-                          _DetailRow(label: 'Crusade Points', value: '${item.crusadePoints}'),
+                            DetailRow(label: 'Experience', value: '${item.xp} XP'),
+                          DetailRow(label: 'Models', value: '${item.modelsCurrent}/${item.modelsMax}'),
+                          DetailRow(label: 'Crusade Points', value: '${item.crusadePoints}'),
                           if (item.tallies['played'] != null)
-                            _DetailRow(label: 'Battles Played', value: '${item.tallies['played']}'),
-                          _DetailRow(label: 'Total Kills', value: '${item.tallies['kills'] ?? 0}'),
+                            DetailRow(label: 'Battles Played', value: '${item.tallies['played']}'),
+                          DetailRow(label: 'Total Kills', value: '${item.tallies['kills'] ?? 0}'),
                           if (item.honours.isNotEmpty) ...[
                             const SizedBox(height: 8),
                             const Text('Battle Honours:', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
@@ -257,11 +314,38 @@ class OOBModifyScreen extends ConsumerWidget {
                               child: Text(item.notes!, style: const TextStyle(fontSize: 13, fontStyle: FontStyle.italic)),
                             ),
                           ],
+                          // Faction progression info (top-level units)
+                          if (factionSystem != null && (item.tallies[ProgressionKeys.trialId] ?? 0) > 0)
+                            _TrialInfoSection(unit: item, system: factionSystem),
+                          if (factionSystem != null && item.tallies[ProgressionKeys.isAscended] == 1)
+                            _AscendedBadge(system: factionSystem),
                         ],
                       ),
                     ),
                   );
                   expansionChildren.add(const Divider());
+                }
+
+                // Faction progression actions for top-level units
+                if (factionSystem != null && item.type == 'unit') {
+                  if (factionSystem.isDesignated(item)) {
+                    expansionChildren.add(
+                      ListTile(
+                        leading: Icon(factionSystem.icon, color: factionSystem.color.withValues(alpha: 0.8)),
+                        title: Text(factionSystem.removeActionLabel, style: TextStyle(color: factionSystem.color.withValues(alpha: 0.8))),
+                        onTap: () => _removeDesignation(context, ref, item, factionSystem),
+                      ),
+                    );
+                  } else if (factionSystem.canDesignate(item) &&
+                      !factionSystem.hasExistingDesignation(currentCrusade)) {
+                    expansionChildren.add(
+                      ListTile(
+                        leading: Icon(factionSystem.icon, color: factionSystem.color.withValues(alpha: 0.8)),
+                        title: Text(factionSystem.beginActionLabel, style: TextStyle(color: factionSystem.color.withValues(alpha: 0.8), fontWeight: FontWeight.bold)),
+                        onTap: () => _beginTrial(context, ref, item, factionSystem),
+                      ),
+                    );
+                  }
                 }
 
                 // Add Claim Battle Honour button if unit has pending rank up
@@ -349,6 +433,38 @@ class OOBModifyScreen extends ConsumerWidget {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.amber,
                               ),
+                            ),
+                          ),
+                        ],
+                        // SAINT POTENTIA chip
+                        if (item.type != 'group' && (item.tallies['trialId'] ?? 0) > 0) ...[
+                          const SizedBox(width: 6),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+                            decoration: BoxDecoration(
+                              color: Colors.amber.withValues(alpha: 0.15),
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Colors.amber.withValues(alpha: 0.4)),
+                            ),
+                            child: const Text(
+                              'Saint Potentia',
+                              style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: Colors.amber),
+                            ),
+                          ),
+                        ],
+                        // LIVING SAINT chip
+                        if (item.type != 'group' && item.tallies[ProgressionKeys.isAscended] == 1) ...[
+                          const SizedBox(width: 6),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+                            decoration: BoxDecoration(
+                              color: Colors.yellow.withValues(alpha: 0.2),
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Colors.yellow.withValues(alpha: 0.5)),
+                            ),
+                            child: Text(
+                              'Living Saint',
+                              style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: Colors.yellow.shade300),
                             ),
                           ),
                         ],
@@ -1380,6 +1496,208 @@ class OOBModifyScreen extends ConsumerWidget {
       },
     );
   }
+
+  /// Begin faction progression trial — designate a unit
+  void _beginTrial(BuildContext context, WidgetRef ref, UnitOrGroup unit, FactionCrusadeSystem system) async {
+    final trials = await loadTrials(system.trialDataAsset);
+    if (!context.mounted) return;
+
+    showModalBottomSheet(
+      context: context,
+      builder: (modalContext) => Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              system.systemName,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              '${unit.customName ?? unit.name} will become ${system.designationKeyword}',
+              style: const TextStyle(color: Colors.grey, fontSize: 13),
+            ),
+            const SizedBox(height: 16),
+            ListTile(
+              leading: Icon(Icons.casino, color: system.color),
+              title: const Text('Roll D6', style: TextStyle(fontWeight: FontWeight.bold)),
+              subtitle: const Text('Randomly determine your Trial'),
+              onTap: () {
+                Navigator.pop(modalContext);
+                _rollForTrial(context, ref, unit, trials, system);
+              },
+            ),
+            const Divider(),
+            ListTile(
+              leading: Icon(Icons.list_alt, color: system.color),
+              title: const Text('Select Trial', style: TextStyle(fontWeight: FontWeight.bold)),
+              subtitle: const Text('Choose your Trial from the list'),
+              onTap: () {
+                Navigator.pop(modalContext);
+                _selectTrial(context, ref, unit, trials, system);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _rollForTrial(BuildContext context, WidgetRef ref, UnitOrGroup unit, List<TrialDefinition> trials, FactionCrusadeSystem system) async {
+    final result = await showD6RollerModal(
+      context: context,
+      title: system.systemName,
+      subtitle: 'Rolling for ${unit.customName ?? unit.name}',
+      mode: DiceMode.d6,
+      allowReroll: false,
+    );
+    if (result == null || !context.mounted) return;
+
+    final trialId = result.total;
+    final trial = trials.firstWhere((t) => t.id == trialId);
+    _confirmTrial(context, ref, unit, trial, system);
+  }
+
+  void _selectTrial(BuildContext context, WidgetRef ref, UnitOrGroup unit, List<TrialDefinition> trials, FactionCrusadeSystem system) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (modalContext) => DraggableScrollableSheet(
+        initialChildSize: 0.6,
+        minChildSize: 0.4,
+        maxChildSize: 0.85,
+        expand: false,
+        builder: (_, scrollController) => ListView(
+          controller: scrollController,
+          padding: const EdgeInsets.all(16),
+          children: [
+            const Text(
+              'Select a Trial',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+            ...trials.map((trial) => Card(
+              child: ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: system.color.withValues(alpha: 0.2),
+                  child: Text('${trial.id}', style: TextStyle(color: system.color, fontWeight: FontWeight.bold)),
+                ),
+                title: Text(trial.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: Text(trial.description, style: const TextStyle(fontSize: 12)),
+                trailing: Text('${trial.requiredPoints} pts', style: TextStyle(color: system.color, fontWeight: FontWeight.bold)),
+                onTap: () {
+                  Navigator.pop(modalContext);
+                  _confirmTrial(context, ref, unit, trial, system);
+                },
+              ),
+            )),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _confirmTrial(BuildContext context, WidgetRef ref, UnitOrGroup unit, TrialDefinition trial, FactionCrusadeSystem system) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Confirm Trial'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('${unit.customName ?? unit.name} will undertake:'),
+            const SizedBox(height: 8),
+            Text(trial.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: system.color)),
+            const SizedBox(height: 4),
+            Text(trial.description, style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 13, color: Colors.grey)),
+            const SizedBox(height: 8),
+            Text('Required ${system.pointsLabel}: ${trial.requiredPoints}', style: const TextStyle(fontWeight: FontWeight.w500)),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: system.color),
+            onPressed: () {
+              Navigator.pop(dialogContext);
+              unit.tallies[ProgressionKeys.trialId] = trial.id;
+              final crusade = ref.read(currentCrusadeNotifierProvider);
+              if (crusade != null) {
+                crusade.lastModified = DateTime.now().millisecondsSinceEpoch;
+                ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
+                ref.read(currentCrusadeNotifierProvider.notifier).addEvent(CrusadeEvent.create(
+                  type: CrusadeEventType.requisition,
+                  description: system.designationEventDescription(unit.customName ?? unit.name, trial.name),
+                  unitId: unit.id,
+                  unitName: unit.customName ?? unit.name,
+                  metadata: {'trialId': trial.id, 'trialName': trial.name},
+                ));
+              }
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('${unit.customName ?? unit.name} begins the ${trial.name}!'),
+                    backgroundColor: system.color.withValues(alpha: 0.8),
+                  ),
+                );
+              }
+            },
+            child: const Text('Confirm', style: TextStyle(color: Colors.black)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Remove progression designation from a unit
+  void _removeDesignation(BuildContext context, WidgetRef ref, UnitOrGroup unit, FactionCrusadeSystem system) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text('Remove ${system.designationKeyword}?'),
+        content: Text(
+          '${unit.customName ?? unit.name} will no longer be designated as ${system.designationKeyword}. '
+          'Current ${system.pointsLabel} (${system.getPoints(unit)}) will be kept.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () {
+              Navigator.pop(dialogContext);
+              unit.tallies.remove(ProgressionKeys.trialId);
+              final crusade = ref.read(currentCrusadeNotifierProvider);
+              if (crusade != null) {
+                crusade.lastModified = DateTime.now().millisecondsSinceEpoch;
+                ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
+                ref.read(currentCrusadeNotifierProvider.notifier).addEvent(CrusadeEvent.create(
+                  type: CrusadeEventType.requisition,
+                  description: system.removalEventDescription(unit.customName ?? unit.name),
+                  unitId: unit.id,
+                  unitName: unit.customName ?? unit.name,
+                ));
+              }
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('${unit.customName ?? unit.name} is no longer ${system.designationKeyword}.')),
+                );
+              }
+            },
+            child: const Text('Remove'),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 /// Modal content for Battle Honour selection - StatefulWidget for managing state
@@ -1411,22 +1729,13 @@ class _BattleHonourModalContentState extends ConsumerState<_BattleHonourModalCon
   }
 
   Future<void> _loadBattleHonoursData() async {
-    try {
-      final jsonString = await DefaultAssetBundle.of(context).loadString('assets/data/battle_honours.json');
-      final data = await Future.value(jsonString).then((s) {
-        return Map<String, dynamic>.from(
-          (const JsonDecoder().convert(s)) as Map,
-        );
+    final data = await loadBattleHonoursJsonData(context);
+    if (mounted) {
+      setState(() {
+        _battleHonoursData = data;
+        _isLoading = false;
       });
-      if (mounted) {
-        setState(() {
-          _battleHonoursData = data;
-          _isLoading = false;
-        });
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() => _isLoading = false);
+      if (data == null) {
         SnackBarUtils.showError(context, 'Failed to load Battle Honours data');
       }
     }
@@ -2185,27 +2494,6 @@ class _DiceDisplay extends StatelessWidget {
   }
 }
 
-// Helper widget for displaying detail rows in unit expansion
-class _DetailRow extends StatelessWidget {
-  final String label;
-  final String value;
-
-  const _DetailRow({required this.label, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label, style: const TextStyle(fontSize: 13, color: Colors.grey)),
-          Text(value, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
-        ],
-      ),
-    );
-  }
-}
 
 /// Highlighted XP row shown when a unit has a pending rank up
 class _HighlightedXPRow extends StatelessWidget {
@@ -2263,6 +2551,136 @@ class _HighlightedXPRow extends StatelessWidget {
   }
 }
 
+/// Shows faction progression trial info for designated units
+class _TrialInfoSection extends StatelessWidget {
+  final UnitOrGroup unit;
+  final FactionCrusadeSystem system;
+
+  const _TrialInfoSection({required this.unit, required this.system});
+
+  @override
+  Widget build(BuildContext context) {
+    final trialId = unit.tallies[ProgressionKeys.trialId] ?? 0;
+    if (trialId <= 0) return const SizedBox.shrink();
+
+    return FutureBuilder<List<TrialDefinition>>(
+      future: loadTrials(system.trialDataAsset),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return const SizedBox.shrink();
+        final trial = snapshot.data!.where((t) => t.id == trialId).firstOrNull;
+        if (trial == null) return const SizedBox.shrink();
+
+        final currentPoints = system.getPoints(unit);
+        final progress = (currentPoints / trial.requiredPoints).clamp(0.0, 1.0);
+        final fieldLabels = FactionFieldLabels.forFaction(system.faction);
+
+        return Padding(
+          padding: const EdgeInsets.only(top: 12),
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: system.color.withValues(alpha: 0.08),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: system.color.withValues(alpha: 0.3)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(system.icon, color: system.color, size: 16),
+                    const SizedBox(width: 6),
+                    Text(
+                      system.designationKeyword,
+                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: system.color, letterSpacing: 1),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(trial.name, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 2),
+                Text(trial.description, style: const TextStyle(fontSize: 12, fontStyle: FontStyle.italic, color: Colors.grey)),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Text('${system.pointsLabel}: ', style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                    Text('$currentPoints / ${trial.requiredPoints}', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: system.color)),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(4),
+                  child: LinearProgressIndicator(
+                    value: progress,
+                    backgroundColor: Colors.grey.withValues(alpha: 0.2),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      progress >= 1.0 ? Colors.green : system.color,
+                    ),
+                    minHeight: 6,
+                  ),
+                ),
+                if (unit.factionPoints2 > 0) ...[
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Text('${fieldLabels?.points2Label ?? 'Secondary Points'}: ', style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                      Text('${unit.factionPoints2}', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ],
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+/// Badge shown for units that have ascended (completed faction progression)
+class _AscendedBadge extends StatelessWidget {
+  final FactionCrusadeSystem system;
+
+  const _AscendedBadge({required this.system});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 12),
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.yellow.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: Colors.yellow.withValues(alpha: 0.4)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(system.icon, color: Colors.yellow.shade300, size: 16),
+                const SizedBox(width: 6),
+                Text(
+                  system.ascendedKeyword,
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.yellow.shade300, letterSpacing: 1),
+                ),
+              ],
+            ),
+            if (system.ascendedAbilityText != null) ...[
+              const SizedBox(height: 4),
+              Text(
+                system.ascendedAbilityText!,
+                style: const TextStyle(fontSize: 11, fontStyle: FontStyle.italic, color: Colors.grey),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 /// Modal content for Battle Honour selection for component units within groups (BUG-018 fix)
 class _ComponentBattleHonourModalContent extends ConsumerStatefulWidget {
   final int groupIndex;
@@ -2296,22 +2714,13 @@ class _ComponentBattleHonourModalContentState extends ConsumerState<_ComponentBa
   }
 
   Future<void> _loadBattleHonoursData() async {
-    try {
-      final jsonString = await DefaultAssetBundle.of(context).loadString('assets/data/battle_honours.json');
-      final data = await Future.value(jsonString).then((s) {
-        return Map<String, dynamic>.from(
-          (const JsonDecoder().convert(s)) as Map,
-        );
+    final data = await loadBattleHonoursJsonData(context);
+    if (mounted) {
+      setState(() {
+        _battleHonoursData = data;
+        _isLoading = false;
       });
-      if (mounted) {
-        setState(() {
-          _battleHonoursData = data;
-          _isLoading = false;
-        });
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() => _isLoading = false);
+      if (data == null) {
         SnackBarUtils.showError(context, 'Failed to load Battle Honours data');
       }
     }
