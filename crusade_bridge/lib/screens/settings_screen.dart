@@ -129,10 +129,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
             onPressed: () async {
               Navigator.pop(dialogContext);
               setState(() => _isLoading = true);
@@ -176,6 +172,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             },
             style: TextButton.styleFrom(foregroundColor: Colors.red),
             child: const Text('Clear All Data'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
           ),
         ],
       ),

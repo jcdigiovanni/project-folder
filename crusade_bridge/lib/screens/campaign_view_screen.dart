@@ -167,10 +167,6 @@ class CampaignViewScreen extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
             onPressed: () {
               ref.read(campaignsProvider.notifier).endCampaign(campaign.id);
               Navigator.pop(context);
@@ -178,6 +174,10 @@ class CampaignViewScreen extends ConsumerWidget {
             },
             style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('End Campaign'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
           ),
         ],
       ),
@@ -211,10 +211,6 @@ class CampaignViewScreen extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
             onPressed: () {
               final name = nameController.text.trim();
               if (name.isEmpty) {
@@ -234,6 +230,10 @@ class CampaignViewScreen extends ConsumerWidget {
             },
             style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('Save'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
           ),
         ],
       ),
@@ -360,10 +360,6 @@ class CampaignViewScreen extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
             onPressed: () {
               ref.read(campaignsProvider.notifier).removeCrusadeFromCampaign(
                     campaign.id,
@@ -374,6 +370,10 @@ class CampaignViewScreen extends ConsumerWidget {
             },
             style: TextButton.styleFrom(foregroundColor: Colors.red),
             child: const Text('Remove'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
           ),
         ],
       ),

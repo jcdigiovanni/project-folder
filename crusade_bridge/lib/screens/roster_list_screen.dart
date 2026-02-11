@@ -116,10 +116,6 @@ class RosterListScreen extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
             onPressed: () {
               final name = nameController.text.trim();
               if (name.isEmpty) {
@@ -141,6 +137,10 @@ class RosterListScreen extends ConsumerWidget {
             style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('Create'),
           ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
         ],
       ),
     );
@@ -157,16 +157,16 @@ class RosterListScreen extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
             onPressed: () {
               ref.read(currentCrusadeNotifierProvider.notifier).deleteRoster(roster.id);
               Navigator.pop(context);
               SnackBarUtils.showSuccess(context, 'Roster "${roster.name}" deleted');
             },
             child: const Text('Delete', style: TextStyle(color: Colors.red)),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
           ),
         ],
       ),
