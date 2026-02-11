@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/crusade_models.dart';
+import '../../models/faction_crusade_system.dart';
 import '../../providers/crusade_provider.dart';
 import '../../utils/snackbar_utils.dart';
 import '../../widgets/requisition_option.dart';
@@ -867,7 +868,14 @@ void _showInSufferingModal(BuildContext context, WidgetRef ref, Crusade crusade)
 void _showInSufferingForm(BuildContext context, WidgetRef ref, Crusade crusade, UnitOrGroup unit) {
   final scarController = TextEditingController();
   final honourController = TextEditingController();
-  bool isSaintPotentia = false;
+
+  // Auto-detect SAINT POTENTIA status from trial designation
+  final trialId = unit.tallies[ProgressionKeys.trialId] ?? 0;
+  bool isSaintPotentia = trialId > 0;
+
+  // Trials of Sacrifice (5) and Martyrdom (6) grant a bonus Saint Point
+  // because auto-failing OOA counts as suffering / being destroyed
+  final hasTrialBonus = trialId == 5 || trialId == 6;
 
   showDialog(
     context: context,
@@ -907,8 +915,11 @@ void _showInSufferingForm(BuildContext context, WidgetRef ref, Crusade crusade, 
               CheckboxListTile(
                 contentPadding: EdgeInsets.zero,
                 title: const Text('SAINT POTENTIA unit'),
-                subtitle: const Text('+3 Saint Points, +1 Martyr Point',
-                  style: TextStyle(fontSize: 12)),
+                subtitle: Text(
+                  hasTrialBonus
+                      ? '+3 Saint Points, +1 Martyr Point, +1 Trial Bonus Saint Point'
+                      : '+3 Saint Points, +1 Martyr Point',
+                  style: const TextStyle(fontSize: 12)),
                 value: isSaintPotentia,
                 onChanged: (v) => setState(() => isSaintPotentia = v ?? false),
               ),
@@ -941,6 +952,9 @@ void _showInSufferingForm(BuildContext context, WidgetRef ref, Crusade crusade, 
               if (isSaintPotentia) {
                 unit.factionPoints1 += 3;
                 unit.factionPoints2 += 1;
+                if (hasTrialBonus) {
+                  unit.factionPoints1 += 1; // Trial of Sacrifice/Martyrdom bonus
+                }
               }
 
               crusade.rp -= 1;
@@ -949,7 +963,11 @@ void _showInSufferingForm(BuildContext context, WidgetRef ref, Crusade crusade, 
 
               final unitName = unit.customName ?? unit.name;
               var desc = 'In Suffering, Enlightenment: $unitName gained scar "$scar" and honour "$honour"';
-              if (isSaintPotentia) desc += ' (+3 Saint, +1 Martyr)';
+              if (isSaintPotentia && hasTrialBonus) {
+                desc += ' (+4 Saint incl. Trial bonus, +1 Martyr)';
+              } else if (isSaintPotentia) {
+                desc += ' (+3 Saint, +1 Martyr)';
+              }
 
               ref.read(currentCrusadeNotifierProvider.notifier).addEvent(CrusadeEvent.create(
                 type: CrusadeEventType.requisition,
