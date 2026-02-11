@@ -52,29 +52,38 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> with GameUp
             Text(game.name),
           ],
         ),
-        actions: [
-          // Defeat button
-          TextButton.icon(
-            onPressed: () => _showEndGameDialog(context, game, result: GameResult.loss),
-            icon: Icon(Icons.cancel_outlined, color: Colors.red.shade300),
-            label: Text('Defeat', style: TextStyle(color: Colors.red.shade300)),
-          ),
-          // Draw button (ENH-007)
-          TextButton.icon(
-            onPressed: () => _showEndGameDialog(context, game, result: GameResult.draw),
-            icon: Icon(Icons.handshake_outlined, color: Colors.orange.shade300),
-            label: Text('Draw', style: TextStyle(color: Colors.orange.shade300)),
-          ),
-          // Victory button
-          TextButton.icon(
-            onPressed: () => _showEndGameDialog(context, game, result: GameResult.win),
-            icon: Icon(Icons.emoji_events_outlined, color: Colors.green.shade300),
-            label: Text('Victory', style: TextStyle(color: Colors.green.shade300)),
-          ),
-        ],
       ),
       body: Column(
         children: [
+          // Game result buttons
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextButton.icon(
+                    onPressed: () => _showEndGameDialog(context, game, result: GameResult.loss),
+                    icon: Icon(Icons.cancel_outlined, color: Colors.red.shade300),
+                    label: Text('Defeat', style: TextStyle(color: Colors.red.shade300)),
+                  ),
+                ),
+                Expanded(
+                  child: TextButton.icon(
+                    onPressed: () => _showEndGameDialog(context, game, result: GameResult.draw),
+                    icon: Icon(Icons.handshake_outlined, color: Colors.orange.shade300),
+                    label: Text('Draw', style: TextStyle(color: Colors.orange.shade300)),
+                  ),
+                ),
+                Expanded(
+                  child: TextButton.icon(
+                    onPressed: () => _showEndGameDialog(context, game, result: GameResult.win),
+                    icon: Icon(Icons.emoji_events_outlined, color: Colors.green.shade300),
+                    label: Text('Victory', style: TextStyle(color: Colors.green.shade300)),
+                  ),
+                ),
+              ],
+            ),
+          ),
           // Crusade Points display (ENH-008)
           _CrusadePointsBar(crusadePoints: currentCrusade.totalCrusadePoints),
           // Agenda summary header
