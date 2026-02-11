@@ -174,22 +174,24 @@ class _RosterBuildScreenState extends ConsumerState<RosterBuildScreen> {
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Row(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                child: OutlinedButton(
-                  onPressed: () => context.go('/rosters'),
-                  child: const Text('Cancel'),
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                flex: 2,
+              SizedBox(
+                width: double.infinity,
                 child: ElevatedButton.icon(
                   onPressed: () => _saveRoster(roster),
                   icon: const Icon(Icons.save),
                   label: const Text('Save Roster'),
-                  style: actionButtonStyle(backgroundColor: Colors.green),
+                  style: fullWidthActionStyle(backgroundColor: Colors.green),
+                ),
+              ),
+              const SizedBox(height: 8),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  onPressed: () => context.go('/rosters'),
+                  child: const Text('Cancel'),
                 ),
               ),
             ],

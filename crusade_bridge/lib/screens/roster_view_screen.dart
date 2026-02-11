@@ -97,22 +97,25 @@ class RosterViewScreen extends ConsumerWidget {
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Row(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                child: OutlinedButton.icon(
-                  onPressed: () => context.go('/rosters'),
-                  icon: const Icon(Icons.arrow_back),
-                  label: const Text('Back to Rosters'),
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
+              SizedBox(
+                width: double.infinity,
                 child: ElevatedButton.icon(
                   onPressed: () => _showStatsDialog(context, roster),
                   icon: const Icon(Icons.bar_chart),
                   label: const Text('View Stats'),
-                  style: actionButtonStyle(backgroundColor: Colors.blue),
+                  style: fullWidthActionStyle(backgroundColor: Colors.blue),
+                ),
+              ),
+              const SizedBox(height: 8),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: () => context.go('/rosters'),
+                  icon: const Icon(Icons.arrow_back),
+                  label: const Text('Back to Rosters'),
                 ),
               ),
             ],

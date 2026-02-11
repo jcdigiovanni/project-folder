@@ -170,12 +170,13 @@ class CampaignViewScreen extends ConsumerWidget {
             onPressed: () => Navigator.pop(context),
             child: const Text('Cancel'),
           ),
-          ElevatedButton(
+          TextButton(
             onPressed: () {
               ref.read(campaignsProvider.notifier).endCampaign(campaign.id);
               Navigator.pop(context);
               SnackBarUtils.showSuccess(context, 'Campaign ended');
             },
+            style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('End Campaign'),
           ),
         ],
@@ -213,7 +214,7 @@ class CampaignViewScreen extends ConsumerWidget {
             onPressed: () => Navigator.pop(context),
             child: const Text('Cancel'),
           ),
-          ElevatedButton(
+          TextButton(
             onPressed: () {
               final name = nameController.text.trim();
               if (name.isEmpty) {
@@ -231,6 +232,7 @@ class CampaignViewScreen extends ConsumerWidget {
               Navigator.pop(context);
               SnackBarUtils.showSuccess(context, 'Campaign updated');
             },
+            style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('Save'),
           ),
         ],
@@ -361,7 +363,7 @@ class CampaignViewScreen extends ConsumerWidget {
             onPressed: () => Navigator.pop(context),
             child: const Text('Cancel'),
           ),
-          ElevatedButton(
+          TextButton(
             onPressed: () {
               ref.read(campaignsProvider.notifier).removeCrusadeFromCampaign(
                     campaign.id,
@@ -370,7 +372,7 @@ class CampaignViewScreen extends ConsumerWidget {
               Navigator.pop(context);
               SnackBarUtils.showSuccess(context, 'Force removed from campaign');
             },
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
             child: const Text('Remove'),
           ),
         ],

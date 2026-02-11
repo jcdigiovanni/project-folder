@@ -310,15 +310,15 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> with GameUp
             onPressed: () => Navigator.pop(context),
             child: const Text('Cancel'),
           ),
-          ElevatedButton(
+          TextButton(
             onPressed: () {
               final playerScore = int.tryParse(playerScoreController.text);
               final opponentScore = int.tryParse(opponentScoreController.text);
               Navigator.pop(context);
               _endGame(game, result: result, playerScore: playerScore, opponentScore: opponentScore);
             },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: buttonColor,
+            style: TextButton.styleFrom(
+              foregroundColor: buttonColor,
             ),
             child: Text(buttonLabel),
           ),

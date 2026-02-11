@@ -218,11 +218,12 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
             onPressed: () => Navigator.pop(context),
             child: const Text('Cancel'),
           ),
-          ElevatedButton(
+          TextButton(
             onPressed: () {
               Navigator.pop(context);
               _applyResultsToUnits(game);
             },
+            style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('Commit'),
           ),
         ],
@@ -412,7 +413,7 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
             },
             child: const Text('Skip'),
           ),
-          ElevatedButton(
+          TextButton(
             onPressed: () async {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
@@ -431,6 +432,7 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
                 context.go('/dashboard');
               }
             },
+            style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('Backup'),
           ),
         ],
@@ -498,13 +500,12 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
             onPressed: () => Navigator.pop(dialogContext, false),
             child: const Text('Not Yet'),
           ),
-          ElevatedButton.icon(
+          TextButton.icon(
             onPressed: () => Navigator.pop(dialogContext, true),
             icon: Icon(system.icon),
             label: const Text('Ascend!'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: system.color,
-              foregroundColor: Colors.black,
+            style: TextButton.styleFrom(
+              foregroundColor: system.color,
             ),
           ),
         ],

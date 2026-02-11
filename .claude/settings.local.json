@@ -25,7 +25,9 @@
       "Bash(dart analyze:*)",
       "Bash(grep:*)",
       "Bash(ls:*)",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(xargs git branch:*)",
+      "Bash(git branch:*)"
     ]
   }
 }

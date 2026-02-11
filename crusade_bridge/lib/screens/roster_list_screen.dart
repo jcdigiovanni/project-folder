@@ -119,7 +119,7 @@ class RosterListScreen extends ConsumerWidget {
             onPressed: () => Navigator.pop(context),
             child: const Text('Cancel'),
           ),
-          ElevatedButton(
+          TextButton(
             onPressed: () {
               final name = nameController.text.trim();
               if (name.isEmpty) {
@@ -138,6 +138,7 @@ class RosterListScreen extends ConsumerWidget {
               // Navigate to edit the new roster
               context.go('/roster/${newRoster.id}/edit');
             },
+            style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('Create'),
           ),
         ],
