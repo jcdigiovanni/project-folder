@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../models/crusade_models.dart';
+import '../models/faction_crusade_system.dart';
 import '../providers/crusade_provider.dart';
 import '../widgets/army_avatar.dart';
 
@@ -98,12 +99,42 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> {
     );
   }
 
+  /// Check if a unit in the OOB has a faction progression designation
+  bool _isUnitDesignated(String unitId) {
+    final crusade = ref.read(currentCrusadeNotifierProvider);
+    if (crusade == null) return false;
+    for (final item in crusade.oob) {
+      if (item.id == unitId && (item.tallies[ProgressionKeys.trialId] ?? 0) > 0) return true;
+      if (item.type == 'group' && item.components != null) {
+        for (final comp in item.components!) {
+          if (comp.id == unitId && (comp.tallies[ProgressionKeys.trialId] ?? 0) > 0) return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  void _updateSaintPoints(Game game, String unitId, int newPoints) {
+    final unitState = game.unitStates.where((u) => u.unitId == unitId).firstOrNull;
+    if (unitState != null) {
+      setState(() {
+        unitState.factionGameTracking = newPoints;
+      });
+      ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
+    }
+  }
+
   /// Build a list of widgets grouping units by their group membership
   List<Widget> _buildGroupedUnitList(Game game) {
     final List<Widget> widgets = [];
     final processedGroupIds = <String>{};
 
+    final crusade = ref.read(currentCrusadeNotifierProvider);
+    final factionSystem = crusade != null ? FactionCrusadeSystemRegistry.forFaction(crusade.faction) : null;
+
     for (final unitState in game.unitStates) {
+      final isDesignated = _isUnitDesignated(unitState.unitId);
+
       // If this unit is part of a group
       if (unitState.groupId != null) {
         // Skip if we've already processed this group
@@ -120,6 +151,8 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> {
           groupName: unitState.groupName ?? 'Group',
           unitStates: groupUnits,
           agendas: game.agendas,
+          designationChecker: _isUnitDesignated,
+          progressionSystem: factionSystem,
           onTallyChanged: (unitId, agendaId, newValue) {
             _updateTally(game, unitId, agendaId, newValue);
           },
@@ -132,12 +165,17 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> {
           onDestroyedChanged: (unitId, wasDestroyed) {
             _updateDestroyed(game, unitId, wasDestroyed);
           },
+          onSaintPointsChanged: (unitId, newPoints) {
+            _updateSaintPoints(game, unitId, newPoints);
+          },
         ));
       } else {
         // Standalone unit - use the regular card
         widgets.add(_UnitAgendaCard(
           unitState: unitState,
           agendas: game.agendas,
+          isDesignated: isDesignated,
+          progressionSystem: factionSystem,
           onTallyChanged: (agendaId, newValue) {
             _updateTally(game, unitState.unitId, agendaId, newValue);
           },
@@ -150,6 +188,9 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> {
           onDestroyedChanged: (wasDestroyed) {
             _updateDestroyed(game, unitState.unitId, wasDestroyed);
           },
+          onSaintPointsChanged: isDesignated
+              ? (newPoints) => _updateSaintPoints(game, unitState.unitId, newPoints)
+              : null,
         ));
       }
     }
@@ -874,19 +915,25 @@ class _GroupedUnitsContainer extends StatelessWidget {
   final String groupName;
   final List<UnitGameState> unitStates;
   final List<GameAgenda> agendas;
+  final bool Function(String unitId)? designationChecker;
+  final FactionCrusadeSystem? progressionSystem;
   final Function(String unitId, String agendaId, int newValue) onTallyChanged;
   final Function(String unitId, String agendaId, int newTier) onTierChanged;
   final Function(String unitId, int newKills) onKillsChanged;
   final Function(String unitId, bool wasDestroyed) onDestroyedChanged;
+  final Function(String unitId, int newPoints)? onSaintPointsChanged;
 
   const _GroupedUnitsContainer({
     required this.groupName,
     required this.unitStates,
     required this.agendas,
+    this.designationChecker,
+    this.progressionSystem,
     required this.onTallyChanged,
     required this.onTierChanged,
     required this.onKillsChanged,
     required this.onDestroyedChanged,
+    this.onSaintPointsChanged,
   });
 
   @override
@@ -938,9 +985,12 @@ class _GroupedUnitsContainer extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             child: Column(
               children: unitStates.map((unitState) {
+                final isSP = designationChecker?.call(unitState.unitId) ?? false;
                 return _UnitAgendaCard(
                   unitState: unitState,
                   agendas: agendas,
+                  isDesignated: isSP,
+                  progressionSystem: progressionSystem,
                   onTallyChanged: (agendaId, newValue) {
                     onTallyChanged(unitState.unitId, agendaId, newValue);
                   },
@@ -953,6 +1003,9 @@ class _GroupedUnitsContainer extends StatelessWidget {
                   onDestroyedChanged: (wasDestroyed) {
                     onDestroyedChanged(unitState.unitId, wasDestroyed);
                   },
+                  onSaintPointsChanged: isSP
+                      ? (newPoints) => onSaintPointsChanged?.call(unitState.unitId, newPoints)
+                      : null,
                 );
               }).toList(),
             ),
@@ -967,18 +1020,24 @@ class _GroupedUnitsContainer extends StatelessWidget {
 class _UnitAgendaCard extends StatelessWidget {
   final UnitGameState unitState;
   final List<GameAgenda> agendas;
+  final bool isDesignated;
+  final FactionCrusadeSystem? progressionSystem;
   final Function(String agendaId, int newValue) onTallyChanged;
   final Function(String agendaId, int newTier) onTierChanged;
   final Function(int newKills) onKillsChanged;
   final Function(bool wasDestroyed) onDestroyedChanged;
+  final Function(int newPoints)? onSaintPointsChanged;
 
   const _UnitAgendaCard({
     required this.unitState,
     required this.agendas,
+    this.isDesignated = false,
+    this.progressionSystem,
     required this.onTallyChanged,
     required this.onTierChanged,
     required this.onKillsChanged,
     required this.onDestroyedChanged,
+    this.onSaintPointsChanged,
   });
 
   @override
@@ -1009,6 +1068,17 @@ class _UnitAgendaCard extends StatelessWidget {
                 ),
               ],
             ),
+            // Faction progression points tracking (only for designated units)
+            if (isDesignated && onSaintPointsChanged != null) ...[
+              const SizedBox(height: 8),
+              _ProgressionPointControl(
+                points: unitState.factionGameTracking,
+                onChanged: onSaintPointsChanged!,
+                label: progressionSystem?.pointsLabel ?? 'Points',
+                icon: progressionSystem?.icon ?? Icons.auto_awesome,
+                color: progressionSystem?.color ?? Colors.amber,
+              ),
+            ],
             const SizedBox(height: 12),
             // Agenda tracking controls (only for assigned agendas)
             ...agendas
@@ -1242,6 +1312,75 @@ class _KillTallyControl extends StatelessWidget {
                     size: 18,
                     color: Colors.red.shade300,
                   ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Progression point tracking control for designated units during active game
+class _ProgressionPointControl extends StatelessWidget {
+  final int points;
+  final Function(int) onChanged;
+  final String label;
+  final IconData icon;
+  final Color color;
+
+  const _ProgressionPointControl({
+    required this.points,
+    required this.onChanged,
+    required this.label,
+    required this.icon,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(icon, color: color, size: 16),
+        const SizedBox(width: 6),
+        Text(
+          '$label:',
+          style: TextStyle(fontSize: 13, color: color.withValues(alpha: 0.8)),
+        ),
+        const Spacer(),
+        Container(
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: color.withValues(alpha: 0.3)),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              InkWell(
+                onTap: points > 0 ? () => onChanged(points - 1) : null,
+                borderRadius: const BorderRadius.horizontal(left: Radius.circular(7)),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  child: Icon(Icons.remove, size: 18, color: points > 0 ? color.withValues(alpha: 0.8) : Colors.grey.shade600),
+                ),
+              ),
+              Container(
+                constraints: const BoxConstraints(minWidth: 28),
+                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                alignment: Alignment.center,
+                child: Text(
+                  '$points',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: color.withValues(alpha: 0.8)),
+                ),
+              ),
+              InkWell(
+                onTap: () => onChanged(points + 1),
+                borderRadius: const BorderRadius.horizontal(right: Radius.circular(7)),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  child: Icon(Icons.add, size: 18, color: color.withValues(alpha: 0.8)),
                 ),
               ),
             ],

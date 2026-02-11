@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../models/crusade_models.dart';
 import '../providers/crusade_provider.dart';
 import '../services/google_drive_service.dart';
+import '../models/faction_crusade_system.dart';
 
 /// Post-game screen for reviewing and finalizing battle results
 /// Allows adjustments before committing XP and tally updates to units
@@ -21,10 +22,13 @@ class PostGameScreen extends ConsumerStatefulWidget {
 class _PostGameScreenState extends ConsumerState<PostGameScreen> {
   String? _markedForGreatnessUnitId;
   final TextEditingController _notesController = TextEditingController();
+  List<TrialDefinition>? _trials;
+  FactionCrusadeSystem? _factionSystem;
 
   @override
   void initState() {
     super.initState();
+    _loadTrialData();
     // Load any existing marked for greatness selection and notes
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final crusade = ref.read(currentCrusadeNotifierProvider);
@@ -42,6 +46,20 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
         }
       }
     });
+  }
+
+  Future<void> _loadTrialData() async {
+    final crusade = ref.read(currentCrusadeNotifierProvider);
+    if (crusade == null) return;
+    final system = FactionCrusadeSystemRegistry.forFaction(crusade.faction);
+    if (system == null) return;
+    final trials = await loadTrials(system.trialDataAsset);
+    if (mounted) {
+      setState(() {
+        _trials = trials;
+        _factionSystem = system;
+      });
+    }
   }
 
   @override
@@ -106,6 +124,7 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
                   crusade: crusade!,
                   markedForGreatnessUnitId: _markedForGreatnessUnitId,
                   xpPreviews: _calculateXpPreviews(game, crusade),
+                  progressionSystem: _factionSystem,
                   onKillsChanged: (unitId, newKills) {
                     _updateKills(game, unitId, newKills);
                   },
@@ -230,7 +249,7 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
     );
   }
 
-  void _applyResultsToUnits(Game game) {
+  Future<void> _applyResultsToUnits(Game game) async {
     final crusade = ref.read(currentCrusadeNotifierProvider);
     if (crusade == null) return;
 
@@ -318,6 +337,14 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
           }
         }
       }
+
+      // Apply faction-specific per-game tracking (progression points)
+      if (unitState.factionGameTracking > 0 && _factionSystem != null) {
+        final trialId = unit.tallies[ProgressionKeys.trialId];
+        if (trialId != null && trialId > 0 && unit.tallies[ProgressionKeys.isAscended] != 1) {
+          _factionSystem!.addPoints(unit, unitState.factionGameTracking);
+        }
+      }
     }
 
     // Award +1 RP to the crusade for playing a battle (max 10)
@@ -347,6 +374,25 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
         backgroundColor: Colors.green,
       ),
     );
+
+    // Check for faction progression ascension
+    if (_factionSystem != null && _trials != null && mounted) {
+      for (final unitState in game.unitStates) {
+        if (unitState.factionGameTracking <= 0) continue;
+        final unit = _findUnitInOOB(crusade, unitState.unitId);
+        if (unit == null) continue;
+        final trialId = unit.tallies[ProgressionKeys.trialId];
+        if (trialId == null || trialId <= 0) continue;
+        final trial = _trials!.where((t) => t.id == trialId).firstOrNull;
+        if (trial == null) continue;
+        if (_factionSystem!.getPoints(unit) >= trial.requiredPoints) {
+          await _showAscensionDialog(unit, trial, _factionSystem!);
+          break;
+        }
+      }
+    }
+
+    if (!mounted) return;
 
     // Prompt for Drive backup if supported and signed in
     if (GoogleDriveService.isSupported && GoogleDriveService.isSignedIn) {
@@ -399,6 +445,138 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
     );
   }
 
+  Future<void> _showAscensionDialog(UnitOrGroup unit, TrialDefinition trial, FactionCrusadeSystem system) async {
+    if (!mounted) return;
+    final unitDisplayName = unit.customName ?? unit.name;
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => AlertDialog(
+        title: Row(
+          children: [
+            Icon(system.icon, color: system.color.withValues(alpha: 0.8)),
+            const SizedBox(width: 8),
+            const Expanded(child: Text('Ascension!')),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '$unitDisplayName has completed the ${trial.name}!',
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: system.color.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: system.color.withValues(alpha: 0.3)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${system.pointsLabel}: ${system.getPoints(unit)} / ${trial.requiredPoints}',
+                    style: TextStyle(color: system.color.withValues(alpha: 0.8), fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'This model will ascend to become a ${system.ascendedKeyword}, '
+                    'inheriting all Battle Honours, Battle Scars, and XP.',
+                  ),
+                  if (system.ascendedAbilityText != null) ...[
+                    const SizedBox(height: 8),
+                    Text(
+                      system.ascendedAbilityText!,
+                      style: TextStyle(fontSize: 12, color: Colors.grey.shade400, fontStyle: FontStyle.italic),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Not Yet'),
+          ),
+          ElevatedButton.icon(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            icon: Icon(system.icon),
+            label: const Text('Ascend!'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: system.color,
+              foregroundColor: Colors.black,
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true && mounted) {
+      // Create ascended replacement unit inheriting all data
+      final ascendedUnit = UnitOrGroup(
+        id: unit.id,
+        type: unit.type,
+        name: system.ascendedUnitName,
+        customName: unit.customName,
+        points: unit.points,
+        modelsCurrent: unit.modelsCurrent,
+        modelsMax: unit.modelsMax,
+        xp: unit.xp,
+        honours: List<String>.from(unit.honours),
+        scars: List<String>.from(unit.scars),
+        enhancements: List<String>.from(unit.enhancements),
+        crusadePoints: unit.crusadePoints,
+        tallies: Map<String, int>.from(unit.tallies)
+          ..remove(ProgressionKeys.trialId)
+          ..[ProgressionKeys.isAscended] = 1,
+        notes: unit.notes,
+        statsText: unit.statsText,
+        isWarlord: unit.isWarlord,
+        isEpicHero: unit.isEpicHero,
+        isCharacter: unit.isCharacter,
+        pendingRankUp: unit.pendingRankUp,
+        battleTraits: List<String>.from(unit.battleTraits),
+        weaponEnhancements: List<String>.from(unit.weaponEnhancements),
+        crusadeRelic: unit.crusadeRelic,
+        factionPoints1: unit.factionPoints1,
+        factionPoints2: unit.factionPoints2,
+        factionPoints3: unit.factionPoints3,
+        factionFlag1: unit.factionFlag1,
+        factionFlag2: unit.factionFlag2,
+      );
+
+      ref.read(currentCrusadeNotifierProvider.notifier).replaceUnit(unit.id, ascendedUnit);
+      ref.read(currentCrusadeNotifierProvider.notifier).addEvent(CrusadeEvent.create(
+        type: CrusadeEventType.requisition,
+        description: system.ascensionEventDescription(unit.customName ?? unit.name, trial.name),
+        metadata: {
+          'action': 'ascension',
+          'trialName': trial.name,
+          'trialId': trial.id,
+          'points': system.getPoints(unit),
+          'unitName': unit.name,
+          'unitCustomName': unit.customName,
+        },
+      ));
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('$unitDisplayName has ascended to ${system.ascendedUnitName}!'),
+            backgroundColor: system.color,
+          ),
+        );
+      }
+    }
+  }
+
   /// Calculate XP preview for all units without applying changes (ENH-010)
   List<_UnitXPPreview> _calculateXpPreviews(Game game, Crusade crusade) {
     final previews = <_UnitXPPreview>[];
@@ -406,6 +584,23 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
     for (final unitState in game.unitStates) {
       final unit = _findUnitInOOB(crusade, unitState.unitId);
       if (unit == null) continue;
+
+      // Compute progression point info for this unit
+      final trialId = unit.tallies[ProgressionKeys.trialId];
+      final isDesignated = _factionSystem != null && trialId != null && trialId > 0 && unit.tallies[ProgressionKeys.isAscended] != 1;
+      int progressionPointsThisGame = 0;
+      int totalProgressionPoints = 0;
+      int requiredProgressionPoints = 0;
+      String? trialName;
+      if (isDesignated) {
+        progressionPointsThisGame = unitState.factionGameTracking;
+        totalProgressionPoints = _factionSystem!.getPoints(unit) + progressionPointsThisGame;
+        final trial = _trials?.where((t) => t.id == trialId).firstOrNull;
+        if (trial != null) {
+          requiredProgressionPoints = trial.requiredPoints;
+          trialName = trial.name;
+        }
+      }
 
       // Epic Heroes don't gain XP
       if (unit.isEpicHero == true) {
@@ -417,6 +612,10 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
           agendaXp: 0,
           isEpicHero: true,
           killsThisGame: unitState.kills,
+          progressionPointsThisGame: progressionPointsThisGame,
+          totalProgressionPoints: totalProgressionPoints,
+          requiredProgressionPoints: requiredProgressionPoints,
+          trialName: trialName,
         ));
         continue;
       }
@@ -448,6 +647,10 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
         agendaXp: agendaXp,
         isEpicHero: false,
         killsThisGame: unitState.kills,
+        progressionPointsThisGame: progressionPointsThisGame,
+        totalProgressionPoints: totalProgressionPoints,
+        requiredProgressionPoints: requiredProgressionPoints,
+        trialName: trialName,
       ));
     }
 
@@ -1080,6 +1283,7 @@ class _UnitSummarySection extends StatelessWidget {
   final Function(String unitId, int newKills) onKillsChanged;
   final Function(String unitId, bool wasDestroyed) onDestroyedChanged;
   final Function(String agendaId, String unitId, int newTally) onAgendaTallyChanged;
+  final FactionCrusadeSystem? progressionSystem;
 
   const _UnitSummarySection({
     required this.game,
@@ -1089,6 +1293,7 @@ class _UnitSummarySection extends StatelessWidget {
     required this.onKillsChanged,
     required this.onDestroyedChanged,
     required this.onAgendaTallyChanged,
+    this.progressionSystem,
   });
 
   @override
@@ -1117,6 +1322,7 @@ class _UnitSummarySection extends StatelessWidget {
             game: game,
             isMarkedForGreatness: markedForGreatnessUnitId == unitState.unitId,
             xpPreview: preview,
+            progressionSystem: progressionSystem,
             onKillsChanged: (newKills) => onKillsChanged(unitState.unitId, newKills),
             onDestroyedChanged: (wasDestroyed) => onDestroyedChanged(unitState.unitId, wasDestroyed),
             onAgendaTallyChanged: (agendaId, newTally) => onAgendaTallyChanged(agendaId, unitState.unitId, newTally),
@@ -1135,6 +1341,7 @@ class _UnitSummaryCard extends StatelessWidget {
   final Function(int) onKillsChanged;
   final Function(bool) onDestroyedChanged;
   final Function(String agendaId, int newTally) onAgendaTallyChanged;
+  final FactionCrusadeSystem? progressionSystem;
 
   const _UnitSummaryCard({
     required this.unitState,
@@ -1144,6 +1351,7 @@ class _UnitSummaryCard extends StatelessWidget {
     required this.onKillsChanged,
     required this.onDestroyedChanged,
     required this.onAgendaTallyChanged,
+    this.progressionSystem,
   });
 
   @override
@@ -1327,6 +1535,71 @@ class _UnitSummaryCard extends StatelessWidget {
                   ),
                 );
               }),
+            ],
+
+            // Faction progression points section (designated units only)
+            if (xpPreview != null && xpPreview!.isDesignated && progressionSystem != null) ...[
+              const SizedBox(height: 6),
+              Divider(color: Colors.grey.shade800, height: 1),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  Icon(progressionSystem!.icon, size: 14, color: progressionSystem!.color.withValues(alpha: 0.8)),
+                  const SizedBox(width: 6),
+                  Text(
+                    xpPreview!.trialName ?? progressionSystem!.systemName,
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: progressionSystem!.color.withValues(alpha: 0.8)),
+                  ),
+                  const Spacer(),
+                  if (xpPreview!.progressionPointsThisGame > 0)
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: progressionSystem!.color.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: progressionSystem!.color.withValues(alpha: 0.4)),
+                      ),
+                      child: Text(
+                        '+${xpPreview!.progressionPointsThisGame} ${progressionSystem!.pointsLabel}',
+                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: progressionSystem!.color.withValues(alpha: 0.8)),
+                      ),
+                    ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Row(
+                children: [
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(3),
+                      child: LinearProgressIndicator(
+                        value: xpPreview!.requiredProgressionPoints > 0
+                            ? (xpPreview!.totalProgressionPoints / xpPreview!.requiredProgressionPoints).clamp(0.0, 1.0)
+                            : 0,
+                        backgroundColor: Colors.grey.withValues(alpha: 0.2),
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          xpPreview!.totalProgressionPoints >= xpPreview!.requiredProgressionPoints
+                              ? progressionSystem!.color
+                              : progressionSystem!.color.withValues(alpha: 0.7),
+                        ),
+                        minHeight: 6,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    '${xpPreview!.totalProgressionPoints} / ${xpPreview!.requiredProgressionPoints}',
+                    style: TextStyle(fontSize: 11, color: progressionSystem!.color.withValues(alpha: 0.8), fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+              if (xpPreview!.totalProgressionPoints >= xpPreview!.requiredProgressionPoints) ...[
+                const SizedBox(height: 4),
+                Text(
+                  'Trial complete — ascension on commit!',
+                  style: TextStyle(fontSize: 11, color: progressionSystem!.color.withValues(alpha: 0.8), fontWeight: FontWeight.bold),
+                ),
+              ],
             ],
 
             // XP breakdown (compact, below controls)
@@ -2111,6 +2384,10 @@ class _UnitXPPreview {
   final int agendaXp;
   final bool isEpicHero;
   final int killsThisGame;
+  final int progressionPointsThisGame;
+  final int totalProgressionPoints; // After applying this game's points
+  final int requiredProgressionPoints; // From trial definition (0 if not designated)
+  final String? trialName;
 
   const _UnitXPPreview({
     required this.unitName,
@@ -2120,9 +2397,14 @@ class _UnitXPPreview {
     required this.agendaXp,
     required this.isEpicHero,
     required this.killsThisGame,
+    this.progressionPointsThisGame = 0,
+    this.totalProgressionPoints = 0,
+    this.requiredProgressionPoints = 0,
+    this.trialName,
   });
 
   int get totalXp => participation + killsXp + markedXp + agendaXp;
+  bool get isDesignated => requiredProgressionPoints > 0;
 }
 
 /// Commit button fixed at bottom

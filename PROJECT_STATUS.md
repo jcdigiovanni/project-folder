@@ -1,4 +1,10 @@
-**Last Updated:** February 9, 2026 (Phase 6 Backlog Clearance In Progress)
+**Last Updated:** February 11, 2026 (Phase 6 Backlog Clearance In Progress)
+
+**Recent Work (Feb 11)**
+- FactionCrusadeSystem Abstraction (REFACTOR-001): Extracted all Sororitas-specific Trials of a Living Saint logic into generic `FactionCrusadeSystem` class with registry pattern. New file `lib/models/faction_crusade_system.dart` contains `TrialDefinition`, `ProgressionKeys`, `FactionCrusadeSystem`, `loadTrials()`, and `FactionCrusadeSystemRegistry`. All 3 screens (OOB, active game, post-game) now use system properties for labels, colors, icons, event descriptions, and point calculations. Zero hardcoded faction text remains. Other factions can register their own progression systems by adding to the registry.
+
+**Recent Work (Feb 10)**
+- Trials of a Living Saint (FEA-017): Full SAINT POTENTIA / LIVING SAINT system for Adepta Sororitas. Designate CHARACTER as SAINT POTENTIA via OOB screen (D6 roll or manual trial selection). Trial info + progress bar on unit card. Saint Points +/- tracking during active games. Post-game ascension check with dialog and automatic unit replacement inheriting all data. 6 trials in external JSON, `factionGameTracking` field added to UnitGameState.
 
 **Recent Work (Feb 9-10)**
 - Sororitas Requisitions (Full Mechanics): Replaced 4 incorrect honor-system stubs with 6 correct full-mechanics requisitions — Divine Calling, Ascension to the Order, The Penitent Path, Glorious Redemption, In Suffering Enlightenment, Saintly Benedictions. Added generic faction tracking fields (factionPoints1-3, factionFlag1-2) to UnitOrGroup model with per-faction label mapping. Extracted shared widgets and utils. Separate file per faction for extensibility.

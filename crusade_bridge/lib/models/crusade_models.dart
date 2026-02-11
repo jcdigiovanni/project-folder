@@ -1090,6 +1090,10 @@ class UnitGameState {
   @HiveField(12)
   String? battleScarGained; // Name of battle scar gained (if any)
 
+  // Generic per-game faction tracking (e.g., Sororitas: Saint points gained this game)
+  @HiveField(13)
+  int factionGameTracking;
+
   UnitGameState({
     required this.unitId,
     required this.unitName,
@@ -1104,7 +1108,8 @@ class UnitGameState {
     this.ooaTestPassed,
     this.ooaOutcome,
     this.battleScarGained,
-  });
+    int? factionGameTracking,
+  }) : factionGameTracking = factionGameTracking ?? 0;
 
   factory UnitGameState.fromJson(Map<String, dynamic> json) {
     return UnitGameState(
@@ -1121,6 +1126,7 @@ class UnitGameState {
       ooaTestPassed: json['ooaTestPassed'] as bool?,
       ooaOutcome: json['ooaOutcome'] as String?,
       battleScarGained: json['battleScarGained'] as String?,
+      factionGameTracking: json['factionGameTracking'] as int?,
     );
   }
 
@@ -1139,6 +1145,7 @@ class UnitGameState {
       'ooaTestPassed': ooaTestPassed,
       'ooaOutcome': ooaOutcome,
       'battleScarGained': battleScarGained,
+      'factionGameTracking': factionGameTracking,
     };
   }
 }

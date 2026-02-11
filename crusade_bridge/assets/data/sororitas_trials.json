@@ -1,0 +1,40 @@
+{
+  "trials": [
+    {
+      "id": 1,
+      "name": "Trial of Humility",
+      "description": "Gain 1 Saint point each time this model is targeted by an enemy unit's attack and survives.",
+      "requiredPoints": 5
+    },
+    {
+      "id": 2,
+      "name": "Trial of Purity",
+      "description": "Gain 1 Saint point each time this model destroys an enemy PSYKER unit.",
+      "requiredPoints": 3
+    },
+    {
+      "id": 3,
+      "name": "Trial of Zeal",
+      "description": "Gain 1 Saint point each time this model destroys an enemy unit in the Fight phase.",
+      "requiredPoints": 5
+    },
+    {
+      "id": 4,
+      "name": "Trial of Faith",
+      "description": "Gain 1 Saint point each time this model performs an Act of Faith.",
+      "requiredPoints": 6
+    },
+    {
+      "id": 5,
+      "name": "Trial of Sacrifice",
+      "description": "Gain 1 Saint point each time this model suffers a Devastating Blow.",
+      "requiredPoints": 3
+    },
+    {
+      "id": 6,
+      "name": "Trial of Martyrdom",
+      "description": "Gain 1 Saint point each time this model is destroyed.",
+      "requiredPoints": 2
+    }
+  ]
+}
