@@ -159,10 +159,20 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
             ),
           ),
 
-          // Commit button
-          _CommitButton(
-            onCommit: () => _commitResults(game),
-          ),
+          // Commit button (disabled until all validation passes)
+          Builder(builder: (_) {
+            final hasUnresolvedOOA = game.unitStates.any((u) => u.wasDestroyed && !u.ooaTestResolved);
+            final hasMarkedUnit = _markedForGreatnessUnitId != null;
+            final hints = <String>[
+              if (!hasMarkedUnit) 'Mark a unit for greatness',
+              if (hasUnresolvedOOA) 'Resolve all OOA tests',
+            ];
+            return _CommitButton(
+              onCommit: () => _commitResults(game),
+              enabled: hasMarkedUnit && !hasUnresolvedOOA,
+              validationHints: hints,
+            );
+          }),
         ],
       ),
     );
@@ -2401,8 +2411,14 @@ class _UnitXPPreview {
 /// Commit button fixed at bottom
 class _CommitButton extends StatelessWidget {
   final VoidCallback onCommit;
+  final bool enabled;
+  final List<String> validationHints;
 
-  const _CommitButton({required this.onCommit});
+  const _CommitButton({
+    required this.onCommit,
+    this.enabled = true,
+    this.validationHints = const [],
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -2415,22 +2431,38 @@ class _CommitButton extends StatelessWidget {
         ),
       ),
       child: SafeArea(
-        child: SizedBox(
-          width: double.infinity,
-          child: ElevatedButton.icon(
-            onPressed: onCommit,
-            icon: const Icon(Icons.check_circle),
-            label: const Text('Commit Results'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: kAccentPink,
-              foregroundColor: Colors.black,
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              textStyle: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (!enabled && validationHints.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Text(
+                  validationHints.join('  •  '),
+                  style: TextStyle(fontSize: 12, color: Colors.orange.shade300),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: enabled ? onCommit : null,
+                icon: const Icon(Icons.check_circle),
+                label: const Text('Commit Results'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: kAccentPink,
+                  foregroundColor: Colors.black,
+                  disabledBackgroundColor: Colors.grey.shade700,
+                  disabledForegroundColor: Colors.grey.shade500,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  textStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
