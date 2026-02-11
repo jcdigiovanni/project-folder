@@ -140,10 +140,6 @@ void confirmHonorSystemRequisition({
       content: Text(confirmMessage),
       actions: [
         TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
-        ),
-        TextButton(
           onPressed: () {
             final event = CrusadeEvent.create(
               type: CrusadeEventType.requisition,
@@ -181,6 +177,10 @@ void confirmHonorSystemRequisition({
           },
           style: TextButton.styleFrom(foregroundColor: kAccentPink),
           child: const Text('Confirm'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Cancel'),
         ),
       ],
     ),

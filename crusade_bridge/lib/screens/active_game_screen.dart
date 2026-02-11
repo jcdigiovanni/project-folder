@@ -307,10 +307,6 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> with GameUp
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
             onPressed: () {
               final playerScore = int.tryParse(playerScoreController.text);
               final opponentScore = int.tryParse(opponentScoreController.text);
@@ -321,6 +317,10 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> with GameUp
               foregroundColor: buttonColor,
             ),
             child: Text(buttonLabel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
           ),
         ],
       ),

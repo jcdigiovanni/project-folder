@@ -215,16 +215,16 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
             onPressed: () {
               Navigator.pop(context);
               _applyResultsToUnits(game);
             },
             style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('Commit'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
           ),
         ],
       ),
@@ -407,13 +407,6 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
         ),
         actions: [
           TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              context.go('/dashboard');
-            },
-            child: const Text('Skip'),
-          ),
-          TextButton(
             onPressed: () async {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
@@ -434,6 +427,13 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
             },
             style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('Backup'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              context.go('/dashboard');
+            },
+            child: const Text('Skip'),
           ),
         ],
       ),
@@ -496,10 +496,6 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
           ],
         ),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext, false),
-            child: const Text('Not Yet'),
-          ),
           TextButton.icon(
             onPressed: () => Navigator.pop(dialogContext, true),
             icon: Icon(system.icon),
@@ -507,6 +503,10 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
             style: TextButton.styleFrom(
               foregroundColor: system.color,
             ),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Not Yet'),
           ),
         ],
       ),

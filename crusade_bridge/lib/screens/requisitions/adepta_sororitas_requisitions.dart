@@ -225,10 +225,6 @@ void _confirmDivineCalling(BuildContext context, WidgetRef ref, Crusade crusade,
       ),
       actions: [
         TextButton(
-          onPressed: () => Navigator.pop(dialogContext),
-          child: const Text('Cancel'),
-        ),
-        TextButton(
           onPressed: () {
             unit.factionPoints1 = newPoints;
 
@@ -253,6 +249,10 @@ void _confirmDivineCalling(BuildContext context, WidgetRef ref, Crusade crusade,
           },
           style: TextButton.styleFrom(foregroundColor: kAccentPink),
           child: const Text('Confirm'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(dialogContext),
+          child: const Text('Cancel'),
         ),
       ],
     ),
@@ -369,10 +369,6 @@ void _confirmAscension(BuildContext context, WidgetRef ref, Crusade crusade, Uni
       ),
       actions: [
         TextButton(
-          onPressed: () => Navigator.pop(dialogContext),
-          child: const Text('Cancel'),
-        ),
-        TextButton(
           onPressed: () {
             final newUnit = UnitOrGroup(
               id: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -422,6 +418,10 @@ void _confirmAscension(BuildContext context, WidgetRef ref, Crusade crusade, Uni
           },
           style: TextButton.styleFrom(foregroundColor: kAccentPink),
           child: const Text('Confirm'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(dialogContext),
+          child: const Text('Cancel'),
         ),
       ],
     ),
@@ -526,10 +526,6 @@ void _confirmPenitentPath(BuildContext context, WidgetRef ref, Crusade crusade, 
       ),
       actions: [
         TextButton(
-          onPressed: () => Navigator.pop(dialogContext),
-          child: const Text('Cancel'),
-        ),
-        TextButton(
           onPressed: () {
             final newUnit = UnitOrGroup(
               id: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -580,6 +576,10 @@ void _confirmPenitentPath(BuildContext context, WidgetRef ref, Crusade crusade, 
           },
           style: TextButton.styleFrom(foregroundColor: kAccentPink),
           child: const Text('Confirm'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(dialogContext),
+          child: const Text('Cancel'),
         ),
       ],
     ),
@@ -697,10 +697,6 @@ void _enterBattleTrait(BuildContext context, WidgetRef ref, Crusade crusade, Uni
       ),
       actions: [
         TextButton(
-          onPressed: () => Navigator.pop(dialogContext),
-          child: const Text('Cancel'),
-        ),
-        TextButton(
           onPressed: () {
             final trait = controller.text.trim();
             if (trait.isEmpty) {
@@ -712,6 +708,10 @@ void _enterBattleTrait(BuildContext context, WidgetRef ref, Crusade crusade, Uni
           },
           style: TextButton.styleFrom(foregroundColor: kAccentPink),
           child: const Text('Continue'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(dialogContext),
+          child: const Text('Cancel'),
         ),
       ],
     ),
@@ -747,10 +747,6 @@ void _confirmGloriousRedemption(
         ],
       ),
       actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(dialogContext),
-          child: const Text('Cancel'),
-        ),
         TextButton(
           onPressed: () {
             final newTraits = List<String>.from(unit.battleTraits)..add(bonusTrait);
@@ -810,6 +806,10 @@ void _confirmGloriousRedemption(
           },
           style: TextButton.styleFrom(foregroundColor: kAccentPink),
           child: const Text('Confirm'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(dialogContext),
+          child: const Text('Cancel'),
         ),
       ],
     ),
@@ -942,10 +942,6 @@ void _showInSufferingForm(BuildContext context, WidgetRef ref, Crusade crusade, 
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
             onPressed: () {
               final scar = scarController.text.trim();
               final honour = honourController.text.trim();
@@ -998,6 +994,10 @@ void _showInSufferingForm(BuildContext context, WidgetRef ref, Crusade crusade, 
             style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('Confirm'),
           ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
+          ),
         ],
       ),
     ),
@@ -1029,10 +1029,6 @@ void _showSaintlyBenedictions(BuildContext context, WidgetRef ref, Crusade crusa
         ],
       ),
       actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(dialogContext),
-          child: const Text('Cancel'),
-        ),
         TextButton(
           onPressed: () {
             final event = CrusadeEvent.create(
@@ -1069,6 +1065,10 @@ void _showSaintlyBenedictions(BuildContext context, WidgetRef ref, Crusade crusa
           },
           style: TextButton.styleFrom(foregroundColor: kAccentPink),
           child: const Text('Confirm'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(dialogContext),
+          child: const Text('Cancel'),
         ),
       ],
     ),
