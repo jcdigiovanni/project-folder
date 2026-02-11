@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/crusade_models.dart';
 import '../providers/campaign_provider.dart';
 import '../services/storage_service.dart';
+import '../utils/input_sanitizer.dart';
 import '../utils/snackbar_utils.dart';
 
 class CampaignViewScreen extends ConsumerWidget {
@@ -200,11 +201,13 @@ class CampaignViewScreen extends ConsumerWidget {
           children: [
             TextField(
               controller: nameController,
+              inputFormatters: nameFormatters,
               decoration: const InputDecoration(labelText: 'Campaign Name'),
             ),
             const SizedBox(height: 16),
             TextField(
               controller: descriptionController,
+              inputFormatters: notesFormatters,
               decoration: const InputDecoration(labelText: 'Description (optional)'),
               maxLines: 2,
             ),

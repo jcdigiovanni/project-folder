@@ -6,6 +6,7 @@ import '../models/crusade_models.dart';
 import '../models/faction_crusade_system.dart';
 import '../providers/crusade_provider.dart';
 import '../utils/game_state_utils.dart';
+import '../utils/input_sanitizer.dart';
 import '../utils/game_update_mixin.dart';
 import '../widgets/army_avatar.dart';
 import '../widgets/tally_progress_bar.dart';
@@ -273,6 +274,7 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> with GameUp
                   width: 60,
                   child: TextField(
                     controller: playerScoreController,
+                    inputFormatters: numericFormatters,
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     decoration: InputDecoration(
@@ -291,6 +293,7 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> with GameUp
                   width: 60,
                   child: TextField(
                     controller: opponentScoreController,
+                    inputFormatters: numericFormatters,
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     decoration: InputDecoration(

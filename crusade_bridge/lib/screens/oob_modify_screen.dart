@@ -10,6 +10,7 @@ import '../widgets/crusade_stats_bar.dart';
 import '../widgets/d6_roller.dart';
 import '../providers/crusade_provider.dart';
 import '../utils/game_state_utils.dart';
+import '../utils/input_sanitizer.dart';
 import '../utils/snackbar_utils.dart';
 import '../widgets/detail_row.dart';
 
@@ -28,6 +29,9 @@ class OOBModifyScreen extends ConsumerWidget {
     }
 
     final factionSystem = FactionCrusadeSystemRegistry.forFaction(currentCrusade.faction);
+
+    // Preload faction unit data so the Add Unit modal opens instantly
+    ReferenceDataService.getUnits(currentCrusade.faction);
 
     return Scaffold(
       appBar: AppBar(
@@ -690,6 +694,7 @@ class OOBModifyScreen extends ConsumerWidget {
                   TextField(
                     controller: groupNameController,
                     autofocus: true,
+                    inputFormatters: nameFormatters,
                     decoration: InputDecoration(
                       labelText: 'Group Name',
                       hintText: 'e.g., Sailor Venus Squad',
@@ -1010,6 +1015,7 @@ class OOBModifyScreen extends ConsumerWidget {
                     decoration: const InputDecoration(
                       labelText: 'Group Name',
                     ),
+                    inputFormatters: nameFormatters,
                     controller: TextEditingController(text: groupName),
                     onChanged: (value) => groupName = value,
                   ),
@@ -3115,6 +3121,7 @@ class _EditUnitModalContentState extends State<_EditUnitModalContent> {
 
           TextField(
             controller: _customNameController,
+            inputFormatters: nameFormatters,
             decoration: const InputDecoration(
               labelText: 'Custom Name',
               hintText: 'Leave empty to use default name',
@@ -3125,6 +3132,7 @@ class _EditUnitModalContentState extends State<_EditUnitModalContent> {
 
           TextField(
             controller: _notesController,
+            inputFormatters: notesFormatters,
             decoration: const InputDecoration(
               labelText: 'Notes',
               hintText: 'Add any custom notes here',
@@ -3322,6 +3330,7 @@ class _AddUnitModalContentState extends State<_AddUnitModalContent> {
           // Custom name — uses TextEditingController so text persists across rebuilds
           TextField(
             controller: _customNameController,
+            inputFormatters: nameFormatters,
             decoration: const InputDecoration(labelText: 'Custom Name (optional)'),
             textInputAction: TextInputAction.done,
           ),
