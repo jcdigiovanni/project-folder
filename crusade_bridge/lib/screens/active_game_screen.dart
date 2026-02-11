@@ -1,12 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-
-import '../models/crusade_models.dart';
+import '../common.dart';
 import '../models/faction_crusade_system.dart';
-import '../providers/crusade_provider.dart';
 import '../utils/game_state_utils.dart';
-import '../utils/input_sanitizer.dart';
 import '../utils/game_update_mixin.dart';
 import '../widgets/army_avatar.dart';
 import '../widgets/tally_progress_bar.dart';
@@ -372,7 +366,7 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> with GameUp
                         contentPadding: const EdgeInsets.symmetric(horizontal: 8),
                         leading: Icon(
                           isSelected ? Icons.check_circle : Icons.circle_outlined,
-                          color: isSelected ? const Color(0xFFFFB6C1) : Colors.grey,
+                          color: isSelected ? kAccentPink : Colors.grey,
                         ),
                         title: Text(unitState.unitName),
                         onTap: () {
@@ -488,7 +482,7 @@ class _AgendaSummaryHeaderState extends State<_AgendaSummaryHeader> {
                     child: const Icon(
                       Icons.chevron_right,
                       size: 24,
-                      color: Color(0xFFFFB6C1),
+                      color: kAccentPink,
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -517,7 +511,7 @@ class _AgendaSummaryHeaderState extends State<_AgendaSummaryHeader> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFFFB6C1).withValues(alpha: 0.15),
+                      color: kAccentPink.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
@@ -526,7 +520,7 @@ class _AgendaSummaryHeaderState extends State<_AgendaSummaryHeader> {
                         const Icon(
                           Icons.stacked_bar_chart,
                           size: 14,
-                          color: Color(0xFFFFB6C1),
+                          color: kAccentPink,
                         ),
                         const SizedBox(width: 4),
                         Text(
@@ -534,7 +528,7 @@ class _AgendaSummaryHeaderState extends State<_AgendaSummaryHeader> {
                           style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFFFFB6C1),
+                            color: kAccentPink,
                           ),
                         ),
                       ],
@@ -644,20 +638,20 @@ class _AgendaProgressCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFFFB6C1).withValues(alpha: 0.2),
+                      color: kAccentPink.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.stacked_bar_chart, size: 14, color: Color(0xFFFFB6C1)),
+                        const Icon(Icons.stacked_bar_chart, size: 14, color: kAccentPink),
                         const SizedBox(width: 4),
                         Text(
                           '${agenda.totalTallies}',
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
-                            color: Color(0xFFFFB6C1),
+                            color: kAccentPink,
                           ),
                         ),
                       ],
@@ -826,7 +820,7 @@ class _GroupedUnitsContainer extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         border: Border.all(
-          color: const Color(0xFFFFB6C1).withValues(alpha: 0.5),
+          color: kAccentPink.withValues(alpha: 0.5),
           width: 2,
         ),
         borderRadius: BorderRadius.circular(12),
@@ -839,7 +833,7 @@ class _GroupedUnitsContainer extends StatelessWidget {
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
-              color: const Color(0xFFFFB6C1).withValues(alpha: 0.15),
+              color: kAccentPink.withValues(alpha: 0.15),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10),
                 topRight: Radius.circular(10),
@@ -850,7 +844,7 @@ class _GroupedUnitsContainer extends StatelessWidget {
                 const Icon(
                   Icons.groups_outlined,
                   size: 18,
-                  color: Color(0xFFFFB6C1),
+                  color: kAccentPink,
                 ),
                 const SizedBox(width: 8),
                 Text(
@@ -858,7 +852,7 @@ class _GroupedUnitsContainer extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFFFFB6C1),
+                    color: kAccentPink,
                   ),
                 ),
               ],
@@ -1312,7 +1306,7 @@ class _TallyControl extends StatelessWidget {
                 onPressed: currentValue > 0 ? () => onChanged(currentValue - 1) : null,
                 icon: const Icon(Icons.remove_circle_outline),
                 iconSize: 28,
-                color: const Color(0xFFFFB6C1),
+                color: kAccentPink,
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
               ),
@@ -1333,7 +1327,7 @@ class _TallyControl extends StatelessWidget {
                 onPressed: () => onChanged(currentValue + 1),
                 icon: const Icon(Icons.add_circle_outline),
                 iconSize: 28,
-                color: const Color(0xFFFFB6C1),
+                color: kAccentPink,
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
               ),
@@ -1387,8 +1381,8 @@ class _TierControl extends StatelessWidget {
                 onSelected: (selected) {
                   if (selected) onChanged(index);
                 },
-                selectedColor: const Color(0xFFFFB6C1).withValues(alpha: 0.3),
-                checkmarkColor: const Color(0xFFFFB6C1),
+                selectedColor: kAccentPink.withValues(alpha: 0.3),
+                checkmarkColor: kAccentPink,
               ),
             ),
           ),
@@ -1424,10 +1418,10 @@ class _CrusadePointsBar extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFB6C1).withValues(alpha: 0.1),
+        color: kAccentPink.withValues(alpha: 0.1),
         border: Border(
           bottom: BorderSide(
-            color: const Color(0xFFFFB6C1).withValues(alpha: 0.3),
+            color: kAccentPink.withValues(alpha: 0.3),
           ),
         ),
       ),
@@ -1437,7 +1431,7 @@ class _CrusadePointsBar extends StatelessWidget {
           const Icon(
             Icons.military_tech,
             size: 18,
-            color: Color(0xFFFFB6C1),
+            color: kAccentPink,
           ),
           const SizedBox(width: 8),
           Text(
@@ -1445,7 +1439,7 @@ class _CrusadePointsBar extends StatelessWidget {
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: Color(0xFFFFB6C1),
+              color: kAccentPink,
             ),
           ),
         ],

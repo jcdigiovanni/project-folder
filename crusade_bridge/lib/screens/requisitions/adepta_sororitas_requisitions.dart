@@ -1,11 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../models/crusade_models.dart';
+import '../../common.dart';
 import '../../models/faction_crusade_system.dart';
-import '../../providers/crusade_provider.dart';
-import '../../utils/input_sanitizer.dart';
-import '../../utils/snackbar_utils.dart';
 import '../../widgets/requisition_option.dart';
 import 'requisition_utils.dart';
 
@@ -225,7 +219,7 @@ void _confirmDivineCalling(BuildContext context, WidgetRef ref, Crusade crusade,
           const SizedBox(height: 8),
           const Text(
             'Cost: 1 RP',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFFF59D)),
+            style: TextStyle(fontWeight: FontWeight.bold, color: kAccentGold),
           ),
         ],
       ),
@@ -368,7 +362,7 @@ void _confirmAscension(BuildContext context, WidgetRef ref, Crusade crusade, Uni
           const SizedBox(height: 8),
           const Text(
             'Cost: 2 RP',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFFF59D)),
+            style: TextStyle(fontWeight: FontWeight.bold, color: kAccentGold),
           ),
         ],
       ),
@@ -524,7 +518,7 @@ void _confirmPenitentPath(BuildContext context, WidgetRef ref, Crusade crusade, 
           const SizedBox(height: 8),
           const Text(
             'Cost: 2 RP',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFFF59D)),
+            style: TextStyle(fontWeight: FontWeight.bold, color: kAccentGold),
           ),
         ],
       ),
@@ -744,7 +738,7 @@ void _confirmGloriousRedemption(
           const SizedBox(height: 8),
           const Text(
             'Cost: 1 RP',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFFF59D)),
+            style: TextStyle(fontWeight: FontWeight.bold, color: kAccentGold),
           ),
         ],
       ),
@@ -779,6 +773,11 @@ void _confirmGloriousRedemption(
               isEpicHero: unit.isEpicHero,
               enhancements: List<String>.from(unit.enhancements),
               notes: unit.notes,
+              factionPoints1: unit.factionPoints1,
+              factionPoints2: unit.factionPoints2,
+              factionPoints3: unit.factionPoints3 - 3,
+              factionFlag1: unit.factionFlag1,
+              factionFlag2: unit.factionFlag2,
             );
 
             ref.read(currentCrusadeNotifierProvider.notifier).replaceUnit(unit.id, newUnit);
@@ -798,6 +797,7 @@ void _confirmGloriousRedemption(
                 'newUnitName': newSquadType,
                 'bonusBattleTrait': bonusTrait,
                 'legendaryVeteransDiscount': true,
+                'redemptionPointsConsumed': 3,
               },
             ));
 
@@ -930,7 +930,7 @@ void _showInSufferingForm(BuildContext context, WidgetRef ref, Crusade crusade, 
               const SizedBox(height: 8),
               const Text(
                 'Cost: 1 RP',
-                style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFFF59D)),
+                style: TextStyle(fontWeight: FontWeight.bold, color: kAccentGold),
               ),
             ],
           ),
@@ -1018,7 +1018,7 @@ void _showSaintlyBenedictions(BuildContext context, WidgetRef ref, Crusade crusa
           SizedBox(height: 8),
           Text(
             'Cost: 1 RP',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFFF59D)),
+            style: TextStyle(fontWeight: FontWeight.bold, color: kAccentGold),
           ),
         ],
       ),
@@ -1112,13 +1112,13 @@ Widget _buildRpBadge(int cost) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
     decoration: BoxDecoration(
-      color: const Color(0xFFFFF59D).withValues(alpha: 0.2),
+      color: kAccentGold.withValues(alpha: 0.2),
       borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: const Color(0xFFFFF59D)),
+      border: Border.all(color: kAccentGold),
     ),
     child: Text(
       '$cost RP',
-      style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFFF59D)),
+      style: const TextStyle(fontWeight: FontWeight.bold, color: kAccentGold),
     ),
   );
 }

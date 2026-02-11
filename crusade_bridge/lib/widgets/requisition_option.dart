@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import '../common.dart';
 
 /// Reusable requisition card widget used by the main requisition screen
 /// and faction-specific requisition files.
@@ -75,15 +75,15 @@ class RequisitionOption extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFFF59D).withValues(alpha: 0.2),
+                    color: kAccentGold.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: const Color(0xFFFFF59D)),
+                    border: Border.all(color: kAccentGold),
                   ),
                   child: Text(
                     '$cost${costSuffix ?? ''} RP',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFFFFF59D),
+                      color: kAccentGold,
                     ),
                   ),
                 ),

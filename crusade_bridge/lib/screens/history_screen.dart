@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../models/crusade_models.dart';
-import '../providers/crusade_provider.dart';
+import '../common.dart';
 import '../widgets/army_avatar.dart';
 
 class HistoryScreen extends ConsumerWidget {

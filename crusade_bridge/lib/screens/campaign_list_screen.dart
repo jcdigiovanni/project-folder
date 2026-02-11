@@ -1,11 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-
-import '../models/crusade_models.dart';
+import '../common.dart';
 import '../providers/campaign_provider.dart';
-import '../utils/input_sanitizer.dart';
-import '../utils/snackbar_utils.dart';
 
 class CampaignListScreen extends ConsumerWidget {
   const CampaignListScreen({super.key});
@@ -69,9 +63,7 @@ class CampaignListScreen extends ConsumerWidget {
               onPressed: () => _showCreateCampaignDialog(context, ref),
               icon: const Icon(Icons.add),
               label: const Text('Create Campaign'),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-              ),
+              style: actionButtonStyle(),
             ),
           ],
         ),

@@ -1,11 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../models/crusade_models.dart';
+import '../common.dart';
 import '../providers/campaign_provider.dart';
 import '../services/storage_service.dart';
-import '../utils/input_sanitizer.dart';
-import '../utils/snackbar_utils.dart';
 
 class CampaignViewScreen extends ConsumerWidget {
   final String campaignId;

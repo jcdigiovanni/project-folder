@@ -1,11 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-
-import '../models/crusade_models.dart';
-import '../providers/crusade_provider.dart';
-import '../utils/input_sanitizer.dart';
-import '../utils/snackbar_utils.dart';
+import '../common.dart';
 import '../widgets/army_avatar.dart';
 
 class RosterListScreen extends ConsumerWidget {
@@ -75,10 +68,7 @@ class RosterListScreen extends ConsumerWidget {
             onPressed: () => _showCreateRosterDialog(context, ref),
             icon: const Icon(Icons.add),
             label: const Text('Create First Roster'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-            ),
+            style: actionButtonStyle(backgroundColor: Colors.green),
           ),
         ],
       ),

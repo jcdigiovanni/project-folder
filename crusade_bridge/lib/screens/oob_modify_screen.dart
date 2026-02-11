@@ -1,17 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
-import '../models/crusade_models.dart';
+import '../common.dart';
 import '../models/faction_crusade_system.dart';
 import '../services/reference_data_service.dart';
+import '../utils/game_state_utils.dart';
 import '../widgets/army_avatar.dart';
 import '../widgets/crusade_stats_bar.dart';
 import '../widgets/d6_roller.dart';
-import '../providers/crusade_provider.dart';
-import '../utils/game_state_utils.dart';
-import '../utils/input_sanitizer.dart';
-import '../utils/snackbar_utils.dart';
 import '../widgets/detail_row.dart';
 
 class OOBModifyScreen extends ConsumerWidget {
@@ -1216,7 +1211,7 @@ class OOBModifyScreen extends ConsumerWidget {
                   ),
                   Text(
                     '${currentCrusade.rp} RP',
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFFFFF59D)),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: kAccentGold),
                   ),
                 ],
               ),
@@ -2631,6 +2626,15 @@ class _TrialInfoSection extends StatelessWidget {
                     children: [
                       Text('${fieldLabels?.points2Label ?? 'Secondary Points'}: ', style: const TextStyle(fontSize: 12, color: Colors.grey)),
                       Text('${unit.factionPoints2}', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ],
+                if (unit.factionPoints3 > 0) ...[
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Text('${fieldLabels?.points3Label ?? 'Tertiary Points'}: ', style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                      Text('${unit.factionPoints3}', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
                     ],
                   ),
                 ],

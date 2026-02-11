@@ -1,10 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../models/crusade_models.dart';
-import '../providers/crusade_provider.dart';
+import '../common.dart';
 import '../services/reference_data_service.dart';
-import '../utils/snackbar_utils.dart';
 import '../widgets/crusade_stats_bar.dart';
 import '../widgets/requisition_option.dart';
 import 'requisitions/adepta_sororitas_requisitions.dart';
@@ -293,18 +288,18 @@ class RequisitionScreen extends ConsumerWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
                         color: canAfford
-                            ? const Color(0xFFFFF59D).withValues(alpha: 0.2)
+                            ? kAccentGold.withValues(alpha: 0.2)
                             : Colors.grey.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: canAfford ? const Color(0xFFFFF59D) : Colors.grey,
+                          color: canAfford ? kAccentGold : Colors.grey,
                         ),
                       ),
                       child: Text(
                         '$rpCost RP',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: canAfford ? const Color(0xFFFFF59D) : Colors.grey,
+                          color: canAfford ? kAccentGold : Colors.grey,
                         ),
                       ),
                     ),
@@ -386,7 +381,7 @@ class RequisitionScreen extends ConsumerWidget {
               'Cost: $rpCost RP',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFFFF59D),
+                color: kAccentGold,
               ),
             ),
           ],
@@ -571,18 +566,18 @@ class RequisitionScreen extends ConsumerWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
                         color: canAfford
-                            ? const Color(0xFFFFF59D).withValues(alpha: 0.2)
+                            ? kAccentGold.withValues(alpha: 0.2)
                             : Colors.grey.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: canAfford ? const Color(0xFFFFF59D) : Colors.grey,
+                          color: canAfford ? kAccentGold : Colors.grey,
                         ),
                       ),
                       child: Text(
                         '$rpCost RP',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: canAfford ? const Color(0xFFFFF59D) : Colors.grey,
+                          color: canAfford ? kAccentGold : Colors.grey,
                         ),
                       ),
                     ),
@@ -662,7 +657,7 @@ class RequisitionScreen extends ConsumerWidget {
               'Cost: $rpCost RP',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFFFF59D),
+                color: kAccentGold,
               ),
             ),
           ],
@@ -856,15 +851,15 @@ class RequisitionScreen extends ConsumerWidget {
                     trailing: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFFFF59D).withValues(alpha: 0.2),
+                        color: kAccentGold.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: const Color(0xFFFFF59D)),
+                        border: Border.all(color: kAccentGold),
                       ),
                       child: Text(
                         '$rpCost RP',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFFFFF59D),
+                          color: kAccentGold,
                         ),
                       ),
                     ),
@@ -954,7 +949,7 @@ class RequisitionScreen extends ConsumerWidget {
               'Cost: $rpCost RP',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFFFF59D),
+                color: kAccentGold,
               ),
             ),
           ],
@@ -1100,18 +1095,18 @@ class RequisitionScreen extends ConsumerWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
                         color: canAfford
-                            ? const Color(0xFFFFF59D).withValues(alpha: 0.2)
+                            ? kAccentGold.withValues(alpha: 0.2)
                             : Colors.grey.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: canAfford ? const Color(0xFFFFF59D) : Colors.grey,
+                          color: canAfford ? kAccentGold : Colors.grey,
                         ),
                       ),
                       child: Text(
                         '$rpCost RP',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: canAfford ? const Color(0xFFFFF59D) : Colors.grey,
+                          color: canAfford ? kAccentGold : Colors.grey,
                         ),
                       ),
                     ),
@@ -1153,7 +1148,7 @@ class RequisitionScreen extends ConsumerWidget {
               'Cost: $rpCost RP',
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFFFF59D),
+                color: kAccentGold,
               ),
             ),
           ],
