@@ -1,14 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../common.dart';
 import '../providers/app_settings_provider.dart';
 import '../providers/campaign_provider.dart';
-import '../providers/crusade_provider.dart';
 import '../services/google_drive_service.dart';
 import '../services/storage_service.dart';
-import '../utils/snackbar_utils.dart';
 import '../utils/drive_restore_helper.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {

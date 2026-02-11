@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-
-import '../models/crusade_models.dart';
-import '../providers/crusade_provider.dart';
+import '../common.dart';
 import '../widgets/army_avatar.dart';
 
 class RosterViewScreen extends ConsumerWidget {
@@ -117,10 +112,7 @@ class RosterViewScreen extends ConsumerWidget {
                   onPressed: () => _showStatsDialog(context, roster),
                   icon: const Icon(Icons.bar_chart),
                   label: const Text('View Stats'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                  ),
+                  style: actionButtonStyle(backgroundColor: Colors.blue),
                 ),
               ),
             ],
@@ -344,7 +336,7 @@ class _RosterSummaryHeader extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color: totalPoints > supplyLimit
                           ? Colors.red
-                          : const Color(0xFFFFB6C1),
+                          : kAccentPink,
                     ),
                   ),
                 ],
@@ -523,14 +515,14 @@ class _UnitDetailCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFFB6C1).withValues(alpha: 0.2),
+                    color: kAccentPink.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
                     '${unit.points} pts',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFFFFB6C1),
+                      color: kAccentPink,
                     ),
                   ),
                 ),

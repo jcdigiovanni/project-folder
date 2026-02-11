@@ -1,11 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-
-import '../models/crusade_models.dart';
-import '../providers/crusade_provider.dart';
-import '../utils/input_sanitizer.dart';
-import '../utils/snackbar_utils.dart';
+import '../common.dart';
 import '../widgets/army_avatar.dart';
 
 class RosterBuildScreen extends ConsumerStatefulWidget {
@@ -123,7 +116,7 @@ class _RosterBuildScreenState extends ConsumerState<RosterBuildScreen> {
                         fontWeight: FontWeight.bold,
                         color: totalPoints > currentCrusade.supplyLimit
                             ? Colors.red
-                            : const Color(0xFFFFB6C1),
+                            : kAccentPink,
                       ),
                     ),
                   ],
@@ -196,10 +189,7 @@ class _RosterBuildScreenState extends ConsumerState<RosterBuildScreen> {
                   onPressed: () => _saveRoster(roster),
                   icon: const Icon(Icons.save),
                   label: const Text('Save Roster'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                  ),
+                  style: actionButtonStyle(backgroundColor: Colors.green),
                 ),
               ),
             ],

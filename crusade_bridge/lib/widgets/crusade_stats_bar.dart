@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../models/crusade_models.dart';
+import '../common.dart';
 
 /// Reusable stats bar widget for displaying Crusade Supply/CP/RP info
 /// Use this widget consistently across dashboard, OOB, and other screens
@@ -47,7 +45,7 @@ class CrusadeStatsBar extends StatelessWidget {
               value: '${crusade.totalOobPoints}/${crusade.supplyLimit}',
               valueColor: isOverLimit ? Colors.red : Colors.white,
               progress: showProgress ? supplyProgress : null,
-              progressColor: isOverLimit ? Colors.red : const Color(0xFFFFB6C1),
+              progressColor: isOverLimit ? Colors.red : kAccentPink,
               warning: isOverLimit ? 'Over limit!' : null,
             ),
           ),
@@ -62,7 +60,7 @@ class CrusadeStatsBar extends StatelessWidget {
                   ? Colors.red
                   : crusade.remainingPoints < 100
                       ? Colors.orange
-                      : const Color(0xFFFFB6C1),
+                      : kAccentPink,
             ),
           ),
           const SizedBox(width: 12),
@@ -84,9 +82,9 @@ class CrusadeStatsBar extends StatelessWidget {
               value: '${crusade.rp}/10',
               valueColor: crusade.rp >= 10
                   ? Colors.green
-                  : const Color(0xFFFFF59D),
+                  : kAccentGold,
               progress: showProgress ? rpProgress : null,
-              progressColor: crusade.rp >= 10 ? Colors.green : const Color(0xFFFFF59D),
+              progressColor: crusade.rp >= 10 ? Colors.green : kAccentGold,
               warning: crusade.rp >= 10 ? 'At cap' : null,
             ),
           ),
@@ -112,7 +110,7 @@ class CrusadeStatsBar extends StatelessWidget {
           _CompactStat(
             icon: Icons.inventory_2,
             value: '${crusade.totalOobPoints}/${crusade.supplyLimit}',
-            color: isOverLimit ? Colors.red : const Color(0xFFFFB6C1),
+            color: isOverLimit ? Colors.red : kAccentPink,
             tooltip: 'Supply Used / Limit',
           ),
           _CompactStat(
@@ -124,7 +122,7 @@ class CrusadeStatsBar extends StatelessWidget {
           _CompactStat(
             icon: Icons.stars,
             value: '${crusade.rp} RP',
-            color: crusade.rp >= 10 ? Colors.green : const Color(0xFFFFF59D),
+            color: crusade.rp >= 10 ? Colors.green : kAccentGold,
             tooltip: 'Requisition Points (max 10)',
           ),
         ],

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// ── Named color constants ────────────────────────────────────
+const kAccentPink = Color(0xFFFFB6C1);
+const kAccentGold = Color(0xFFFFF59D);
+
 final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   scaffoldBackgroundColor: const Color(0xFF0A0A0A),
@@ -16,7 +20,7 @@ final ThemeData darkTheme = ThemeData(
     ),
     headlineMedium: GoogleFonts.greatVibes(
       fontSize: 48,  // Increased from 36 → bigger presence
-      color: const Color(0xFFFFB6C1), // Pastel pink
+      color: kAccentPink, // Pastel pink
       fontWeight: FontWeight.w900,  // Maximum weight for thickness (if font supports it)
       letterSpacing: 2.0,  // Slight spread for drama
       shadows: [
@@ -27,7 +31,7 @@ final ThemeData darkTheme = ThemeData(
         ),
         Shadow(
           blurRadius: 12,
-          color: const Color(0xFFFFF59D).withOpacity(0.4), // Soft yellow glow
+          color: kAccentGold.withOpacity(0.4), // Soft yellow glow
           offset: const Offset(0, 0),
         ),
       ],
@@ -45,7 +49,7 @@ final ThemeData darkTheme = ThemeData(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(const Color(0xFF1E1E1E)),
-      foregroundColor: WidgetStateProperty.all(const Color(0xFFFFB6C1)),
+      foregroundColor: WidgetStateProperty.all(kAccentPink),
       minimumSize: WidgetStateProperty.all(
         const Size(double.infinity, 72),  // Increased height for Great Vibes font
       ),
@@ -73,7 +77,7 @@ final ThemeData darkTheme = ThemeData(
           return baseStyle.copyWith(
             shadows: [
               Shadow(blurRadius: 4, color: Colors.black.withOpacity(0.8), offset: const Offset(2, 2)),
-              Shadow(blurRadius: 8, color: const Color(0xFFFFF59D).withOpacity(0.5), offset: const Offset(0, 0)),
+              Shadow(blurRadius: 8, color: kAccentGold.withOpacity(0.5), offset: const Offset(0, 0)),
             ],
           );
         }
@@ -82,11 +86,26 @@ final ThemeData darkTheme = ThemeData(
         return baseStyle.copyWith(
           shadows: [
             Shadow(blurRadius: 6, color: Colors.black.withOpacity(0.9), offset: const Offset(2, 2)),
-            Shadow(blurRadius: 16, color: const Color(0xFFFFF59D).withOpacity(0.8), offset: const Offset(0, 0)),
-            Shadow(blurRadius: 24, color: const Color(0xFFFFF59D).withOpacity(0.4), offset: const Offset(0, 0)),
+            Shadow(blurRadius: 16, color: kAccentGold.withOpacity(0.8), offset: const Offset(0, 0)),
+            Shadow(blurRadius: 24, color: kAccentGold.withOpacity(0.4), offset: const Offset(0, 0)),
           ],
         );
       }),
+    ),
+  ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: ButtonStyle(
+      minimumSize: WidgetStateProperty.all(const Size(0, 48)),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+      padding: WidgetStateProperty.all(
+        const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+      ),
+      side: WidgetStateProperty.all(
+        const BorderSide(color: kAccentPink),
+      ),
+      foregroundColor: WidgetStateProperty.all(kAccentPink),
     ),
   ),
   cardTheme: CardThemeData(
@@ -94,4 +113,19 @@ final ThemeData darkTheme = ThemeData(
     elevation: 4,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
   ),
+);
+
+/// Standard 48pt action button style for in-screen buttons.
+/// Overrides the ornate 72pt theme for non-landing contexts.
+ButtonStyle actionButtonStyle({Color? backgroundColor}) => ElevatedButton.styleFrom(
+  backgroundColor: backgroundColor,
+  minimumSize: const Size(0, 48),
+  fixedSize: null,
+);
+
+/// Full-width variant for standalone primary actions (e.g., Create Crusade).
+ButtonStyle fullWidthActionStyle({Color? backgroundColor}) => ElevatedButton.styleFrom(
+  backgroundColor: backgroundColor,
+  minimumSize: const Size(double.infinity, 48),
+  fixedSize: null,
 );
