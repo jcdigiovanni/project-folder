@@ -5,7 +5,7 @@
 
 ## Current Focus: BUGS AND ENHANCEMENTS
 - Read BACKLOG.md and work on all BUG, ENH, and FEA items as needed.
-- Replace the current Adepta Sororitas Requisitions with the CORRECT ones currently in the BACKLOG.  These should have more capability to implement.  Bear in mind we will need requisitions for all factions, make sure we're not going to create a monolithic file as more reqs get added.
+- When implementing "Trials of a Living Saint" in the BACKLOG - the system is an Adepta Sororitas specific Crusade feature that will build upon what we put in with the Requisitions.  Grok put in some information in Integration Points - do not assume that guidance is immutable or even applicable, use it as just guidance.  Also, bear in mind, there is only 1 Saint Potentia at a time, so this will probably introduce a lot of info that needs to be hidden unless it is on the Potentia.
   
 ### Current Work: Bugs and Enhancements (9 FEB)
 - All sprint items complete! Ready for next sprint.
