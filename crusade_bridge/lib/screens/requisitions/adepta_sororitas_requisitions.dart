@@ -228,7 +228,7 @@ void _confirmDivineCalling(BuildContext context, WidgetRef ref, Crusade crusade,
           onPressed: () => Navigator.pop(dialogContext),
           child: const Text('Cancel'),
         ),
-        ElevatedButton(
+        TextButton(
           onPressed: () {
             unit.factionPoints1 = newPoints;
 
@@ -251,6 +251,7 @@ void _confirmDivineCalling(BuildContext context, WidgetRef ref, Crusade crusade,
             Navigator.pop(dialogContext);
             SnackBarUtils.showSuccess(context, 'Divine Calling: $unitName starts new Trial with $newPoints Saint Points');
           },
+          style: TextButton.styleFrom(foregroundColor: kAccentPink),
           child: const Text('Confirm'),
         ),
       ],
@@ -371,7 +372,7 @@ void _confirmAscension(BuildContext context, WidgetRef ref, Crusade crusade, Uni
           onPressed: () => Navigator.pop(dialogContext),
           child: const Text('Cancel'),
         ),
-        ElevatedButton(
+        TextButton(
           onPressed: () {
             final newUnit = UnitOrGroup(
               id: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -419,6 +420,7 @@ void _confirmAscension(BuildContext context, WidgetRef ref, Crusade crusade, Uni
             Navigator.pop(dialogContext);
             SnackBarUtils.showSuccess(context, '$unitName ascended to $newSquadType!');
           },
+          style: TextButton.styleFrom(foregroundColor: kAccentPink),
           child: const Text('Confirm'),
         ),
       ],
@@ -527,7 +529,7 @@ void _confirmPenitentPath(BuildContext context, WidgetRef ref, Crusade crusade, 
           onPressed: () => Navigator.pop(dialogContext),
           child: const Text('Cancel'),
         ),
-        ElevatedButton(
+        TextButton(
           onPressed: () {
             final newUnit = UnitOrGroup(
               id: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -576,6 +578,7 @@ void _confirmPenitentPath(BuildContext context, WidgetRef ref, Crusade crusade, 
             Navigator.pop(dialogContext);
             SnackBarUtils.showSuccess(context, '$unitName converted to $newSquadType!');
           },
+          style: TextButton.styleFrom(foregroundColor: kAccentPink),
           child: const Text('Confirm'),
         ),
       ],
@@ -697,7 +700,7 @@ void _enterBattleTrait(BuildContext context, WidgetRef ref, Crusade crusade, Uni
           onPressed: () => Navigator.pop(dialogContext),
           child: const Text('Cancel'),
         ),
-        ElevatedButton(
+        TextButton(
           onPressed: () {
             final trait = controller.text.trim();
             if (trait.isEmpty) {
@@ -707,6 +710,7 @@ void _enterBattleTrait(BuildContext context, WidgetRef ref, Crusade crusade, Uni
             Navigator.pop(dialogContext);
             _confirmGloriousRedemption(context, ref, crusade, unit, newSquadType, trait);
           },
+          style: TextButton.styleFrom(foregroundColor: kAccentPink),
           child: const Text('Continue'),
         ),
       ],
@@ -747,7 +751,7 @@ void _confirmGloriousRedemption(
           onPressed: () => Navigator.pop(dialogContext),
           child: const Text('Cancel'),
         ),
-        ElevatedButton(
+        TextButton(
           onPressed: () {
             final newTraits = List<String>.from(unit.battleTraits)..add(bonusTrait);
 
@@ -804,6 +808,7 @@ void _confirmGloriousRedemption(
             Navigator.pop(dialogContext);
             SnackBarUtils.showSuccess(context, '$unitName redeemed as $newSquadType!');
           },
+          style: TextButton.styleFrom(foregroundColor: kAccentPink),
           child: const Text('Confirm'),
         ),
       ],
@@ -940,7 +945,7 @@ void _showInSufferingForm(BuildContext context, WidgetRef ref, Crusade crusade, 
             onPressed: () => Navigator.pop(dialogContext),
             child: const Text('Cancel'),
           ),
-          ElevatedButton(
+          TextButton(
             onPressed: () {
               final scar = scarController.text.trim();
               final honour = honourController.text.trim();
@@ -990,6 +995,7 @@ void _showInSufferingForm(BuildContext context, WidgetRef ref, Crusade crusade, 
               Navigator.pop(dialogContext);
               SnackBarUtils.showSuccess(context, '$unitName: gained "$scar" and "$honour"');
             },
+            style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('Confirm'),
           ),
         ],
@@ -1027,7 +1033,7 @@ void _showSaintlyBenedictions(BuildContext context, WidgetRef ref, Crusade crusa
           onPressed: () => Navigator.pop(dialogContext),
           child: const Text('Cancel'),
         ),
-        ElevatedButton(
+        TextButton(
           onPressed: () {
             final event = CrusadeEvent.create(
               type: CrusadeEventType.requisition,
@@ -1061,6 +1067,7 @@ void _showSaintlyBenedictions(BuildContext context, WidgetRef ref, Crusade crusa
             Navigator.pop(dialogContext);
             SnackBarUtils.showSuccess(context, 'Saintly Benedictions activated! (-1 RP)');
           },
+          style: TextButton.styleFrom(foregroundColor: kAccentPink),
           child: const Text('Confirm'),
         ),
       ],

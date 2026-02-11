@@ -132,7 +132,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             onPressed: () => Navigator.pop(dialogContext),
             child: const Text('Cancel'),
           ),
-          ElevatedButton(
+          TextButton(
             onPressed: () async {
               Navigator.pop(dialogContext);
               setState(() => _isLoading = true);
@@ -174,10 +174,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 );
               }
             },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red[700],
-              foregroundColor: Colors.white,
-            ),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
             child: const Text('Clear All Data'),
           ),
         ],

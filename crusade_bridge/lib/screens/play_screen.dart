@@ -568,11 +568,12 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
             onPressed: () => Navigator.pop(context),
             child: const Text('Cancel'),
           ),
-          ElevatedButton(
+          TextButton(
             onPressed: () {
               Navigator.pop(context);
               _showAgendaSelectionDialog(context, roster, totalPoints, totalCP);
             },
+            style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('Deploy'),
           ),
         ],
