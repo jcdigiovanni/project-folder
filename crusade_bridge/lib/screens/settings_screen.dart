@@ -1,14 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../common.dart';
 import '../providers/app_settings_provider.dart';
 import '../providers/campaign_provider.dart';
-import '../providers/crusade_provider.dart';
 import '../services/google_drive_service.dart';
 import '../services/storage_service.dart';
-import '../utils/snackbar_utils.dart';
 import '../utils/drive_restore_helper.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
@@ -133,10 +129,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
             onPressed: () async {
               Navigator.pop(dialogContext);
               setState(() => _isLoading = true);
@@ -178,11 +170,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 );
               }
             },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red[700],
-              foregroundColor: Colors.white,
-            ),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
             child: const Text('Clear All Data'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
           ),
         ],
       ),

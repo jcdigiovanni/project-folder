@@ -1,11 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-
-import '../models/crusade_models.dart';
-import '../providers/crusade_provider.dart';
+import '../common.dart';
 import '../widgets/army_avatar.dart';
-import '../utils/snackbar_utils.dart';
 
 class RosterListScreen extends ConsumerWidget {
   const RosterListScreen({super.key});
@@ -74,10 +68,7 @@ class RosterListScreen extends ConsumerWidget {
             onPressed: () => _showCreateRosterDialog(context, ref),
             icon: const Icon(Icons.add),
             label: const Text('Create First Roster'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-            ),
+            style: actionButtonStyle(backgroundColor: Colors.green),
           ),
         ],
       ),
@@ -115,6 +106,7 @@ class RosterListScreen extends ConsumerWidget {
         title: const Text('Create New Roster'),
         content: TextField(
           controller: nameController,
+          inputFormatters: nameFormatters,
           decoration: const InputDecoration(
             labelText: 'Roster Name',
             hintText: 'e.g., Tournament List, 1000pt Strike Force',
@@ -124,10 +116,6 @@ class RosterListScreen extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
             onPressed: () {
               final name = nameController.text.trim();
               if (name.isEmpty) {
@@ -146,7 +134,12 @@ class RosterListScreen extends ConsumerWidget {
               // Navigate to edit the new roster
               context.go('/roster/${newRoster.id}/edit');
             },
+            style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('Create'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
           ),
         ],
       ),
@@ -164,16 +157,16 @@ class RosterListScreen extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
             onPressed: () {
               ref.read(currentCrusadeNotifierProvider.notifier).deleteRoster(roster.id);
               Navigator.pop(context);
               SnackBarUtils.showSuccess(context, 'Roster "${roster.name}" deleted');
             },
             child: const Text('Delete', style: TextStyle(color: Colors.red)),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
           ),
         ],
       ),

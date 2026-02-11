@@ -1,10 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../models/crusade_models.dart';
+import '../common.dart';
 import '../providers/campaign_provider.dart';
 import '../services/storage_service.dart';
-import '../utils/snackbar_utils.dart';
 
 class CampaignViewScreen extends ConsumerWidget {
   final String campaignId;
@@ -171,16 +167,17 @@ class CampaignViewScreen extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
             onPressed: () {
               ref.read(campaignsProvider.notifier).endCampaign(campaign.id);
               Navigator.pop(context);
               SnackBarUtils.showSuccess(context, 'Campaign ended');
             },
+            style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('End Campaign'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
           ),
         ],
       ),
@@ -200,11 +197,13 @@ class CampaignViewScreen extends ConsumerWidget {
           children: [
             TextField(
               controller: nameController,
+              inputFormatters: nameFormatters,
               decoration: const InputDecoration(labelText: 'Campaign Name'),
             ),
             const SizedBox(height: 16),
             TextField(
               controller: descriptionController,
+              inputFormatters: notesFormatters,
               decoration: const InputDecoration(labelText: 'Description (optional)'),
               maxLines: 2,
             ),
@@ -212,10 +211,6 @@ class CampaignViewScreen extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
             onPressed: () {
               final name = nameController.text.trim();
               if (name.isEmpty) {
@@ -233,7 +228,12 @@ class CampaignViewScreen extends ConsumerWidget {
               Navigator.pop(context);
               SnackBarUtils.showSuccess(context, 'Campaign updated');
             },
+            style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('Save'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
           ),
         ],
       ),
@@ -360,10 +360,6 @@ class CampaignViewScreen extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
             onPressed: () {
               ref.read(campaignsProvider.notifier).removeCrusadeFromCampaign(
                     campaign.id,
@@ -372,8 +368,12 @@ class CampaignViewScreen extends ConsumerWidget {
               Navigator.pop(context);
               SnackBarUtils.showSuccess(context, 'Force removed from campaign');
             },
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
             child: const Text('Remove'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
           ),
         ],
       ),

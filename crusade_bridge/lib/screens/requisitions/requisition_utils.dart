@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../models/crusade_models.dart';
-import '../../providers/crusade_provider.dart';
-import '../../utils/snackbar_utils.dart';
+import '../../common.dart';
 
 /// Generic honor-system requisition flow: unit picker → confirm → deduct RP → log event.
 /// Reusable across factions for simple "pick unit, spend RP" requisitions.
@@ -91,13 +86,13 @@ void showHonorSystemRequisitionModal({
                   trailing: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFFFF59D).withValues(alpha: 0.2),
+                      color: kAccentGold.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: const Color(0xFFFFF59D)),
+                      border: Border.all(color: kAccentGold),
                     ),
                     child: Text(
                       '$rpCost RP',
-                      style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFFF59D)),
+                      style: const TextStyle(fontWeight: FontWeight.bold, color: kAccentGold),
                     ),
                   ),
                   onTap: () {
@@ -145,10 +140,6 @@ void confirmHonorSystemRequisition({
       content: Text(confirmMessage),
       actions: [
         TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
-        ),
-        ElevatedButton(
           onPressed: () {
             final event = CrusadeEvent.create(
               type: CrusadeEventType.requisition,
@@ -184,7 +175,12 @@ void confirmHonorSystemRequisition({
             Navigator.pop(context);
             SnackBarUtils.showSuccess(context, successMessage);
           },
+          style: TextButton.styleFrom(foregroundColor: kAccentPink),
           child: const Text('Confirm'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Cancel'),
         ),
       ],
     ),

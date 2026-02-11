@@ -1,11 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-
-import '../models/crusade_models.dart';
-import '../providers/crusade_provider.dart';
+import '../common.dart';
 import '../widgets/army_avatar.dart';
 
 /// Battle size definitions with point limits
@@ -159,18 +154,14 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
                 onPressed: () => context.go('/rosters'),
                 icon: const Icon(Icons.add),
                 label: const Text('Create Roster'),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                ),
+                style: actionButtonStyle(),
               ),
             ] else ...[
               ElevatedButton.icon(
                 onPressed: () => context.go('/oob'),
                 icon: const Icon(Icons.military_tech),
                 label: const Text('Build Order of Battle'),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                ),
+                style: actionButtonStyle(),
               ),
               const SizedBox(height: 12),
               Text(
@@ -187,9 +178,6 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
               onPressed: () => context.go('/landing'),
               icon: const Icon(Icons.folder_open),
               label: const Text('Load Army'),
-              style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-              ),
             ),
           ],
         ),
@@ -300,7 +288,7 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
                           _selectedBattleSize!.pointsLabel,
                           style: const TextStyle(
                             fontSize: 16,
-                            color: Color(0xFFFFB6C1),
+                            color: kAccentPink,
                           ),
                         ),
                       ],
@@ -356,9 +344,6 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
               onPressed: () => context.go('/rosters'),
               icon: const Icon(Icons.add),
               label: const Text('Create New Roster'),
-              style: OutlinedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 48),
-              ),
             ),
           ),
         ),
@@ -437,10 +422,10 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: const Color(0xFFFFB6C1).withValues(alpha: 0.1),
+                color: kAccentPink.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: const Color(0xFFFFB6C1).withValues(alpha: 0.3),
+                  color: kAccentPink.withValues(alpha: 0.3),
                 ),
               ),
               child: Column(
@@ -580,15 +565,16 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
               _showAgendaSelectionDialog(context, roster, totalPoints, totalCP);
             },
+            style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('Deploy'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
           ),
         ],
       ),
@@ -709,7 +695,7 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
                       return Card(
                         margin: const EdgeInsets.only(bottom: 8),
                         color: isSelected
-                            ? const Color(0xFFFFB6C1).withValues(alpha: 0.15)
+                            ? kAccentPink.withValues(alpha: 0.15)
                             : null,
                         child: InkWell(
                           onTap: canSelect
@@ -733,7 +719,7 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
                                       ? Icons.check_circle
                                       : Icons.circle_outlined,
                                   color: isSelected
-                                      ? const Color(0xFFFFB6C1)
+                                      ? kAccentPink
                                       : canSelect
                                           ? Colors.grey
                                           : Colors.grey.shade700,
@@ -884,13 +870,13 @@ class _BattleSizeCard extends StatelessWidget {
                 width: 56,
                 height: 56,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFFB6C1).withValues(alpha: 0.15),
+                  color: kAccentPink.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
                   battleSize.icon,
                   size: 28,
-                  color: const Color(0xFFFFB6C1),
+                  color: kAccentPink,
                 ),
               ),
               const SizedBox(width: 16),

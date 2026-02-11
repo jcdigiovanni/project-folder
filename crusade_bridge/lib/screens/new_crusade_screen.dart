@@ -1,13 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
 
-import '../models/crusade_models.dart';
-import '../services/storage_service.dart';
+import '../common.dart';
 import '../services/reference_data_service.dart';
-import '../providers/crusade_provider.dart';
-import '../utils/snackbar_utils.dart';
+import '../services/storage_service.dart';
 
 class NewCrusadeScreen extends ConsumerStatefulWidget {
   const NewCrusadeScreen({super.key});
@@ -63,6 +58,7 @@ class _NewCrusadeScreenState extends ConsumerState<NewCrusadeScreen> {
                     children: [
                       TextField(
                         controller: _nameController,
+                        inputFormatters: nameFormatters,
                         decoration: const InputDecoration(
                           labelText: 'Crusade Name',
                           border: OutlineInputBorder(),
@@ -117,6 +113,7 @@ class _NewCrusadeScreenState extends ConsumerState<NewCrusadeScreen> {
                         const SizedBox(height: 16),
                         TextField(
                           controller: _customDetachmentController,
+                          inputFormatters: nameFormatters,
                           decoration: const InputDecoration(
                             labelText: 'Custom Detachment Name',
                             border: OutlineInputBorder(),
@@ -180,9 +177,7 @@ class _NewCrusadeScreenState extends ConsumerState<NewCrusadeScreen> {
 
                             context.go('/dashboard');
                           },
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(double.infinity, 60),
-                          ),
+                          style: fullWidthActionStyle(),
                           child: const Text('Create Crusade'),
                         ),
                       ),

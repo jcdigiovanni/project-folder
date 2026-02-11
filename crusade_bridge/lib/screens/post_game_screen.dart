@@ -1,11 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import '../models/crusade_models.dart';
+import '../common.dart';
 import '../models/faction_crusade_system.dart';
-import '../providers/crusade_provider.dart';
 import '../services/google_drive_service.dart';
 import '../utils/game_state_utils.dart';
 import '../utils/game_update_mixin.dart';
@@ -219,15 +215,16 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
               _applyResultsToUnits(game);
             },
+            style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('Commit'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
           ),
         ],
       ),
@@ -330,6 +327,18 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
           _factionSystem!.addPoints(unit, unitState.factionGameTracking);
         }
       }
+
+      // Sororitas: Repentia units achieving Atonement in Battle gain +1 Redemption Point
+      if (crusade.faction == 'Adepta Sororitas') {
+        for (final agenda in game.agendas) {
+          if (agenda.id.startsWith('atonement_in_battle') &&
+              agenda.assignedUnitIds.contains(unitState.unitId) &&
+              (agenda.unitTallies[unitState.unitId] ?? 0) > 0 &&
+              unit.name.toLowerCase().contains('repentia')) {
+            unit.factionPoints3 += 1;
+          }
+        }
+      }
     }
 
     // Award +1 RP to the crusade for playing a battle (max 10)
@@ -398,13 +407,6 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
         ),
         actions: [
           TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              context.go('/dashboard');
-            },
-            child: const Text('Skip'),
-          ),
-          ElevatedButton(
             onPressed: () async {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
@@ -423,7 +425,15 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
                 context.go('/dashboard');
               }
             },
+            style: TextButton.styleFrom(foregroundColor: kAccentPink),
             child: const Text('Backup'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              context.go('/dashboard');
+            },
+            child: const Text('Skip'),
           ),
         ],
       ),
@@ -486,18 +496,17 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
           ],
         ),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext, false),
-            child: const Text('Not Yet'),
-          ),
-          ElevatedButton.icon(
+          TextButton.icon(
             onPressed: () => Navigator.pop(dialogContext, true),
             icon: Icon(system.icon),
             label: const Text('Ascend!'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: system.color,
-              foregroundColor: Colors.black,
+            style: TextButton.styleFrom(
+              foregroundColor: system.color,
             ),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Not Yet'),
           ),
         ],
       ),
@@ -587,6 +596,19 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
         }
       }
 
+      // Compute Redemption Points for Repentia units achieving Atonement in Battle
+      int redemptionPointsGained = 0;
+      if (crusade.faction == 'Adepta Sororitas') {
+        for (final agenda in game.agendas) {
+          if (agenda.id.startsWith('atonement_in_battle') &&
+              agenda.assignedUnitIds.contains(unitState.unitId) &&
+              (agenda.unitTallies[unitState.unitId] ?? 0) > 0 &&
+              unit.name.toLowerCase().contains('repentia')) {
+            redemptionPointsGained += 1;
+          }
+        }
+      }
+
       // Epic Heroes don't gain XP
       if (unit.isEpicHero == true) {
         previews.add(_UnitXPPreview(
@@ -601,6 +623,7 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
           totalProgressionPoints: totalProgressionPoints,
           requiredProgressionPoints: requiredProgressionPoints,
           trialName: trialName,
+          redemptionPointsGained: redemptionPointsGained,
         ));
         continue;
       }
@@ -636,6 +659,7 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
         totalProgressionPoints: totalProgressionPoints,
         requiredProgressionPoints: requiredProgressionPoints,
         trialName: trialName,
+        redemptionPointsGained: redemptionPointsGained,
       ));
     }
 
@@ -803,7 +827,7 @@ class _AgendaRecapSectionState extends State<_AgendaRecapSection> {
             padding: const EdgeInsets.symmetric(vertical: 4),
             child: Row(
               children: [
-                const Icon(Icons.emoji_events_outlined, size: 20, color: Color(0xFFFFB6C1)),
+                const Icon(Icons.emoji_events_outlined, size: 20, color: kAccentPink),
                 const SizedBox(width: 8),
                 const Text(
                   'Agenda Recap',
@@ -1037,12 +1061,12 @@ class _AgendaRecapCard extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
                       color: agenda.totalTallies > 0
-                          ? const Color(0xFFFFB6C1).withValues(alpha: 0.2)
+                          ? kAccentPink.withValues(alpha: 0.2)
                           : Colors.grey.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
                         color: agenda.totalTallies > 0
-                            ? const Color(0xFFFFB6C1).withValues(alpha: 0.5)
+                            ? kAccentPink.withValues(alpha: 0.5)
                             : Colors.grey.withValues(alpha: 0.3),
                       ),
                     ),
@@ -1051,7 +1075,7 @@ class _AgendaRecapCard extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.w500,
-                        color: agenda.totalTallies > 0 ? const Color(0xFFFFB6C1) : Colors.grey.shade500,
+                        color: agenda.totalTallies > 0 ? kAccentPink : Colors.grey.shade500,
                       ),
                     ),
                   ),
@@ -1565,6 +1589,25 @@ class _UnitSummaryCard extends StatelessWidget {
                     const SizedBox(width: 6),
                     _XPBreakdownChip(label: 'Agendas', value: xpPreview!.agendaXp),
                   ],
+                  if (xpPreview!.redemptionPointsGained > 0) ...[
+                    const SizedBox(width: 6),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFFD700).withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(color: const Color(0xFFFFD700).withValues(alpha: 0.5)),
+                      ),
+                      child: Text(
+                        '+${xpPreview!.redemptionPointsGained} Redemption',
+                        style: const TextStyle(
+                          fontSize: 10,
+                          color: Color(0xFFFFD700),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ] else if (xpPreview != null && xpPreview!.isEpicHero) ...[
@@ -1650,6 +1693,7 @@ class _NotesSection extends StatelessWidget {
         const SizedBox(height: 12),
         TextField(
           controller: controller,
+          inputFormatters: notesFormatters,
           onChanged: onChanged,
           maxLines: 3,
           decoration: InputDecoration(
@@ -1667,7 +1711,7 @@ class _NotesSection extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Color(0xFFFFB6C1)),
+              borderSide: const BorderSide(color: kAccentPink),
             ),
           ),
         ),
@@ -2333,6 +2377,7 @@ class _UnitXPPreview {
   final int totalProgressionPoints; // After applying this game's points
   final int requiredProgressionPoints; // From trial definition (0 if not designated)
   final String? trialName;
+  final int redemptionPointsGained;
 
   const _UnitXPPreview({
     required this.unitName,
@@ -2346,6 +2391,7 @@ class _UnitXPPreview {
     this.totalProgressionPoints = 0,
     this.requiredProgressionPoints = 0,
     this.trialName,
+    this.redemptionPointsGained = 0,
   });
 
   int get totalXp => participation + killsXp + markedXp + agendaXp;
@@ -2376,7 +2422,7 @@ class _CommitButton extends StatelessWidget {
             icon: const Icon(Icons.check_circle),
             label: const Text('Commit Results'),
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFFFB6C1),
+              backgroundColor: kAccentPink,
               foregroundColor: Colors.black,
               padding: const EdgeInsets.symmetric(vertical: 16),
               textStyle: const TextStyle(

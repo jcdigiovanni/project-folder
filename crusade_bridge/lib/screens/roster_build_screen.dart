@@ -1,11 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-
-import '../models/crusade_models.dart';
-import '../providers/crusade_provider.dart';
+import '../common.dart';
 import '../widgets/army_avatar.dart';
-import '../utils/snackbar_utils.dart';
 
 class RosterBuildScreen extends ConsumerStatefulWidget {
   final String rosterId;
@@ -98,6 +92,7 @@ class _RosterBuildScreenState extends ConsumerState<RosterBuildScreen> {
                 // Roster name field
                 TextField(
                   controller: _nameController,
+                  inputFormatters: nameFormatters,
                   decoration: const InputDecoration(
                     labelText: 'Roster Name',
                     border: OutlineInputBorder(),
@@ -121,7 +116,7 @@ class _RosterBuildScreenState extends ConsumerState<RosterBuildScreen> {
                         fontWeight: FontWeight.bold,
                         color: totalPoints > currentCrusade.supplyLimit
                             ? Colors.red
-                            : const Color(0xFFFFB6C1),
+                            : kAccentPink,
                       ),
                     ),
                   ],
@@ -179,25 +174,24 @@ class _RosterBuildScreenState extends ConsumerState<RosterBuildScreen> {
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Row(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                child: OutlinedButton(
-                  onPressed: () => context.go('/rosters'),
-                  child: const Text('Cancel'),
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                flex: 2,
+              SizedBox(
+                width: double.infinity,
                 child: ElevatedButton.icon(
                   onPressed: () => _saveRoster(roster),
                   icon: const Icon(Icons.save),
                   label: const Text('Save Roster'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                  ),
+                  style: fullWidthActionStyle(backgroundColor: Colors.green),
+                ),
+              ),
+              const SizedBox(height: 8),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  onPressed: () => context.go('/rosters'),
+                  child: const Text('Cancel'),
                 ),
               ),
             ],

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import '../common.dart';
 
 /// Progress bar showing tally progress with optional milestone markers.
 ///
@@ -72,8 +72,8 @@ class TallyProgressBar extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      const Color(0xFFFFB6C1),
-                      const Color(0xFFFFB6C1).withValues(alpha: 0.7),
+                      kAccentPink,
+                      kAccentPink.withValues(alpha: 0.7),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(4),
@@ -114,7 +114,7 @@ class TallyProgressBar extends StatelessWidget {
               style: TextStyle(
                 fontSize: 10,
                 color:
-                    achieved ? const Color(0xFFFFB6C1) : Colors.grey.shade600,
+                    achieved ? kAccentPink : Colors.grey.shade600,
                 fontWeight: achieved ? FontWeight.bold : null,
               ),
             );
@@ -144,8 +144,8 @@ class TallyProgressBar extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    const Color(0xFFFFB6C1),
-                    const Color(0xFFFFB6C1).withValues(alpha: 0.7),
+                    kAccentPink,
+                    kAccentPink.withValues(alpha: 0.7),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(3),
