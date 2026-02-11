@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
@@ -11,7 +9,9 @@ import '../widgets/army_avatar.dart';
 import '../widgets/crusade_stats_bar.dart';
 import '../widgets/d6_roller.dart';
 import '../providers/crusade_provider.dart';
+import '../utils/game_state_utils.dart';
 import '../utils/snackbar_utils.dart';
+import '../widgets/detail_row.dart';
 
 class OOBModifyScreen extends ConsumerWidget {
   const OOBModifyScreen({super.key});
@@ -90,12 +90,12 @@ class OOBModifyScreen extends ConsumerWidget {
                           children: [
                             const Text('Unit Details', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                             const SizedBox(height: 8),
-                            _DetailRow(label: 'Experience', value: '${component.xp} XP'),
-                            _DetailRow(label: 'Models', value: '${component.modelsCurrent}/${component.modelsMax}'),
-                            _DetailRow(label: 'Crusade Points', value: '${component.crusadePoints}'),
+                            DetailRow(label: 'Experience', value: '${component.xp} XP'),
+                            DetailRow(label: 'Models', value: '${component.modelsCurrent}/${component.modelsMax}'),
+                            DetailRow(label: 'Crusade Points', value: '${component.crusadePoints}'),
                             if (component.tallies['played'] != null)
-                              _DetailRow(label: 'Battles Played', value: '${component.tallies['played']}'),
-                            _DetailRow(label: 'Total Kills', value: '${component.tallies['kills'] ?? 0}'),
+                              DetailRow(label: 'Battles Played', value: '${component.tallies['played']}'),
+                            DetailRow(label: 'Total Kills', value: '${component.tallies['kills'] ?? 0}'),
                             if (component.honours.isNotEmpty) ...[
                               const SizedBox(height: 8),
                               const Text('Battle Honours:', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
@@ -276,12 +276,12 @@ class OOBModifyScreen extends ConsumerWidget {
                           if (item.pendingRankUp)
                             _HighlightedXPRow(xp: item.xp, rank: item.rank)
                           else
-                            _DetailRow(label: 'Experience', value: '${item.xp} XP'),
-                          _DetailRow(label: 'Models', value: '${item.modelsCurrent}/${item.modelsMax}'),
-                          _DetailRow(label: 'Crusade Points', value: '${item.crusadePoints}'),
+                            DetailRow(label: 'Experience', value: '${item.xp} XP'),
+                          DetailRow(label: 'Models', value: '${item.modelsCurrent}/${item.modelsMax}'),
+                          DetailRow(label: 'Crusade Points', value: '${item.crusadePoints}'),
                           if (item.tallies['played'] != null)
-                            _DetailRow(label: 'Battles Played', value: '${item.tallies['played']}'),
-                          _DetailRow(label: 'Total Kills', value: '${item.tallies['kills'] ?? 0}'),
+                            DetailRow(label: 'Battles Played', value: '${item.tallies['played']}'),
+                          DetailRow(label: 'Total Kills', value: '${item.tallies['kills'] ?? 0}'),
                           if (item.honours.isNotEmpty) ...[
                             const SizedBox(height: 8),
                             const Text('Battle Honours:', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
@@ -1729,22 +1729,13 @@ class _BattleHonourModalContentState extends ConsumerState<_BattleHonourModalCon
   }
 
   Future<void> _loadBattleHonoursData() async {
-    try {
-      final jsonString = await DefaultAssetBundle.of(context).loadString('assets/data/battle_honours.json');
-      final data = await Future.value(jsonString).then((s) {
-        return Map<String, dynamic>.from(
-          (const JsonDecoder().convert(s)) as Map,
-        );
+    final data = await loadBattleHonoursJsonData(context);
+    if (mounted) {
+      setState(() {
+        _battleHonoursData = data;
+        _isLoading = false;
       });
-      if (mounted) {
-        setState(() {
-          _battleHonoursData = data;
-          _isLoading = false;
-        });
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() => _isLoading = false);
+      if (data == null) {
         SnackBarUtils.showError(context, 'Failed to load Battle Honours data');
       }
     }
@@ -2503,27 +2494,6 @@ class _DiceDisplay extends StatelessWidget {
   }
 }
 
-// Helper widget for displaying detail rows in unit expansion
-class _DetailRow extends StatelessWidget {
-  final String label;
-  final String value;
-
-  const _DetailRow({required this.label, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label, style: const TextStyle(fontSize: 13, color: Colors.grey)),
-          Text(value, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
-        ],
-      ),
-    );
-  }
-}
 
 /// Highlighted XP row shown when a unit has a pending rank up
 class _HighlightedXPRow extends StatelessWidget {
@@ -2744,22 +2714,13 @@ class _ComponentBattleHonourModalContentState extends ConsumerState<_ComponentBa
   }
 
   Future<void> _loadBattleHonoursData() async {
-    try {
-      final jsonString = await DefaultAssetBundle.of(context).loadString('assets/data/battle_honours.json');
-      final data = await Future.value(jsonString).then((s) {
-        return Map<String, dynamic>.from(
-          (const JsonDecoder().convert(s)) as Map,
-        );
+    final data = await loadBattleHonoursJsonData(context);
+    if (mounted) {
+      setState(() {
+        _battleHonoursData = data;
+        _isLoading = false;
       });
-      if (mounted) {
-        setState(() {
-          _battleHonoursData = data;
-          _isLoading = false;
-        });
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() => _isLoading = false);
+      if (data == null) {
         SnackBarUtils.showError(context, 'Failed to load Battle Honours data');
       }
     }

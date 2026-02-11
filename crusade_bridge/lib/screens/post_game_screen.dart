@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../models/crusade_models.dart';
+import '../models/faction_crusade_system.dart';
 import '../providers/crusade_provider.dart';
 import '../services/google_drive_service.dart';
-import '../models/faction_crusade_system.dart';
+import '../utils/game_state_utils.dart';
+import '../utils/game_update_mixin.dart';
+import '../widgets/tally_progress_bar.dart';
 
 /// Post-game screen for reviewing and finalizing battle results
 /// Allows adjustments before committing XP and tally updates to units
@@ -19,7 +22,7 @@ class PostGameScreen extends ConsumerStatefulWidget {
   ConsumerState<PostGameScreen> createState() => _PostGameScreenState();
 }
 
-class _PostGameScreenState extends ConsumerState<PostGameScreen> {
+class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdateMixin<PostGameScreen> {
   String? _markedForGreatnessUnitId;
   final TextEditingController _notesController = TextEditingController();
   List<TrialDefinition>? _trials;
@@ -32,7 +35,7 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
     // Load any existing marked for greatness selection and notes
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final crusade = ref.read(currentCrusadeNotifierProvider);
-      final game = crusade?.games.where((g) => g.id == widget.gameId).firstOrNull;
+      final game = crusade?.findGame(widget.gameId);
       if (game != null) {
         final markedUnit = game.unitStates.where((u) => u.markedForGreatness).firstOrNull;
         if (markedUnit != null) {
@@ -71,7 +74,7 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
   @override
   Widget build(BuildContext context) {
     final crusade = ref.watch(currentCrusadeNotifierProvider);
-    final game = crusade?.games.where((g) => g.id == widget.gameId).firstOrNull;
+    final game = crusade?.findGame(widget.gameId);
 
     if (game == null) {
       return Scaffold(
@@ -126,10 +129,10 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
                   xpPreviews: _calculateXpPreviews(game, crusade),
                   progressionSystem: _factionSystem,
                   onKillsChanged: (unitId, newKills) {
-                    _updateKills(game, unitId, newKills);
+                    updateKills(game, unitId, newKills);
                   },
                   onDestroyedChanged: (unitId, wasDestroyed) {
-                    _updateDestroyed(game, unitId, wasDestroyed);
+                    updateDestroyed(game, unitId, wasDestroyed);
                   },
                   onAgendaTallyChanged: (agendaId, unitId, newTally) {
                     _updateAgendaTally(game, agendaId, unitId, newTally);
@@ -176,7 +179,7 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
     }
     // Set new mark
     if (unitId != null) {
-      final unitState = game.unitStates.where((u) => u.unitId == unitId).firstOrNull;
+      final unitState = game.findUnitState(unitId);
       if (unitState != null) {
         unitState.markedForGreatness = true;
       }
@@ -184,28 +187,10 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> {
     ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
   }
 
-  void _updateKills(Game game, String unitId, int newKills) {
-    final unitState = game.unitStates.where((u) => u.unitId == unitId).firstOrNull;
-    if (unitState != null) {
-      setState(() {
-        unitState.kills = newKills;
-      });
-      ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
-    }
-  }
-
-  void _updateDestroyed(Game game, String unitId, bool wasDestroyed) {
-    final unitState = game.unitStates.where((u) => u.unitId == unitId).firstOrNull;
-    if (unitState != null) {
-      setState(() {
-        unitState.wasDestroyed = wasDestroyed;
-      });
-      ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
-    }
-  }
+  // updateKills() and updateDestroyed() provided by GameUpdateMixin
 
   void _updateAgendaTally(Game game, String agendaId, String unitId, int newTally) {
-    final agenda = game.agendas.where((a) => a.id == agendaId).firstOrNull;
+    final agenda = game.findAgenda(agendaId);
     if (agenda != null) {
       setState(() {
         if (newTally <= 0) {
@@ -1044,7 +1029,7 @@ class _AgendaRecapCard extends StatelessWidget {
                 children: [
                   // Progress bar
                   Expanded(
-                    child: _buildTallyProgressBar(),
+                    child: TallyProgressBar(totalTallies: agenda.totalTallies),
                   ),
                   const SizedBox(width: 12),
                   // Reward badge
@@ -1082,46 +1067,6 @@ class _AgendaRecapCard extends StatelessWidget {
     );
   }
 
-  Widget _buildTallyProgressBar() {
-    final total = agenda.totalTallies;
-    const maxDisplay = 10;
-    final progress = (total / maxDisplay).clamp(0.0, 1.0);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Progress bar
-        Container(
-          height: 6,
-          decoration: BoxDecoration(
-            color: Colors.grey.withValues(alpha: 0.2),
-            borderRadius: BorderRadius.circular(3),
-          ),
-          child: FractionallySizedBox(
-            widthFactor: progress,
-            alignment: Alignment.centerLeft,
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    const Color(0xFFFFB6C1),
-                    const Color(0xFFFFB6C1).withValues(alpha: 0.7),
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(3),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          'Total: $total',
-          style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
-        ),
-      ],
-    );
-  }
-
   Widget _buildObjectiveStatus() {
     final tier = agenda.tier;
     final reward = _getObjectiveReward();
@@ -1130,7 +1075,7 @@ class _AgendaRecapCard extends StatelessWidget {
     String? assignedUnitName;
     if (agenda.maxUnits != null && agenda.assignedUnitIds.isNotEmpty) {
       final unitId = agenda.assignedUnitIds.first;
-      final unitState = game.unitStates.where((u) => u.unitId == unitId).firstOrNull;
+      final unitState = game.findUnitState(unitId);
       assignedUnitName = unitState?.unitName ?? 'Unknown';
     }
 

@@ -5,7 +5,10 @@ import 'package:go_router/go_router.dart';
 import '../models/crusade_models.dart';
 import '../models/faction_crusade_system.dart';
 import '../providers/crusade_provider.dart';
+import '../utils/game_state_utils.dart';
+import '../utils/game_update_mixin.dart';
 import '../widgets/army_avatar.dart';
+import '../widgets/tally_progress_bar.dart';
 
 /// Screen for tracking in-game agenda progress
 /// Shows each unit with their agenda-specific tracking fields
@@ -18,7 +21,7 @@ class ActiveGameScreen extends ConsumerStatefulWidget {
   ConsumerState<ActiveGameScreen> createState() => _ActiveGameScreenState();
 }
 
-class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> {
+class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> with GameUpdateMixin<ActiveGameScreen> {
   @override
   Widget build(BuildContext context) {
     final currentCrusade = ref.watch(currentCrusadeNotifierProvider);
@@ -31,9 +34,7 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> {
     }
 
     // Find the game by ID
-    final game = currentCrusade.games
-        .where((g) => g.id == widget.gameId)
-        .firstOrNull;
+    final game = currentCrusade.findGame(widget.gameId);
 
     if (game == null) {
       return Scaffold(
@@ -115,7 +116,7 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> {
   }
 
   void _updateSaintPoints(Game game, String unitId, int newPoints) {
-    final unitState = game.unitStates.where((u) => u.unitId == unitId).firstOrNull;
+    final unitState = game.findUnitState(unitId);
     if (unitState != null) {
       setState(() {
         unitState.factionGameTracking = newPoints;
@@ -160,10 +161,10 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> {
             _updateUnitTier(game, unitId, agendaId, newTier);
           },
           onKillsChanged: (unitId, newKills) {
-            _updateKills(game, unitId, newKills);
+            updateKills(game, unitId, newKills);
           },
           onDestroyedChanged: (unitId, wasDestroyed) {
-            _updateDestroyed(game, unitId, wasDestroyed);
+            updateDestroyed(game, unitId, wasDestroyed);
           },
           onSaintPointsChanged: (unitId, newPoints) {
             _updateSaintPoints(game, unitId, newPoints);
@@ -183,10 +184,10 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> {
             _updateUnitTier(game, unitState.unitId, agendaId, newTier);
           },
           onKillsChanged: (newKills) {
-            _updateKills(game, unitState.unitId, newKills);
+            updateKills(game, unitState.unitId, newKills);
           },
           onDestroyedChanged: (wasDestroyed) {
-            _updateDestroyed(game, unitState.unitId, wasDestroyed);
+            updateDestroyed(game, unitState.unitId, wasDestroyed);
           },
           onSaintPointsChanged: isDesignated
               ? (newPoints) => _updateSaintPoints(game, unitState.unitId, newPoints)
@@ -199,50 +200,26 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> {
   }
 
   void _updateTally(Game game, String unitId, String agendaId, int newValue) {
-    final agenda = game.agendas.where((a) => a.id == agendaId).firstOrNull;
+    final agenda = game.findAgenda(agendaId);
     if (agenda != null && agenda.type == AgendaType.tally) {
       setState(() {
         agenda.unitTallies[unitId] = newValue;
       });
-      // Save the game state
       ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
     }
   }
 
   void _updateUnitTier(Game game, String unitId, String agendaId, int newTier) {
-    final agenda = game.agendas.where((a) => a.id == agendaId).firstOrNull;
+    final agenda = game.findAgenda(agendaId);
     if (agenda != null && agenda.type == AgendaType.objective) {
       setState(() {
-        // For tiered objectives, we track per-unit tiers in unitTallies
-        // (reusing the map to store tier level per unit)
         agenda.unitTallies[unitId] = newTier;
       });
-      // Save the game state
       ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
     }
   }
 
-  void _updateKills(Game game, String unitId, int newKills) {
-    final unitState = game.unitStates.where((u) => u.unitId == unitId).firstOrNull;
-    if (unitState != null) {
-      setState(() {
-        unitState.kills = newKills;
-      });
-      // Save the game state
-      ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
-    }
-  }
-
-  void _updateDestroyed(Game game, String unitId, bool wasDestroyed) {
-    final unitState = game.unitStates.where((u) => u.unitId == unitId).firstOrNull;
-    if (unitState != null) {
-      setState(() {
-        unitState.wasDestroyed = wasDestroyed;
-      });
-      // Save the game state
-      ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
-    }
-  }
+  // updateKills() and updateDestroyed() provided by GameUpdateMixin
 
   void _showEndGameDialog(BuildContext context, Game game, {required String result}) {
     // Determine dialog text based on result type (ENH-007)
@@ -754,7 +731,7 @@ class _AgendaProgressCard extends StatelessWidget {
             // Progress bar for tally agendas with targets
             if (isTally && agenda.totalTallies > 0) ...[
               const SizedBox(height: 10),
-              _TallyProgressBar(totalTallies: agenda.totalTallies),
+              TallyProgressBar(totalTallies: agenda.totalTallies, milestones: const [3, 6, 10]),
             ],
           ],
         ),
@@ -813,102 +790,6 @@ class _TierProgressIndicator extends StatelessWidget {
   }
 }
 
-/// Progress bar showing tally progress with milestone markers
-class _TallyProgressBar extends StatelessWidget {
-  final int totalTallies;
-
-  const _TallyProgressBar({required this.totalTallies});
-
-  @override
-  Widget build(BuildContext context) {
-    // Define milestone targets (e.g., XP thresholds)
-    const milestones = [3, 6, 10];
-    final maxMilestone = milestones.last;
-    final progress = (totalTallies / maxMilestone).clamp(0.0, 1.0);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            const Icon(Icons.trending_up, size: 12, color: Colors.grey),
-            const SizedBox(width: 4),
-            Text(
-              'Progress',
-              style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
-            ),
-          ],
-        ),
-        const SizedBox(height: 4),
-        Stack(
-          children: [
-            // Background
-            Container(
-              height: 8,
-              decoration: BoxDecoration(
-                color: Colors.grey.withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(4),
-              ),
-            ),
-            // Progress fill
-            FractionallySizedBox(
-              widthFactor: progress,
-              child: Container(
-                height: 8,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      const Color(0xFFFFB6C1),
-                      const Color(0xFFFFB6C1).withValues(alpha: 0.7),
-                    ],
-                  ),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-              ),
-            ),
-            // Milestone markers
-            ...milestones.map((milestone) {
-              final position = milestone / maxMilestone;
-              return Positioned(
-                left: 0,
-                right: 0,
-                child: FractionallySizedBox(
-                  widthFactor: position,
-                  alignment: Alignment.centerLeft,
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Container(
-                      width: 2,
-                      height: 8,
-                      color: totalTallies >= milestone
-                          ? Colors.white.withValues(alpha: 0.8)
-                          : Colors.grey.withValues(alpha: 0.5),
-                    ),
-                  ),
-                ),
-              );
-            }),
-          ],
-        ),
-        const SizedBox(height: 4),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: milestones.map((m) {
-            final achieved = totalTallies >= m;
-            return Text(
-              '$m',
-              style: TextStyle(
-                fontSize: 10,
-                color: achieved ? const Color(0xFFFFB6C1) : Colors.grey.shade600,
-                fontWeight: achieved ? FontWeight.bold : null,
-              ),
-            );
-          }).toList(),
-        ),
-      ],
-    );
-  }
-}
 
 /// Container that groups multiple units visually with a border and group name header
 class _GroupedUnitsContainer extends StatelessWidget {

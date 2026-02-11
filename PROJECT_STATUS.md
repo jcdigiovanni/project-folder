@@ -1,6 +1,7 @@
 **Last Updated:** February 11, 2026 (Phase 6 Backlog Clearance In Progress)
 
 **Recent Work (Feb 11)**
+- Shared Code Extraction (REFACTOR-002): Extracted repeated patterns from large screen files into shared utilities and widgets. New `GameLookups`/`CrusadeLookups` extensions (`lib/utils/game_state_utils.dart`), `GameUpdateMixin` (`lib/utils/game_update_mixin.dart`), shared `TallyProgressBar` and `DetailRow` widgets. Consolidated duplicate `_loadBattleHonoursData()` via shared loader. Reduces screen file sizes and eliminates code duplication across active game, post-game, and OOB screens.
 - FactionCrusadeSystem Abstraction (REFACTOR-001): Extracted all Sororitas-specific Trials of a Living Saint logic into generic `FactionCrusadeSystem` class with registry pattern. New file `lib/models/faction_crusade_system.dart` contains `TrialDefinition`, `ProgressionKeys`, `FactionCrusadeSystem`, `loadTrials()`, and `FactionCrusadeSystemRegistry`. All 3 screens (OOB, active game, post-game) now use system properties for labels, colors, icons, event descriptions, and point calculations. Zero hardcoded faction text remains. Other factions can register their own progression systems by adding to the registry.
 
 **Recent Work (Feb 10)**

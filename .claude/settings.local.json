@@ -24,7 +24,8 @@
       "Bash(flutter build:*)",
       "Bash(dart analyze:*)",
       "Bash(grep:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(wc:*)"
     ]
   }
 }
