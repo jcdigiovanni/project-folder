@@ -1,5 +1,5 @@
 # BACKLOG.md
-**Last Updated:** February 10, 2026 (Post-Sprint Cleanup)
+**Last Updated:** February 11, 2026 (Post-Sprint Cleanup)
 
 ## Tasks
 
@@ -10,7 +10,7 @@
 - No remaining enhancements in backlog.
 
 ## Features
-- **FEA-018 (Medium)**: Pre-Battle Unit Assignment Screen — Add an interlude screen between agenda selection (`play_screen`) and the active game (`active_game_screen`). Presented after agendas are chosen but before the battle begins. Allows assigning units to agendas that require unit selection (e.g., Battlefield Survivors `maxUnits: 3`). Full-screen checklist per agenda — multi-select with checkboxes, count badge, clear button. Cannot proceed ("Begin Battle") until all required assignments are made. Removes unit-assignment responsibility from the active game screen entirely, simplifying it to pure tracking. Context: Currently the `_AgendaSummaryHeader` in the active game screen serves double duty as progress tracker AND unit picker, which is awkward mid-battle. The interlude screen matches the tabletop workflow where agenda targets are declared at battle start. Related: `GameAgenda.maxUnits`, `GameAgenda.assignedUnitIds`, `active_game_screen.dart`, `play_screen.dart` agenda selection flow.
+- **FEA-018 (Low)**: Pre-Battle Unit Assignment Screen — UX polish item (not required to prevent code bloat). Add an interlude screen between agenda selection and active game. Full-screen checklist per agenda for unit assignment. The current in-dialog multi-select approach scales fine for any number of agendas/units. Related: `active_game_screen.dart:_showUnitSelectionDialog`, `play_screen.dart`.
 
 ## Deferred / Honor-System Items (RP Spend Only – No Enforcement)
 - **DEF-002 (Low)**: Stub "Maintenance and Upgrades" (if rules require; similar RP-only pattern: deduct 1–2 RP, log event)
