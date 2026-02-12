@@ -1046,11 +1046,15 @@ class GameAgenda {
       return xp;
     } else {
       // Objective agenda: XP based on tier achieved, only for assigned units
-      if (tier == 0) return 0;
       if (!isUnitAssigned(unitId)) return 0;
 
+      // Per-unit tier from unitTallies (multi-unit objectives store tier per unit),
+      // falling back to the global agenda tier for objectives without per-unit tracking
+      final unitTier = unitTallies[unitId] ?? tier;
+      if (unitTier == 0) return 0;
+
       final perTier = xpPerTier ?? 1;
-      int xp = tier * perTier;
+      int xp = unitTier * perTier;
 
       // Apply cap if set
       if (maxXp != null && xp > maxXp!) {
