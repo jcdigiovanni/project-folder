@@ -228,7 +228,7 @@ class ScaffoldWithNavBar extends ConsumerWidget {
                   ),
                 ],
           currentIndex: _calculateSelectedIndex(context, currentCrusade != null),
-          onTap: (index) => _onItemTapped(context, index, currentCrusade),
+          onTap: (index) => _onItemTapped(context, ref, index, currentCrusade),
         ),
       ),
     );
@@ -245,8 +245,67 @@ class ScaffoldWithNavBar extends ConsumerWidget {
     return 0; // Default to home
   }
 
-  void _onItemTapped(BuildContext context, int index, dynamic currentCrusade) {
+  void _onItemTapped(BuildContext context, WidgetRef ref, int index, dynamic currentCrusade) {
     final hasCrusade = currentCrusade != null;
+
+    // Check navigation guard — if an uncommitted post-game is active, confirm before leaving
+    final guardedGameId = ref.read(navigationGuardProvider);
+    if (guardedGameId != null) {
+      // Determine target route
+      String? targetRoute;
+      if (index == 0) {
+        targetRoute = '/landing';
+      } else if (index == 1) {
+        targetRoute = hasCrusade ? '/dashboard' : null; // null = load dialog
+      } else if (hasCrusade) {
+        switch (index) {
+          case 2: targetRoute = '/play'; break;
+          case 3: targetRoute = '/settings'; break;
+          case 4: targetRoute = null; break; // exit
+        }
+      } else {
+        switch (index) {
+          case 2: targetRoute = '/settings'; break;
+          case 3: targetRoute = null; break; // exit
+        }
+      }
+
+      // Show confirmation dialog
+      showDialog(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          title: const Text('Leave Without Committing?'),
+          content: const Text(
+            'Your post-game adjustments are saved, but XP, tallies, and Battle Scars '
+            'have not been applied to your units yet.\n\n'
+            'You can return to finish later from the Play screen.',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(dialogContext);
+                ref.read(navigationGuardProvider.notifier).state = null;
+                if (targetRoute != null) {
+                  context.go(targetRoute);
+                } else if (index == 1 && !hasCrusade) {
+                  _showLoadCrusadeDialog(context);
+                } else {
+                  _showExitConfirmation(context);
+                }
+              },
+              style: TextButton.styleFrom(foregroundColor: Colors.red.shade300),
+              child: const Text('Leave'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              style: TextButton.styleFrom(foregroundColor: const Color(0xFFFFB6C1)),
+              child: const Text('Stay'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
 
     // With crusade: Home(0), Dashboard(1), Play(2), Settings(3), Exit(4)
     // Without crusade: Home(0), Load(1), Settings(2), Exit(3)

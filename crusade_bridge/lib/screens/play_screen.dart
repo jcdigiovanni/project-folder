@@ -60,9 +60,17 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
     final currentCrusade = ref.read(currentCrusadeNotifierProvider);
     if (currentCrusade == null) return;
 
+    // Check for in-progress game first
     final activeGame = currentCrusade.games.where((g) => g.isInProgress).firstOrNull;
     if (activeGame != null && mounted) {
       _showActiveGameDialog(context, activeGame);
+      return;
+    }
+
+    // Check for completed but uncommitted game
+    final uncommittedGame = currentCrusade.games.where((g) => g.needsCommit).firstOrNull;
+    if (uncommittedGame != null && mounted) {
+      _showUncommittedGameDialog(context, uncommittedGame);
     }
   }
 
@@ -496,6 +504,74 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: const Text('Cancel'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showUncommittedGameDialog(BuildContext context, Game uncommittedGame) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        title: const Text('Uncommitted Post-Game'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'You have a completed game that hasn\'t been committed:',
+              style: TextStyle(color: Colors.grey.shade400),
+            ),
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.orange.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: Colors.orange.withValues(alpha: 0.3),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    uncommittedGame.name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '${uncommittedGame.unitStates.length} units • XP and tallies not yet applied',
+                    style: TextStyle(
+                      color: Colors.orange.shade300,
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            const Text('Would you like to return to the post-game review to commit your results?'),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              context.go('/postgame/${uncommittedGame.id}');
+            },
+            style: TextButton.styleFrom(foregroundColor: kAccentPink),
+            child: const Text('Return to Post-Game'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            style: TextButton.styleFrom(foregroundColor: Colors.grey),
+            child: const Text('Start New Game'),
           ),
         ],
       ),

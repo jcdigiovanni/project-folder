@@ -7,7 +7,8 @@
       "description": "Select up to 3 units at battle start. At battle end: if a selected unit was not destroyed, it gains 2XP. If it was also not Below Half-strength, it gains 1 additional XP (3XP total).",
       "maxTier": 2,
       "maxUnits": 3,
-      "xpPerTier": 2
+      "xpPerTier": 2,
+      "maxXp": 3
     },
     {
       "id": "swarm_the_planet",

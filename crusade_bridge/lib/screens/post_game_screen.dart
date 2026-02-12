@@ -23,6 +23,7 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
   final TextEditingController _notesController = TextEditingController();
   List<TrialDefinition>? _trials;
   FactionCrusadeSystem? _factionSystem;
+  bool _isCommitted = false;
 
   @override
   void initState() {
@@ -33,6 +34,10 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
       final crusade = ref.read(currentCrusadeNotifierProvider);
       final game = crusade?.findGame(widget.gameId);
       if (game != null) {
+        _isCommitted = game.isCommitted;
+        if (!_isCommitted) {
+          ref.read(navigationGuardProvider.notifier).state = widget.gameId;
+        }
         final markedUnit = game.unitStates.where((u) => u.markedForGreatness).firstOrNull;
         if (markedUnit != null) {
           setState(() {
@@ -63,6 +68,8 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
 
   @override
   void dispose() {
+    // Clear navigation guard when leaving (whether committed or not)
+    ref.read(navigationGuardProvider.notifier).state = null;
     _notesController.dispose();
     super.dispose();
   }
@@ -82,12 +89,21 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
     final isVictory = game.result == GameResult.win;
     final isDraw = game.result == GameResult.draw;
 
-    return Scaffold(
+    return PopScope(
+      canPop: _isCommitted,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop && !_isCommitted) {
+          _showLeaveConfirmation();
+        }
+      },
+      child: Scaffold(
       appBar: AppBar(
         title: const Text('Post-Game Review'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go('/dashboard'),
+          onPressed: _isCommitted
+              ? () => context.go('/dashboard')
+              : () => _showLeaveConfirmation(),
         ),
       ),
       body: Column(
@@ -175,6 +191,7 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
           }),
         ],
       ),
+    ),
     );
   }
 
@@ -212,6 +229,35 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
   void _updateNotes(Game game, String notes) {
     game.notes = notes.isEmpty ? null : notes;
     ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
+  }
+
+  void _showLeaveConfirmation({String? navigateTo}) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Leave Without Committing?'),
+        content: const Text(
+          'Your post-game adjustments are saved, but XP, tallies, and Battle Scars '
+          'have not been applied to your units yet.\n\n'
+          'You can return to finish later from the Play screen.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(dialogContext);
+              context.go(navigateTo ?? '/dashboard');
+            },
+            style: TextButton.styleFrom(foregroundColor: Colors.red.shade300),
+            child: const Text('Leave'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            style: TextButton.styleFrom(foregroundColor: kAccentPink),
+            child: const Text('Stay'),
+          ),
+        ],
+      ),
+    );
   }
 
   void _commitResults(Game game) {
@@ -357,8 +403,15 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
       crusade.rp += 1;
     }
 
+    // Mark game as committed
+    game.isCommitted = true;
+
     // Save the crusade with updated units via provider
     ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
+
+    // Clear navigation guard
+    _isCommitted = true;
+    ref.read(navigationGuardProvider.notifier).state = null;
 
     // Log battle history event via provider (immutable pattern)
     final totalUnits = game.unitStates.length;

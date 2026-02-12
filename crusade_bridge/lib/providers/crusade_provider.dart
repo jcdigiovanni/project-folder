@@ -242,3 +242,7 @@ class CurrentCrusadeNotifier extends StateNotifier<Crusade?> {
 final currentCrusadeNotifierProvider = StateNotifierProvider<CurrentCrusadeNotifier, Crusade?>(
   (ref) => CurrentCrusadeNotifier(),
 );
+
+/// Navigation guard — holds the gameId of an uncommitted post-game screen.
+/// When non-null, ScaffoldWithNavBar shows a confirmation dialog before navigating away.
+final navigationGuardProvider = StateProvider<String?>((ref) => null);

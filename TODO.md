@@ -11,6 +11,10 @@
 - All sprint items complete! Ready for next sprint.
 
 ## Completed This Session / Archive
+- **Feb 11**: Post-Game Navigation Guard — Confirmation dialog on all exit paths (bottom nav, back button, Android back) when results uncommitted. `isCommitted` (HiveField 17) on Game model. Play screen detects uncommitted games and prompts return. Prevents accidental XP/tally loss and OOA bypass.
+- **Feb 11**: Battlefield Survivors XP Fix — Added `maxXp: 3` cap to core.json. Tier 2 was awarding 4 XP instead of correct 3 XP.
+- **Feb 11**: Battle Honours as Currency — Replaced `pendingRankUp` boolean with `availableBattleHonours` integer counter (HiveField 28). Multiple rank-ups per game supported via `rankIndex()`. Added `floatingBattleHonours` (HiveField 15) to Crusade. Fixed `pendingRankUp` missing from JSON serialization (backup/restore bug).
+- **Feb 11**: Agenda Multi-Select Fix — Fixed unit selection dialog for multi-unit agendas. New `StatefulBuilder` multi-select toggle, deferred state updates, full unit name display with count.
 - **Feb 11**: Shared code extraction (REFACTOR-002) — Extracted repeated code into shared utilities/widgets: `GameLookups`/`CrusadeLookups` extensions, `GameUpdateMixin`, `TallyProgressBar`, `DetailRow`. Consolidated duplicate `_loadBattleHonoursData()` via shared loader. Reduces duplication across active game, post-game, and OOB screens.
 - **Feb 11**: FactionCrusadeSystem abstraction (REFACTOR-001) — Extracted Sororitas-specific progression logic into generic `FactionCrusadeSystem` class with registry pattern. Moved `TrialDefinition`/`loadTrials` to `faction_crusade_system.dart`. Renamed `isLivingSaint` → `ProgressionKeys.isAscended`. Updated OOB, active game, and post-game screens to use system properties for all labels, colors, and mechanics. Ready for other factions to register their own progression systems.
 

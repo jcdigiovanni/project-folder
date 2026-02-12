@@ -594,13 +594,14 @@ class GameAdapter extends TypeAdapter<Game> {
       notes: fields[14] as String?,
       playerScore: fields[15] as int?,
       opponentScore: fields[16] as int?,
+      isCommitted: fields[17] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Game obj) {
     writer
-      ..writeByte(17)
+      ..writeByte(18)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -634,7 +635,9 @@ class GameAdapter extends TypeAdapter<Game> {
       ..writeByte(15)
       ..write(obj.playerScore)
       ..writeByte(16)
-      ..write(obj.opponentScore);
+      ..write(obj.opponentScore)
+      ..writeByte(17)
+      ..write(obj.isCommitted);
   }
 
   @override

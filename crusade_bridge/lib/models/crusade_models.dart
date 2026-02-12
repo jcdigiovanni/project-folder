@@ -1282,6 +1282,9 @@ class Game {
   @HiveField(16)
   int? opponentScore; // Optional opponent VP score
 
+  @HiveField(17)
+  bool isCommitted; // Whether post-game results have been committed to OOB units
+
   Game({
     required this.id,
     required this.name,
@@ -1300,15 +1303,20 @@ class Game {
     this.notes,
     this.playerScore,
     this.opponentScore,
+    bool? isCommitted,
   })  : createdAt = createdAt ?? DateTime.now().millisecondsSinceEpoch,
         agendas = agendas ?? [],
-        unitStates = unitStates ?? [];
+        unitStates = unitStates ?? [],
+        isCommitted = isCommitted ?? false;
 
   /// Check if game is still in progress
   bool get isInProgress => result == GameResult.inProgress;
 
-  /// Check if game is completed
+  /// Check if game is completed (ended but may not be committed yet)
   bool get isCompleted => !isInProgress;
+
+  /// Check if game ended but results not yet committed to OOB
+  bool get needsCommit => isCompleted && !isCommitted;
 
   /// Get unit state by ID
   UnitGameState? getUnitState(String unitId) {
@@ -1371,6 +1379,7 @@ class Game {
       notes: json['notes'] as String?,
       playerScore: json['playerScore'] as int?,
       opponentScore: json['opponentScore'] as int?,
+      isCommitted: json['isCommitted'] as bool?,
     );
   }
 
@@ -1393,6 +1402,7 @@ class Game {
       'notes': notes,
       'playerScore': playerScore,
       'opponentScore': opponentScore,
+      'isCommitted': isCommitted,
     };
   }
 }
