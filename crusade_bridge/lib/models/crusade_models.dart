@@ -49,6 +49,9 @@ class Crusade {
   @HiveField(14)
   List<Game> games = []; // Games played
 
+  @HiveField(15)
+  int floatingBattleHonours; // Crusade-wide pool of unassigned Battle Honours (from missions, etc.)
+
 Crusade({
   required this.id,
   required this.name,
@@ -65,13 +68,15 @@ Crusade({
   List<CrusadeEvent>? history,
   List<Roster>? rosters,
   List<Game>? games,
+  int? floatingBattleHonours,
 })  : oob = oob ?? [],
       templates = templates ?? [],
       lastModified = lastModified ?? DateTime.now().millisecondsSinceEpoch,
       usedFirstCharacterEnhancement = usedFirstCharacterEnhancement ?? false,
       history = _capHistory(history ?? []),
       rosters = rosters ?? [],
-      games = games ?? [];
+      games = games ?? [],
+      floatingBattleHonours = floatingBattleHonours ?? 0;
 
   /// Cap history to 100 entries (oldest trimmed first)
   static List<CrusadeEvent> _capHistory(List<CrusadeEvent> events) {
@@ -108,6 +113,7 @@ Crusade({
       'history': history.map((e) => e.toJson()).toList(),
       'rosters': rosters.map((e) => e.toJson()).toList(),
       'games': games.map((e) => e.toJson()).toList(),
+      'floatingBattleHonours': floatingBattleHonours,
     };
   }
 
@@ -138,6 +144,7 @@ Crusade({
       games: (json['games'] as List<dynamic>?)
           ?.map((e) => Game.fromJson(e as Map<String, dynamic>))
           .toList(),
+      floatingBattleHonours: json['floatingBattleHonours'] as int?,
     );
   }
 
@@ -247,6 +254,9 @@ class UnitOrGroup {
   @HiveField(27)
   bool factionFlag2;
 
+  @HiveField(28)
+  int availableBattleHonours; // Spendable counter: incremented on rank-up, decremented when claiming a Battle Honour
+
   UnitOrGroup({
     required this.id,
     required this.type,
@@ -276,6 +286,7 @@ class UnitOrGroup {
     int? factionPoints3,
     bool? factionFlag1,
     bool? factionFlag2,
+    int? availableBattleHonours,
   })  : xp = xp ?? 0,
         honours = honours ?? [],
         scars = scars ?? [],
@@ -289,7 +300,9 @@ class UnitOrGroup {
         factionPoints2 = factionPoints2 ?? 0,
         factionPoints3 = factionPoints3 ?? 0,
         factionFlag1 = factionFlag1 ?? false,
-        factionFlag2 = factionFlag2 ?? false;
+        factionFlag2 = factionFlag2 ?? false,
+        // Migration: when Hive loads old data without field 28, fall back to the boolean
+        availableBattleHonours = availableBattleHonours ?? (pendingRankUp == true ? 1 : 0);
 
   // Calculate rank based on XP (Epic Heroes don't gain XP)
   String get rank {
@@ -299,6 +312,16 @@ class UnitOrGroup {
     if (xp <= 30) return 'Battle-hardened';
     if (xp <= 50) return 'Heroic';
     return 'Legendary';
+  }
+
+  /// Returns the rank index for a given XP value (0=Battle-ready … 4=Legendary).
+  /// Used to count how many rank thresholds are crossed when XP changes.
+  static int rankIndex(int xp) {
+    if (xp <= 5) return 0;  // Battle-ready
+    if (xp <= 15) return 1; // Blooded
+    if (xp <= 30) return 2; // Battle-hardened
+    if (xp <= 50) return 3; // Heroic
+    return 4;               // Legendary
   }
 
   // Calculate total Crusade Points for this unit or group
@@ -339,6 +362,8 @@ class UnitOrGroup {
       'factionPoints3': factionPoints3,
       'factionFlag1': factionFlag1,
       'factionFlag2': factionFlag2,
+      'pendingRankUp': pendingRankUp,
+      'availableBattleHonours': availableBattleHonours,
     };
   }
 
@@ -373,6 +398,8 @@ class UnitOrGroup {
       factionPoints3: json['factionPoints3'] as int?,
       factionFlag1: json['factionFlag1'] as bool?,
       factionFlag2: json['factionFlag2'] as bool?,
+      pendingRankUp: json['pendingRankUp'] as bool?,
+      availableBattleHonours: json['availableBattleHonours'] as int?,
     );
   }
 }

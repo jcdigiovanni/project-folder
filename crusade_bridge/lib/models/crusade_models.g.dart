@@ -32,13 +32,14 @@ class CrusadeAdapter extends TypeAdapter<Crusade> {
       history: (fields[12] as List?)?.cast<CrusadeEvent>(),
       rosters: (fields[13] as List?)?.cast<Roster>(),
       games: (fields[14] as List?)?.cast<Game>(),
+      floatingBattleHonours: fields[15] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Crusade obj) {
     writer
-      ..writeByte(15)
+      ..writeByte(16)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -68,7 +69,9 @@ class CrusadeAdapter extends TypeAdapter<Crusade> {
       ..writeByte(13)
       ..write(obj.rosters)
       ..writeByte(14)
-      ..write(obj.games);
+      ..write(obj.games)
+      ..writeByte(15)
+      ..write(obj.floatingBattleHonours);
   }
 
   @override
@@ -121,13 +124,14 @@ class UnitOrGroupAdapter extends TypeAdapter<UnitOrGroup> {
       factionPoints3: fields[25] as int?,
       factionFlag1: fields[26] as bool?,
       factionFlag2: fields[27] as bool?,
+      availableBattleHonours: fields[28] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UnitOrGroup obj) {
     writer
-      ..writeByte(28)
+      ..writeByte(29)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -183,7 +187,9 @@ class UnitOrGroupAdapter extends TypeAdapter<UnitOrGroup> {
       ..writeByte(26)
       ..write(obj.factionFlag1)
       ..writeByte(27)
-      ..write(obj.factionFlag2);
+      ..write(obj.factionFlag2)
+      ..writeByte(28)
+      ..write(obj.availableBattleHonours);
   }
 
   @override

@@ -287,13 +287,14 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
 
       // Apply XP (Epic Heroes don't gain XP)
       if (unit.isEpicHero != true) {
-        final previousRank = unit.rank;
+        final previousRankIndex = UnitOrGroup.rankIndex(unit.xp);
         unit.xp += xpGained;
-        final newRank = unit.rank;
+        final newRankIndex = UnitOrGroup.rankIndex(unit.xp);
+        final ranksGained = newRankIndex - previousRankIndex;
 
-        // Check if unit ranked up
-        if (newRank != previousRank) {
-          unit.pendingRankUp = true;
+        // Credit one Battle Honour per rank threshold crossed
+        if (ranksGained > 0) {
+          unit.availableBattleHonours += ranksGained;
         }
       }
 
@@ -546,6 +547,7 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
         isEpicHero: unit.isEpicHero,
         isCharacter: unit.isCharacter,
         pendingRankUp: unit.pendingRankUp,
+        availableBattleHonours: unit.availableBattleHonours,
         battleTraits: List<String>.from(unit.battleTraits),
         weaponEnhancements: List<String>.from(unit.weaponEnhancements),
         crusadeRelic: unit.crusadeRelic,

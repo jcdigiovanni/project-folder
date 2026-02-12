@@ -161,8 +161,8 @@ class OOBModifyScreen extends ConsumerWidget {
                       }
                     }
 
-                    // Add Claim Battle Honour button if component has pending rank up (BUG-018 fix)
-                    if (component.pendingRankUp) {
+                    // Add Claim Battle Honour button if component has available Battle Honours (BUG-018 fix)
+                    if (component.availableBattleHonours > 0) {
                       nestedExpansionChildren.add(
                         ListTile(
                           dense: true,
@@ -206,7 +206,7 @@ class OOBModifyScreen extends ConsumerWidget {
                                   style: const TextStyle(fontSize: 12),
                                 ),
                               ),
-                              if (component.pendingRankUp) ...[
+                              if (component.availableBattleHonours > 0) ...[
                                 const SizedBox(width: 6),
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
@@ -272,7 +272,7 @@ class OOBModifyScreen extends ConsumerWidget {
                         children: [
                           const Text('Unit Details', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                           const SizedBox(height: 8),
-                          if (item.pendingRankUp)
+                          if (item.availableBattleHonours > 0)
                             _HighlightedXPRow(xp: item.xp, rank: item.rank)
                           else
                             DetailRow(label: 'Experience', value: '${item.xp} XP'),
@@ -347,12 +347,17 @@ class OOBModifyScreen extends ConsumerWidget {
                   }
                 }
 
-                // Add Claim Battle Honour button if unit has pending rank up
-                if (item.type != 'group' && item.pendingRankUp) {
+                // Add Claim Battle Honour button if unit has available Battle Honours
+                if (item.type != 'group' && item.availableBattleHonours > 0) {
                   expansionChildren.add(
                     ListTile(
                       leading: const Icon(Icons.emoji_events, color: Colors.amber),
-                      title: const Text('Claim Battle Honour', style: TextStyle(color: Colors.amber, fontWeight: FontWeight.bold)),
+                      title: Text(
+                        item.availableBattleHonours > 1
+                            ? 'Claim Battle Honour (${item.availableBattleHonours} available)'
+                            : 'Claim Battle Honour',
+                        style: const TextStyle(color: Colors.amber, fontWeight: FontWeight.bold),
+                      ),
                       subtitle: const Text('Select your rank-up reward'),
                       onTap: () => _showBattleHonourModal(context, ref, index, item),
                     ),
@@ -416,7 +421,7 @@ class OOBModifyScreen extends ConsumerWidget {
                                 : '${item.rank} • ${item.points} pts • ${item.crusadePoints} CP',
                           ),
                         ),
-                        if (item.type != 'group' && item.pendingRankUp) ...[
+                        if (item.type != 'group' && item.availableBattleHonours > 0) ...[
                           const SizedBox(width: 8),
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -866,6 +871,7 @@ class OOBModifyScreen extends ConsumerWidget {
             crusadePoints: component.crusadePoints,
             tallies: component.tallies,
             pendingRankUp: component.pendingRankUp,
+            availableBattleHonours: component.availableBattleHonours,
             battleTraits: component.battleTraits,
             weaponEnhancements: component.weaponEnhancements,
             crusadeRelic: component.crusadeRelic,
@@ -912,6 +918,7 @@ class OOBModifyScreen extends ConsumerWidget {
       crusadePoints: group.crusadePoints,
       tallies: group.tallies,
       pendingRankUp: group.pendingRankUp,
+      availableBattleHonours: group.availableBattleHonours,
       battleTraits: group.battleTraits,
       weaponEnhancements: group.weaponEnhancements,
       crusadeRelic: group.crusadeRelic,
@@ -1846,8 +1853,8 @@ class _BattleHonourModalContentState extends ConsumerState<_BattleHonourModalCon
     // Increment Crusade Points for the Battle Honour (+1 CP per honour)
     updatedUnit.crusadePoints += 1;
 
-    // Clear pending rank up flag
-    updatedUnit.pendingRankUp = false;
+    // Debit one available Battle Honour
+    updatedUnit.availableBattleHonours -= 1;
 
     // Create history event
     final honourEvent = CrusadeEvent.create(
@@ -2857,7 +2864,7 @@ class _ComponentBattleHonourModalContentState extends ConsumerState<_ComponentBa
       enhancements: component.enhancements,
       crusadePoints: component.crusadePoints + 1, // +1 CP for honour
       tallies: component.tallies,
-      pendingRankUp: false, // Clear pending flag
+      availableBattleHonours: component.availableBattleHonours - 1, // Debit one Battle Honour
       battleTraits: updatedBattleTraits,
       weaponEnhancements: updatedWeaponEnhancements,
       crusadeRelic: updatedCrusadeRelic,
