@@ -218,6 +218,8 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> with GameUp
     if (agenda != null && agenda.type == AgendaType.objective) {
       setState(() {
         agenda.unitTallies[unitId] = newTier;
+        // Sync global tier to max across all units (for completion/VP display)
+        agenda.tier = agenda.unitTallies.values.fold(0, (max, v) => v > max ? v : max);
       });
       ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
     }
