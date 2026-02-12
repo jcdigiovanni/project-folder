@@ -348,84 +348,117 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> with GameUp
   }
 
   void _showUnitSelectionDialog(BuildContext context, Game game, GameAgenda agenda) {
-    showDialog(
+    final maxSelectable = agenda.maxUnits ?? 1;
+    final isSingleSelect = maxSelectable == 1;
+
+    showDialog<List<String>>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Select Unit for ${agenda.name}'),
-        content: SizedBox(
-          width: double.maxFinite,
-          height: 400,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Choose ${agenda.maxUnits} unit${agenda.maxUnits! > 1 ? 's' : ''} to attempt this agenda:',
-                style: TextStyle(color: Colors.grey.shade400, fontSize: 14),
+      builder: (dialogContext) {
+        var selectedIds = Set<String>.from(agenda.assignedUnitIds);
+
+        return StatefulBuilder(
+          builder: (_, setDialogState) => AlertDialog(
+            title: Text(isSingleSelect
+                ? 'Select Unit for ${agenda.name}'
+                : 'Select Units for ${agenda.name}'),
+            content: SizedBox(
+              width: double.maxFinite,
+              height: 400,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    isSingleSelect
+                        ? 'Choose a unit to attempt this agenda:'
+                        : 'Choose up to $maxSelectable units (${selectedIds.length}/$maxSelectable selected):',
+                    style: TextStyle(color: Colors.grey.shade400, fontSize: 14),
+                  ),
+                  const SizedBox(height: 16),
+                  Expanded(
+                    child: ListView(
+                      children: [
+                        ...game.unitStates.map((unitState) {
+                          final isSelected = selectedIds.contains(unitState.unitId);
+                          final canSelect = isSelected || selectedIds.length < maxSelectable;
+                          return ListTile(
+                            dense: true,
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+                            leading: Icon(
+                              isSelected ? Icons.check_circle : Icons.circle_outlined,
+                              color: isSelected
+                                  ? kAccentPink
+                                  : (canSelect ? Colors.grey : Colors.grey.shade800),
+                            ),
+                            title: Text(
+                              unitState.unitName,
+                              style: TextStyle(
+                                color: canSelect ? null : Colors.grey.shade600,
+                              ),
+                            ),
+                            enabled: canSelect,
+                            onTap: () {
+                              if (isSingleSelect) {
+                                Navigator.pop(dialogContext, [unitState.unitId]);
+                              } else {
+                                setDialogState(() {
+                                  if (isSelected) {
+                                    selectedIds.remove(unitState.unitId);
+                                  } else {
+                                    selectedIds.add(unitState.unitId);
+                                  }
+                                });
+                              }
+                            },
+                          );
+                        }),
+                        if (selectedIds.isNotEmpty) ...[
+                          const Divider(),
+                          ListTile(
+                            dense: true,
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+                            leading: Icon(Icons.clear, color: Colors.red.shade300),
+                            title: Text('Clear Selection', style: TextStyle(color: Colors.red.shade300)),
+                            onTap: () {
+                              if (isSingleSelect) {
+                                Navigator.pop(dialogContext, <String>[]);
+                              } else {
+                                setDialogState(() => selectedIds.clear());
+                              }
+                            },
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 16),
-              Expanded(
-                child: ListView(
-                  shrinkWrap: true,
-                  children: [
-                    ...game.unitStates.map((unitState) {
-                      final isSelected = agenda.assignedUnitIds.contains(unitState.unitId);
-                      return ListTile(
-                        dense: true,
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-                        leading: Icon(
-                          isSelected ? Icons.check_circle : Icons.circle_outlined,
-                          color: isSelected ? kAccentPink : Colors.grey,
-                        ),
-                        title: Text(unitState.unitName),
-                        onTap: () {
-                          Navigator.pop(context);
-                          _assignUnitToAgenda(game, agenda, unitState.unitId);
-                        },
-                      );
-                    }),
-                    if (agenda.assignedUnitIds.isNotEmpty) ...[
-                      const Divider(),
-                      ListTile(
-                        dense: true,
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-                        leading: Icon(Icons.clear, color: Colors.red.shade300),
-                        title: Text('Clear Selection', style: TextStyle(color: Colors.red.shade300)),
-                        onTap: () {
-                          Navigator.pop(context);
-                          _clearAgendaAssignment(game, agenda);
-                        },
-                      ),
-                    ],
-                  ],
+            ),
+            actions: [
+              if (!isSingleSelect)
+                TextButton(
+                  onPressed: () => Navigator.pop(dialogContext, selectedIds.toList()),
+                  style: TextButton.styleFrom(foregroundColor: kAccentPink),
+                  child: Text('Done (${selectedIds.length}/$maxSelectable)'),
                 ),
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext),
+                child: const Text('Cancel'),
               ),
             ],
           ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _assignUnitToAgenda(Game game, GameAgenda agenda, String unitId) {
-    setState(() {
-      agenda.assignedUnitIds.clear();
-      agenda.assignedUnitIds.add(unitId);
+        );
+      },
+    ).then((selectedIds) {
+      if (selectedIds != null) {
+        setState(() {
+          agenda.assignedUnitIds
+            ..clear()
+            ..addAll(selectedIds);
+        });
+        ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
+      }
     });
-    ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
-  }
-
-  void _clearAgendaAssignment(Game game, GameAgenda agenda) {
-    setState(() {
-      agenda.assignedUnitIds.clear();
-    });
-    ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
   }
 }
 
@@ -584,12 +617,18 @@ class _AgendaProgressCard extends StatelessWidget {
     required this.onSelectUnit,
   });
 
-  String _getAssignedUnitName() {
+  String _getAssignedUnitSummary() {
     if (agenda.assignedUnitIds.isEmpty) return 'None';
-    final unitState = game.unitStates
-        .where((u) => u.unitId == agenda.assignedUnitIds.first)
-        .firstOrNull;
-    return unitState?.unitName ?? 'Unknown';
+    final names = agenda.assignedUnitIds.map((id) {
+      final unitState = game.unitStates
+          .where((u) => u.unitId == id)
+          .firstOrNull;
+      return unitState?.unitName ?? 'Unknown';
+    }).toList();
+    if (agenda.maxUnits != null && agenda.maxUnits! > 1) {
+      return '${names.join(', ')} (${names.length}/${agenda.maxUnits})';
+    }
+    return names.first;
   }
 
   @override
@@ -714,8 +753,8 @@ class _AgendaProgressCard extends StatelessWidget {
                       Expanded(
                         child: Text(
                           needsUnitAssignment
-                              ? 'Tap to assign unit'
-                              : 'Assigned: ${_getAssignedUnitName()}',
+                              ? 'Tap to assign ${agenda.maxUnits != null && agenda.maxUnits! > 1 ? "units" : "unit"}'
+                              : 'Assigned: ${_getAssignedUnitSummary()}',
                           style: TextStyle(
                             fontSize: 13,
                             color: needsUnitAssignment ? Colors.orange : null,
