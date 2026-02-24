@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../common.dart';
+import '../models/combat_elixirs.dart';
 import '../widgets/army_avatar.dart';
 
 /// Battle size definitions with point limits
@@ -878,7 +879,12 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
               onPressed: (selectedAgendas.isNotEmpty || availableAgendas.isEmpty)
                   ? () {
                       Navigator.pop(context);
-                      _startGame(context, roster, totalPoints, totalCP, selectedAgendas);
+                      final crusade = ref.read(currentCrusadeNotifierProvider);
+                      if (crusade?.faction == "Emperor's Children") {
+                        _showElixirEquipDialog(context, roster, totalPoints, totalCP, selectedAgendas);
+                      } else {
+                        _startGame(context, roster, totalPoints, totalCP, selectedAgendas);
+                      }
                     }
                   : null,
               style: TextButton.styleFrom(foregroundColor: kAccentPink),
@@ -894,7 +900,7 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
     );
   }
 
-  void _startGame(BuildContext context, Roster roster, int totalPoints, int totalCP, List<GameAgenda> selectedAgendas) {
+  void _startGame(BuildContext context, Roster roster, int totalPoints, int totalCP, List<GameAgenda> selectedAgendas, {EquippedElixirs? equippedElixirs}) {
     final currentCrusade = ref.read(currentCrusadeNotifierProvider);
     if (currentCrusade == null) return;
 
@@ -908,17 +914,301 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
       rosterPoints: totalPoints,
       rosterCrusadePoints: totalCP,
       agendas: selectedAgendas,
+      equippedElixirsJson: equippedElixirs?.toJsonString(),
     );
 
     // Initialize unit states from the roster
     final rosterUnits = roster.getUnits(currentCrusade.oob);
     game.initializeUnitStates(rosterUnits);
 
+    // If elixirs were equipped, deduct from stash
+    if (equippedElixirs != null && !equippedElixirs.isEmpty) {
+      final stash = currentCrusade.combatElixirsStash ?? CombatElixirsStash.empty();
+      for (final key in equippedElixirs.armyElixirs) {
+        if ((stash.armyElixirs[key] ?? 0) > 0) {
+          stash.armyElixirs[key] = stash.armyElixirs[key]! - 1;
+          if (stash.armyElixirs[key] == 0) stash.armyElixirs.remove(key);
+        }
+      }
+      for (final key in equippedElixirs.personalElixirs.values) {
+        if ((stash.personalElixirs[key] ?? 0) > 0) {
+          stash.personalElixirs[key] = stash.personalElixirs[key]! - 1;
+          if (stash.personalElixirs[key] == 0) stash.personalElixirs.remove(key);
+        }
+      }
+      currentCrusade.combatElixirsStash = stash;
+    }
+
     // Save the game
     ref.read(currentCrusadeNotifierProvider.notifier).addGame(game);
 
     // Navigate to active game screen
     context.go('/game/$gameId');
+  }
+
+  void _showElixirEquipDialog(BuildContext context, Roster roster, int totalPoints, int totalCP, List<GameAgenda> selectedAgendas) {
+    final currentCrusade = ref.read(currentCrusadeNotifierProvider);
+    if (currentCrusade == null) return;
+
+    final stash = currentCrusade.combatElixirsStash ?? CombatElixirsStash.empty();
+    final rosterUnits = roster.getUnits(currentCrusade.oob);
+    final characters = rosterUnits.where((u) => u.isCharacter == true).toList();
+
+    // State for selection
+    final selectedArmy = <String>{};
+    final selectedPersonal = <String, String>{}; // unitId → elixir key
+
+    showDialog(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setDialogState) {
+          final totalEquipped = selectedArmy.length + selectedPersonal.length;
+          final cpCost = totalEquipped > 0 ? (totalEquipped / 2).ceil() : 0;
+          final noElixirs = stash.totalElixirDoses == 0;
+
+          return AlertDialog(
+            title: const Text('Equip Combat Elixirs'),
+            content: SizedBox(
+              width: double.maxFinite,
+              height: MediaQuery.of(context).size.height * 0.65,
+              child: ListView(
+                children: [
+                  // Warning: no elixirs equipped = Battle-shocked Round 1
+                  if (totalEquipped == 0)
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      margin: const EdgeInsets.only(bottom: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.orange.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.orange.withValues(alpha: 0.3)),
+                      ),
+                      child: const Row(
+                        children: [
+                          Icon(Icons.warning_amber, color: Colors.orange, size: 20),
+                          SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              'Without elixirs, all EC units are Battle-shocked in Round 1.',
+                              style: TextStyle(color: Colors.orange, fontSize: 13),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                  // CP cost indicator
+                  if (totalEquipped > 0)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: Text(
+                        'Equipped: $totalEquipped elixir${totalEquipped == 1 ? '' : 's'} (+$cpCost Crusade Points)',
+                        style: TextStyle(color: Colors.grey.shade400, fontSize: 13),
+                      ),
+                    ),
+
+                  // ── Army Elixirs ──
+                  Text(
+                    'Army Elixirs',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.purple.shade200,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Apply to all EMPEROR\'S CHILDREN units',
+                    style: TextStyle(color: Colors.grey.shade500, fontSize: 12),
+                  ),
+                  const SizedBox(height: 8),
+                  ...ArmyElixir.allTypes.map((key) {
+                    final doses = stash.armyElixirs[key] ?? 0;
+                    final blocked = stash.wasUsedLastBattle(key);
+                    final available = doses > 0 && !blocked;
+                    final isSelected = selectedArmy.contains(key);
+
+                    return CheckboxListTile(
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      value: isSelected,
+                      onChanged: available
+                          ? (val) {
+                              setDialogState(() {
+                                if (val == true) {
+                                  selectedArmy.add(key);
+                                } else {
+                                  selectedArmy.remove(key);
+                                }
+                              });
+                            }
+                          : null,
+                      title: Text(
+                        '${ArmyElixir.labels[key]!} ($doses dose${doses == 1 ? '' : 's'})',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: available ? null : Colors.grey.shade600,
+                          decoration: blocked ? TextDecoration.lineThrough : null,
+                        ),
+                      ),
+                      subtitle: Text(
+                        blocked
+                            ? 'Used last battle — cannot equip consecutively'
+                            : ArmyElixir.effects[key]!,
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: blocked ? Colors.red.shade300 : Colors.grey.shade500,
+                        ),
+                      ),
+                      activeColor: Colors.purple,
+                    );
+                  }),
+
+                  const Divider(height: 24),
+
+                  // ── Personal Elixirs ──
+                  Text(
+                    'Personal Elixirs',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.teal.shade200,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Assign one to each CHARACTER',
+                    style: TextStyle(color: Colors.grey.shade500, fontSize: 12),
+                  ),
+                  const SizedBox(height: 8),
+                  if (characters.isEmpty)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Text(
+                        'No CHARACTER units in this roster.',
+                        style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+                      ),
+                    )
+                  else
+                    ...characters.map((unit) {
+                      final assignedKey = selectedPersonal[unit.id];
+                      // Build available personal elixir options for dropdown
+                      final availableOptions = <DropdownMenuItem<String?>>[];
+                      availableOptions.add(const DropdownMenuItem(
+                        value: null,
+                        child: Text('None', style: TextStyle(fontSize: 13)),
+                      ));
+                      for (final pKey in PersonalElixir.allTypes) {
+                        final doses = stash.personalElixirs[pKey] ?? 0;
+                        final blocked = stash.wasUsedLastBattle(pKey);
+                        // Available if has doses, not blocked, and not already assigned to another unit
+                        final assignedElsewhere = selectedPersonal.entries
+                            .any((e) => e.key != unit.id && e.value == pKey);
+                        final usable = doses > 0 && !blocked && !assignedElsewhere;
+                        // Show if currently assigned to this unit OR usable
+                        if (usable || assignedKey == pKey) {
+                          availableOptions.add(DropdownMenuItem(
+                            value: pKey,
+                            child: Text(
+                              '${PersonalElixir.labels[pKey]!} ($doses)',
+                              style: const TextStyle(fontSize: 13),
+                            ),
+                          ));
+                        }
+                      }
+
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                unit.name,
+                                style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              flex: 3,
+                              child: DropdownButtonFormField<String?>(
+                                value: assignedKey,
+                                isExpanded: true,
+                                decoration: const InputDecoration(
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                  border: OutlineInputBorder(),
+                                ),
+                                items: availableOptions,
+                                onChanged: (val) {
+                                  setDialogState(() {
+                                    if (val == null) {
+                                      selectedPersonal.remove(unit.id);
+                                    } else {
+                                      selectedPersonal[unit.id] = val;
+                                    }
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
+
+                  // Personal elixir effects reference
+                  if (selectedPersonal.isNotEmpty) ...[
+                    const SizedBox(height: 8),
+                    ...selectedPersonal.entries.map((e) {
+                      final unitName = characters.where((u) => u.id == e.key).firstOrNull?.name ?? '?';
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: Text(
+                          '$unitName: ${PersonalElixir.effects[e.value]}',
+                          style: TextStyle(fontSize: 11, color: Colors.teal.shade300),
+                        ),
+                      );
+                    }),
+                  ],
+                ],
+              ),
+            ),
+            actions: [
+              if (noElixirs)
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    _startGame(context, roster, totalPoints, totalCP, selectedAgendas);
+                  },
+                  style: TextButton.styleFrom(foregroundColor: Colors.orange),
+                  child: const Text('Skip (No Elixirs)'),
+                )
+              else
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    _startGame(context, roster, totalPoints, totalCP, selectedAgendas);
+                  },
+                  child: const Text('Skip'),
+                ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  final equipped = EquippedElixirs(
+                    armyElixirs: selectedArmy.toList(),
+                    personalElixirs: selectedPersonal,
+                  );
+                  _startGame(context, roster, totalPoints, totalCP, selectedAgendas, equippedElixirs: equipped);
+                },
+                style: TextButton.styleFrom(foregroundColor: kAccentPink),
+                child: Text(totalEquipped > 0 ? 'Equip & Start' : 'Start Game'),
+              ),
+            ],
+          );
+        },
+      ),
+    );
   }
 }
 

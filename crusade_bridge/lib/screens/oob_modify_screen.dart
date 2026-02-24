@@ -1,7 +1,9 @@
 import 'package:uuid/uuid.dart';
 
 import '../common.dart';
+import '../models/combat_elixirs.dart';
 import '../models/faction_crusade_system.dart';
+import 'combat_elixirs_screen.dart';
 import '../services/reference_data_service.dart';
 import '../utils/game_state_utils.dart';
 import '../widgets/army_avatar.dart';
@@ -50,6 +52,27 @@ class OOBModifyScreen extends ConsumerWidget {
         children: [
           // Points summary banner - using reusable widget
           CrusadeStatsBar(crusade: currentCrusade),
+
+          // Combat Elixirs Stash button (Emperor's Children only)
+          if (currentCrusade.faction == "Emperor's Children")
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: OutlinedButton.icon(
+                icon: Icon(Icons.science, color: Colors.purple.shade300),
+                label: Text(
+                  'Combat Elixirs Stash${_elixirSummary(currentCrusade)}',
+                  style: TextStyle(color: Colors.purple.shade200),
+                ),
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(color: Colors.purple.withValues(alpha: 0.4)),
+                  minimumSize: const Size(double.infinity, 44),
+                ),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const CombatElixirsScreen()),
+                ),
+              ),
+            ),
 
           // OOB list
           Expanded(
@@ -663,6 +686,7 @@ class OOBModifyScreen extends ConsumerWidget {
                   rosters: currentCrusade.rosters,
                   games: currentCrusade.games,
                   pendingFreeRequisitions: currentCrusade.pendingFreeRequisitions,
+                  factionDataJson: currentCrusade.factionDataJson,
                 );
                 ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
                 SnackBarUtils.showSuccess(context, 'Group disbanded. Units returned to Order of Battle.');
@@ -1300,6 +1324,18 @@ class OOBModifyScreen extends ConsumerWidget {
   }
 
   /// Shows the requisitions dialog with available requisition options
+  static String _elixirSummary(Crusade crusade) {
+    final stash = crusade.combatElixirsStash;
+    if (stash == null) return '';
+    final doses = stash.totalElixirDoses;
+    final ingredients = stash.commonIngredients + stash.rareIngredients + stash.totalExotic;
+    if (doses == 0 && ingredients == 0) return '';
+    final parts = <String>[];
+    if (doses > 0) parts.add('$doses doses');
+    if (ingredients > 0) parts.add('$ingredients ingredients');
+    return ' (${parts.join(', ')})';
+  }
+
   static void _showRequisitionsDialog(BuildContext context, WidgetRef ref) {
     final currentCrusade = ref.read(currentCrusadeNotifierProvider);
     if (currentCrusade == null) return;
@@ -2031,6 +2067,7 @@ class _BattleHonourModalContentState extends ConsumerState<_BattleHonourModalCon
       rosters: currentCrusade.rosters,
       games: currentCrusade.games,
       pendingFreeRequisitions: updatedPendingFreeRequisitions,
+      factionDataJson: currentCrusade.factionDataJson,
     );
 
     ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
@@ -3720,6 +3757,7 @@ class _AddUnitModalContentState extends State<_AddUnitModalContent> {
                     'Added ${newUnit.customName ?? newUnit.name} with $enhancementName enhancement!',
                   );
                 } else {
+                  final wasEmpty = currentCrusade?.oob.isEmpty ?? true;
                   ref.read(currentCrusadeNotifierProvider.notifier).addUnitOrGroup(newUnit);
                   ref.read(currentCrusadeNotifierProvider.notifier).addEvent(CrusadeEvent.create(
                     type: CrusadeEventType.unitAdded,
@@ -3731,6 +3769,17 @@ class _AddUnitModalContentState extends State<_AddUnitModalContent> {
                       'unitType': newUnit.type,
                     },
                   ));
+                  // EC: First unit added → free Anfrak Silk dose
+                  if (wasEmpty && currentCrusade?.faction == "Emperor's Children") {
+                    final crusade = ref.read(currentCrusadeNotifierProvider);
+                    if (crusade != null) {
+                      final stash = crusade.combatElixirsStash ?? CombatElixirsStash.empty();
+                      stash.addElixirDose(ArmyElixir.anfrakSilk, isPersonal: false);
+                      crusade.combatElixirsStash = stash;
+                      ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
+                      SnackBarUtils.showSuccess(context, 'Anfrak Silk added to Combat Elixirs Stash!');
+                    }
+                  }
                   Navigator.pop(context);
                 }
               },

@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:hive/hive.dart';
+
+import 'combat_elixirs.dart';
 
 part 'crusade_models.g.dart';
 
@@ -55,6 +59,9 @@ class Crusade {
   @HiveField(16)
   List<String> pendingFreeRequisitions; // Deferred victor bonus tokens (e.g., 'free_battle_honour', 'repair_and_recuperate')
 
+  @HiveField(17)
+  String? factionDataJson; // JSON string for faction-specific data (e.g., Combat Elixirs Stash)
+
 Crusade({
   required this.id,
   required this.name,
@@ -73,6 +80,7 @@ Crusade({
   List<Game>? games,
   int? floatingBattleHonours,
   List<String>? pendingFreeRequisitions,
+  this.factionDataJson,
 })  : oob = oob ?? [],
       templates = templates ?? [],
       lastModified = lastModified ?? DateTime.now().millisecondsSinceEpoch,
@@ -82,6 +90,33 @@ Crusade({
       games = games ?? [],
       floatingBattleHonours = floatingBattleHonours ?? 0,
       pendingFreeRequisitions = pendingFreeRequisitions ?? [];
+
+  // ── Combat Elixirs Stash accessors (Emperor's Children) ──
+
+  CombatElixirsStash? get combatElixirsStash {
+    if (factionDataJson == null) return null;
+    try {
+      final data = jsonDecode(factionDataJson!) as Map<String, dynamic>;
+      final stashJson = data['combatElixirsStash'] as Map<String, dynamic>?;
+      if (stashJson == null) return null;
+      return CombatElixirsStash.fromJson(stashJson);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  set combatElixirsStash(CombatElixirsStash? stash) {
+    if (stash == null) {
+      factionDataJson = null;
+      return;
+    }
+    Map<String, dynamic> data = {};
+    if (factionDataJson != null) {
+      try { data = jsonDecode(factionDataJson!) as Map<String, dynamic>; } catch (_) {}
+    }
+    data['combatElixirsStash'] = stash.toJson();
+    factionDataJson = jsonEncode(data);
+  }
 
   /// Cap history to 100 entries (oldest trimmed first)
   static List<CrusadeEvent> _capHistory(List<CrusadeEvent> events) {
@@ -120,6 +155,7 @@ Crusade({
       'games': games.map((e) => e.toJson()).toList(),
       'floatingBattleHonours': floatingBattleHonours,
       'pendingFreeRequisitions': pendingFreeRequisitions,
+      'factionDataJson': factionDataJson,
     };
   }
 
@@ -154,6 +190,7 @@ Crusade({
       pendingFreeRequisitions: (json['pendingFreeRequisitions'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
+      factionDataJson: json['factionDataJson'] as String?,
     );
   }
 
@@ -1342,6 +1379,9 @@ class Game {
   @HiveField(18)
   String? victorBonus; // VictorBonusType constant, null if not a victory or "None"
 
+  @HiveField(19)
+  String? equippedElixirsJson; // JSON snapshot of equipped Combat Elixirs for this battle
+
   Game({
     required this.id,
     required this.name,
@@ -1362,6 +1402,7 @@ class Game {
     this.opponentScore,
     bool? isCommitted,
     this.victorBonus,
+    this.equippedElixirsJson,
   })  : createdAt = createdAt ?? DateTime.now().millisecondsSinceEpoch,
         agendas = agendas ?? [],
         unitStates = unitStates ?? [],
@@ -1439,6 +1480,7 @@ class Game {
       opponentScore: json['opponentScore'] as int?,
       isCommitted: json['isCommitted'] as bool?,
       victorBonus: json['victorBonus'] as String?,
+      equippedElixirsJson: json['equippedElixirsJson'] as String?,
     );
   }
 
@@ -1463,6 +1505,13 @@ class Game {
       'opponentScore': opponentScore,
       'isCommitted': isCommitted,
       'victorBonus': victorBonus,
+      'equippedElixirsJson': equippedElixirsJson,
     };
+  }
+
+  /// Get equipped elixirs for this game (Emperor's Children).
+  EquippedElixirs? get equippedElixirs {
+    if (equippedElixirsJson == null) return null;
+    try { return EquippedElixirs.fromJsonString(equippedElixirsJson!); } catch (_) { return null; }
   }
 }

@@ -1,4 +1,5 @@
 import '../common.dart';
+import '../models/combat_elixirs.dart';
 import '../models/faction_crusade_system.dart';
 import '../utils/game_state_utils.dart';
 import '../utils/game_update_mixin.dart';
@@ -86,6 +87,9 @@ class _ActiveGameScreenState extends ConsumerState<ActiveGameScreen> with GameUp
           ),
           // Crusade Points display (ENH-008)
           _CrusadePointsBar(crusadePoints: currentCrusade.totalCrusadePoints),
+          // Equipped Combat Elixirs reference (EC only)
+          if (game.equippedElixirs != null && !game.equippedElixirs!.isEmpty)
+            _EquippedElixirsBar(equipped: game.equippedElixirs!, oob: currentCrusade.oob),
           // Agenda summary header
           _AgendaSummaryHeader(
             game: game,
@@ -1495,5 +1499,108 @@ class _CrusadePointsBar extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+/// Collapsible bar showing equipped Combat Elixirs for reference during battle.
+class _EquippedElixirsBar extends StatefulWidget {
+  final EquippedElixirs equipped;
+  final List<UnitOrGroup> oob;
+
+  const _EquippedElixirsBar({required this.equipped, required this.oob});
+
+  @override
+  State<_EquippedElixirsBar> createState() => _EquippedElixirsBarState();
+}
+
+class _EquippedElixirsBarState extends State<_EquippedElixirsBar> {
+  bool _expanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final e = widget.equipped;
+    return Column(
+      children: [
+        InkWell(
+          onTap: () => setState(() => _expanded = !_expanded),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+            color: Colors.purple.withValues(alpha: 0.08),
+            child: Row(
+              children: [
+                Icon(Icons.science, size: 16, color: Colors.purple.shade300),
+                const SizedBox(width: 8),
+                Text(
+                  'Combat Elixirs (${e.totalCount})',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.purple.shade200,
+                  ),
+                ),
+                const Spacer(),
+                Icon(
+                  _expanded ? Icons.expand_less : Icons.expand_more,
+                  size: 18,
+                  color: Colors.purple.shade300,
+                ),
+              ],
+            ),
+          ),
+        ),
+        if (_expanded)
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+            color: Colors.purple.withValues(alpha: 0.04),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (e.armyElixirs.isNotEmpty) ...[
+                  Text('Army Elixirs', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.purple.shade200)),
+                  const SizedBox(height: 4),
+                  ...e.armyElixirs.map((key) => Padding(
+                    padding: const EdgeInsets.only(bottom: 2),
+                    child: Text(
+                      '${ArmyElixir.labels[key] ?? key}: ${ArmyElixir.effects[key] ?? ''}',
+                      style: TextStyle(fontSize: 11, color: Colors.grey.shade400),
+                    ),
+                  )),
+                ],
+                if (e.armyElixirs.isNotEmpty && e.personalElixirs.isNotEmpty)
+                  const SizedBox(height: 8),
+                if (e.personalElixirs.isNotEmpty) ...[
+                  Text('Personal Elixirs', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.teal.shade200)),
+                  const SizedBox(height: 4),
+                  ...e.personalElixirs.entries.map((entry) {
+                    final unitName = _findUnitName(entry.key);
+                    final elixirLabel = PersonalElixir.labels[entry.value] ?? entry.value;
+                    final effect = PersonalElixir.effects[entry.value] ?? '';
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 2),
+                      child: Text(
+                        '$unitName — $elixirLabel: $effect',
+                        style: TextStyle(fontSize: 11, color: Colors.grey.shade400),
+                      ),
+                    );
+                  }),
+                ],
+              ],
+            ),
+          ),
+      ],
+    );
+  }
+
+  String _findUnitName(String unitId) {
+    for (final item in widget.oob) {
+      if (item.id == unitId) return item.name;
+      if (item.type == 'group' && item.components != null) {
+        for (final comp in item.components!) {
+          if (comp.id == unitId) return comp.name;
+        }
+      }
+    }
+    return 'Unknown Unit';
   }
 }

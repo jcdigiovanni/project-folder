@@ -1,6 +1,7 @@
-**Last Updated:** February 24, 2026 (Victor Bonuses)
+**Last Updated:** February 24, 2026 (EC Combat Elixirs)
 
 **Recent Work (Feb 24)**
+- EC Combat Elixirs: Full inventory/crafting/equipping system for Emperor's Children. New `combat_elixirs.dart` data model: `CombatElixirsStash` (Common/Rare/Exotic ingredients, 6 Army + 6 Personal Elixirs, recipe crafting, consecutive-use blocking). Generic `factionDataJson` (HiveField 17) on Crusade + `equippedElixirsJson` (HiveField 19) on Game. New stash management screen, OOB integration (stash button + free Anfrak Silk), Play screen equipping step (army multi-select + personal per-CHARACTER), Active Game reference bar, post-game D6 ingredient rolls. Propagated `factionDataJson` to all 10 Crusade constructors.
 - Victor Bonuses (FEA-019): Post-game bonus selection for victorious players. 7 bonus types with extensible `VictorBonusType` class (static constants + label/description maps). Deferred token architecture via `Crusade.pendingFreeRequisitions` (HiveField 16, `List<String>`). Victor Bonus section in post-game screen (victory only) with ChoiceChips and description text. Mark for Greatness refactored from single-select (`String?`) to multi-select (`Set<String>`) supporting 1 or 2 units when bonus active. Free requisition tokens shown as "(FREE)" options on requisition screen at 0 RP cost. Free Battle Honour / Weapon Enhancement claimable from OOB unit details with token removal on claim. `Game.victorBonus` (HiveField 18) records selection. Bonus logged in battle history event metadata. Fixed `pendingFreeRequisitions` propagation in 6 immutable Crusade constructors across oob_modify_screen, requisition_screen, and adepta_sororitas_requisitions.
 
 **Recent Work (Feb 11)**
