@@ -52,6 +52,9 @@ class Crusade {
   @HiveField(15)
   int floatingBattleHonours; // Crusade-wide pool of unassigned Battle Honours (from missions, etc.)
 
+  @HiveField(16)
+  List<String> pendingFreeRequisitions; // Deferred victor bonus tokens (e.g., 'free_battle_honour', 'repair_and_recuperate')
+
 Crusade({
   required this.id,
   required this.name,
@@ -69,6 +72,7 @@ Crusade({
   List<Roster>? rosters,
   List<Game>? games,
   int? floatingBattleHonours,
+  List<String>? pendingFreeRequisitions,
 })  : oob = oob ?? [],
       templates = templates ?? [],
       lastModified = lastModified ?? DateTime.now().millisecondsSinceEpoch,
@@ -76,7 +80,8 @@ Crusade({
       history = _capHistory(history ?? []),
       rosters = rosters ?? [],
       games = games ?? [],
-      floatingBattleHonours = floatingBattleHonours ?? 0;
+      floatingBattleHonours = floatingBattleHonours ?? 0,
+      pendingFreeRequisitions = pendingFreeRequisitions ?? [];
 
   /// Cap history to 100 entries (oldest trimmed first)
   static List<CrusadeEvent> _capHistory(List<CrusadeEvent> events) {
@@ -114,6 +119,7 @@ Crusade({
       'rosters': rosters.map((e) => e.toJson()).toList(),
       'games': games.map((e) => e.toJson()).toList(),
       'floatingBattleHonours': floatingBattleHonours,
+      'pendingFreeRequisitions': pendingFreeRequisitions,
     };
   }
 
@@ -145,6 +151,9 @@ Crusade({
           ?.map((e) => Game.fromJson(e as Map<String, dynamic>))
           .toList(),
       floatingBattleHonours: json['floatingBattleHonours'] as int?,
+      pendingFreeRequisitions: (json['pendingFreeRequisitions'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     );
   }
 
@@ -1232,6 +1241,47 @@ class GameResult {
   static const String draw = 'draw';
 }
 
+/// Victor bonus types awarded when a player wins a game
+class VictorBonusType {
+  static const String extraMarkForGreatness = 'extra_mark_for_greatness';
+  static const String freeSupplyIncrease = 'free_supply_increase';
+  static const String freeRearmAndResupply = 'free_rearm_and_resupply';
+  static const String freeRepairAndRecuperate = 'free_repair_and_recuperate';
+  static const String extraRp = 'extra_rp';
+  static const String freeBattleHonour = 'free_battle_honour';
+  static const String freeWeaponEnhancement = 'free_weapon_enhancement';
+
+  static const Map<String, String> labels = {
+    extraMarkForGreatness: 'Extra Mark for Greatness',
+    freeSupplyIncrease: 'Free Supply Increase',
+    freeRearmAndResupply: 'Free Rearm and Resupply',
+    freeRepairAndRecuperate: 'Free Repair and Recuperate',
+    extraRp: 'Additional RP',
+    freeBattleHonour: 'Free Battle Honour',
+    freeWeaponEnhancement: 'Free Weapon Enhancement',
+  };
+
+  static const Map<String, String> descriptions = {
+    extraMarkForGreatness: 'Mark a second unit for greatness (+3 XP each)',
+    freeSupplyIncrease: 'Increase Supply Limit by 200 at no RP cost',
+    freeRearmAndResupply: 'Free use of Rearm and Resupply requisition',
+    freeRepairAndRecuperate: 'Free use of Repair and Recuperate requisition',
+    extraRp: 'Gain an additional Requisition Point (+2 total)',
+    freeBattleHonour: 'A free Battle Honour for any unit in your army',
+    freeWeaponEnhancement: 'A free Weapon Enhancement for any unit in your army',
+  };
+
+  static const List<String> allTypes = [
+    extraMarkForGreatness,
+    freeSupplyIncrease,
+    freeRearmAndResupply,
+    freeRepairAndRecuperate,
+    extraRp,
+    freeBattleHonour,
+    freeWeaponEnhancement,
+  ];
+}
+
 /// Represents a single game/battle session
 @HiveType(typeId: 7)
 class Game {
@@ -1289,6 +1339,9 @@ class Game {
   @HiveField(17)
   bool isCommitted; // Whether post-game results have been committed to OOB units
 
+  @HiveField(18)
+  String? victorBonus; // VictorBonusType constant, null if not a victory or "None"
+
   Game({
     required this.id,
     required this.name,
@@ -1308,6 +1361,7 @@ class Game {
     this.playerScore,
     this.opponentScore,
     bool? isCommitted,
+    this.victorBonus,
   })  : createdAt = createdAt ?? DateTime.now().millisecondsSinceEpoch,
         agendas = agendas ?? [],
         unitStates = unitStates ?? [],
@@ -1384,6 +1438,7 @@ class Game {
       playerScore: json['playerScore'] as int?,
       opponentScore: json['opponentScore'] as int?,
       isCommitted: json['isCommitted'] as bool?,
+      victorBonus: json['victorBonus'] as String?,
     );
   }
 
@@ -1407,6 +1462,7 @@ class Game {
       'playerScore': playerScore,
       'opponentScore': opponentScore,
       'isCommitted': isCommitted,
+      'victorBonus': victorBonus,
     };
   }
 }

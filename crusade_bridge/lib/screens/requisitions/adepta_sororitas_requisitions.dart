@@ -1059,6 +1059,7 @@ void _showSaintlyBenedictions(BuildContext context, WidgetRef ref, Crusade crusa
               history: [...crusade.history, event],
               rosters: crusade.rosters,
               games: crusade.games,
+              pendingFreeRequisitions: crusade.pendingFreeRequisitions,
             );
 
             ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);

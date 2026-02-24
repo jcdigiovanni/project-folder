@@ -19,7 +19,8 @@ class PostGameScreen extends ConsumerStatefulWidget {
 }
 
 class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdateMixin<PostGameScreen> {
-  String? _markedForGreatnessUnitId;
+  final Set<String> _markedForGreatnessUnitIds = {};
+  String? _selectedVictorBonus;
   final TextEditingController _notesController = TextEditingController();
   List<TrialDefinition>? _trials;
   FactionCrusadeSystem? _factionSystem;
@@ -38,10 +39,16 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
         if (!_isCommitted) {
           ref.read(navigationGuardProvider.notifier).state = widget.gameId;
         }
-        final markedUnit = game.unitStates.where((u) => u.markedForGreatness).firstOrNull;
-        if (markedUnit != null) {
+        final markedUnits = game.unitStates.where((u) => u.markedForGreatness);
+        if (markedUnits.isNotEmpty) {
           setState(() {
-            _markedForGreatnessUnitId = markedUnit.unitId;
+            _markedForGreatnessUnitIds.addAll(markedUnits.map((u) => u.unitId));
+          });
+        }
+        // Load existing victor bonus selection
+        if (game.victorBonus != null) {
+          setState(() {
+            _selectedVictorBonus = game.victorBonus;
           });
         }
         // Load existing notes
@@ -116,6 +123,29 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: [
+                // Victor Bonus Section (victory only)
+                if (isVictory) ...[
+                  _VictorBonusSection(
+                    selectedBonus: _selectedVictorBonus,
+                    onBonusSelected: (bonus) {
+                      setState(() {
+                        _selectedVictorBonus = bonus;
+                        // If switching away from extra mark, trim to 1 selection
+                        if (bonus != VictorBonusType.extraMarkForGreatness &&
+                            _markedForGreatnessUnitIds.length > 1) {
+                          final first = _markedForGreatnessUnitIds.first;
+                          _markedForGreatnessUnitIds.clear();
+                          _markedForGreatnessUnitIds.add(first);
+                          _updateMarkedForGreatness(game);
+                        }
+                      });
+                      game.victorBonus = bonus;
+                      ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
+                    },
+                  ),
+                  const SizedBox(height: 24),
+                ],
+
                 // Agenda Recap Section
                 _AgendaRecapSection(game: game),
                 const SizedBox(height: 24),
@@ -123,12 +153,27 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
                 // Mark for Greatness Section
                 _MarkForGreatnessSection(
                   game: game,
-                  selectedUnitId: _markedForGreatnessUnitId,
-                  onUnitSelected: (unitId) {
+                  selectedUnitIds: _markedForGreatnessUnitIds,
+                  maxSelections: _selectedVictorBonus == VictorBonusType.extraMarkForGreatness ? 2 : 1,
+                  onUnitToggled: (unitId) {
                     setState(() {
-                      _markedForGreatnessUnitId = unitId;
+                      final maxSelections = _selectedVictorBonus == VictorBonusType.extraMarkForGreatness ? 2 : 1;
+                      if (_markedForGreatnessUnitIds.contains(unitId)) {
+                        _markedForGreatnessUnitIds.remove(unitId);
+                      } else {
+                        if (_markedForGreatnessUnitIds.length >= maxSelections) {
+                          // At max: if single-select, replace; if multi, ignore
+                          if (maxSelections == 1) {
+                            _markedForGreatnessUnitIds.clear();
+                            _markedForGreatnessUnitIds.add(unitId);
+                          }
+                          // If maxSelections == 2 and already at 2, do nothing
+                        } else {
+                          _markedForGreatnessUnitIds.add(unitId);
+                        }
+                      }
                     });
-                    _updateMarkedForGreatness(game, unitId);
+                    _updateMarkedForGreatness(game);
                   },
                 ),
                 const SizedBox(height: 24),
@@ -137,7 +182,7 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
                 _UnitSummarySection(
                   game: game,
                   crusade: crusade!,
-                  markedForGreatnessUnitId: _markedForGreatnessUnitId,
+                  markedForGreatnessUnitIds: _markedForGreatnessUnitIds,
                   xpPreviews: _calculateXpPreviews(game, crusade),
                   progressionSystem: _factionSystem,
                   onKillsChanged: (unitId, newKills) {
@@ -178,7 +223,7 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
           // Commit button (disabled until all validation passes)
           Builder(builder: (_) {
             final hasUnresolvedOOA = game.unitStates.any((u) => u.wasDestroyed && !u.ooaTestResolved);
-            final hasMarkedUnit = _markedForGreatnessUnitId != null;
+            final hasMarkedUnit = _markedForGreatnessUnitIds.isNotEmpty;
             final hints = <String>[
               if (!hasMarkedUnit) 'Mark a unit for greatness',
               if (hasUnresolvedOOA) 'Resolve all OOA tests',
@@ -195,17 +240,10 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
     );
   }
 
-  void _updateMarkedForGreatness(Game game, String? unitId) {
-    // Clear previous mark
+  void _updateMarkedForGreatness(Game game) {
+    // Sync unit states to match the current set
     for (final unitState in game.unitStates) {
-      unitState.markedForGreatness = false;
-    }
-    // Set new mark
-    if (unitId != null) {
-      final unitState = game.findUnitState(unitId);
-      if (unitState != null) {
-        unitState.markedForGreatness = true;
-      }
+      unitState.markedForGreatness = _markedForGreatnessUnitIds.contains(unitState.unitId);
     }
     ref.read(currentCrusadeNotifierProvider.notifier).updateGame(game);
   }
@@ -403,6 +441,37 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
       crusade.rp += 1;
     }
 
+    // Apply victor bonus (victory only)
+    final victorBonus = _selectedVictorBonus;
+    if (game.result == GameResult.win && victorBonus != null) {
+      game.victorBonus = victorBonus;
+      switch (victorBonus) {
+        case VictorBonusType.extraMarkForGreatness:
+          // Already handled — multiple units marked via _markedForGreatnessUnitIds
+          break;
+        case VictorBonusType.freeSupplyIncrease:
+          crusade.supplyLimit += 200;
+          break;
+        case VictorBonusType.freeRearmAndResupply:
+          crusade.pendingFreeRequisitions.add('rearm_and_resupply');
+          break;
+        case VictorBonusType.freeRepairAndRecuperate:
+          crusade.pendingFreeRequisitions.add('repair_and_recuperate');
+          break;
+        case VictorBonusType.extraRp:
+          if (crusade.rp < 10) {
+            crusade.rp += 1;
+          }
+          break;
+        case VictorBonusType.freeBattleHonour:
+          crusade.pendingFreeRequisitions.add('free_battle_honour');
+          break;
+        case VictorBonusType.freeWeaponEnhancement:
+          crusade.pendingFreeRequisitions.add('free_weapon_enhancement');
+          break;
+      }
+    }
+
     // Mark game as committed
     game.isCommitted = true;
 
@@ -416,14 +485,21 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
     // Log battle history event via provider (immutable pattern)
     final totalUnits = game.unitStates.length;
     final resultLabel = game.result == 'win' ? 'Victory' : game.result == 'loss' ? 'Defeat' : 'Draw';
+    final battleMetadata = <String, dynamic>{
+      'gameId': game.id,
+      'result': game.result,
+      'unitsDeployed': totalUnits,
+    };
+    if (victorBonus != null) {
+      battleMetadata['victorBonus'] = victorBonus;
+      battleMetadata['victorBonusLabel'] = VictorBonusType.labels[victorBonus];
+    }
     ref.read(currentCrusadeNotifierProvider.notifier).addEvent(CrusadeEvent.create(
       type: CrusadeEventType.battle,
-      description: 'Battle: $resultLabel ($totalUnits units deployed)',
-      metadata: {
-        'gameId': game.id,
-        'result': game.result,
-        'unitsDeployed': totalUnits,
-      },
+      description: victorBonus != null
+          ? 'Battle: $resultLabel ($totalUnits units deployed) — Victor Bonus: ${VictorBonusType.labels[victorBonus]}'
+          : 'Battle: $resultLabel ($totalUnits units deployed)',
+      metadata: battleMetadata,
     ));
 
     ScaffoldMessenger.of(context).showSnackBar(
@@ -1248,16 +1324,14 @@ class _AgendaRecapCard extends StatelessWidget {
   }
 }
 
-/// Section for marking a unit for greatness
-class _MarkForGreatnessSection extends StatelessWidget {
-  final Game game;
-  final String? selectedUnitId;
-  final Function(String?) onUnitSelected;
+/// Section for selecting the victor bonus (victory only)
+class _VictorBonusSection extends StatelessWidget {
+  final String? selectedBonus;
+  final Function(String?) onBonusSelected;
 
-  const _MarkForGreatnessSection({
-    required this.game,
-    required this.selectedUnitId,
-    required this.onUnitSelected,
+  const _VictorBonusSection({
+    required this.selectedBonus,
+    required this.onBonusSelected,
   });
 
   @override
@@ -1267,10 +1341,10 @@ class _MarkForGreatnessSection extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Icon(Icons.star, color: Colors.amber, size: 20),
+            const Icon(Icons.emoji_events, color: Colors.amber, size: 20),
             const SizedBox(width: 8),
             const Text(
-              'Mark for Greatness',
+              'Victor Bonus',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -1280,7 +1354,106 @@ class _MarkForGreatnessSection extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         Text(
-          'Select one unit to receive +3 XP bonus',
+          'Select the bonus granted by your mission',
+          style: TextStyle(color: Colors.grey.shade400, fontSize: 14),
+        ),
+        const SizedBox(height: 12),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            // "None" option
+            ChoiceChip(
+              label: const Text('None'),
+              selected: selectedBonus == null,
+              onSelected: (_) => onBonusSelected(null),
+              selectedColor: Colors.grey.withValues(alpha: 0.3),
+              side: BorderSide(
+                color: selectedBonus == null ? Colors.grey.shade300 : Colors.grey.shade600,
+              ),
+            ),
+            // All bonus types
+            ...VictorBonusType.allTypes.map((type) {
+              final isSelected = selectedBonus == type;
+              return ChoiceChip(
+                label: Text(VictorBonusType.labels[type]!),
+                selected: isSelected,
+                onSelected: (selected) => onBonusSelected(selected ? type : null),
+                selectedColor: Colors.amber.withValues(alpha: 0.3),
+                side: BorderSide(
+                  color: isSelected ? Colors.amber : Colors.grey.shade600,
+                ),
+              );
+            }),
+          ],
+        ),
+        if (selectedBonus != null) ...[
+          const SizedBox(height: 8),
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.amber.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.amber.withValues(alpha: 0.3)),
+            ),
+            child: Row(
+              children: [
+                const Icon(Icons.info_outline, color: Colors.amber, size: 16),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    VictorBonusType.descriptions[selectedBonus]!,
+                    style: TextStyle(color: Colors.grey.shade300, fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+/// Section for marking a unit for greatness
+class _MarkForGreatnessSection extends StatelessWidget {
+  final Game game;
+  final Set<String> selectedUnitIds;
+  final int maxSelections;
+  final Function(String) onUnitToggled;
+
+  const _MarkForGreatnessSection({
+    required this.game,
+    required this.selectedUnitIds,
+    required this.maxSelections,
+    required this.onUnitToggled,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final subtitle = maxSelections > 1
+        ? 'Select up to $maxSelections units to receive +3 XP bonus each'
+        : 'Select one unit to receive +3 XP bonus';
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const Icon(Icons.star, color: Colors.amber, size: 20),
+            const SizedBox(width: 8),
+            Text(
+              maxSelections > 1 ? 'Mark for Greatness (x$maxSelections)' : 'Mark for Greatness',
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Text(
+          subtitle,
           style: TextStyle(color: Colors.grey.shade400, fontSize: 14),
         ),
         const SizedBox(height: 12),
@@ -1288,13 +1461,11 @@ class _MarkForGreatnessSection extends StatelessWidget {
           spacing: 8,
           runSpacing: 8,
           children: game.unitStates.map((unitState) {
-            final isSelected = selectedUnitId == unitState.unitId;
-            return ChoiceChip(
+            final isSelected = selectedUnitIds.contains(unitState.unitId);
+            return FilterChip(
               label: Text(unitState.unitName),
               selected: isSelected,
-              onSelected: (selected) {
-                onUnitSelected(selected ? unitState.unitId : null);
-              },
+              onSelected: (_) => onUnitToggled(unitState.unitId),
               selectedColor: Colors.amber.withValues(alpha: 0.3),
               side: BorderSide(
                 color: isSelected ? Colors.amber : Colors.grey.shade600,
@@ -1312,7 +1483,7 @@ class _MarkForGreatnessSection extends StatelessWidget {
 class _UnitSummarySection extends StatelessWidget {
   final Game game;
   final Crusade crusade;
-  final String? markedForGreatnessUnitId;
+  final Set<String> markedForGreatnessUnitIds;
   final List<_UnitXPPreview> xpPreviews;
   final Function(String unitId, int newKills) onKillsChanged;
   final Function(String unitId, bool wasDestroyed) onDestroyedChanged;
@@ -1322,7 +1493,7 @@ class _UnitSummarySection extends StatelessWidget {
   const _UnitSummarySection({
     required this.game,
     required this.crusade,
-    required this.markedForGreatnessUnitId,
+    required this.markedForGreatnessUnitIds,
     required this.xpPreviews,
     required this.onKillsChanged,
     required this.onDestroyedChanged,
@@ -1354,7 +1525,7 @@ class _UnitSummarySection extends StatelessWidget {
           return _UnitSummaryCard(
             unitState: unitState,
             game: game,
-            isMarkedForGreatness: markedForGreatnessUnitId == unitState.unitId,
+            isMarkedForGreatness: markedForGreatnessUnitIds.contains(unitState.unitId),
             xpPreview: preview,
             progressionSystem: progressionSystem,
             onKillsChanged: (newKills) => onKillsChanged(unitState.unitId, newKills),

@@ -63,6 +63,19 @@ class RequisitionScreen extends ConsumerWidget {
                   enabled: currentCrusade.rp >= 1,
                   onTap: () => _showRearmAndResupplyModal(context, ref, currentCrusade),
                 ),
+                // Free Rearm from victor bonus
+                if (currentCrusade.pendingFreeRequisitions.contains('rearm_and_resupply')) ...[
+                  const SizedBox(height: 12),
+                  RequisitionOption(
+                    title: 'Rearm and Resupply (FREE)',
+                    description: 'Victor bonus — free wargear swap (honor system)',
+                    cost: 0,
+                    icon: Icons.build,
+                    color: Colors.green,
+                    enabled: true,
+                    onTap: () => _useFreeRearm(context, ref, currentCrusade),
+                  ),
+                ],
                 const SizedBox(height: 12),
                 RequisitionOption(
                   title: 'Repair and Recuperate',
@@ -74,6 +87,19 @@ class RequisitionScreen extends ConsumerWidget {
                   enabled: currentCrusade.rp >= 1 && _hasUnitsWithScars(currentCrusade),
                   onTap: () => _showRepairAndRecuperateModal(context, ref, currentCrusade),
                 ),
+                // Free Repair from victor bonus
+                if (currentCrusade.pendingFreeRequisitions.contains('repair_and_recuperate')) ...[
+                  const SizedBox(height: 12),
+                  RequisitionOption(
+                    title: 'Repair and Recuperate (FREE)',
+                    description: 'Victor bonus — remove a Battle Scar at no RP cost',
+                    cost: 0,
+                    icon: Icons.healing,
+                    color: Colors.green,
+                    enabled: _hasUnitsWithScars(currentCrusade),
+                    onTap: () => _showFreeRepairModal(context, ref, currentCrusade),
+                  ),
+                ],
                 const SizedBox(height: 12),
                 RequisitionOption(
                   title: 'Renowned Heroes',
@@ -152,6 +178,7 @@ class RequisitionScreen extends ConsumerWidget {
                 history: [...crusade.history, event],
                 rosters: crusade.rosters,
                 games: crusade.games,
+                pendingFreeRequisitions: crusade.pendingFreeRequisitions,
               );
 
               ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
@@ -699,6 +726,246 @@ class RequisitionScreen extends ConsumerWidget {
               SnackBarUtils.showSuccess(
                 context,
                 'Battle Scar removed from ${unit.customName ?? unit.name}!',
+              );
+            },
+            child: const Text('Confirm'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ============ FREE REQUISITIONS (Victor Bonus) ============
+
+  void _useFreeRearm(BuildContext context, WidgetRef ref, Crusade crusade) {
+    showHonorSystemRequisitionModal(
+      context: context, ref: ref, crusade: crusade,
+      title: 'Rearm and Resupply (FREE)',
+      subtitle: 'Victor bonus — select a unit to swap wargear (0 RP)',
+      confirmTitle: 'Rearm and Resupply (Free)',
+      confirmMessage: (name) => 'Use your free victor bonus to swap wargear on $name?\n\nUpdate the unit\'s wargear on the tabletop as needed.',
+      successMessage: (name) => 'Wargear swapped on $name (Victor Bonus — free)',
+      eventDescription: (name) => 'Rearm and Resupply (Victor Bonus): Wargear swapped on $name',
+      requisitionKey: 'rearm_and_resupply_free',
+      rpCost: 0, icon: Icons.build, color: Colors.green,
+      onComplete: () {
+        // Remove the free token
+        crusade.pendingFreeRequisitions.remove('rearm_and_resupply');
+        crusade.lastModified = DateTime.now().millisecondsSinceEpoch;
+        ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
+      },
+    );
+  }
+
+  void _showFreeRepairModal(BuildContext context, WidgetRef ref, Crusade crusade) {
+    // Gather all units with scars
+    final List<UnitOrGroup> unitsWithScars = [];
+
+    for (final item in crusade.oob) {
+      if (item.type == 'group' && item.components != null) {
+        for (final unit in item.components!) {
+          if (unit.scars.isNotEmpty) {
+            unitsWithScars.add(unit);
+          }
+        }
+      } else if (item.scars.isNotEmpty) {
+        unitsWithScars.add(item);
+      }
+    }
+
+    if (unitsWithScars.isEmpty) {
+      SnackBarUtils.showMessage(context, 'No units have Battle Scars to remove');
+      return;
+    }
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.6,
+        minChildSize: 0.3,
+        maxChildSize: 0.9,
+        expand: false,
+        builder: (context, scrollController) => Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Repair and Recuperate (FREE)',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        'Victor bonus — select a unit to remove a Battle Scar',
+                        style: TextStyle(color: Colors.grey, fontSize: 14),
+                      ),
+                    ],
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.pop(context),
+                    tooltip: 'Close',
+                  ),
+                ],
+              ),
+            ),
+            const Divider(height: 1),
+            Expanded(
+              child: ListView.builder(
+                controller: scrollController,
+                itemCount: unitsWithScars.length,
+                itemBuilder: (context, index) {
+                  final unit = unitsWithScars[index];
+                  return ListTile(
+                    leading: Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: Colors.green.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Icon(Icons.healing, color: Colors.green),
+                    ),
+                    title: Text(unit.customName ?? unit.name),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${unit.scars.length} Battle Scar${unit.scars.length > 1 ? 's' : ''}',
+                          style: const TextStyle(color: Colors.red),
+                        ),
+                        ...unit.scars.map((scar) => Text(
+                          '• $scar',
+                          style: TextStyle(color: Colors.grey.shade500, fontSize: 12),
+                        )),
+                      ],
+                    ),
+                    trailing: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.green.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.green),
+                      ),
+                      child: const Text(
+                        'FREE',
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+                      ),
+                    ),
+                    onTap: () => _selectScarForFreeRepair(context, ref, crusade, unit),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _selectScarForFreeRepair(
+    BuildContext context,
+    WidgetRef ref,
+    Crusade crusade,
+    UnitOrGroup unit,
+  ) {
+    // If only one scar, go directly to confirmation
+    if (unit.scars.length == 1) {
+      _confirmFreeRepair(context, ref, crusade, unit, unit.scars.first);
+      return;
+    }
+
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Select Scar to Remove'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: unit.scars.map((scar) => ListTile(
+            leading: const Icon(Icons.remove_circle, color: Colors.red),
+            title: Text(scar),
+            onTap: () {
+              Navigator.pop(dialogContext);
+              _confirmFreeRepair(context, ref, crusade, unit, scar);
+            },
+          )).toList(),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _confirmFreeRepair(
+    BuildContext context,
+    WidgetRef ref,
+    Crusade crusade,
+    UnitOrGroup unit,
+    String scar,
+  ) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Confirm Free Repair'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Unit: ${unit.customName ?? unit.name}'),
+            const SizedBox(height: 8),
+            Text('Remove: $scar'),
+            const SizedBox(height: 8),
+            const Text(
+              'Cost: FREE (Victor Bonus)',
+              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Remove the scar and restore CP
+              unit.scars.remove(scar);
+              unit.crusadePoints += 1;
+
+              // Remove the free token (no RP cost)
+              crusade.pendingFreeRequisitions.remove('repair_and_recuperate');
+              crusade.lastModified = DateTime.now().millisecondsSinceEpoch;
+
+              ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
+              ref.read(currentCrusadeNotifierProvider.notifier).addEvent(CrusadeEvent.create(
+                type: CrusadeEventType.requisition,
+                description: 'Repair and Recuperate (Victor Bonus): Removed "$scar" from ${unit.customName ?? unit.name}',
+                unitId: unit.id,
+                unitName: unit.customName ?? unit.name,
+                metadata: {
+                  'requisition': 'repair_and_recuperate_free',
+                  'rpCost': 0,
+                  'removedScar': scar,
+                  'source': 'victor_bonus',
+                },
+              ));
+
+              Navigator.pop(dialogContext);
+              Navigator.pop(context);
+
+              SnackBarUtils.showSuccess(
+                context,
+                'Battle Scar removed from ${unit.customName ?? unit.name}! (Victor Bonus)',
               );
             },
             child: const Text('Confirm'),

@@ -173,6 +173,30 @@ class OOBModifyScreen extends ConsumerWidget {
                       );
                     }
 
+                    // Free Battle Honour from victor bonus (component units)
+                    if (currentCrusade.pendingFreeRequisitions.contains('free_battle_honour')) {
+                      nestedExpansionChildren.add(
+                        ListTile(
+                          dense: true,
+                          leading: const Icon(Icons.emoji_events, color: Colors.green, size: 20),
+                          title: const Text('Claim Free Battle Honour', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 14)),
+                          onTap: () => _claimFreeComponentBattleHonour(context, ref, index, componentIndex, component, 'free_battle_honour'),
+                        ),
+                      );
+                    }
+
+                    // Free Weapon Enhancement from victor bonus (component units)
+                    if (currentCrusade.pendingFreeRequisitions.contains('free_weapon_enhancement')) {
+                      nestedExpansionChildren.add(
+                        ListTile(
+                          dense: true,
+                          leading: const Icon(Icons.gavel, color: Colors.green, size: 20),
+                          title: const Text('Claim Free Weapon Enhancement', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 14)),
+                          onTap: () => _claimFreeComponentBattleHonour(context, ref, index, componentIndex, component, 'free_weapon_enhancement'),
+                        ),
+                      );
+                    }
+
                     // Add Edit button for component units (BUG-018 fix)
                     nestedExpansionChildren.add(
                       ListTile(
@@ -360,6 +384,42 @@ class OOBModifyScreen extends ConsumerWidget {
                       ),
                       subtitle: const Text('Select your rank-up reward'),
                       onTap: () => _showBattleHonourModal(context, ref, index, item),
+                    ),
+                  );
+                }
+
+                // Free Battle Honour from victor bonus
+                if (item.type != 'group' && currentCrusade.pendingFreeRequisitions.contains('free_battle_honour')) {
+                  final count = currentCrusade.pendingFreeRequisitions.where((t) => t == 'free_battle_honour').length;
+                  expansionChildren.add(
+                    ListTile(
+                      leading: const Icon(Icons.emoji_events, color: Colors.green),
+                      title: Text(
+                        count > 1
+                            ? 'Claim Free Battle Honour ($count available)'
+                            : 'Claim Free Battle Honour',
+                        style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: const Text('Victor bonus — any honour type'),
+                      onTap: () => _claimFreeBattleHonour(context, ref, index, item, 'free_battle_honour'),
+                    ),
+                  );
+                }
+
+                // Free Weapon Enhancement from victor bonus
+                if (item.type != 'group' && currentCrusade.pendingFreeRequisitions.contains('free_weapon_enhancement')) {
+                  final count = currentCrusade.pendingFreeRequisitions.where((t) => t == 'free_weapon_enhancement').length;
+                  expansionChildren.add(
+                    ListTile(
+                      leading: const Icon(Icons.gavel, color: Colors.green),
+                      title: Text(
+                        count > 1
+                            ? 'Claim Free Weapon Enhancement ($count available)'
+                            : 'Claim Free Weapon Enhancement',
+                        style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: const Text('Victor bonus — weapon enhancement only'),
+                      onTap: () => _claimFreeBattleHonour(context, ref, index, item, 'free_weapon_enhancement'),
                     ),
                   );
                 }
@@ -602,6 +662,7 @@ class OOBModifyScreen extends ConsumerWidget {
                   history: currentCrusade.history,
                   rosters: currentCrusade.rosters,
                   games: currentCrusade.games,
+                  pendingFreeRequisitions: currentCrusade.pendingFreeRequisitions,
                 );
                 ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
                 SnackBarUtils.showSuccess(context, 'Group disbanded. Units returned to Order of Battle.');
@@ -955,6 +1016,48 @@ class OOBModifyScreen extends ConsumerWidget {
     );
   }
 
+  void _claimFreeComponentBattleHonour(BuildContext context, WidgetRef ref, int groupIndex, int componentIndex, UnitOrGroup component, String tokenType) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return DraggableScrollableSheet(
+          initialChildSize: 0.7,
+          minChildSize: 0.5,
+          maxChildSize: 0.9,
+          expand: false,
+          builder: (context, scrollController) {
+            return _ComponentBattleHonourModalContent(
+              groupIndex: groupIndex,
+              componentIndex: componentIndex,
+              component: component,
+              scrollController: scrollController,
+              freeTokenType: tokenType,
+              filterToWeaponEnhancement: tokenType == 'free_weapon_enhancement',
+              updateCallback: (updatedComponent) {
+                _updateComponentInGroup(ref, groupIndex, componentIndex, updatedComponent);
+                // Remove the free token from pendingFreeRequisitions
+                final crusade = ref.read(currentCrusadeNotifierProvider);
+                if (crusade != null) {
+                  crusade.pendingFreeRequisitions.remove(tokenType);
+                  crusade.lastModified = DateTime.now().millisecondsSinceEpoch;
+                  ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
+                  ref.read(currentCrusadeNotifierProvider.notifier).addEvent(CrusadeEvent.create(
+                    type: CrusadeEventType.honour,
+                    description: 'Free Battle Honour (Victor Bonus): ${updatedComponent.honours.last}',
+                    unitId: updatedComponent.id,
+                    unitName: updatedComponent.customName ?? updatedComponent.name,
+                    metadata: {'source': 'victor_bonus'},
+                  ));
+                }
+              },
+            );
+          },
+        );
+      },
+    );
+  }
+
   void _editGroup(BuildContext context, WidgetRef ref, int index, UnitOrGroup group) {
     final currentCrusade = ref.read(currentCrusadeNotifierProvider);
     if (currentCrusade == null) return;
@@ -1175,6 +1278,7 @@ class OOBModifyScreen extends ConsumerWidget {
                           history: currentCrusade.history,
                           rosters: currentCrusade.rosters,
                           games: currentCrusade.games,
+                          pendingFreeRequisitions: currentCrusade.pendingFreeRequisitions,
                         );
 
                         ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
@@ -1458,6 +1562,7 @@ class OOBModifyScreen extends ConsumerWidget {
                                 history: [...currentCrusade.history, enhancementEvent],
                                 rosters: currentCrusade.rosters,
                                 games: currentCrusade.games,
+                                pendingFreeRequisitions: currentCrusade.pendingFreeRequisitions,
                               );
 
                               ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
@@ -1498,6 +1603,31 @@ class OOBModifyScreen extends ConsumerWidget {
               unitIndex: unitIndex,
               unit: unit,
               scrollController: scrollController,
+            );
+          },
+        );
+      },
+    );
+  }
+
+  /// Claim a free battle honour or weapon enhancement from a victor bonus token
+  static void _claimFreeBattleHonour(BuildContext context, WidgetRef ref, int unitIndex, UnitOrGroup unit, String tokenType) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return DraggableScrollableSheet(
+          initialChildSize: 0.7,
+          minChildSize: 0.5,
+          maxChildSize: 0.9,
+          expand: false,
+          builder: (context, scrollController) {
+            return _BattleHonourModalContent(
+              unitIndex: unitIndex,
+              unit: unit,
+              scrollController: scrollController,
+              freeTokenType: tokenType,
+              filterToWeaponEnhancement: tokenType == 'free_weapon_enhancement',
             );
           },
         );
@@ -1713,11 +1843,15 @@ class _BattleHonourModalContent extends ConsumerStatefulWidget {
   final int unitIndex;
   final UnitOrGroup unit;
   final ScrollController scrollController;
+  final String? freeTokenType; // If set, this is a free claim from victor bonus (removes token instead of decrementing availableBattleHonours)
+  final bool filterToWeaponEnhancement; // If true, only show weapon enhancements
 
   const _BattleHonourModalContent({
     required this.unitIndex,
     required this.unit,
     required this.scrollController,
+    this.freeTokenType,
+    this.filterToWeaponEnhancement = false,
   });
 
   @override
@@ -1733,6 +1867,10 @@ class _BattleHonourModalContentState extends ConsumerState<_BattleHonourModalCon
   @override
   void initState() {
     super.initState();
+    // Pre-select weapon enhancements if filtered
+    if (widget.filterToWeaponEnhancement) {
+      _selectedHonourType = 'weaponEnhancements';
+    }
     _loadBattleHonoursData();
   }
 
@@ -1853,18 +1991,26 @@ class _BattleHonourModalContentState extends ConsumerState<_BattleHonourModalCon
     // Increment Crusade Points for the Battle Honour (+1 CP per honour)
     updatedUnit.crusadePoints += 1;
 
-    // Debit one available Battle Honour
-    updatedUnit.availableBattleHonours -= 1;
+    // Debit source: either remove a free token or decrement availableBattleHonours
+    final updatedPendingFreeRequisitions = List<String>.from(currentCrusade.pendingFreeRequisitions);
+    if (widget.freeTokenType != null) {
+      updatedPendingFreeRequisitions.remove(widget.freeTokenType);
+    } else {
+      updatedUnit.availableBattleHonours -= 1;
+    }
 
     // Create history event
     final honourEvent = CrusadeEvent.create(
       type: CrusadeEventType.honour,
-      description: 'Battle Honour gained: $_selectedHonour',
+      description: widget.freeTokenType != null
+          ? 'Free Battle Honour (Victor Bonus): $_selectedHonour'
+          : 'Battle Honour gained: $_selectedHonour',
       unitId: updatedUnit.id,
       unitName: updatedUnit.customName ?? updatedUnit.name,
       metadata: {
         'honourType': _selectedHonourType,
         'honour': _selectedHonour,
+        if (widget.freeTokenType != null) 'source': 'victor_bonus',
       },
     );
 
@@ -1884,6 +2030,7 @@ class _BattleHonourModalContentState extends ConsumerState<_BattleHonourModalCon
       history: [...currentCrusade.history, honourEvent],
       rosters: currentCrusade.rosters,
       games: currentCrusade.games,
+      pendingFreeRequisitions: updatedPendingFreeRequisitions,
     );
 
     ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
@@ -1934,9 +2081,11 @@ class _BattleHonourModalContentState extends ConsumerState<_BattleHonourModalCon
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'Claim Battle Honour',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    Text(
+                      widget.freeTokenType != null
+                          ? (widget.filterToWeaponEnhancement ? 'Free Weapon Enhancement' : 'Free Battle Honour')
+                          : 'Claim Battle Honour',
+                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     IconButton(
                       icon: const Icon(Icons.close),
@@ -1979,17 +2128,18 @@ class _BattleHonourModalContentState extends ConsumerState<_BattleHonourModalCon
                 const SizedBox(height: 12),
 
                 // Battle Trait option
-                _HonourTypeCard(
-                  title: 'Battle Trait',
-                  subtitle: 'Tactical ability from battle experience',
-                  icon: Icons.shield,
-                  color: Colors.blue,
-                  isSelected: _selectedHonourType == 'battleTraits',
-                  onTap: () => setState(() {
-                    _selectedHonourType = 'battleTraits';
-                    _selectedHonour = null;
-                  }),
-                ),
+                if (!widget.filterToWeaponEnhancement)
+                  _HonourTypeCard(
+                    title: 'Battle Trait',
+                    subtitle: 'Tactical ability from battle experience',
+                    icon: Icons.shield,
+                    color: Colors.blue,
+                    isSelected: _selectedHonourType == 'battleTraits',
+                    onTap: () => setState(() {
+                      _selectedHonourType = 'battleTraits';
+                      _selectedHonour = null;
+                    }),
+                  ),
 
                 // Weapon Enhancement option
                 _HonourTypeCard(
@@ -2005,7 +2155,7 @@ class _BattleHonourModalContentState extends ConsumerState<_BattleHonourModalCon
                 ),
 
                 // Crusade Relic option (Characters only, limit 1)
-                if (isCharacter && !hasRelic)
+                if (!widget.filterToWeaponEnhancement && isCharacter && !hasRelic)
                   _HonourTypeCard(
                     title: 'Crusade Relic',
                     subtitle: 'Powerful artifact (Characters only, limit 1)',
@@ -2019,17 +2169,18 @@ class _BattleHonourModalContentState extends ConsumerState<_BattleHonourModalCon
                   ),
 
                 // Psychic Fortitude option (could check for PSYKER keyword if data available)
-                _HonourTypeCard(
-                  title: 'Psychic Fortitude',
-                  subtitle: 'Warp-enhanced ability (Psykers only)',
-                  icon: Icons.psychology,
-                  color: Colors.indigo,
-                  isSelected: _selectedHonourType == 'psychicFortitudes',
-                  onTap: () => setState(() {
-                    _selectedHonourType = 'psychicFortitudes';
-                    _selectedHonour = null;
-                  }),
-                ),
+                if (!widget.filterToWeaponEnhancement)
+                  _HonourTypeCard(
+                    title: 'Psychic Fortitude',
+                    subtitle: 'Warp-enhanced ability (Psykers only)',
+                    icon: Icons.psychology,
+                    color: Colors.indigo,
+                    isSelected: _selectedHonourType == 'psychicFortitudes',
+                    onTap: () => setState(() {
+                      _selectedHonourType = 'psychicFortitudes';
+                      _selectedHonour = null;
+                    }),
+                  ),
 
                 // Honour selection (if type selected)
                 if (_selectedHonourType != null) ...[
@@ -2706,6 +2857,8 @@ class _ComponentBattleHonourModalContent extends ConsumerStatefulWidget {
   final UnitOrGroup component;
   final ScrollController scrollController;
   final void Function(UnitOrGroup) updateCallback;
+  final String? freeTokenType;
+  final bool filterToWeaponEnhancement;
 
   const _ComponentBattleHonourModalContent({
     required this.groupIndex,
@@ -2713,6 +2866,8 @@ class _ComponentBattleHonourModalContent extends ConsumerStatefulWidget {
     required this.component,
     required this.scrollController,
     required this.updateCallback,
+    this.freeTokenType,
+    this.filterToWeaponEnhancement = false,
   });
 
   @override
@@ -2728,6 +2883,9 @@ class _ComponentBattleHonourModalContentState extends ConsumerState<_ComponentBa
   @override
   void initState() {
     super.initState();
+    if (widget.filterToWeaponEnhancement) {
+      _selectedHonourType = 'weaponEnhancements';
+    }
     _loadBattleHonoursData();
   }
 
@@ -2864,7 +3022,9 @@ class _ComponentBattleHonourModalContentState extends ConsumerState<_ComponentBa
       enhancements: component.enhancements,
       crusadePoints: component.crusadePoints + 1, // +1 CP for honour
       tallies: component.tallies,
-      availableBattleHonours: component.availableBattleHonours - 1, // Debit one Battle Honour
+      availableBattleHonours: widget.freeTokenType != null
+          ? component.availableBattleHonours // Free claim — don't debit
+          : component.availableBattleHonours - 1, // Debit one Battle Honour
       battleTraits: updatedBattleTraits,
       weaponEnhancements: updatedWeaponEnhancements,
       crusadeRelic: updatedCrusadeRelic,
@@ -2916,9 +3076,11 @@ class _ComponentBattleHonourModalContentState extends ConsumerState<_ComponentBa
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'Claim Battle Honour',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    Text(
+                      widget.freeTokenType != null
+                          ? (widget.filterToWeaponEnhancement ? 'Free Weapon Enhancement' : 'Free Battle Honour')
+                          : 'Claim Battle Honour',
+                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     IconButton(
                       icon: const Icon(Icons.close),
@@ -2960,17 +3122,18 @@ class _ComponentBattleHonourModalContentState extends ConsumerState<_ComponentBa
                 const SizedBox(height: 12),
 
                 // Battle Trait option
-                _HonourTypeCard(
-                  title: 'Battle Trait',
-                  subtitle: 'Tactical ability from battle experience',
-                  icon: Icons.shield,
-                  color: Colors.blue,
-                  isSelected: _selectedHonourType == 'battleTraits',
-                  onTap: () => setState(() {
-                    _selectedHonourType = 'battleTraits';
-                    _selectedHonour = null;
-                  }),
-                ),
+                if (!widget.filterToWeaponEnhancement)
+                  _HonourTypeCard(
+                    title: 'Battle Trait',
+                    subtitle: 'Tactical ability from battle experience',
+                    icon: Icons.shield,
+                    color: Colors.blue,
+                    isSelected: _selectedHonourType == 'battleTraits',
+                    onTap: () => setState(() {
+                      _selectedHonourType = 'battleTraits';
+                      _selectedHonour = null;
+                    }),
+                  ),
 
                 // Weapon Enhancement option
                 _HonourTypeCard(
@@ -2986,7 +3149,7 @@ class _ComponentBattleHonourModalContentState extends ConsumerState<_ComponentBa
                 ),
 
                 // Crusade Relic option (Characters only, limit 1)
-                if (isCharacter && !hasRelic)
+                if (!widget.filterToWeaponEnhancement && isCharacter && !hasRelic)
                   _HonourTypeCard(
                     title: 'Crusade Relic',
                     subtitle: 'Powerful artifact (Characters only, limit 1)',
@@ -3547,6 +3710,7 @@ class _AddUnitModalContentState extends State<_AddUnitModalContent> {
                     history: [...currentCrusade.history, unitAddedEvent, enhancementEvent],
                     rosters: currentCrusade.rosters,
                     games: currentCrusade.games,
+                    pendingFreeRequisitions: currentCrusade.pendingFreeRequisitions,
                   );
                   ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
 

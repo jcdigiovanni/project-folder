@@ -33,13 +33,14 @@ class CrusadeAdapter extends TypeAdapter<Crusade> {
       rosters: (fields[13] as List?)?.cast<Roster>(),
       games: (fields[14] as List?)?.cast<Game>(),
       floatingBattleHonours: fields[15] as int?,
+      pendingFreeRequisitions: (fields[16] as List?)?.cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Crusade obj) {
     writer
-      ..writeByte(16)
+      ..writeByte(17)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -71,7 +72,9 @@ class CrusadeAdapter extends TypeAdapter<Crusade> {
       ..writeByte(14)
       ..write(obj.games)
       ..writeByte(15)
-      ..write(obj.floatingBattleHonours);
+      ..write(obj.floatingBattleHonours)
+      ..writeByte(16)
+      ..write(obj.pendingFreeRequisitions);
   }
 
   @override
@@ -595,13 +598,14 @@ class GameAdapter extends TypeAdapter<Game> {
       playerScore: fields[15] as int?,
       opponentScore: fields[16] as int?,
       isCommitted: fields[17] as bool?,
+      victorBonus: fields[18] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Game obj) {
     writer
-      ..writeByte(18)
+      ..writeByte(19)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -637,7 +641,9 @@ class GameAdapter extends TypeAdapter<Game> {
       ..writeByte(16)
       ..write(obj.opponentScore)
       ..writeByte(17)
-      ..write(obj.isCommitted);
+      ..write(obj.isCommitted)
+      ..writeByte(18)
+      ..write(obj.victorBonus);
   }
 
   @override
