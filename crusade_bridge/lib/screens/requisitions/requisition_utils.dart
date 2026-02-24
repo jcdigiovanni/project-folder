@@ -16,6 +16,7 @@ void showHonorSystemRequisitionModal({
   required int rpCost,
   required IconData icon,
   required Color color,
+  VoidCallback? onComplete,
 }) {
   final List<UnitOrGroup> allUnits = [];
   for (final item in crusade.oob) {
@@ -108,6 +109,7 @@ void showHonorSystemRequisitionModal({
                       eventDescription: eventDescription(unit.customName ?? unit.name),
                       requisitionKey: requisitionKey,
                       rpCost: rpCost,
+                      onComplete: onComplete,
                     );
                   },
                 );
@@ -132,6 +134,7 @@ void confirmHonorSystemRequisition({
   required String eventDescription,
   required String requisitionKey,
   required int rpCost,
+  VoidCallback? onComplete,
 }) {
   showDialog(
     context: context,
@@ -168,9 +171,11 @@ void confirmHonorSystemRequisition({
               history: [...crusade.history, event],
               rosters: crusade.rosters,
               games: crusade.games,
+              pendingFreeRequisitions: crusade.pendingFreeRequisitions,
             );
 
             ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
+            onComplete?.call();
 
             Navigator.pop(context);
             SnackBarUtils.showSuccess(context, successMessage);

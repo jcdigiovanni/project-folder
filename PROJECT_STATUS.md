@@ -1,4 +1,7 @@
-**Last Updated:** February 11, 2026 (Phase 6 Backlog Clearance In Progress)
+**Last Updated:** February 24, 2026 (Victor Bonuses)
+
+**Recent Work (Feb 24)**
+- Victor Bonuses (FEA-019): Post-game bonus selection for victorious players. 7 bonus types with extensible `VictorBonusType` class (static constants + label/description maps). Deferred token architecture via `Crusade.pendingFreeRequisitions` (HiveField 16, `List<String>`). Victor Bonus section in post-game screen (victory only) with ChoiceChips and description text. Mark for Greatness refactored from single-select (`String?`) to multi-select (`Set<String>`) supporting 1 or 2 units when bonus active. Free requisition tokens shown as "(FREE)" options on requisition screen at 0 RP cost. Free Battle Honour / Weapon Enhancement claimable from OOB unit details with token removal on claim. `Game.victorBonus` (HiveField 18) records selection. Bonus logged in battle history event metadata. Fixed `pendingFreeRequisitions` propagation in 6 immutable Crusade constructors across oob_modify_screen, requisition_screen, and adepta_sororitas_requisitions.
 
 **Recent Work (Feb 11)**
 - Post-Game Navigation Guard: Confirmation dialog on all exit paths (bottom nav, back button, Android back) when results haven't been committed. `isCommitted` (HiveField 17) on Game model tracks state. Play screen detects uncommitted games and prompts user to return. Prevents accidental XP/tally loss and OOA test bypass.
