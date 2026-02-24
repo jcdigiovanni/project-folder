@@ -179,6 +179,7 @@ class RequisitionScreen extends ConsumerWidget {
                 rosters: crusade.rosters,
                 games: crusade.games,
                 pendingFreeRequisitions: crusade.pendingFreeRequisitions,
+                factionDataJson: crusade.factionDataJson,
               );
 
               ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);

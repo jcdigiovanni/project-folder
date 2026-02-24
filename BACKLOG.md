@@ -9,6 +9,47 @@
 ## Enhancements
 - No remaining enhancements in backlog.
 
+# Emperor’s Children Agendas
+
+## Draught of Despair
+
+- Each time an **EMPEROR’S CHILDREN** unit from your Crusade army destroys an enemy unit that is **Battle-shocked**, that **EMPEROR’S CHILDREN** unit gains 2XP.
+- At the end of the battle:
+  - If one or more enemy units failed a Battle-shock test during the battle → gain 1 **Common** ingredient.
+  - If three or more enemy units failed a Battle-shock test during the battle → gain 1 **Rare** ingredient.
+  - If six or more enemy units failed a Battle-shock test during the battle, **or** if any of those enemy units destroyed while **Battle-shocked** were **AELDARI** units → gain 1 **Essence of Fear**.
+
+## Adorn the Canvas Eclectic
+
+At the end of each battle round:
+
+- If you control more objective markers than your opponent → select one **EMPEROR'S CHILDREN** unit from your Crusade army within range of an objective marker you control; that unit gains 1XP.
+- If more enemy units were destroyed this battle round than friendly units → select one **EMPEROR’S CHILDREN** unit from your Crusade army that destroyed one or more enemy units this battle round; that unit gains 1XP.
+
+Additional rules:
+
+- A unit cannot gain more than 3XP per battle from this Agenda.
+- At the end of the battle, if units from your Crusade army gained a combined total of 6 or more XP from this Agenda during that battle → when rolling the D6 to determine whether a **Rare** ingredient is added to your Combat Elixirs Stash, add 3 to the result.
+
+## Symphony of Pain and Hate
+
+- Each time an **EMPEROR’S CHILDREN** unit from your Crusade army destroys an enemy unit that has destroyed one or more units from your Crusade army during the battle → that **EMPEROR’S CHILDREN** unit gains 2XP.
+- At the end of the battle:
+  - If one or more **EMPEROR’S CHILDREN** units from your Crusade army destroyed three or more such enemy units during the battle → gain 1 **Rare** ingredient.
+  - If one or more such destroyed enemy units were **ADEPTUS ASTARTES**, **DEATHWATCH**, or **GREY KNIGHTS** units → gain 1 **Distillate of Hatred**.
+
+## Feeding the Addiction
+
+- Each time an **EMPEROR’S CHILDREN** unit from your Crusade army destroys an enemy unit with a melee attack → that **EMPEROR’S CHILDREN** unit gains 1XP.
+- At the end of the battle, add to your Combat Elixirs Stash (gain all that apply):
+
+| Enemy Units Killed During the Battle                              | Ingredient Added to Stash                                      |
+|-------------------------------------------------------------------|----------------------------------------------------------------|
+| One or more **CHAOS** units (excluding **DAEMONS**)               | 1 **Rare** ingredient **or** 1 **Infusion of Traitor’s Blood** |
+| One or more units (excluding **IMPERIUM** and **CHAOS** units)    | 1 **Rare** ingredient **or** 1 **Extract of Xeno-matter**     |
+| One or more **IMPERIUM** units                                    | 1 **Rare** ingredient **or** 1 **Dilution of False Hope**     |
+| Six or more units                                                 | D3 **Common** ingredients                                      |
+
 ## Features
 - **FEA-018 (Low)**: Pre-Battle Unit Assignment Screen — UX polish item (not required to prevent code bloat). Add an interlude screen between agenda selection and active game. Full-screen checklist per agenda for unit assignment. The current in-dialog multi-select approach scales fine for any number of agendas/units. Related: `active_game_screen.dart:_showUnitSelectionDialog`, `play_screen.dart`.
 
@@ -19,7 +60,4 @@
 - **DATA-001 (Medium)**: Full Deathwatch unit data (MFM v3.8 page 19 reference; extract points/flags like prior factions – generate externally)
 
 ## Archived/Resolved This Sprint
-- **FEA-019 (Medium)**: Victor Bonuses — Post-game bonus selection for victorious players. 7 bonus types with extensible `VictorBonusType` class. Deferred token architecture via `pendingFreeRequisitions`. Mark for Greatness multi-select support. Free requisition/honour/enhancement redemption on OOB and requisition screens.
-- **REFACTOR-002 (Medium)**: Shared code extraction — Extracted repeated patterns from large screen files into shared utilities and widgets. `GameLookups`/`CrusadeLookups` extension methods replace `.where().firstOrNull` lookups. `GameUpdateMixin` eliminates duplicate `updateKills`/`updateDestroyed`. Shared `TallyProgressBar` and `DetailRow` widgets. Consolidated duplicate `_loadBattleHonoursData()` via `loadBattleHonoursJsonData()`. Reduces screen file sizes across active game, post-game, and OOB.
-- **REFACTOR-001 (Medium)**: FactionCrusadeSystem abstraction — Extracted all hardcoded Sororitas Trials of a Living Saint logic into a generic `FactionCrusadeSystem` class with configurable labels, colors, icons, and progression mechanics. New registry pattern (`FactionCrusadeSystemRegistry`) for faction lookup. Renamed `isLivingSaint` tally key → `ProgressionKeys.isAscended`, moved `TrialDefinition` and `loadTrials()` into `faction_crusade_system.dart`. Updated all 3 screens (OOB, active game, post-game) to use system properties instead of hardcoded text/colors. Ready for other factions to register their own progression systems.
-- **FEA-017 (Medium)**: Trials of a Living Saint — Full SAINT POTENTIA / LIVING SAINT system for Adepta Sororitas. Designate one CHARACTER (non-Epic Hero) as SAINT POTENTIA via OOB screen (D6 roll or manual selection of 6 trials). Trial info (name, description, progress bar) displayed on unit card. Saint Points tracked via honor-system +/- control on active game screen. Post-game commit applies Saint Points to unit, checks ascension threshold, and triggers ascension dialog. On ascension: unit replaced with LIVING SAINT inheriting all Honours/Scars/XP, history event logged. Only 1 SAINT POTENTIA enforced. Trial data in external JSON (`sororitas_trials.json`). Added `factionGameTracking` (HiveField 13) to UnitGameState for per-game faction tracking.
+- **EC Combat Elixirs**: Full inventory/crafting/equipping system — data model, stash management screen, OOB integration, pre-battle equipping, active game reference, post-game ingredient rolls. `factionDataJson` on Crusade, `equippedElixirsJson` on Game.

@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import '../common.dart';
+import '../models/combat_elixirs.dart';
 import '../models/faction_crusade_system.dart';
 import '../services/google_drive_service.dart';
 import '../utils/game_state_utils.dart';
 import '../utils/game_update_mixin.dart';
+import '../widgets/d6_roller.dart';
 import '../widgets/tally_progress_bar.dart';
 
 /// Post-game screen for reviewing and finalizing battle results
@@ -472,6 +474,24 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
       }
     }
 
+    // EC Combat Elixirs: update previousBattleElixirs + roll for ingredients
+    if (crusade.faction == "Emperor's Children") {
+      final stash = crusade.combatElixirsStash ?? CombatElixirsStash.empty();
+      // Track which elixirs were used this battle for consecutive-use blocking
+      final equipped = game.equippedElixirs;
+      if (equipped != null) {
+        stash.previousBattleElixirs = equipped.allKeys;
+      } else {
+        stash.previousBattleElixirs = [];
+      }
+      crusade.combatElixirsStash = stash;
+
+      // Roll for ingredients (interactive D6 rolls)
+      if (mounted) {
+        await _rollForIngredients(crusade, game);
+      }
+    }
+
     // Mark game as committed
     game.isCommitted = true;
 
@@ -534,6 +554,81 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
     } else {
       // Navigate to dashboard
       context.go('/dashboard');
+    }
+  }
+
+  /// Roll for post-battle ingredient gains (Emperor's Children).
+  /// Common: D6 (+2 if won), 4+ = 1 Common, 6+ = D3 Common.
+  /// Rare: D6 (+1 if won), 6+ = 1 Rare.
+  Future<void> _rollForIngredients(Crusade crusade, Game game) async {
+    final won = game.result == GameResult.win;
+    final stash = crusade.combatElixirsStash ?? CombatElixirsStash.empty();
+    int commonGained = 0;
+    int rareGained = 0;
+
+    // ── Common ingredient roll ──
+    final commonRoll = await showD6RollerModal(
+      context: context,
+      title: 'Common Ingredient Roll',
+      subtitle: won ? 'D6+2 (Victory bonus)' : 'D6',
+      allowReroll: false,
+    );
+    if (commonRoll != null) {
+      final modified = commonRoll.total + (won ? 2 : 0);
+      if (modified >= 6) {
+        // Roll D3 for amount
+        if (!mounted) return;
+        final d3Roll = await showD6RollerModal(
+          context: context,
+          title: 'Common Ingredients Gained',
+          subtitle: 'Roll D3 for amount (modified roll was $modified)',
+          mode: DiceMode.d3,
+          allowReroll: false,
+        );
+        if (d3Roll != null) {
+          commonGained = d3Roll.total;
+        }
+      } else if (modified >= 4) {
+        commonGained = 1;
+      }
+    }
+
+    if (!mounted) return;
+
+    // ── Rare ingredient roll ──
+    final rareRoll = await showD6RollerModal(
+      context: context,
+      title: 'Rare Ingredient Roll',
+      subtitle: won ? 'D6+1 (Victory bonus)' : 'D6',
+      allowReroll: false,
+    );
+    if (rareRoll != null) {
+      final modified = rareRoll.total + (won ? 1 : 0);
+      if (modified >= 6) {
+        rareGained = 1;
+      }
+    }
+
+    // Apply gains (respecting caps)
+    if (commonGained > 0) {
+      stash.addCommon(commonGained);
+    }
+    if (rareGained > 0) {
+      stash.addRare(rareGained);
+    }
+    crusade.combatElixirsStash = stash;
+
+    // Show summary
+    if (mounted && (commonGained > 0 || rareGained > 0)) {
+      final parts = <String>[];
+      if (commonGained > 0) parts.add('$commonGained Common');
+      if (rareGained > 0) parts.add('$rareGained Rare');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Ingredients gained: ${parts.join(', ')}'),
+          backgroundColor: Colors.purple,
+        ),
+      );
     }
   }
 
