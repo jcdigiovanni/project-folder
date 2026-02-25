@@ -687,6 +687,7 @@ class OOBModifyScreen extends ConsumerWidget {
                   games: currentCrusade.games,
                   pendingFreeRequisitions: currentCrusade.pendingFreeRequisitions,
                   factionDataJson: currentCrusade.factionDataJson,
+                  floatingBattleHonours: currentCrusade.floatingBattleHonours,
                 );
                 ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
                 SnackBarUtils.showSuccess(context, 'Group disbanded. Units returned to Order of Battle.');
@@ -1303,6 +1304,8 @@ class OOBModifyScreen extends ConsumerWidget {
                           rosters: currentCrusade.rosters,
                           games: currentCrusade.games,
                           pendingFreeRequisitions: currentCrusade.pendingFreeRequisitions,
+                          factionDataJson: currentCrusade.factionDataJson,
+                          floatingBattleHonours: currentCrusade.floatingBattleHonours,
                         );
 
                         ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
@@ -1599,6 +1602,8 @@ class OOBModifyScreen extends ConsumerWidget {
                                 rosters: currentCrusade.rosters,
                                 games: currentCrusade.games,
                                 pendingFreeRequisitions: currentCrusade.pendingFreeRequisitions,
+                                factionDataJson: currentCrusade.factionDataJson,
+                                floatingBattleHonours: currentCrusade.floatingBattleHonours,
                               );
 
                               ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
@@ -2068,6 +2073,7 @@ class _BattleHonourModalContentState extends ConsumerState<_BattleHonourModalCon
       games: currentCrusade.games,
       pendingFreeRequisitions: updatedPendingFreeRequisitions,
       factionDataJson: currentCrusade.factionDataJson,
+      floatingBattleHonours: currentCrusade.floatingBattleHonours,
     );
 
     ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
@@ -3748,6 +3754,8 @@ class _AddUnitModalContentState extends State<_AddUnitModalContent> {
                     rosters: currentCrusade.rosters,
                     games: currentCrusade.games,
                     pendingFreeRequisitions: currentCrusade.pendingFreeRequisitions,
+                    factionDataJson: currentCrusade.factionDataJson,
+                    floatingBattleHonours: currentCrusade.floatingBattleHonours,
                   );
                   ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
 

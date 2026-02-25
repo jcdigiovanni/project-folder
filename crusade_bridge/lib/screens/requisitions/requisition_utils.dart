@@ -173,6 +173,7 @@ void confirmHonorSystemRequisition({
               games: crusade.games,
               pendingFreeRequisitions: crusade.pendingFreeRequisitions,
               factionDataJson: crusade.factionDataJson,
+              floatingBattleHonours: crusade.floatingBattleHonours,
             );
 
             ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
