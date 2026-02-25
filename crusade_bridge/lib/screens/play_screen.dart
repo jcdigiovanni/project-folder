@@ -946,9 +946,12 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
     context.go('/game/$gameId');
   }
 
-  void _showElixirEquipDialog(BuildContext context, Roster roster, int totalPoints, int totalCP, List<GameAgenda> selectedAgendas) {
+  void _showElixirEquipDialog(BuildContext context, Roster roster, int totalPoints, int totalCP, List<GameAgenda> selectedAgendas) async {
     final currentCrusade = ref.read(currentCrusadeNotifierProvider);
     if (currentCrusade == null) return;
+
+    final elixirData = await loadElixirData();
+    if (!mounted) return;
 
     final stash = currentCrusade.combatElixirsStash ?? CombatElixirsStash.empty();
     final rosterUnits = roster.getUnits(currentCrusade.oob);
@@ -1022,11 +1025,11 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
                     style: TextStyle(color: Colors.grey.shade500, fontSize: 12),
                   ),
                   const SizedBox(height: 8),
-                  ...ArmyElixir.allTypes.map((key) {
-                    final doses = stash.armyElixirs[key] ?? 0;
-                    final blocked = stash.wasUsedLastBattle(key);
+                  ...elixirData.armyElixirs.map((elixir) {
+                    final doses = stash.armyElixirs[elixir.key] ?? 0;
+                    final blocked = stash.wasUsedLastBattle(elixir.key);
                     final available = doses > 0 && !blocked;
-                    final isSelected = selectedArmy.contains(key);
+                    final isSelected = selectedArmy.contains(elixir.key);
 
                     return CheckboxListTile(
                       dense: true,
@@ -1036,15 +1039,15 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
                           ? (val) {
                               setDialogState(() {
                                 if (val == true) {
-                                  selectedArmy.add(key);
+                                  selectedArmy.add(elixir.key);
                                 } else {
-                                  selectedArmy.remove(key);
+                                  selectedArmy.remove(elixir.key);
                                 }
                               });
                             }
                           : null,
                       title: Text(
-                        '${ArmyElixir.labels[key]!} ($doses dose${doses == 1 ? '' : 's'})',
+                        '${elixir.label} ($doses dose${doses == 1 ? '' : 's'})',
                         style: TextStyle(
                           fontSize: 14,
                           color: available ? null : Colors.grey.shade600,
@@ -1054,7 +1057,7 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
                       subtitle: Text(
                         blocked
                             ? 'Used last battle — cannot equip consecutively'
-                            : ArmyElixir.effects[key]!,
+                            : elixir.effect,
                         style: TextStyle(
                           fontSize: 11,
                           color: blocked ? Colors.red.shade300 : Colors.grey.shade500,
@@ -1098,19 +1101,19 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
                         value: null,
                         child: Text('None', style: TextStyle(fontSize: 13)),
                       ));
-                      for (final pKey in PersonalElixir.allTypes) {
-                        final doses = stash.personalElixirs[pKey] ?? 0;
-                        final blocked = stash.wasUsedLastBattle(pKey);
+                      for (final pElixir in elixirData.personalElixirs) {
+                        final doses = stash.personalElixirs[pElixir.key] ?? 0;
+                        final blocked = stash.wasUsedLastBattle(pElixir.key);
                         // Available if has doses, not blocked, and not already assigned to another unit
                         final assignedElsewhere = selectedPersonal.entries
-                            .any((e) => e.key != unit.id && e.value == pKey);
+                            .any((e) => e.key != unit.id && e.value == pElixir.key);
                         final usable = doses > 0 && !blocked && !assignedElsewhere;
                         // Show if currently assigned to this unit OR usable
-                        if (usable || assignedKey == pKey) {
+                        if (usable || assignedKey == pElixir.key) {
                           availableOptions.add(DropdownMenuItem(
-                            value: pKey,
+                            value: pElixir.key,
                             child: Text(
-                              '${PersonalElixir.labels[pKey]!} ($doses)',
+                              '${pElixir.label} ($doses)',
                               style: const TextStyle(fontSize: 13),
                             ),
                           ));
@@ -1165,7 +1168,7 @@ class _PlayScreenState extends ConsumerState<PlayScreen> {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 4),
                         child: Text(
-                          '$unitName: ${PersonalElixir.effects[e.value]}',
+                          '$unitName: ${elixirData.elixirEffect(e.value) ?? e.value}',
                           style: TextStyle(fontSize: 11, color: Colors.teal.shade300),
                         ),
                       );

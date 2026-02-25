@@ -1515,6 +1515,7 @@ class _EquippedElixirsBar extends StatefulWidget {
 
 class _EquippedElixirsBarState extends State<_EquippedElixirsBar> {
   bool _expanded = false;
+  late final Future<ElixirSystemData> _dataFuture = loadElixirData();
 
   @override
   Widget build(BuildContext context) {
@@ -1549,44 +1550,56 @@ class _EquippedElixirsBarState extends State<_EquippedElixirsBar> {
           ),
         ),
         if (_expanded)
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
-            color: Colors.purple.withValues(alpha: 0.04),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (e.armyElixirs.isNotEmpty) ...[
-                  Text('Army Elixirs', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.purple.shade200)),
-                  const SizedBox(height: 4),
-                  ...e.armyElixirs.map((key) => Padding(
-                    padding: const EdgeInsets.only(bottom: 2),
-                    child: Text(
-                      '${ArmyElixir.labels[key] ?? key}: ${ArmyElixir.effects[key] ?? ''}',
-                      style: TextStyle(fontSize: 11, color: Colors.grey.shade400),
-                    ),
-                  )),
-                ],
-                if (e.armyElixirs.isNotEmpty && e.personalElixirs.isNotEmpty)
-                  const SizedBox(height: 8),
-                if (e.personalElixirs.isNotEmpty) ...[
-                  Text('Personal Elixirs', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.teal.shade200)),
-                  const SizedBox(height: 4),
-                  ...e.personalElixirs.entries.map((entry) {
-                    final unitName = _findUnitName(entry.key);
-                    final elixirLabel = PersonalElixir.labels[entry.value] ?? entry.value;
-                    final effect = PersonalElixir.effects[entry.value] ?? '';
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 2),
-                      child: Text(
-                        '$unitName — $elixirLabel: $effect',
-                        style: TextStyle(fontSize: 11, color: Colors.grey.shade400),
-                      ),
-                    );
-                  }),
-                ],
-              ],
-            ),
+          FutureBuilder<ElixirSystemData>(
+            future: _dataFuture,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                );
+              }
+              final data = snapshot.data!;
+              return Container(
+                width: double.infinity,
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+                color: Colors.purple.withValues(alpha: 0.04),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (e.armyElixirs.isNotEmpty) ...[
+                      Text('Army Elixirs', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.purple.shade200)),
+                      const SizedBox(height: 4),
+                      ...e.armyElixirs.map((key) => Padding(
+                        padding: const EdgeInsets.only(bottom: 2),
+                        child: Text(
+                          '${data.elixirLabel(key) ?? key}: ${data.elixirEffect(key) ?? ''}',
+                          style: TextStyle(fontSize: 11, color: Colors.grey.shade400),
+                        ),
+                      )),
+                    ],
+                    if (e.armyElixirs.isNotEmpty && e.personalElixirs.isNotEmpty)
+                      const SizedBox(height: 8),
+                    if (e.personalElixirs.isNotEmpty) ...[
+                      Text('Personal Elixirs', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.teal.shade200)),
+                      const SizedBox(height: 4),
+                      ...e.personalElixirs.entries.map((entry) {
+                        final unitName = _findUnitName(entry.key);
+                        final elixirLabel = data.elixirLabel(entry.value) ?? entry.value;
+                        final effect = data.elixirEffect(entry.value) ?? '';
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 2),
+                          child: Text(
+                            '$unitName — $elixirLabel: $effect',
+                            style: TextStyle(fontSize: 11, color: Colors.grey.shade400),
+                          ),
+                        );
+                      }),
+                    ],
+                  ],
+                ),
+              );
+            },
           ),
       ],
     );

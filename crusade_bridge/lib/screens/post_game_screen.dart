@@ -561,6 +561,7 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
   /// Common: D6 (+2 if won), 4+ = 1 Common, 6+ = D3 Common.
   /// Rare: D6 (+1 if won), 6+ = 1 Rare.
   Future<void> _rollForIngredients(Crusade crusade, Game game) async {
+    final elixirData = await loadElixirData();
     final won = game.result == GameResult.win;
     final stash = crusade.combatElixirsStash ?? CombatElixirsStash.empty();
     int commonGained = 0;
@@ -611,10 +612,10 @@ class _PostGameScreenState extends ConsumerState<PostGameScreen> with GameUpdate
 
     // Apply gains (respecting caps)
     if (commonGained > 0) {
-      stash.addCommon(commonGained);
+      stash.addCommon(commonGained, elixirData.limits);
     }
     if (rareGained > 0) {
-      stash.addRare(rareGained);
+      stash.addRare(rareGained, elixirData.limits);
     }
     crusade.combatElixirsStash = stash;
 

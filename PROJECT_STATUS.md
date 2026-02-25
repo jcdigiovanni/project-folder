@@ -1,4 +1,7 @@
-**Last Updated:** February 24, 2026 (EC Combat Elixirs)
+**Last Updated:** February 25, 2026 (EC Combat Elixirs Data-Driven Refactor)
+
+**Recent Work (Feb 25)**
+- EC Combat Elixirs Data-Driven Refactor: Extracted all hardcoded elixir static data into `ec_combat_elixirs.json` (ingredient definitions, elixir names/effects, recipes, stash limits). Replaced 5 static classes with JSON-loaded models (`ElixirLimits`, `IngredientDef`, `ElixirDef`, `ElixirSystemData`) and async cached loader. All 5 screen files updated. Matches `sororitas_trials.json` data-driven pattern. Backward-compatible with existing stash data.
 
 **Recent Work (Feb 24)**
 - EC Combat Elixirs: Full inventory/crafting/equipping system for Emperor's Children. New `combat_elixirs.dart` data model: `CombatElixirsStash` (Common/Rare/Exotic ingredients, 6 Army + 6 Personal Elixirs, recipe crafting, consecutive-use blocking). Generic `factionDataJson` (HiveField 17) on Crusade + `equippedElixirsJson` (HiveField 19) on Game. New stash management screen, OOB integration (stash button + free Anfrak Silk), Play screen equipping step (army multi-select + personal per-CHARACTER), Active Game reference bar, post-game D6 ingredient rolls. Propagated `factionDataJson` to all 10 Crusade constructors.
