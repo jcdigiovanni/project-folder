@@ -1,215 +1,428 @@
 {
   "faction": "World Eaters",
-  "version": "1.1",
-  "lastUpdated": "2026-01-24",
+  "version": "1.2",
+  "lastUpdated": "2026-02-28",
   "units": [
     {
       "name": "Angron",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [385],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        385
+      ],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "monster",
+        "fly",
+        "daemon"
+      ]
     },
     {
       "name": "Eightbound",
       "role": "Elites",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [150, 300],
+      "sizeOptions": [
+        3,
+        6
+      ],
+      "pointsOptions": [
+        150,
+        300
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry",
+        "daemon"
+      ]
     },
     {
       "name": "Exalted Eightbound",
       "role": "Elites",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [170, 340],
+      "sizeOptions": [
+        3,
+        6
+      ],
+      "pointsOptions": [
+        170,
+        340
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry",
+        "daemon"
+      ]
     },
     {
       "name": "Jakhals",
       "role": "Elites",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [65, 130],
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        65,
+        130
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Khorne Berzerkers",
       "role": "Troops",
-      "sizeOptions": [10],
-      "pointsOptions": [180],
+      "sizeOptions": [
+        10
+      ],
+      "pointsOptions": [
+        180
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Lord Invocatus",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [140],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        140
+      ],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "mounted"
+      ]
     },
     {
       "name": "Master of Executions",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [80],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        80
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "World Eaters Chaos Spawn",
       "role": "Elites",
-      "sizeOptions": [2],
-      "pointsOptions": [70],
+      "sizeOptions": [
+        2
+      ],
+      "pointsOptions": [
+        70
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "beast"
+      ]
     },
     {
       "name": "World Eaters Daemon Prince",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [190],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        190
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "monster",
+        "daemon"
+      ]
     },
     {
       "name": "World Eaters Daemon Prince with Wings",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [180],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        180
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "monster",
+        "fly",
+        "daemon"
+      ]
     },
     {
       "name": "World Eaters Helbrute",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [130],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        130
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "walker"
+      ]
     },
     {
       "name": "World Eaters Land Raider",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [220],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        220
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle"
+      ]
     },
     {
       "name": "World Eaters Lord on Juggernaut",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [100],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        100
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "mounted"
+      ]
     },
     {
       "name": "World Eaters Rhino",
       "role": "Dedicated Transport",
-      "sizeOptions": [1],
-      "pointsOptions": [75],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        75
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle"
+      ]
     },
     {
       "name": "Bloodcrushers",
       "role": "Fast Attack",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [110, 220],
+      "sizeOptions": [
+        3,
+        6
+      ],
+      "pointsOptions": [
+        110,
+        220
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "mounted",
+        "daemon"
+      ]
     },
     {
       "name": "Bloodletters",
       "role": "Troops",
-      "sizeOptions": [10],
-      "pointsOptions": [110],
+      "sizeOptions": [
+        10
+      ],
+      "pointsOptions": [
+        110
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry",
+        "daemon"
+      ]
     },
     {
       "name": "Bloodmaster",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [65],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        65
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry",
+        "daemon"
+      ]
     },
     {
       "name": "Bloodthirster",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [305],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        305
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "monster",
+        "fly",
+        "daemon"
+      ]
     },
     {
       "name": "Flesh Hounds",
       "role": "Fast Attack",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [75, 150],
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        75,
+        150
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "beast",
+        "daemon"
+      ]
     },
     {
       "name": "Karanak",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [75],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        75
+      ],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "beast",
+        "daemon"
+      ]
     },
     {
       "name": "Rendmaster on Blood Throne",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [165],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        165
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "mounted",
+        "daemon"
+      ]
     },
     {
       "name": "Skarbrand",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [305],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        305
+      ],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "monster",
+        "daemon"
+      ]
     },
     {
       "name": "Skull Altar",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [105],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        105
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "fortification",
+        "daemon"
+      ]
     },
     {
       "name": "Skull Cannon",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [95],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        95
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "mounted",
+        "daemon"
+      ]
     },
     {
       "name": "Skullmaster",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [100],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        100
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "mounted",
+        "daemon"
+      ]
     },
     {
       "name": "Skulltaker",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [85],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        85
+      ],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry",
+        "daemon"
+      ]
     }
   ]
 }

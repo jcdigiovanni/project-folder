@@ -9,7 +9,7 @@
 ## Enhancements
 - No remaining enhancements in backlog.
 
-# Emperor’s Children Agendas
+# Emperor’s Children Battle Triats (Honors)
 
 ## Draught of Despair
 

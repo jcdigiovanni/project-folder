@@ -1,7 +1,7 @@
 {
   "faction": "Adeptus Astartes",
-  "version": "1.1",
-  "lastUpdated": "2026-01-24",
+  "version": "1.2",
+  "lastUpdated": "2026-02-27",
   "units": [
     {
       "name": "Adrax Agatone",
@@ -9,7 +9,8 @@
       "sizeOptions": [1],
       "pointsOptions": [85],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Aethon Shaan",
@@ -17,7 +18,8 @@
       "sizeOptions": [1],
       "pointsOptions": [110],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry", "fly"]
     },
     {
       "name": "Aggressor Squad",
@@ -25,7 +27,8 @@
       "sizeOptions": [3, 6],
       "pointsOptions": [95, 190],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Ancient",
@@ -33,7 +36,8 @@
       "sizeOptions": [1],
       "pointsOptions": [50],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Ancient in Terminator Armour",
@@ -41,7 +45,8 @@
       "sizeOptions": [1],
       "pointsOptions": [75],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Apothecary",
@@ -49,7 +54,8 @@
       "sizeOptions": [1],
       "pointsOptions": [50],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Apothecary Biologis",
@@ -57,7 +63,8 @@
       "sizeOptions": [1],
       "pointsOptions": [70],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Assault Intercessor Squad",
@@ -65,7 +72,8 @@
       "sizeOptions": [5, 10],
       "pointsOptions": [75, 150],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Assault Intercessors with Jump Packs",
@@ -73,7 +81,8 @@
       "sizeOptions": [5, 10],
       "pointsOptions": [90, 170],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry", "fly"]
     },
     {
       "name": "Ballistus Dreadnought",
@@ -81,7 +90,8 @@
       "sizeOptions": [1],
       "pointsOptions": [150],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle", "walker"]
     },
     {
       "name": "Bladeguard Ancient",
@@ -89,7 +99,8 @@
       "sizeOptions": [1],
       "pointsOptions": [45],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Bladeguard Veteran Squad",
@@ -97,7 +108,8 @@
       "sizeOptions": [3, 6],
       "pointsOptions": [80, 170],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Brutalis Dreadnought",
@@ -105,7 +117,8 @@
       "sizeOptions": [1],
       "pointsOptions": [160],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle", "walker"]
     },
     {
       "name": "Captain",
@@ -113,7 +126,8 @@
       "sizeOptions": [1],
       "pointsOptions": [80],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Captain in Gravis Armour",
@@ -121,7 +135,8 @@
       "sizeOptions": [1],
       "pointsOptions": [80],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Captain in Phobos Armour",
@@ -129,7 +144,8 @@
       "sizeOptions": [1],
       "pointsOptions": [70],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Captain in Terminator Armour",
@@ -137,7 +153,8 @@
       "sizeOptions": [1],
       "pointsOptions": [95],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Captain Sicarius",
@@ -145,7 +162,8 @@
       "sizeOptions": [1],
       "pointsOptions": [85],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Captain Titus",
@@ -153,7 +171,8 @@
       "sizeOptions": [1],
       "pointsOptions": [90],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Captain with Jump Pack",
@@ -161,7 +180,8 @@
       "sizeOptions": [1],
       "pointsOptions": [75],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry", "fly"]
     },
     {
       "name": "Cato Sicarius",
@@ -169,7 +189,8 @@
       "sizeOptions": [1],
       "pointsOptions": [95],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Centurion Assault Squad",
@@ -177,7 +198,8 @@
       "sizeOptions": [3, 6],
       "pointsOptions": [150, 300],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Centurion Devastator Squad",
@@ -185,7 +207,8 @@
       "sizeOptions": [3, 6],
       "pointsOptions": [175, 350],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Chaplain",
@@ -193,7 +216,8 @@
       "sizeOptions": [1],
       "pointsOptions": [60],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Chaplain in Terminator Armour",
@@ -201,7 +225,8 @@
       "sizeOptions": [1],
       "pointsOptions": [75],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Chaplain on Bike",
@@ -209,7 +234,8 @@
       "sizeOptions": [1],
       "pointsOptions": [75],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["mounted"]
     },
     {
       "name": "Chaplain with Jump Pack",
@@ -217,7 +243,8 @@
       "sizeOptions": [1],
       "pointsOptions": [75],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry", "fly"]
     },
     {
       "name": "Chief Librarian Tigurius",
@@ -225,7 +252,8 @@
       "sizeOptions": [1],
       "pointsOptions": [75],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Company Heroes",
@@ -233,7 +261,8 @@
       "sizeOptions": [4],
       "pointsOptions": [105],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Darnath Lysander",
@@ -241,7 +270,8 @@
       "sizeOptions": [1],
       "pointsOptions": [100],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Desolation Squad",
@@ -249,7 +279,8 @@
       "sizeOptions": [5],
       "pointsOptions": [200],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Devastator Squad",
@@ -257,7 +288,8 @@
       "sizeOptions": [5, 10],
       "pointsOptions": [120, 200],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Dreadnought",
@@ -265,7 +297,8 @@
       "sizeOptions": [1],
       "pointsOptions": [135],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle", "walker"]
     },
     {
       "name": "Drop Pod",
@@ -273,7 +306,8 @@
       "sizeOptions": [1],
       "pointsOptions": [70],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     },
     {
       "name": "Eliminator Squad",
@@ -281,7 +315,8 @@
       "sizeOptions": [3],
       "pointsOptions": [85],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Eradicator Squad",
@@ -289,7 +324,8 @@
       "sizeOptions": [3, 6],
       "pointsOptions": [90, 180],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Firestrike Servo-turrets",
@@ -297,7 +333,8 @@
       "sizeOptions": [1, 2],
       "pointsOptions": [75, 150],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle", "artillery"]
     },
     {
       "name": "Gladiator Lancer",
@@ -305,7 +342,8 @@
       "sizeOptions": [1],
       "pointsOptions": [160],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     },
     {
       "name": "Gladiator Reaper",
@@ -313,7 +351,8 @@
       "sizeOptions": [1],
       "pointsOptions": [160],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     },
     {
       "name": "Gladiator Valiant",
@@ -321,7 +360,8 @@
       "sizeOptions": [1],
       "pointsOptions": [150],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     },
     {
       "name": "Hammerfall Bunker",
@@ -329,7 +369,8 @@
       "sizeOptions": [1],
       "pointsOptions": [175],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle", "fortification"]
     },
     {
       "name": "Heavy Intercessor Squad",
@@ -337,7 +378,8 @@
       "sizeOptions": [5, 10],
       "pointsOptions": [100, 200],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Hellblaster Squad",
@@ -345,7 +387,8 @@
       "sizeOptions": [5, 10],
       "pointsOptions": [110, 220],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Impulsor",
@@ -353,7 +396,8 @@
       "sizeOptions": [1],
       "pointsOptions": [80],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     },
     {
       "name": "Inceptor Squad",
@@ -361,7 +405,8 @@
       "sizeOptions": [3, 6],
       "pointsOptions": [120, 240],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry", "fly"]
     },
     {
       "name": "Incursor Squad",
@@ -369,7 +414,8 @@
       "sizeOptions": [5, 10],
       "pointsOptions": [80, 160],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Infernus Squad",
@@ -377,7 +423,8 @@
       "sizeOptions": [5, 10],
       "pointsOptions": [90, 180],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Infiltrator Squad",
@@ -385,7 +432,8 @@
       "sizeOptions": [5, 10],
       "pointsOptions": [100, 200],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Intercessor Squad",
@@ -393,7 +441,8 @@
       "sizeOptions": [5, 10],
       "pointsOptions": [80, 160],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Invader ATV",
@@ -401,7 +450,8 @@
       "sizeOptions": [1],
       "pointsOptions": [60],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["mounted"]
     },
     {
       "name": "Invictor Tactical Warsuit",
@@ -409,7 +459,8 @@
       "sizeOptions": [1],
       "pointsOptions": [125],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle", "walker"]
     },
     {
       "name": "Iron Father Feirros",
@@ -417,7 +468,8 @@
       "sizeOptions": [1],
       "pointsOptions": [95],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Judiciar",
@@ -425,7 +477,8 @@
       "sizeOptions": [1],
       "pointsOptions": [70],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Kayvaan Shrike",
@@ -433,7 +486,8 @@
       "sizeOptions": [1],
       "pointsOptions": [100],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry", "fly"]
     },
     {
       "name": "Kor'sarro Khan",
@@ -441,7 +495,8 @@
       "sizeOptions": [1],
       "pointsOptions": [60],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Land Raider",
@@ -449,7 +504,8 @@
       "sizeOptions": [1],
       "pointsOptions": [220],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     },
     {
       "name": "Land Raider Crusader",
@@ -457,7 +513,8 @@
       "sizeOptions": [1],
       "pointsOptions": [220],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     },
     {
       "name": "Land Raider Redeemer",
@@ -465,7 +522,8 @@
       "sizeOptions": [1],
       "pointsOptions": [270],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     },
     {
       "name": "Librarian",
@@ -473,7 +531,8 @@
       "sizeOptions": [1],
       "pointsOptions": [65],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Librarian in Phobos Armour",
@@ -481,7 +540,8 @@
       "sizeOptions": [1],
       "pointsOptions": [70],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Librarian in Terminator Armour",
@@ -489,7 +549,8 @@
       "sizeOptions": [1],
       "pointsOptions": [75],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Lieutenant",
@@ -497,7 +558,8 @@
       "sizeOptions": [1],
       "pointsOptions": [55],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Lieutenant in Phobos Armour",
@@ -505,7 +567,8 @@
       "sizeOptions": [1],
       "pointsOptions": [55],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Lieutenant in Reiver Armour",
@@ -513,7 +576,8 @@
       "sizeOptions": [1],
       "pointsOptions": [55],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Lieutenant with Combi-weapon",
@@ -521,7 +585,8 @@
       "sizeOptions": [1],
       "pointsOptions": [70],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Marneus Calgar",
@@ -529,7 +594,8 @@
       "sizeOptions": [3],
       "pointsOptions": [200],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Marneus Calgar in Armour of Antilochus",
@@ -537,7 +603,8 @@
       "sizeOptions": [1],
       "pointsOptions": [140],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Outrider Squad",
@@ -545,7 +612,8 @@
       "sizeOptions": [3, 6],
       "pointsOptions": [80, 160],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["mounted"]
     },
     {
       "name": "Pedro Kantor",
@@ -553,7 +621,8 @@
       "sizeOptions": [1],
       "pointsOptions": [90],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Predator Annihilator",
@@ -561,7 +630,8 @@
       "sizeOptions": [1],
       "pointsOptions": [135],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     },
     {
       "name": "Predator Destructor",
@@ -569,7 +639,8 @@
       "sizeOptions": [1],
       "pointsOptions": [140],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     },
     {
       "name": "Razorback",
@@ -577,7 +648,8 @@
       "sizeOptions": [1],
       "pointsOptions": [95],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     },
     {
       "name": "Redemptor Dreadnought",
@@ -585,7 +657,8 @@
       "sizeOptions": [1],
       "pointsOptions": [195],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle", "walker"]
     },
     {
       "name": "Reiver Squad",
@@ -593,7 +666,8 @@
       "sizeOptions": [5, 10],
       "pointsOptions": [80, 160],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Repulsor",
@@ -601,7 +675,8 @@
       "sizeOptions": [1],
       "pointsOptions": [180],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     },
     {
       "name": "Repulsor Executioner",
@@ -609,7 +684,8 @@
       "sizeOptions": [1],
       "pointsOptions": [220],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     },
     {
       "name": "Rhino",
@@ -617,7 +693,8 @@
       "sizeOptions": [1],
       "pointsOptions": [75],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     },
     {
       "name": "Roboute Guilliman",
@@ -625,7 +702,8 @@
       "sizeOptions": [1],
       "pointsOptions": [340],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["monster"]
     },
     {
       "name": "Scout Squad",
@@ -633,7 +711,8 @@
       "sizeOptions": [5, 10],
       "pointsOptions": [70, 140],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Sternguard Veteran Squad",
@@ -641,7 +720,8 @@
       "sizeOptions": [5, 10],
       "pointsOptions": [100, 200],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Storm Speeder Hailstrike",
@@ -649,7 +729,8 @@
       "sizeOptions": [1],
       "pointsOptions": [115],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle", "fly"]
     },
     {
       "name": "Storm Speeder Hammerstrike",
@@ -657,7 +738,8 @@
       "sizeOptions": [1],
       "pointsOptions": [125],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle", "fly"]
     },
     {
       "name": "Storm Speeder Thunderstrike",
@@ -665,7 +747,8 @@
       "sizeOptions": [1],
       "pointsOptions": [135],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle", "fly"]
     },
     {
       "name": "Stormhawk Interceptor",
@@ -673,7 +756,8 @@
       "sizeOptions": [1],
       "pointsOptions": [155],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle", "fly", "aircraft"]
     },
     {
       "name": "Stormraven Gunship",
@@ -681,7 +765,8 @@
       "sizeOptions": [1],
       "pointsOptions": [280],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle", "fly", "aircraft"]
     },
     {
       "name": "Stormtalon Gunship",
@@ -689,7 +774,8 @@
       "sizeOptions": [1],
       "pointsOptions": [165],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle", "fly", "aircraft"]
     },
     {
       "name": "Suppressor Squad",
@@ -697,7 +783,8 @@
       "sizeOptions": [3],
       "pointsOptions": [75],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry", "fly"]
     },
     {
       "name": "Tactical Squad",
@@ -705,7 +792,8 @@
       "sizeOptions": [10],
       "pointsOptions": [140],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Techmarine",
@@ -713,7 +801,8 @@
       "sizeOptions": [1],
       "pointsOptions": [55],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Terminator Assault Squad",
@@ -721,7 +810,8 @@
       "sizeOptions": [5, 10],
       "pointsOptions": [180, 360],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Terminator Squad",
@@ -729,7 +819,8 @@
       "sizeOptions": [5, 10],
       "pointsOptions": [170, 340],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Tor Garadon",
@@ -737,7 +828,8 @@
       "sizeOptions": [1],
       "pointsOptions": [90],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Uriel Ventris",
@@ -745,7 +837,8 @@
       "sizeOptions": [1],
       "pointsOptions": [95],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Vanguard Veteran Squad with Jump Packs",
@@ -753,7 +846,8 @@
       "sizeOptions": [5, 10],
       "pointsOptions": [100, 200],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry", "fly"]
     },
     {
       "name": "Victrix Honour Guard",
@@ -761,7 +855,8 @@
       "sizeOptions": [3, 6],
       "pointsOptions": [110, 220],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Vindicator",
@@ -769,15 +864,17 @@
       "sizeOptions": [1],
       "pointsOptions": [185],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     },
     {
-      "name": "Vulkan He’stan",
+      "name": "Vulkan He'stan",
       "role": "HQ",
       "sizeOptions": [1],
       "pointsOptions": [100],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Wardens of Ultramar",
@@ -785,7 +882,8 @@
       "sizeOptions": [6],
       "pointsOptions": [90],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Whirlwind",
@@ -793,7 +891,8 @@
       "sizeOptions": [1],
       "pointsOptions": [190],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     }
   ]
 }

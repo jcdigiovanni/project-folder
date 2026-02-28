@@ -1,127 +1,241 @@
 {
   "faction": "Adeptus Custodes",
-  "version": "1.1",
-  "lastUpdated": "2026-01-24",
+  "version": "1.2",
+  "lastUpdated": "2026-02-27",
   "units": [
     {
       "name": "Allarus Custodians",
       "role": "Elites",
-      "sizeOptions": [3],
-      "pointsOptions": [165],
+      "sizeOptions": [
+        3
+      ],
+      "pointsOptions": [
+        165
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Blade Champion",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [110],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        110
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Custodian Guard",
       "role": "Troops",
-      "sizeOptions": [5],
-      "pointsOptions": [225],
+      "sizeOptions": [
+        5
+      ],
+      "pointsOptions": [
+        225
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Custodian Wardens",
       "role": "Elites",
-      "sizeOptions": [3],
-      "pointsOptions": [150],
+      "sizeOptions": [
+        3
+      ],
+      "pointsOptions": [
+        150
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Knight-Centura",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [80],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        80
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Prosecutors",
       "role": "Elites",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [55, 110],
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        55,
+        110
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Shield-Captain",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [120],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        120
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Shield-Captain in Allarus Terminator Armour",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [145],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        145
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Shield-Captain on Dawneagle Jetbike",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [140],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        140
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "mounted",
+        "fly"
+      ]
     },
     {
       "name": "Trajann Valoris",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [160],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        160
+      ],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Venerable Contemptor Dreadnought",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [170],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        170
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "walker"
+      ]
     },
     {
       "name": "Venerable Land Raider",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [220],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        220
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle"
+      ]
     },
     {
       "name": "Vertus Praetors",
       "role": "Fast Attack",
-      "sizeOptions": [3],
-      "pointsOptions": [225],
+      "sizeOptions": [
+        3
+      ],
+      "pointsOptions": [
+        225
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "mounted",
+        "fly"
+      ]
     },
     {
       "name": "Vigilators",
       "role": "Elites",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [65, 130],
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        65,
+        130
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Witchseekers",
       "role": "Elites",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [55, 110],
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        55,
+        110
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     }
   ]
 }

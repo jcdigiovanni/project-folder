@@ -1,207 +1,412 @@
 {
   "faction": "Grey Knights",
-  "version": "1.1",
-  "lastUpdated": "2026-01-24",
+  "version": "1.2",
+  "lastUpdated": "2026-02-27",
   "units": [
     {
       "name": "Brother-Captain",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [90],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        90
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Brotherhood Champion",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [70],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        70
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Brotherhood Chaplain",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [65],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        65
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Brotherhood Librarian",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [80],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        80
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Brotherhood Techmarine",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [70],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        70
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Brotherhood Terminator Squad",
       "role": "Elites",
-      "sizeOptions": [4, 5, 8, 10],
-      "pointsOptions": [160, 200, 320, 400],
+      "sizeOptions": [
+        4,
+        5,
+        8,
+        10
+      ],
+      "pointsOptions": [
+        160,
+        200,
+        320,
+        400
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Castellan Crowe",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [90],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        90
+      ],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Grand Master",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [95],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        95
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Grand Master in Nemesis Dreadknight",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [225],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        225
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "vehicle",
+        "walker"
+      ]
     },
     {
       "name": "Grand Master Voldus",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [110],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        110
+      ],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Interceptor Squad",
       "role": "Fast Attack",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [125, 250],
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        125,
+        250
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry",
+        "fly"
+      ]
     },
     {
       "name": "Land Raider",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [220],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        220
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle"
+      ]
     },
     {
       "name": "Land Raider Crusader",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [220],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        220
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle"
+      ]
     },
     {
       "name": "Land Raider Redeemer",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [270],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        270
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle"
+      ]
     },
     {
       "name": "Nemesis Dreadknight",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [210],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        210
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "walker"
+      ]
     },
     {
       "name": "Paladin Squad",
       "role": "Elites",
-      "sizeOptions": [4, 5, 8, 10],
-      "pointsOptions": [180, 225, 360, 450],
+      "sizeOptions": [
+        4,
+        5,
+        8,
+        10
+      ],
+      "pointsOptions": [
+        180,
+        225,
+        360,
+        450
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Purgation Squad",
       "role": "Heavy Support",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [115, 230],
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        115,
+        230
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Purifier Squad",
       "role": "Elites",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [125, 250],
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        125,
+        250
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Razorback",
       "role": "Dedicated Transport",
-      "sizeOptions": [1],
-      "pointsOptions": [85],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        85
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle"
+      ]
     },
     {
       "name": "Rhino",
       "role": "Dedicated Transport",
-      "sizeOptions": [1],
-      "pointsOptions": [80],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        80
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle"
+      ]
     },
     {
       "name": "Stormhawk Interceptor",
       "role": "Flyer",
-      "sizeOptions": [1],
-      "pointsOptions": [160],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        160
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "fly",
+        "aircraft"
+      ]
     },
     {
       "name": "Stormraven Gunship",
       "role": "Flyer",
-      "sizeOptions": [1],
-      "pointsOptions": [280],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        280
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "fly",
+        "aircraft"
+      ]
     },
     {
       "name": "Stormtalon Gunship",
       "role": "Flyer",
-      "sizeOptions": [1],
-      "pointsOptions": [170],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        170
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "fly",
+        "aircraft"
+      ]
     },
     {
       "name": "Strike Squad",
       "role": "Troops",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [120, 240],
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        120,
+        240
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Venerable Dreadnought",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [140],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        140
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "walker"
+      ]
     }
   ]
 }
