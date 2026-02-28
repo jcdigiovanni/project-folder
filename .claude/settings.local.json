@@ -28,7 +28,18 @@
       "Bash(wc:*)",
       "Bash(xargs git branch:*)",
       "Bash(git branch:*)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "WebFetch(domain:wahapedia.ru)",
+      "Bash(node -e \":*)",
+      "Bash(node add_keywords.js)",
+      "Bash(python3 -c \":*)",
+      "Bash(python3 add_keywords.py)",
+      "Bash(dart run add_keywords.dart)",
+      "Bash(D:/Flutter/flutter/bin/dart run add_keywords_batch.dart)",
+      "Bash(D:/Flutter/flutter/bin/dart run add_keywords_batch2.dart)",
+      "Bash(D:/Flutter/flutter/bin/dart run add_keywords_batch3.dart)",
+      "Bash(D:/Flutter/flutter/bin/dart run add_keywords_batch4.dart)",
+      "Bash(D:/Flutter/flutter/bin/dart run add_keywords_batch5.dart)"
     ]
   }
 }

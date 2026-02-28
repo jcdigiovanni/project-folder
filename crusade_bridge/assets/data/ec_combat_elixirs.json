@@ -1,0 +1,128 @@
+{
+  "limits": {
+    "maxCommon": 6,
+    "maxRare": 4,
+    "maxExoticTotal": 2,
+    "maxElixirPerType": 3
+  },
+  "exoticIngredients": [
+    {
+      "key": "concentrate_of_tormented_souls",
+      "label": "Concentrate of Tormented Souls",
+      "description": "Sickly-sour ectoplasmic soup syphoned from those who bear corruption in their hearts."
+    },
+    {
+      "key": "dilution_of_false_hope",
+      "label": "Dilution of False Hope",
+      "description": "A clear liquid adulterated with the sickly essence of those sworn to a false god."
+    },
+    {
+      "key": "distillate_of_hatred",
+      "label": "Distillate of Hatred",
+      "description": "Purest fury sieved from the ground and pulped corpses of the righteous."
+    },
+    {
+      "key": "essence_of_fear",
+      "label": "Essence of Fear",
+      "description": "Stolen and refined from the last breath of a craven victim."
+    },
+    {
+      "key": "extract_of_xeno_matter",
+      "label": "Extract of Xeno-matter",
+      "description": "Ichor, viscera or psychic spore extracted from an alien foe."
+    },
+    {
+      "key": "infusion_of_traitors_blood",
+      "label": "Infusion of Traitor's Blood",
+      "description": "Crimson fluid extracted from the veins of those who have broken an oath of loyalty."
+    }
+  ],
+  "elixirs": [
+    {
+      "key": "anfrak_silk",
+      "label": "Anfrak Silk",
+      "effect": "Add 2\" to the Move characteristic of EMPEROR'S CHILDREN units.",
+      "isPersonal": false
+    },
+    {
+      "key": "xylocil",
+      "label": "Xylocil",
+      "effect": "Add 1 to the Strength characteristic of melee weapons equipped by EMPEROR'S CHILDREN models.",
+      "isPersonal": false
+    },
+    {
+      "key": "shivversplit",
+      "label": "Shivversplit",
+      "effect": "Add 1 to the Toughness characteristic of EMPEROR'S CHILDREN units.",
+      "isPersonal": false
+    },
+    {
+      "key": "heliotrophos",
+      "label": "Heliotrophos",
+      "effect": "Add 1 to the Attacks characteristic of melee weapons equipped by EMPEROR'S CHILDREN models.",
+      "isPersonal": false
+    },
+    {
+      "key": "skorflense",
+      "label": "Skorflense",
+      "effect": "Improve the Ballistic Skill and Weapon Skill characteristics of weapons equipped by EMPEROR'S CHILDREN models by 1.",
+      "isPersonal": false
+    },
+    {
+      "key": "quail",
+      "label": "Quail",
+      "effect": "Improve the Leadership and Objective Control characteristics of EMPEROR'S CHILDREN units by 1.",
+      "isPersonal": false
+    },
+    {
+      "key": "alacrine",
+      "label": "Alacrine",
+      "effect": "The bearer's unit has the Fights First ability.",
+      "isPersonal": true
+    },
+    {
+      "key": "cerebresec",
+      "label": "Cerebresec",
+      "effect": "Once per battle round, when you target the bearer's unit with a Stratagem, reduce the CP cost by 1.",
+      "isPersonal": true
+    },
+    {
+      "key": "thrynicine",
+      "label": "Thrynicine",
+      "effect": "Each time the bearer makes an attack, a successful Wound roll inflicts 1 mortal wound on the target (2 if the bearer has lost wounds).",
+      "isPersonal": true
+    },
+    {
+      "key": "salviqine_tears",
+      "label": "Salviqine Tears",
+      "effect": "Each enemy unit within 12\" of the bearer that is below Starting Strength must take a Battle-shock test, subtracting 1 if Below Half-strength.",
+      "isPersonal": true
+    },
+    {
+      "key": "sanctus_vi",
+      "label": "Sanctus Vi",
+      "effect": "The bearer has a 2+ invulnerable save.",
+      "isPersonal": true
+    },
+    {
+      "key": "excelsor_x",
+      "label": "Excelsor X",
+      "effect": "In your Shooting phase, after the bearer's unit has shot (if not in Engagement Range), it can make a Normal move of up to 6\".",
+      "isPersonal": true
+    }
+  ],
+  "recipes": [
+    { "elixirKey": "anfrak_silk", "slots": [["common"], ["rare", "extract_of_xeno_matter"]] },
+    { "elixirKey": "xylocil", "slots": [["common"], ["rare", "extract_of_xeno_matter"]] },
+    { "elixirKey": "shivversplit", "slots": [["common"], ["rare", "essence_of_fear"]] },
+    { "elixirKey": "heliotrophos", "slots": [["common"], ["exotic"]] },
+    { "elixirKey": "skorflense", "slots": [["rare", "extract_of_xeno_matter"]] },
+    { "elixirKey": "quail", "slots": [["rare"], ["exotic"]] },
+    { "elixirKey": "alacrine", "slots": [["rare", "common"], ["extract_of_xeno_matter"]] },
+    { "elixirKey": "cerebresec", "slots": [["exotic"], ["concentrate_of_tormented_souls"]] },
+    { "elixirKey": "thrynicine", "slots": [["rare", "distillate_of_hatred"], ["rare", "dilution_of_false_hope"]] },
+    { "elixirKey": "salviqine_tears", "slots": [["exotic"], ["rare", "essence_of_fear"]] },
+    { "elixirKey": "sanctus_vi", "slots": [["exotic"], ["rare", "concentrate_of_tormented_souls"], ["infusion_of_traitors_blood"]] },
+    { "elixirKey": "excelsor_x", "slots": [["rare", "dilution_of_false_hope"], ["common"]] }
+  ]
+}

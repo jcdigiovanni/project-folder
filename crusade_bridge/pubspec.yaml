@@ -51,6 +51,7 @@ flutter:
     - assets/data/factions_and_detachments.json
     - assets/data/battle_honours.json
     - assets/data/sororitas_trials.json
+    - assets/data/ec_combat_elixirs.json
     - assets/data/agendas/
     - assets/data/units/
 

@@ -1061,6 +1061,7 @@ void _showSaintlyBenedictions(BuildContext context, WidgetRef ref, Crusade crusa
               games: crusade.games,
               pendingFreeRequisitions: crusade.pendingFreeRequisitions,
               factionDataJson: crusade.factionDataJson,
+              floatingBattleHonours: crusade.floatingBattleHonours,
             );
 
             ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);

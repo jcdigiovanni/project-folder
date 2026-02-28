@@ -687,6 +687,7 @@ class OOBModifyScreen extends ConsumerWidget {
                   games: currentCrusade.games,
                   pendingFreeRequisitions: currentCrusade.pendingFreeRequisitions,
                   factionDataJson: currentCrusade.factionDataJson,
+                  floatingBattleHonours: currentCrusade.floatingBattleHonours,
                 );
                 ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
                 SnackBarUtils.showSuccess(context, 'Group disbanded. Units returned to Order of Battle.');
@@ -1303,6 +1304,8 @@ class OOBModifyScreen extends ConsumerWidget {
                           rosters: currentCrusade.rosters,
                           games: currentCrusade.games,
                           pendingFreeRequisitions: currentCrusade.pendingFreeRequisitions,
+                          factionDataJson: currentCrusade.factionDataJson,
+                          floatingBattleHonours: currentCrusade.floatingBattleHonours,
                         );
 
                         ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
@@ -1599,6 +1602,8 @@ class OOBModifyScreen extends ConsumerWidget {
                                 rosters: currentCrusade.rosters,
                                 games: currentCrusade.games,
                                 pendingFreeRequisitions: currentCrusade.pendingFreeRequisitions,
+                                factionDataJson: currentCrusade.factionDataJson,
+                                floatingBattleHonours: currentCrusade.floatingBattleHonours,
                               );
 
                               ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
@@ -2068,6 +2073,7 @@ class _BattleHonourModalContentState extends ConsumerState<_BattleHonourModalCon
       games: currentCrusade.games,
       pendingFreeRequisitions: updatedPendingFreeRequisitions,
       factionDataJson: currentCrusade.factionDataJson,
+      floatingBattleHonours: currentCrusade.floatingBattleHonours,
     );
 
     ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
@@ -3662,7 +3668,7 @@ class _AddUnitModalContentState extends State<_AddUnitModalContent> {
           // Add button
           Center(
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 if (selectedUnit == null || points <= 0) {
                   SnackBarUtils.showError(context, 'Select unit and enter points');
                   return;
@@ -3748,6 +3754,8 @@ class _AddUnitModalContentState extends State<_AddUnitModalContent> {
                     rosters: currentCrusade.rosters,
                     games: currentCrusade.games,
                     pendingFreeRequisitions: currentCrusade.pendingFreeRequisitions,
+                    factionDataJson: currentCrusade.factionDataJson,
+                    floatingBattleHonours: currentCrusade.floatingBattleHonours,
                   );
                   ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(updatedCrusade);
 
@@ -3773,14 +3781,15 @@ class _AddUnitModalContentState extends State<_AddUnitModalContent> {
                   if (wasEmpty && currentCrusade?.faction == "Emperor's Children") {
                     final crusade = ref.read(currentCrusadeNotifierProvider);
                     if (crusade != null) {
+                      final elixirData = await loadElixirData();
                       final stash = crusade.combatElixirsStash ?? CombatElixirsStash.empty();
-                      stash.addElixirDose(ArmyElixir.anfrakSilk, isPersonal: false);
+                      stash.addElixirDose(ElixirKeys.anfrakSilk, isPersonal: false, limits: elixirData.limits);
                       crusade.combatElixirsStash = stash;
                       ref.read(currentCrusadeNotifierProvider.notifier).setCurrent(crusade);
-                      SnackBarUtils.showSuccess(context, 'Anfrak Silk added to Combat Elixirs Stash!');
+                      if (mounted) SnackBarUtils.showSuccess(context, 'Anfrak Silk added to Combat Elixirs Stash!');
                     }
                   }
-                  Navigator.pop(context);
+                  if (mounted) Navigator.pop(context);
                 }
               },
               child: Text(addEnhancement ? 'Add (1 RP)' : 'Add'),

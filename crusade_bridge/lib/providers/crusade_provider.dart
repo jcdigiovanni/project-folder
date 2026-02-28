@@ -61,6 +61,7 @@ class CurrentCrusadeNotifier extends StateNotifier<Crusade?> {
       games: games ?? state!.games,
       pendingFreeRequisitions: state!.pendingFreeRequisitions,
       factionDataJson: state!.factionDataJson,
+      floatingBattleHonours: state!.floatingBattleHonours,
     );
   }
 

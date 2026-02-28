@@ -1,279 +1,563 @@
 {
   "faction": "Thousand Sons",
-  "version": "1.1",
-  "lastUpdated": "2026-01-24",
+  "version": "1.2",
+  "lastUpdated": "2026-02-28",
   "units": [
     {
       "name": "Ahriman",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [100],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        100
+      ],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Chaos Land Raider",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [220],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        220
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle"
+      ]
     },
     {
       "name": "Chaos Predator Annihilator",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [130],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        130
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle"
+      ]
     },
     {
       "name": "Chaos Predator Destructor",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [130],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        130
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle"
+      ]
     },
     {
       "name": "Chaos Rhino",
       "role": "Dedicated Transport",
-      "sizeOptions": [1],
-      "pointsOptions": [90],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        90
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle"
+      ]
     },
     {
       "name": "Chaos Spawn",
       "role": "Elites",
-      "sizeOptions": [2],
-      "pointsOptions": [65],
+      "sizeOptions": [
+        2
+      ],
+      "pointsOptions": [
+        65
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "beast"
+      ]
     },
     {
       "name": "Chaos Vindicator",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [185],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        185
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle"
+      ]
     },
     {
       "name": "Daemon Prince of Tzeentch",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [180],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        180
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "monster",
+        "daemon"
+      ]
     },
     {
       "name": "Daemon Prince of Tzeentch with Wings",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [170],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        170
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "monster",
+        "fly",
+        "daemon"
+      ]
     },
     {
       "name": "Defiler",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [165],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        165
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "walker",
+        "daemon"
+      ]
     },
     {
       "name": "Exalted Sorcerer",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [80],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        80
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Exalted Sorcerer on Disc of Tzeentch",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [100],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        100
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "mounted",
+        "fly"
+      ]
     },
     {
       "name": "Forgefiend",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [130],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        130
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "walker",
+        "daemon"
+      ]
     },
     {
       "name": "Heldrake",
       "role": "Flyer",
-      "sizeOptions": [1],
-      "pointsOptions": [215],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        215
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "fly",
+        "aircraft",
+        "daemon"
+      ]
     },
     {
       "name": "Helbrute",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [110],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        110
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "walker"
+      ]
     },
     {
       "name": "Infernal Master",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [95],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        95
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Magnus the Red",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [435],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        435
+      ],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "monster",
+        "fly",
+        "daemon"
+      ]
     },
     {
       "name": "Maulerfiend",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [120],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        120
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "walker",
+        "daemon"
+      ]
     },
     {
       "name": "Mutalith Vortex Beast",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [170],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        170
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "monster"
+      ]
     },
     {
       "name": "Rubric Marines",
       "role": "Troops",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [100, 190],
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        100,
+        190
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Scarab Occult Terminators",
       "role": "Elites",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [180, 360],
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        180,
+        360
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Sekhetar Robots",
       "role": "Elites",
-      "sizeOptions": [2, 4],
-      "pointsOptions": [80, 160],
+      "sizeOptions": [
+        2,
+        4
+      ],
+      "pointsOptions": [
+        80,
+        160
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "walker"
+      ]
     },
     {
       "name": "Sorcerer",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [80],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        80
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Sorcerer in Terminator Armour",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [85],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        85
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Tzaangor Enlightened",
       "role": "Fast Attack",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [45, 90],
+      "sizeOptions": [
+        3,
+        6
+      ],
+      "pointsOptions": [
+        45,
+        90
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "mounted",
+        "fly"
+      ]
     },
     {
       "name": "Tzaangor Enlightened with Fatecaster Greatbows",
       "role": "Fast Attack",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [55, 110],
+      "sizeOptions": [
+        3,
+        6
+      ],
+      "pointsOptions": [
+        55,
+        110
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "mounted",
+        "fly"
+      ]
     },
     {
       "name": "Tzaangor Shaman",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [60],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        60
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "mounted",
+        "fly"
+      ]
     },
     {
       "name": "Tzaangors",
       "role": "Troops",
-      "sizeOptions": [10, 20],
-      "pointsOptions": [70, 160],
+      "sizeOptions": [
+        10,
+        20
+      ],
+      "pointsOptions": [
+        70,
+        160
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Blue Horrors",
       "role": "Troops",
-      "sizeOptions": [10],
-      "pointsOptions": [90],
+      "sizeOptions": [
+        10
+      ],
+      "pointsOptions": [
+        90
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry",
+        "daemon"
+      ]
     },
     {
       "name": "Flamers",
       "role": "Fast Attack",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [65, 130],
+      "sizeOptions": [
+        3,
+        6
+      ],
+      "pointsOptions": [
+        65,
+        130
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry",
+        "fly",
+        "daemon"
+      ]
     },
     {
       "name": "Kairos Fateweaver",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [285],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        285
+      ],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "monster",
+        "fly",
+        "daemon"
+      ]
     },
     {
       "name": "Lord of Change",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [270],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        270
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "monster",
+        "fly",
+        "daemon"
+      ]
     },
     {
       "name": "Pink Horrors",
       "role": "Troops",
-      "sizeOptions": [10],
-      "pointsOptions": [115],
+      "sizeOptions": [
+        10
+      ],
+      "pointsOptions": [
+        115
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry",
+        "daemon"
+      ]
     },
     {
       "name": "Screamers",
       "role": "Fast Attack",
-      "sizeOptions": [3, 6],
-      "pointsOptions": [80, 160],
+      "sizeOptions": [
+        3,
+        6
+      ],
+      "pointsOptions": [
+        80,
+        160
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "beast",
+        "fly",
+        "daemon"
+      ]
     }
   ]
 }

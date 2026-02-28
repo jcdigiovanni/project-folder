@@ -1,7 +1,7 @@
 {
   "faction": "Adepta Sororitas",
-  "version": "1.0",
-  "lastUpdated": "2026-01-23",
+  "version": "1.1",
+  "lastUpdated": "2026-02-26",
   "units": [
     {
       "name": "Aestred Thurga and Agathae Dolan",
@@ -9,7 +9,8 @@
       "sizeOptions": [2],
       "pointsOptions": [70],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Arco-flagellants",
@@ -17,7 +18,8 @@
       "sizeOptions": [3, 10],
       "pointsOptions": [45, 140],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Battle Sisters Squad",
@@ -25,7 +27,8 @@
       "sizeOptions": [10],
       "pointsOptions": [105],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Canoness",
@@ -33,7 +36,8 @@
       "sizeOptions": [1],
       "pointsOptions": [60],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Canoness with Jump Pack",
@@ -41,7 +45,8 @@
       "sizeOptions": [1],
       "pointsOptions": [75],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Castigator",
@@ -49,7 +54,8 @@
       "sizeOptions": [1],
       "pointsOptions": [160],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     },
     {
       "name": "Celestian Insidiants",
@@ -57,7 +63,8 @@
       "sizeOptions": [10],
       "pointsOptions": [120],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Celestian Sacresants",
@@ -65,7 +72,8 @@
       "sizeOptions": [5, 10],
       "pointsOptions": [70, 140],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Daemonifuge",
@@ -73,7 +81,8 @@
       "sizeOptions": [2],
       "pointsOptions": [85],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Dialogus",
@@ -81,7 +90,8 @@
       "sizeOptions": [1],
       "pointsOptions": [40],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Dogmata",
@@ -89,7 +99,8 @@
       "sizeOptions": [1],
       "pointsOptions": [45],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Dominion Squad",
@@ -97,7 +108,8 @@
       "sizeOptions": [10],
       "pointsOptions": [120],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Exorcist",
@@ -105,7 +117,8 @@
       "sizeOptions": [1],
       "pointsOptions": [210],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     },
     {
       "name": "Hospitaller",
@@ -113,7 +126,8 @@
       "sizeOptions": [1],
       "pointsOptions": [60],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Imagifier",
@@ -121,7 +135,8 @@
       "sizeOptions": [1],
       "pointsOptions": [65],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Immolator",
@@ -129,7 +144,8 @@
       "sizeOptions": [1],
       "pointsOptions": [115],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     },
     {
       "name": "Junith Eruita",
@@ -137,7 +153,8 @@
       "sizeOptions": [1],
       "pointsOptions": [80],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["mounted"]
     },
     {
       "name": "Ministorum Priest",
@@ -145,7 +162,8 @@
       "sizeOptions": [1],
       "pointsOptions": [50],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Mortifiers",
@@ -153,7 +171,8 @@
       "sizeOptions": [1, 2],
       "pointsOptions": [70, 140],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle", "walker"]
     },
     {
       "name": "Morvenn Vahl",
@@ -161,7 +180,8 @@
       "sizeOptions": [1],
       "pointsOptions": [185],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["vehicle", "walker"]
     },
     {
       "name": "Palatine",
@@ -169,7 +189,8 @@
       "sizeOptions": [1],
       "pointsOptions": [50],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Paragon Warsuits",
@@ -177,7 +198,8 @@
       "sizeOptions": [3],
       "pointsOptions": [210],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle", "walker"]
     },
     {
       "name": "Penitent Engines",
@@ -185,7 +207,8 @@
       "sizeOptions": [1, 2],
       "pointsOptions": [75, 150],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle", "walker"]
     },
     {
       "name": "Repentia Squad",
@@ -193,7 +216,8 @@
       "sizeOptions": [5, 10],
       "pointsOptions": [75, 160],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Retributor Squad",
@@ -201,7 +225,8 @@
       "sizeOptions": [5],
       "pointsOptions": [120],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Saint Celestine",
@@ -209,7 +234,8 @@
       "sizeOptions": [3],
       "pointsOptions": [150],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Sanctifiers",
@@ -217,7 +243,8 @@
       "sizeOptions": [9],
       "pointsOptions": [110],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Seraphim Squad",
@@ -225,7 +252,8 @@
       "sizeOptions": [5, 10],
       "pointsOptions": [80, 160],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Sisters Novitiate Squad",
@@ -233,7 +261,8 @@
       "sizeOptions": [10],
       "pointsOptions": [100],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     },
     {
       "name": "Sororitas Rhino",
@@ -241,7 +270,8 @@
       "sizeOptions": [1],
       "pointsOptions": [75],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["vehicle"]
     },
     {
       "name": "Triumph of Saint Katherine",
@@ -249,7 +279,8 @@
       "sizeOptions": [1],
       "pointsOptions": [235],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": ["infantry"]
     },
     {
       "name": "Zephyrim Squad",
@@ -257,7 +288,8 @@
       "sizeOptions": [5, 10],
       "pointsOptions": [80, 160],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": ["infantry"]
     }
   ]
 }

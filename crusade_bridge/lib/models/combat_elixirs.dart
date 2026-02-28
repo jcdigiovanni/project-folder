@@ -1,119 +1,80 @@
 import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
 
-// ── Stash Limits ──────────────────────────────────────────────────────────────
+// ── Key Constants ────────────────────────────────────────────────────────────
+// Minimal string constants for elixir keys referenced directly in Dart code.
+// These match the keys in ec_combat_elixirs.json for backward compatibility.
 
-class StashLimits {
-  static const int maxCommon = 6;
-  static const int maxRare = 4;
-  static const int maxExoticTotal = 2;
-  static const int maxElixirPerType = 3;
-}
-
-// ── Exotic Ingredients ────────────────────────────────────────────────────────
-
-class ExoticIngredient {
-  static const String concentrateOfTormentedSouls = 'concentrate_of_tormented_souls';
-  static const String dilutionOfFalseHope = 'dilution_of_false_hope';
-  static const String distillateOfHatred = 'distillate_of_hatred';
-  static const String essenceOfFear = 'essence_of_fear';
-  static const String extractOfXenoMatter = 'extract_of_xeno_matter';
-  static const String infusionOfTraitorsBlood = 'infusion_of_traitors_blood';
-
-  static const List<String> allTypes = [
-    concentrateOfTormentedSouls,
-    dilutionOfFalseHope,
-    distillateOfHatred,
-    essenceOfFear,
-    extractOfXenoMatter,
-    infusionOfTraitorsBlood,
-  ];
-
-  static const Map<String, String> labels = {
-    concentrateOfTormentedSouls: 'Concentrate of Tormented Souls',
-    dilutionOfFalseHope: 'Dilution of False Hope',
-    distillateOfHatred: 'Distillate of Hatred',
-    essenceOfFear: 'Essence of Fear',
-    extractOfXenoMatter: 'Extract of Xeno-matter',
-    infusionOfTraitorsBlood: 'Infusion of Traitor\'s Blood',
-  };
-
-  static const Map<String, String> descriptions = {
-    concentrateOfTormentedSouls: 'Sickly-sour ectoplasmic soup syphoned from those who bear corruption in their hearts.',
-    dilutionOfFalseHope: 'A clear liquid adulterated with the sickly essence of those sworn to a false god.',
-    distillateOfHatred: 'Purest fury sieved from the ground and pulped corpses of the righteous.',
-    essenceOfFear: 'Stolen and refined from the last breath of a craven victim.',
-    extractOfXenoMatter: 'Ichor, viscera or psychic spore extracted from an alien foe.',
-    infusionOfTraitorsBlood: 'Crimson fluid extracted from the veins of those who have broken an oath of loyalty.',
-  };
-}
-
-// ── Army Elixirs ──────────────────────────────────────────────────────────────
-
-class ArmyElixir {
+class ElixirKeys {
   static const String anfrakSilk = 'anfrak_silk';
-  static const String xylocil = 'xylocil';
-  static const String shivversplit = 'shivversplit';
-  static const String heliotrophos = 'heliotrophos';
-  static const String skorflense = 'skorflense';
-  static const String quail = 'quail';
-
-  static const List<String> allTypes = [
-    anfrakSilk, xylocil, shivversplit, heliotrophos, skorflense, quail,
-  ];
-
-  static const Map<String, String> labels = {
-    anfrakSilk: 'Anfrak Silk',
-    xylocil: 'Xylocil',
-    shivversplit: 'Shivversplit',
-    heliotrophos: 'Heliotrophos',
-    skorflense: 'Skorflense',
-    quail: 'Quail',
-  };
-
-  static const Map<String, String> effects = {
-    anfrakSilk: 'Add 2" to the Move characteristic of EMPEROR\'S CHILDREN units.',
-    xylocil: 'Add 1 to the Strength characteristic of melee weapons equipped by EMPEROR\'S CHILDREN models.',
-    shivversplit: 'Add 1 to the Toughness characteristic of EMPEROR\'S CHILDREN units.',
-    heliotrophos: 'Add 1 to the Attacks characteristic of melee weapons equipped by EMPEROR\'S CHILDREN models.',
-    skorflense: 'Improve the Ballistic Skill and Weapon Skill characteristics of weapons equipped by EMPEROR\'S CHILDREN models by 1.',
-    quail: 'Improve the Leadership and Objective Control characteristics of EMPEROR\'S CHILDREN units by 1.',
-  };
 }
 
-// ── Personal Elixirs ──────────────────────────────────────────────────────────
+// ── JSON-Loaded Data Models ──────────────────────────────────────────────────
 
-class PersonalElixir {
-  static const String alacrine = 'alacrine';
-  static const String cerebresec = 'cerebresec';
-  static const String thrynicine = 'thrynicine';
-  static const String salviqineTears = 'salviqine_tears';
-  static const String sanctusVi = 'sanctus_vi';
-  static const String excelsorX = 'excelsor_x';
+/// Definition of an exotic ingredient, loaded from JSON.
+class IngredientDef {
+  final String key;
+  final String label;
+  final String description;
 
-  static const List<String> allTypes = [
-    alacrine, cerebresec, thrynicine, salviqineTears, sanctusVi, excelsorX,
-  ];
+  const IngredientDef({
+    required this.key,
+    required this.label,
+    required this.description,
+  });
 
-  static const Map<String, String> labels = {
-    alacrine: 'Alacrine',
-    cerebresec: 'Cerebresec',
-    thrynicine: 'Thrynicine',
-    salviqineTears: 'Salviqine Tears',
-    sanctusVi: 'Sanctus Vi',
-    excelsorX: 'Excelsor X',
-  };
-
-  static const Map<String, String> effects = {
-    alacrine: 'The bearer\'s unit has the Fights First ability.',
-    cerebresec: 'Once per battle round, when you target the bearer\'s unit with a Stratagem, reduce the CP cost by 1.',
-    thrynicine: 'Each time the bearer makes an attack, a successful Wound roll inflicts 1 mortal wound on the target (2 if the bearer has lost wounds).',
-    salviqineTears: 'Each enemy unit within 12" of the bearer that is below Starting Strength must take a Battle-shock test, subtracting 1 if Below Half-strength.',
-    sanctusVi: 'The bearer has a 2+ invulnerable save.',
-    excelsorX: 'In your Shooting phase, after the bearer\'s unit has shot (if not in Engagement Range), it can make a Normal move of up to 6".',
-  };
+  factory IngredientDef.fromJson(Map<String, dynamic> json) => IngredientDef(
+    key: json['key'] as String,
+    label: json['label'] as String,
+    description: json['description'] as String,
+  );
 }
 
-// ── Recipes ───────────────────────────────────────────────────────────────────
+/// Definition of an elixir (army or personal), loaded from JSON.
+class ElixirDef {
+  final String key;
+  final String label;
+  final String effect;
+  final bool isPersonal;
+
+  const ElixirDef({
+    required this.key,
+    required this.label,
+    required this.effect,
+    required this.isPersonal,
+  });
+
+  factory ElixirDef.fromJson(Map<String, dynamic> json) => ElixirDef(
+    key: json['key'] as String,
+    label: json['label'] as String,
+    effect: json['effect'] as String,
+    isPersonal: json['isPersonal'] as bool,
+  );
+}
+
+/// Stash capacity limits, loaded from JSON.
+class ElixirLimits {
+  final int maxCommon;
+  final int maxRare;
+  final int maxExoticTotal;
+  final int maxElixirPerType;
+
+  const ElixirLimits({
+    required this.maxCommon,
+    required this.maxRare,
+    required this.maxExoticTotal,
+    required this.maxElixirPerType,
+  });
+
+  factory ElixirLimits.fromJson(Map<String, dynamic> json) => ElixirLimits(
+    maxCommon: json['maxCommon'] as int,
+    maxRare: json['maxRare'] as int,
+    maxExoticTotal: json['maxExoticTotal'] as int,
+    maxElixirPerType: json['maxElixirPerType'] as int,
+  );
+}
+
+// ── Recipes ──────────────────────────────────────────────────────────────────
 
 /// A single ingredient slot in a recipe. The player must provide ONE of the
 /// options. Options can be generic types ('common', 'rare', 'exotic') or
@@ -139,83 +100,104 @@ class ElixirRecipe {
   final bool isPersonal;
   final List<RecipeSlot> slots;
 
-  const ElixirRecipe({
+  ElixirRecipe({
     required this.elixirKey,
     required this.isPersonal,
     required this.slots,
   });
-
-  String get label => isPersonal
-      ? PersonalElixir.labels[elixirKey]!
-      : ArmyElixir.labels[elixirKey]!;
 }
 
-/// All elixir recipes. Approximate recipes based on Codex — slot options
-/// represent "ingredient OR specific exotic" alternatives from the rules.
-/// These can be refined when exact icon mapping is confirmed.
-class ElixirRecipes {
-  static const List<ElixirRecipe> all = [
-    // Army Elixirs
-    ElixirRecipe(elixirKey: ArmyElixir.anfrakSilk, isPersonal: false, slots: [
-      RecipeSlot(['common']),
-      RecipeSlot(['rare', ExoticIngredient.extractOfXenoMatter]),
-    ]),
-    ElixirRecipe(elixirKey: ArmyElixir.xylocil, isPersonal: false, slots: [
-      RecipeSlot(['common']),
-      RecipeSlot(['rare', ExoticIngredient.extractOfXenoMatter]),
-    ]),
-    ElixirRecipe(elixirKey: ArmyElixir.shivversplit, isPersonal: false, slots: [
-      RecipeSlot(['common']),
-      RecipeSlot(['rare', ExoticIngredient.essenceOfFear]),
-    ]),
-    ElixirRecipe(elixirKey: ArmyElixir.heliotrophos, isPersonal: false, slots: [
-      RecipeSlot(['common']),
-      RecipeSlot(['exotic']),
-    ]),
-    ElixirRecipe(elixirKey: ArmyElixir.skorflense, isPersonal: false, slots: [
-      RecipeSlot(['rare', ExoticIngredient.extractOfXenoMatter]),
-    ]),
-    ElixirRecipe(elixirKey: ArmyElixir.quail, isPersonal: false, slots: [
-      RecipeSlot(['rare']),
-      RecipeSlot(['exotic']),
-    ]),
-    // Personal Elixirs
-    ElixirRecipe(elixirKey: PersonalElixir.alacrine, isPersonal: true, slots: [
-      RecipeSlot(['rare', 'common']),
-      RecipeSlot([ExoticIngredient.extractOfXenoMatter]),
-    ]),
-    ElixirRecipe(elixirKey: PersonalElixir.cerebresec, isPersonal: true, slots: [
-      RecipeSlot(['exotic']),
-      RecipeSlot([ExoticIngredient.concentrateOfTormentedSouls]),
-    ]),
-    ElixirRecipe(elixirKey: PersonalElixir.thrynicine, isPersonal: true, slots: [
-      RecipeSlot(['rare', ExoticIngredient.distillateOfHatred]),
-      RecipeSlot(['rare', ExoticIngredient.dilutionOfFalseHope]),
-    ]),
-    ElixirRecipe(elixirKey: PersonalElixir.salviqineTears, isPersonal: true, slots: [
-      RecipeSlot(['exotic']),
-      RecipeSlot(['rare', ExoticIngredient.essenceOfFear]),
-    ]),
-    ElixirRecipe(elixirKey: PersonalElixir.sanctusVi, isPersonal: true, slots: [
-      RecipeSlot(['exotic']),
-      RecipeSlot(['rare', ExoticIngredient.concentrateOfTormentedSouls]),
-      RecipeSlot([ExoticIngredient.infusionOfTraitorsBlood]),
-    ]),
-    ElixirRecipe(elixirKey: PersonalElixir.excelsorX, isPersonal: true, slots: [
-      RecipeSlot(['rare', ExoticIngredient.dilutionOfFalseHope]),
-      RecipeSlot(['common']),
-    ]),
-  ];
+// ── Elixir System Data (top-level container) ─────────────────────────────────
 
-  static ElixirRecipe? forElixir(String key) {
-    for (final r in all) {
+/// Complete elixir system data loaded from JSON. Provides all lookups that
+/// screens need for ingredient names, elixir labels/effects, and recipes.
+class ElixirSystemData {
+  final ElixirLimits limits;
+  final List<IngredientDef> exoticIngredients;
+  final List<ElixirDef> elixirs;
+  final List<ElixirRecipe> recipes;
+
+  ElixirSystemData({
+    required this.limits,
+    required this.exoticIngredients,
+    required this.elixirs,
+    required this.recipes,
+  });
+
+  // ── Convenience lookups (built lazily) ──
+
+  late final Map<String, IngredientDef> _ingredientsByKey = {
+    for (final i in exoticIngredients) i.key: i,
+  };
+  late final Map<String, ElixirDef> _elixirsByKey = {
+    for (final e in elixirs) e.key: e,
+  };
+
+  List<String> get exoticKeys => exoticIngredients.map((i) => i.key).toList();
+  List<ElixirDef> get armyElixirs => elixirs.where((e) => !e.isPersonal).toList();
+  List<ElixirDef> get personalElixirs => elixirs.where((e) => e.isPersonal).toList();
+
+  String? ingredientLabel(String key) => _ingredientsByKey[key]?.label;
+  String? ingredientDescription(String key) => _ingredientsByKey[key]?.description;
+  String? elixirLabel(String key) => _elixirsByKey[key]?.label;
+  String? elixirEffect(String key) => _elixirsByKey[key]?.effect;
+  bool isPersonalElixir(String key) => _elixirsByKey[key]?.isPersonal ?? false;
+
+  ElixirRecipe? recipeForElixir(String key) {
+    for (final r in recipes) {
       if (r.elixirKey == key) return r;
     }
     return null;
   }
+
+  factory ElixirSystemData.fromJson(Map<String, dynamic> json) {
+    final limits = ElixirLimits.fromJson(json['limits'] as Map<String, dynamic>);
+    final ingredients = (json['exoticIngredients'] as List)
+        .map((e) => IngredientDef.fromJson(e as Map<String, dynamic>))
+        .toList();
+    final elixirDefs = (json['elixirs'] as List)
+        .map((e) => ElixirDef.fromJson(e as Map<String, dynamic>))
+        .toList();
+
+    // Build elixir lookup for isPersonal resolution in recipes
+    final elixirMap = {for (final e in elixirDefs) e.key: e};
+
+    final recipes = (json['recipes'] as List).map((r) {
+      final rMap = r as Map<String, dynamic>;
+      final elixirKey = rMap['elixirKey'] as String;
+      final slots = (rMap['slots'] as List)
+          .map((s) => RecipeSlot((s as List).cast<String>()))
+          .toList();
+      return ElixirRecipe(
+        elixirKey: elixirKey,
+        isPersonal: elixirMap[elixirKey]?.isPersonal ?? false,
+        slots: slots,
+      );
+    }).toList();
+
+    return ElixirSystemData(
+      limits: limits,
+      exoticIngredients: ingredients,
+      elixirs: elixirDefs,
+      recipes: recipes,
+    );
+  }
 }
 
-// ── Combat Elixirs Stash ──────────────────────────────────────────────────────
+// ── Loader ────────────────────────────────────────────────────────────────────
+
+ElixirSystemData? _elixirDataCache;
+
+/// Load elixir system data from JSON asset. Cached after first load.
+Future<ElixirSystemData> loadElixirData() async {
+  if (_elixirDataCache != null) return _elixirDataCache!;
+  final jsonStr = await rootBundle.loadString('assets/data/ec_combat_elixirs.json');
+  final data = jsonDecode(jsonStr) as Map<String, dynamic>;
+  _elixirDataCache = ElixirSystemData.fromJson(data);
+  return _elixirDataCache!;
+}
+
+// ── Combat Elixirs Stash ────────────────────────────────────────────────────
 
 /// Persistent stash tracking ingredients, crafted elixirs, and previous-battle
 /// usage for the Emperor's Children Combat Elixirs system.
@@ -245,26 +227,26 @@ class CombatElixirsStash {
 
   int get totalExotic => exoticIngredients.values.fold(0, (a, b) => a + b);
 
-  bool get isCommonFull => commonIngredients >= StashLimits.maxCommon;
-  bool get isRareFull => rareIngredients >= StashLimits.maxRare;
-  bool get isExoticFull => totalExotic >= StashLimits.maxExoticTotal;
+  bool isCommonFull(ElixirLimits limits) => commonIngredients >= limits.maxCommon;
+  bool isRareFull(ElixirLimits limits) => rareIngredients >= limits.maxRare;
+  bool isExoticFull(ElixirLimits limits) => totalExotic >= limits.maxExoticTotal;
 
-  int addCommon(int amount) {
-    final space = StashLimits.maxCommon - commonIngredients;
+  int addCommon(int amount, ElixirLimits limits) {
+    final space = limits.maxCommon - commonIngredients;
     final added = amount.clamp(0, space);
     commonIngredients += added;
     return added;
   }
 
-  int addRare(int amount) {
-    final space = StashLimits.maxRare - rareIngredients;
+  int addRare(int amount, ElixirLimits limits) {
+    final space = limits.maxRare - rareIngredients;
     final added = amount.clamp(0, space);
     rareIngredients += added;
     return added;
   }
 
-  int addExotic(String type, int amount) {
-    final space = StashLimits.maxExoticTotal - totalExotic;
+  int addExotic(String type, int amount, ElixirLimits limits) {
+    final space = limits.maxExoticTotal - totalExotic;
     final added = amount.clamp(0, space);
     if (added > 0) {
       exoticIngredients[type] = (exoticIngredients[type] ?? 0) + added;
@@ -277,10 +259,10 @@ class CombatElixirsStash {
       armyElixirs[key] ?? personalElixirs[key] ?? 0;
 
   /// Add a dose of a crafted elixir. Returns true if added (within limit).
-  bool addElixirDose(String key, {required bool isPersonal}) {
+  bool addElixirDose(String key, {required bool isPersonal, required ElixirLimits limits}) {
     final map = isPersonal ? personalElixirs : armyElixirs;
     final current = map[key] ?? 0;
-    if (current >= StashLimits.maxElixirPerType) return false;
+    if (current >= limits.maxElixirPerType) return false;
     map[key] = current + 1;
     return true;
   }
@@ -367,10 +349,10 @@ class CombatElixirsStash {
 
   /// Craft an elixir: deduct ingredients and add one dose.
   /// Returns true if successful.
-  bool craft(ElixirRecipe recipe) {
+  bool craft(ElixirRecipe recipe, ElixirLimits limits) {
     final key = recipe.elixirKey;
     final map = recipe.isPersonal ? personalElixirs : armyElixirs;
-    if ((map[key] ?? 0) >= StashLimits.maxElixirPerType) return false;
+    if ((map[key] ?? 0) >= limits.maxElixirPerType) return false;
 
     final choices = canCraft(recipe);
     if (choices == null) return false;
@@ -435,7 +417,7 @@ class CombatElixirsStash {
       CombatElixirsStash.fromJson(jsonDecode(jsonStr) as Map<String, dynamic>);
 }
 
-// ── Equipped Elixirs (per-game snapshot) ──────────────────────────────────────
+// ── Equipped Elixirs (per-game snapshot) ────────────────────────────────────
 
 /// Snapshot of which elixirs were equipped for a specific battle.
 class EquippedElixirs {

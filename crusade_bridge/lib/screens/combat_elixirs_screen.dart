@@ -12,12 +12,14 @@ class CombatElixirsScreen extends ConsumerStatefulWidget {
 
 class _CombatElixirsScreenState extends ConsumerState<CombatElixirsScreen> {
   late CombatElixirsStash _stash;
+  late Future<ElixirSystemData> _dataFuture;
 
   @override
   void initState() {
     super.initState();
     final crusade = ref.read(currentCrusadeNotifierProvider);
     _stash = crusade?.combatElixirsStash ?? CombatElixirsStash.empty();
+    _dataFuture = loadElixirData();
   }
 
   void _saveStash() {
@@ -41,29 +43,38 @@ class _CombatElixirsScreenState extends ConsumerState<CombatElixirsScreen> {
           ),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          _buildIngredientsSection(),
-          const SizedBox(height: 24),
-          _buildCraftingSection(),
-          const SizedBox(height: 24),
-          _buildElixirsSection('Army Elixirs', ArmyElixir.allTypes, ArmyElixir.labels, ArmyElixir.effects, false),
-          const SizedBox(height: 24),
-          _buildElixirsSection('Personal Elixirs', PersonalElixir.allTypes, PersonalElixir.labels, PersonalElixir.effects, true),
-          if (_stash.previousBattleElixirs.isNotEmpty) ...[
-            const SizedBox(height: 24),
-            _buildPreviousBattleSection(),
-          ],
-          const SizedBox(height: 32),
-        ],
+      body: FutureBuilder<ElixirSystemData>(
+        future: _dataFuture,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          final data = snapshot.data!;
+          return ListView(
+            padding: const EdgeInsets.all(16),
+            children: [
+              _buildIngredientsSection(data),
+              const SizedBox(height: 24),
+              _buildCraftingSection(data),
+              const SizedBox(height: 24),
+              _buildElixirsSection('Army Elixirs', data.armyElixirs, false, data),
+              const SizedBox(height: 24),
+              _buildElixirsSection('Personal Elixirs', data.personalElixirs, true, data),
+              if (_stash.previousBattleElixirs.isNotEmpty) ...[
+                const SizedBox(height: 24),
+                _buildPreviousBattleSection(data),
+              ],
+              const SizedBox(height: 32),
+            ],
+          );
+        },
       ),
     );
   }
 
   // ── Ingredients Section ──
 
-  Widget _buildIngredientsSection() {
+  Widget _buildIngredientsSection(ElixirSystemData data) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -83,13 +94,13 @@ class _CombatElixirsScreenState extends ConsumerState<CombatElixirsScreen> {
               Icons.circle,
               Colors.green.shade400,
               _stash.commonIngredients,
-              StashLimits.maxCommon,
+              data.limits.maxCommon,
               (delta) {
                 setState(() {
                   if (delta > 0) {
-                    _stash.addCommon(delta);
+                    _stash.addCommon(delta, data.limits);
                   } else {
-                    _stash.commonIngredients = (_stash.commonIngredients + delta).clamp(0, StashLimits.maxCommon);
+                    _stash.commonIngredients = (_stash.commonIngredients + delta).clamp(0, data.limits.maxCommon);
                   }
                 });
                 _saveStash();
@@ -101,13 +112,13 @@ class _CombatElixirsScreenState extends ConsumerState<CombatElixirsScreen> {
               Icons.diamond,
               Colors.blue.shade400,
               _stash.rareIngredients,
-              StashLimits.maxRare,
+              data.limits.maxRare,
               (delta) {
                 setState(() {
                   if (delta > 0) {
-                    _stash.addRare(delta);
+                    _stash.addRare(delta, data.limits);
                   } else {
-                    _stash.rareIngredients = (_stash.rareIngredients + delta).clamp(0, StashLimits.maxRare);
+                    _stash.rareIngredients = (_stash.rareIngredients + delta).clamp(0, data.limits.maxRare);
                   }
                 });
                 _saveStash();
@@ -119,17 +130,17 @@ class _CombatElixirsScreenState extends ConsumerState<CombatElixirsScreen> {
                 Icon(Icons.auto_awesome, color: Colors.amber.shade400, size: 16),
                 const SizedBox(width: 4),
                 Text(
-                  'Exotic (${_stash.totalExotic}/${StashLimits.maxExoticTotal})',
+                  'Exotic (${_stash.totalExotic}/${data.limits.maxExoticTotal})',
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.amber.shade300),
                 ),
               ],
             ),
             const SizedBox(height: 8),
-            ...ExoticIngredient.allTypes.map((type) {
-              final count = _stash.exoticIngredients[type] ?? 0;
+            ...data.exoticIngredients.map((ingredient) {
+              final count = _stash.exoticIngredients[ingredient.key] ?? 0;
               return Padding(
                 padding: const EdgeInsets.only(bottom: 4),
-                child: _buildExoticRow(type, count),
+                child: _buildExoticRow(ingredient.key, ingredient.label, count, data.limits),
               );
             }),
           ],
@@ -164,8 +175,7 @@ class _CombatElixirsScreenState extends ConsumerState<CombatElixirsScreen> {
     );
   }
 
-  Widget _buildExoticRow(String type, int count) {
-    final label = ExoticIngredient.labels[type]!;
+  Widget _buildExoticRow(String type, String label, int count, ElixirLimits limits) {
     return Row(
       children: [
         const SizedBox(width: 28),
@@ -190,8 +200,8 @@ class _CombatElixirsScreenState extends ConsumerState<CombatElixirsScreen> {
         ),
         IconButton(
           icon: const Icon(Icons.add_circle_outline, size: 18),
-          onPressed: !_stash.isExoticFull ? () {
-            setState(() { _stash.addExotic(type, 1); });
+          onPressed: !_stash.isExoticFull(limits) ? () {
+            setState(() { _stash.addExotic(type, 1, limits); });
             _saveStash();
           } : null,
           padding: EdgeInsets.zero,
@@ -203,7 +213,7 @@ class _CombatElixirsScreenState extends ConsumerState<CombatElixirsScreen> {
 
   // ── Crafting Section ──
 
-  Widget _buildCraftingSection() {
+  Widget _buildCraftingSection(ElixirSystemData data) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -223,20 +233,21 @@ class _CombatElixirsScreenState extends ConsumerState<CombatElixirsScreen> {
               style: TextStyle(fontSize: 13, color: Colors.grey.shade400),
             ),
             const SizedBox(height: 12),
-            ...ElixirRecipes.all.map((recipe) => _buildRecipeRow(recipe)),
+            ...data.recipes.map((recipe) => _buildRecipeRow(recipe, data)),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildRecipeRow(ElixirRecipe recipe) {
+  Widget _buildRecipeRow(ElixirRecipe recipe, ElixirSystemData data) {
     final canCraft = _stash.canCraft(recipe) != null;
     final currentDoses = recipe.isPersonal
         ? (_stash.personalElixirs[recipe.elixirKey] ?? 0)
         : (_stash.armyElixirs[recipe.elixirKey] ?? 0);
-    final atMax = currentDoses >= StashLimits.maxElixirPerType;
+    final atMax = currentDoses >= data.limits.maxElixirPerType;
     final enabled = canCraft && !atMax;
+    final label = data.elixirLabel(recipe.elixirKey) ?? recipe.elixirKey;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 4),
@@ -247,7 +258,7 @@ class _CombatElixirsScreenState extends ConsumerState<CombatElixirsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  recipe.label,
+                  label,
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
@@ -255,7 +266,7 @@ class _CombatElixirsScreenState extends ConsumerState<CombatElixirsScreen> {
                   ),
                 ),
                 Text(
-                  _recipeDescription(recipe),
+                  _recipeDescription(recipe, data),
                   style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
                 ),
               ],
@@ -273,9 +284,9 @@ class _CombatElixirsScreenState extends ConsumerState<CombatElixirsScreen> {
               icon: const Icon(Icons.science, size: 16),
               label: const Text('Craft'),
               onPressed: enabled ? () {
-                setState(() { _stash.craft(recipe); });
+                setState(() { _stash.craft(recipe, data.limits); });
                 _saveStash();
-                SnackBarUtils.showSuccess(context, '${recipe.label} crafted!');
+                SnackBarUtils.showSuccess(context, '$label crafted!');
               } : null,
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -287,14 +298,14 @@ class _CombatElixirsScreenState extends ConsumerState<CombatElixirsScreen> {
     );
   }
 
-  String _recipeDescription(ElixirRecipe recipe) {
+  String _recipeDescription(ElixirRecipe recipe, ElixirSystemData data) {
     final parts = <String>[];
     for (final slot in recipe.slots) {
       final options = slot.options.map((o) {
         if (o == 'common') return 'Common';
         if (o == 'rare') return 'Rare';
         if (o == 'exotic') return 'Exotic';
-        return ExoticIngredient.labels[o] ?? o;
+        return data.ingredientLabel(o) ?? o;
       }).join(' or ');
       parts.add(options);
     }
@@ -303,7 +314,7 @@ class _CombatElixirsScreenState extends ConsumerState<CombatElixirsScreen> {
 
   // ── Elixirs Section ──
 
-  Widget _buildElixirsSection(String title, List<String> allTypes, Map<String, String> labels, Map<String, String> effects, bool isPersonal) {
+  Widget _buildElixirsSection(String title, List<ElixirDef> elixirDefs, bool isPersonal, ElixirSystemData data) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -321,14 +332,14 @@ class _CombatElixirsScreenState extends ConsumerState<CombatElixirsScreen> {
               ],
             ),
             const SizedBox(height: 12),
-            ...allTypes.map((key) {
+            ...elixirDefs.map((elixir) {
               final doses = isPersonal
-                  ? (_stash.personalElixirs[key] ?? 0)
-                  : (_stash.armyElixirs[key] ?? 0);
-              final wasUsedLast = _stash.wasUsedLastBattle(key);
+                  ? (_stash.personalElixirs[elixir.key] ?? 0)
+                  : (_stash.armyElixirs[elixir.key] ?? 0);
+              final wasUsedLast = _stash.wasUsedLastBattle(elixir.key);
               return Padding(
                 padding: const EdgeInsets.only(bottom: 8),
-                child: _buildElixirTile(key, labels[key]!, effects[key]!, doses, wasUsedLast),
+                child: _buildElixirTile(elixir.label, elixir.effect, doses, wasUsedLast),
               );
             }),
           ],
@@ -337,7 +348,7 @@ class _CombatElixirsScreenState extends ConsumerState<CombatElixirsScreen> {
     );
   }
 
-  Widget _buildElixirTile(String key, String label, String effect, int doses, bool wasUsedLast) {
+  Widget _buildElixirTile(String label, String effect, int doses, bool wasUsedLast) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -393,7 +404,7 @@ class _CombatElixirsScreenState extends ConsumerState<CombatElixirsScreen> {
 
   // ── Previous Battle Section ──
 
-  Widget _buildPreviousBattleSection() {
+  Widget _buildPreviousBattleSection(ElixirSystemData data) {
     return Card(
       color: Colors.red.withValues(alpha: 0.1),
       child: Padding(
@@ -426,7 +437,7 @@ class _CombatElixirsScreenState extends ConsumerState<CombatElixirsScreen> {
               spacing: 8,
               runSpacing: 4,
               children: _stash.previousBattleElixirs.map((key) {
-                final label = ArmyElixir.labels[key] ?? PersonalElixir.labels[key] ?? key;
+                final label = data.elixirLabel(key) ?? key;
                 return Chip(
                   label: Text(label, style: const TextStyle(fontSize: 12)),
                   backgroundColor: Colors.red.withValues(alpha: 0.2),

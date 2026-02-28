@@ -1,191 +1,371 @@
 {
   "faction": "Drukhari",
-  "version": "1.1",
-  "lastUpdated": "2026-01-24",
+  "version": "1.2",
+  "lastUpdated": "2026-02-28",
   "units": [
     {
       "name": "Archon",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [80],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        80
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Cronos",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [55],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        55
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "monster",
+        "fly"
+      ]
     },
     {
       "name": "Drazhar",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [85],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        85
+      ],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Haemonculus",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [70],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        70
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Hand of the Archon",
       "role": "Elites",
-      "sizeOptions": [10],
-      "pointsOptions": [125],
+      "sizeOptions": [
+        10
+      ],
+      "pointsOptions": [
+        125
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Hellions",
       "role": "Fast Attack",
-      "sizeOptions": [5],
-      "pointsOptions": [85],
+      "sizeOptions": [
+        5
+      ],
+      "pointsOptions": [
+        85
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry",
+        "fly"
+      ]
     },
     {
       "name": "Incubi",
       "role": "Elites",
-      "sizeOptions": [5],
-      "pointsOptions": [90],
+      "sizeOptions": [
+        5
+      ],
+      "pointsOptions": [
+        90
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Kabalite Warriors",
       "role": "Troops",
-      "sizeOptions": [10],
-      "pointsOptions": [115],
+      "sizeOptions": [
+        10
+      ],
+      "pointsOptions": [
+        115
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Lady Malys",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [100],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        100
+      ],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Lelith Hesperax",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [85],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        85
+      ],
       "isEpicHero": true,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Mandrakes",
       "role": "Elites",
-      "sizeOptions": [5, 10],
-      "pointsOptions": [75, 150],
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        75,
+        150
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Raider",
       "role": "Dedicated Transport",
-      "sizeOptions": [1],
-      "pointsOptions": [85],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        85
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "fly"
+      ]
     },
     {
       "name": "Ravager",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [110],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        110
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "fly"
+      ]
     },
     {
       "name": "Razorwing Jetfighter",
       "role": "Flyer",
-      "sizeOptions": [1],
-      "pointsOptions": [170],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        170
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "fly",
+        "aircraft"
+      ]
     },
     {
       "name": "Reavers",
       "role": "Fast Attack",
-      "sizeOptions": [3],
-      "pointsOptions": [70],
+      "sizeOptions": [
+        3
+      ],
+      "pointsOptions": [
+        70
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "mounted",
+        "fly"
+      ]
     },
     {
       "name": "Scourges with Heavy Weapons",
       "role": "Fast Attack",
-      "sizeOptions": [5],
-      "pointsOptions": [130],
+      "sizeOptions": [
+        5
+      ],
+      "pointsOptions": [
+        130
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry",
+        "fly"
+      ]
     },
     {
       "name": "Scourges with Shardcarbines",
       "role": "Fast Attack",
-      "sizeOptions": [5],
-      "pointsOptions": [80],
+      "sizeOptions": [
+        5
+      ],
+      "pointsOptions": [
+        80
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry",
+        "fly"
+      ]
     },
     {
       "name": "Succubus",
       "role": "HQ",
-      "sizeOptions": [1],
-      "pointsOptions": [50],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        50
+      ],
       "isEpicHero": false,
-      "isCharacter": true
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Talos",
       "role": "Heavy Support",
-      "sizeOptions": [1],
-      "pointsOptions": [80],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        80
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "monster",
+        "fly"
+      ]
     },
     {
       "name": "Venom",
       "role": "Dedicated Transport",
-      "sizeOptions": [1],
-      "pointsOptions": [80],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        80
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "fly"
+      ]
     },
     {
       "name": "Voidraven Bomber",
       "role": "Flyer",
-      "sizeOptions": [1],
-      "pointsOptions": [245],
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        245
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "fly",
+        "aircraft"
+      ]
     },
     {
       "name": "Wracks",
       "role": "Troops",
-      "sizeOptions": [5, 8, 10],
-      "pointsOptions": [65, 105, 130],
+      "sizeOptions": [
+        5,
+        8,
+        10
+      ],
+      "pointsOptions": [
+        65,
+        105,
+        130
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     },
     {
       "name": "Wyches",
       "role": "Troops",
-      "sizeOptions": [10],
-      "pointsOptions": [90],
+      "sizeOptions": [
+        10
+      ],
+      "pointsOptions": [
+        90
+      ],
       "isEpicHero": false,
-      "isCharacter": false
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
     }
   ]
 }
