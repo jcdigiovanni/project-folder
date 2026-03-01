@@ -1,16 +1,22 @@
 {
   "faction": "Adeptus Custodes",
   "version": "1.2",
-  "lastUpdated": "2026-02-27",
+  "lastUpdated": "2026-02-28",
   "units": [
     {
       "name": "Allarus Custodians",
       "role": "Elites",
       "sizeOptions": [
-        3
+        2,
+        3,
+        5,
+        6
       ],
       "pointsOptions": [
-        165
+        110,
+        165,
+        275,
+        330
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -25,7 +31,7 @@
         1
       ],
       "pointsOptions": [
-        110
+        120
       ],
       "isEpicHero": false,
       "isCharacter": true,
@@ -37,10 +43,12 @@
       "name": "Custodian Guard",
       "role": "Troops",
       "sizeOptions": [
+        4,
         5
       ],
       "pointsOptions": [
-        225
+        150,
+        190
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -52,10 +60,12 @@
       "name": "Custodian Wardens",
       "role": "Elites",
       "sizeOptions": [
-        3
+        4,
+        5
       ],
       "pointsOptions": [
-        150
+        210,
+        260
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -70,7 +80,7 @@
         1
       ],
       "pointsOptions": [
-        80
+        55
       ],
       "isEpicHero": false,
       "isCharacter": true,
@@ -82,12 +92,16 @@
       "name": "Prosecutors",
       "role": "Elites",
       "sizeOptions": [
+        4,
         5,
+        9,
         10
       ],
       "pointsOptions": [
-        55,
-        110
+        40,
+        50,
+        75,
+        85
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -117,7 +131,7 @@
         1
       ],
       "pointsOptions": [
-        145
+        130
       ],
       "isEpicHero": false,
       "isCharacter": true,
@@ -132,7 +146,7 @@
         1
       ],
       "pointsOptions": [
-        140
+        150
       ],
       "isEpicHero": false,
       "isCharacter": true,
@@ -148,7 +162,7 @@
         1
       ],
       "pointsOptions": [
-        160
+        140
       ],
       "isEpicHero": true,
       "isCharacter": true,
@@ -191,9 +205,11 @@
       "name": "Vertus Praetors",
       "role": "Fast Attack",
       "sizeOptions": [
+        2,
         3
       ],
       "pointsOptions": [
+        150,
         225
       ],
       "isEpicHero": false,
@@ -207,12 +223,16 @@
       "name": "Vigilators",
       "role": "Elites",
       "sizeOptions": [
+        4,
         5,
+        9,
         10
       ],
       "pointsOptions": [
-        65,
-        130
+        45,
+        55,
+        90,
+        100
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -224,15 +244,64 @@
       "name": "Witchseekers",
       "role": "Elites",
       "sizeOptions": [
+        4,
         5,
+        9,
         10
       ],
       "pointsOptions": [
+        45,
         55,
-        110
+        90,
+        100
       ],
       "isEpicHero": false,
       "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Aleya",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        65
+      ],
+      "isEpicHero": true,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Anathema Psykana Rhino",
+      "role": "Dedicated Transport",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        75
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "vehicle"
+      ]
+    },
+    {
+      "name": "Valerian",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        110
+      ],
+      "isEpicHero": true,
+      "isCharacter": true,
       "keywords": [
         "infantry"
       ]

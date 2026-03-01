@@ -1,7 +1,7 @@
 {
   "faction": "Chaos Space Marines",
   "version": "1.2",
-  "lastUpdated": "2026-02-27",
+  "lastUpdated": "2026-02-28",
   "units": [
     {
       "name": "Abaddon the Despoiler",
@@ -453,7 +453,7 @@
         1
       ],
       "pointsOptions": [
-        80
+        120
       ],
       "isEpicHero": true,
       "isCharacter": true,
@@ -709,7 +709,7 @@
         1
       ],
       "pointsOptions": [
-        175
+        110
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -738,10 +738,12 @@
       "name": "Warp Talons",
       "role": "Fast Attack",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        125
+        125,
+        270
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -749,6 +751,85 @@
         "infantry",
         "fly",
         "daemon"
+      ]
+    },
+    {
+      "name": "Fellgor Beastmen",
+      "role": "Battleline",
+      "sizeOptions": [
+        10
+      ],
+      "pointsOptions": [
+        70
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Masters of the Maelstrom",
+      "role": "Elites",
+      "sizeOptions": [
+        5
+      ],
+      "pointsOptions": [
+        115
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Nemesis Claw",
+      "role": "Battleline",
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        110,
+        190
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Red Corsairs Raiders",
+      "role": "Battleline",
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        110,
+        220
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Red Corsairs Reave-Captain",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        75
+      ],
+      "isEpicHero": false,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
       ]
     }
   ]

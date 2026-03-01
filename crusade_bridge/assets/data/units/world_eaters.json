@@ -10,7 +10,7 @@
         1
       ],
       "pointsOptions": [
-        385
+        340
       ],
       "isEpicHero": true,
       "isCharacter": true,
@@ -28,8 +28,8 @@
         6
       ],
       "pointsOptions": [
-        150,
-        300
+        135,
+        270
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -46,8 +46,8 @@
         6
       ],
       "pointsOptions": [
-        170,
-        340
+        140,
+        280
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -60,12 +60,12 @@
       "name": "Jakhals",
       "role": "Elites",
       "sizeOptions": [
-        5,
-        10
+        10,
+        20
       ],
       "pointsOptions": [
         65,
-        130
+        140
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -77,10 +77,12 @@
       "name": "Khorne Berzerkers",
       "role": "Troops",
       "sizeOptions": [
-        10
+        10,
+        20
       ],
       "pointsOptions": [
-        180
+        180,
+        360
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -95,7 +97,7 @@
         1
       ],
       "pointsOptions": [
-        140
+        110
       ],
       "isEpicHero": true,
       "isCharacter": true,
@@ -125,7 +127,7 @@
         2
       ],
       "pointsOptions": [
-        70
+        90
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -140,7 +142,7 @@
         1
       ],
       "pointsOptions": [
-        190
+        200
       ],
       "isEpicHero": false,
       "isCharacter": true,
@@ -173,7 +175,7 @@
         1
       ],
       "pointsOptions": [
-        130
+        120
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -204,7 +206,7 @@
         1
       ],
       "pointsOptions": [
-        100
+        105
       ],
       "isEpicHero": false,
       "isCharacter": true,
@@ -219,7 +221,7 @@
         1
       ],
       "pointsOptions": [
-        75
+        85
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -252,7 +254,7 @@
         10
       ],
       "pointsOptions": [
-        110
+        90
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -422,6 +424,197 @@
       "keywords": [
         "infantry",
         "daemon"
+      ]
+    },
+    {
+      "name": "World Eaters Chaos Terminators",
+      "role": "Elites",
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        175,
+        350
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "World Eaters Predator Annihilator",
+      "role": "Heavy Support",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        145
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "vehicle"
+      ]
+    },
+    {
+      "name": "World Eaters Predator Destructor",
+      "role": "Heavy Support",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        145
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "vehicle"
+      ]
+    },
+    {
+      "name": "World Eaters Defiler",
+      "role": "Heavy Support",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        180
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "daemon",
+        "walker"
+      ]
+    },
+    {
+      "name": "World Eaters Forgefiend",
+      "role": "Heavy Support",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        170
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "daemon"
+      ]
+    },
+    {
+      "name": "World Eaters Heldrake",
+      "role": "Flyer",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        200
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "fly",
+        "daemon"
+      ]
+    },
+    {
+      "name": "World Eaters Maulerfiend",
+      "role": "Fast Attack",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        150
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "daemon",
+        "walker"
+      ]
+    },
+    {
+      "name": "World Eaters Master of Executions",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        60
+      ],
+      "isEpicHero": false,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "World Eaters Khorne Lord of Skulls",
+      "role": "Lord of War",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        505
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "daemon",
+        "walker"
+      ]
+    },
+    {
+      "name": "Kharn the Betrayer",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        100
+      ],
+      "isEpicHero": true,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Goremongers",
+      "role": "Battleline",
+      "sizeOptions": [
+        8
+      ],
+      "pointsOptions": [
+        75
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Slaughterbound",
+      "role": "Elites",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        100
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "monster"
       ]
     }
   ]

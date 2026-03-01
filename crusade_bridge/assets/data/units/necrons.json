@@ -1,7 +1,7 @@
 {
   "faction": "Necrons",
   "version": "1.2",
-  "lastUpdated": "2026-02-27",
+  "lastUpdated": "2026-02-28",
   "units": [
     {
       "name": "Annihilation Barge",
@@ -89,10 +89,12 @@
       "name": "Canoptek Spyders",
       "role": "Heavy Support",
       "sizeOptions": [
-        1
+        1,
+        2
       ],
       "pointsOptions": [
-        75
+        75,
+        150
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -138,10 +140,14 @@
       "name": "Convergence of Dominion",
       "role": "Fortification",
       "sizeOptions": [
-        1
+        1,
+        2,
+        3
       ],
       "pointsOptions": [
-        60
+        60,
+        120,
+        180
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -217,10 +223,12 @@
       "name": "Deathmarks",
       "role": "Elites",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        60
+        60,
+        120
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -265,10 +273,12 @@
       "name": "Flayed Ones",
       "role": "Elites",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        60
+        60,
+        120
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -341,10 +351,12 @@
       "name": "Immortals",
       "role": "Troops",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        70
+        70,
+        150
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -371,10 +383,16 @@
       "name": "Lokhust Destroyers",
       "role": "Fast Attack",
       "sizeOptions": [
-        1
+        1,
+        2,
+        3,
+        6
       ],
       "pointsOptions": [
-        40
+        40,
+        60,
+        90,
+        180
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -387,10 +405,14 @@
       "name": "Lokhust Heavy Destroyers",
       "role": "Heavy Support",
       "sizeOptions": [
-        1
+        1,
+        2,
+        3
       ],
       "pointsOptions": [
-        55
+        55,
+        110,
+        165
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -419,10 +441,12 @@
       "name": "Lychguard",
       "role": "Elites",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        85
+        85,
+        170
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -450,10 +474,12 @@
       "name": "Necron Warriors",
       "role": "Troops",
       "sizeOptions": [
-        10
+        10,
+        20
       ],
       "pointsOptions": [
-        90
+        90,
+        200
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -482,10 +508,12 @@
       "name": "Ophydian Destroyers",
       "role": "Elites",
       "sizeOptions": [
-        3
+        3,
+        6
       ],
       "pointsOptions": [
-        80
+        80,
+        160
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -587,10 +615,12 @@
       "name": "Skorpekh Destroyers",
       "role": "Elites",
       "sizeOptions": [
-        3
+        3,
+        6
       ],
       "pointsOptions": [
-        90
+        90,
+        180
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -663,10 +693,12 @@
       "name": "Tomb Blades",
       "role": "Fast Attack",
       "sizeOptions": [
-        3
+        3,
+        6
       ],
       "pointsOptions": [
-        75
+        75,
+        150
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -710,10 +742,12 @@
       "name": "Triarch Praetorians",
       "role": "Elites",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        90
+        90,
+        180
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -735,6 +769,68 @@
       "keywords": [
         "vehicle",
         "walker"
+      ]
+    },
+    {
+      "name": "Canoptek Macrocytes",
+      "role": "Fast Attack",
+      "sizeOptions": [
+        5
+      ],
+      "pointsOptions": [
+        85
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "beast",
+        "fly"
+      ]
+    },
+    {
+      "name": "Canoptek Tomb Crawlers",
+      "role": "Battleline",
+      "sizeOptions": [
+        2
+      ],
+      "pointsOptions": [
+        50
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "beast"
+      ]
+    },
+    {
+      "name": "Nekrosor Ammentar",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        165
+      ],
+      "isEpicHero": true,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Obelisk",
+      "role": "Heavy Support",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        300
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "fly"
       ]
     }
   ]

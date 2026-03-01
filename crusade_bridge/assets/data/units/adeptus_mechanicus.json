@@ -1,7 +1,7 @@
 {
   "faction": "Adeptus Mechanicus",
   "version": "1.2",
-  "lastUpdated": "2026-02-27",
+  "lastUpdated": "2026-02-28",
   "units": [
     {
       "name": "Archaeopter Fusilave",
@@ -128,7 +128,7 @@
       ],
       "pointsOptions": [
         85,
-        120,
+        170,
         255
       ],
       "isEpicHero": false,
