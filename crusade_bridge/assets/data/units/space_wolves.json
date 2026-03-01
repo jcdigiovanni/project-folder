@@ -1,7 +1,7 @@
 {
   "faction": "Space Wolves",
   "version": "1.2",
-  "lastUpdated": "2026-02-27",
+  "lastUpdated": "2026-02-28",
   "units": [
     {
       "name": "Arjac Rockfist",
@@ -10,7 +10,7 @@
         1
       ],
       "pointsOptions": [
-        95
+        105
       ],
       "isEpicHero": true,
       "isCharacter": true,
@@ -25,7 +25,7 @@
         1
       ],
       "pointsOptions": [
-        140
+        160
       ],
       "isEpicHero": true,
       "isCharacter": true,
@@ -41,7 +41,7 @@
         1
       ],
       "pointsOptions": [
-        95
+        110
       ],
       "isEpicHero": true,
       "isCharacter": true,
@@ -71,7 +71,7 @@
         1
       ],
       "pointsOptions": [
-        90
+        100
       ],
       "isEpicHero": true,
       "isCharacter": true,
@@ -83,10 +83,12 @@
       "name": "Thunderwolf Cavalry",
       "role": "Fast Attack",
       "sizeOptions": [
-        3
+        3,
+        6
       ],
       "pointsOptions": [
-        120
+        115,
+        230
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -98,10 +100,12 @@
       "name": "Wulfen",
       "role": "Elites",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        130
+        85,
+        170
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -1664,6 +1668,236 @@
       "isCharacter": false,
       "keywords": [
         "vehicle"
+      ]
+    },
+    {
+      "name": "Blood Claws",
+      "role": "Battleline",
+      "sizeOptions": [
+        10,
+        20
+      ],
+      "pointsOptions": [
+        135,
+        285
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Fenrisian Wolves",
+      "role": "Fast Attack",
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        40,
+        80
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "beast"
+      ]
+    },
+    {
+      "name": "Grey Hunters",
+      "role": "Battleline",
+      "sizeOptions": [
+        10
+      ],
+      "pointsOptions": [
+        165
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Iron Priest",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        55
+      ],
+      "isEpicHero": false,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Murderfang",
+      "role": "Elites",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        150
+      ],
+      "isEpicHero": true,
+      "isCharacter": true,
+      "keywords": [
+        "vehicle",
+        "walker"
+      ]
+    },
+    {
+      "name": "Ulrik the Slayer",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        70
+      ],
+      "isEpicHero": true,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Venerable Dreadnought",
+      "role": "Elites",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        130
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "walker"
+      ]
+    },
+    {
+      "name": "Wolf Guard Battle Leader",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        65
+      ],
+      "isEpicHero": false,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Wolf Guard Headtakers",
+      "role": "Elites",
+      "sizeOptions": [
+        3,
+        6,
+        6,
+        12
+      ],
+      "pointsOptions": [
+        85,
+        110,
+        170,
+        220
+      ],
+      "notes": "Sizes 6/12 include Hunting Wolves",
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Wolf Guard Terminators",
+      "role": "Elites",
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        170,
+        340
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Wolf Priest",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        70
+      ],
+      "isEpicHero": false,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Wolf Scouts",
+      "role": "Battleline",
+      "sizeOptions": [
+        6,
+        12
+      ],
+      "pointsOptions": [
+        105,
+        210
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Wulfen Dreadnought",
+      "role": "Elites",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        135
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "walker"
+      ]
+    },
+    {
+      "name": "Wulfen with Storm Shields",
+      "role": "Elites",
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        100,
+        200
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
       ]
     }
   ]

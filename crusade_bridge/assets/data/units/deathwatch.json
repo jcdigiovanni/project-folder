@@ -1,16 +1,16 @@
 {
-  "faction": "Black Templars",
-  "version": "1.2",
+  "faction": "Deathwatch",
+  "version": "1.0",
   "lastUpdated": "2026-02-28",
   "units": [
     {
-      "name": "Emperor's Champion",
-      "role": "HQ",
+      "name": "Watch Captain Artemis",
+      "role": "Character",
       "sizeOptions": [
         1
       ],
       "pointsOptions": [
-        100
+        65
       ],
       "isEpicHero": true,
       "isCharacter": true,
@@ -19,30 +19,48 @@
       ]
     },
     {
-      "name": "High Marshal Helbrecht",
-      "role": "HQ",
+      "name": "Watch Master",
+      "role": "Character",
       "sizeOptions": [
         1
       ],
       "pointsOptions": [
-        120
+        95
       ],
-      "isEpicHero": true,
+      "isEpicHero": false,
       "isCharacter": true,
       "keywords": [
         "infantry"
       ]
     },
     {
-      "name": "Primaris Crusader Squad",
-      "role": "Troops",
+      "name": "Corvus Blackstar",
+      "role": "Flyer",
       "sizeOptions": [
-        10,
-        20
+        1
       ],
       "pointsOptions": [
-        150,
-        310
+        180
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "fly",
+        "aircraft",
+        "transport"
+      ]
+    },
+    {
+      "name": "Deathwatch Terminator Squad",
+      "role": "Elites",
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        190,
+        350
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -51,19 +69,92 @@
       ]
     },
     {
-      "name": "Sword Brethren",
-      "role": "Elites",
+      "name": "Deathwatch Veterans",
+      "role": "Battleline",
       "sizeOptions": [
-        4,
         5,
-        9,
         10
       ],
       "pointsOptions": [
-        105,
-        130,
-        235,
-        260
+        100,
+        190
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Decimus Kill Team",
+      "role": "Battleline",
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        100,
+        200
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Fortis Kill Team",
+      "role": "Elites",
+      "sizeOptions": [
+        10
+      ],
+      "pointsOptions": [
+        180
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Indomitor Kill Team",
+      "role": "Elites",
+      "sizeOptions": [
+        10
+      ],
+      "pointsOptions": [
+        265
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Spectrus Kill Team",
+      "role": "Elites",
+      "sizeOptions": [
+        10
+      ],
+      "pointsOptions": [
+        180
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Talonstrike Kill Team",
+      "role": "Elites",
+      "sizeOptions": [
+        10
+      ],
+      "pointsOptions": [
+        275
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -754,7 +845,7 @@
         1
       ],
       "pointsOptions": [
-        85
+        80
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -1252,7 +1343,7 @@
         1
       ],
       "pointsOptions": [
-        235
+        220
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -1315,8 +1406,8 @@
         10
       ],
       "pointsOptions": [
-        85,
-        170
+        100,
+        200
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -1494,8 +1585,8 @@
         10
       ],
       "pointsOptions": [
-        175,
-        330
+        170,
+        340
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -1584,7 +1675,7 @@
       ]
     },
     {
-      "name": "Vulkan He’stan",
+      "name": "Vulkan He'stan",
       "role": "HQ",
       "sizeOptions": [
         1
@@ -1629,28 +1720,13 @@
       ]
     },
     {
-      "name": "Castellan",
+      "name": "Caanok Var",
       "role": "Character",
       "sizeOptions": [
         1
       ],
       "pointsOptions": [
-        70
-      ],
-      "isEpicHero": false,
-      "isCharacter": true,
-      "keywords": [
-        "infantry"
-      ]
-    },
-    {
-      "name": "Chaplain Grimaldus",
-      "role": "Character",
-      "sizeOptions": [
-        4
-      ],
-      "pointsOptions": [
-        110
+        100
       ],
       "isEpicHero": true,
       "isCharacter": true,
@@ -1659,48 +1735,19 @@
       ]
     },
     {
-      "name": "Crusade Ancient",
+      "name": "Suboden Khan",
       "role": "Character",
       "sizeOptions": [
         1
       ],
       "pointsOptions": [
-        55
+        115
       ],
-      "isEpicHero": false,
+      "isEpicHero": true,
       "isCharacter": true,
       "keywords": [
-        "infantry"
-      ]
-    },
-    {
-      "name": "Execrator",
-      "role": "Character",
-      "sizeOptions": [
-        1
-      ],
-      "pointsOptions": [
-        60
-      ],
-      "isEpicHero": false,
-      "isCharacter": true,
-      "keywords": [
-        "infantry"
-      ]
-    },
-    {
-      "name": "Marshal",
-      "role": "Character",
-      "sizeOptions": [
-        1
-      ],
-      "pointsOptions": [
-        80
-      ],
-      "isEpicHero": false,
-      "isCharacter": true,
-      "keywords": [
-        "infantry"
+        "infantry",
+        "mounted"
       ]
     }
   ]

@@ -1,7 +1,7 @@
 {
   "faction": "Aeldari",
   "version": "1.2",
-  "lastUpdated": "2026-02-27",
+  "lastUpdated": "2026-02-28",
   "units": [
     {
       "name": "Asurmen",
@@ -85,10 +85,12 @@
       "name": "Corsair Voidreavers",
       "role": "Elites",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        65
+        65,
+        110
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -100,10 +102,12 @@
       "name": "Corsair Voidscarred",
       "role": "Elites",
       "sizeOptions": [
+        5,
         10
       ],
       "pointsOptions": [
-        110
+        80,
+        160
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -115,10 +119,12 @@
       "name": "Dark Reapers",
       "role": "Heavy Support",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        90
+        90,
+        195
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -130,10 +136,12 @@
       "name": "Dire Avengers",
       "role": "Troops",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        75
+        75,
+        150
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -223,10 +231,12 @@
       "name": "Fire Dragons",
       "role": "Elites",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        120
+        120,
+        240
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -285,10 +295,12 @@
       "name": "Howling Banshees",
       "role": "Elites",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        95
+        95,
+        190
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -346,10 +358,12 @@
       "name": "Rangers",
       "role": "Troops",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        55
+        55,
+        110
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -392,10 +406,12 @@
       "name": "Shining Spears",
       "role": "Fast Attack",
       "sizeOptions": [
-        3
+        3,
+        6
       ],
       "pointsOptions": [
-        110
+        110,
+        220
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -408,10 +424,12 @@
       "name": "Shroud Runners",
       "role": "Fast Attack",
       "sizeOptions": [
-        3
+        3,
+        6
       ],
       "pointsOptions": [
-        80
+        80,
+        160
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -424,10 +442,12 @@
       "name": "Skyweavers",
       "role": "Fast Attack",
       "sizeOptions": [
-        2
+        2,
+        4
       ],
       "pointsOptions": [
-        95
+        95,
+        190
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -501,10 +521,12 @@
       "name": "Striking Scorpions",
       "role": "Elites",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        85
+        85,
+        150
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -516,10 +538,12 @@
       "name": "Swooping Hawks",
       "role": "Fast Attack",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        95
+        95,
+        190
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -532,10 +556,16 @@
       "name": "Troupe",
       "role": "Troops",
       "sizeOptions": [
-        5
+        5,
+        6,
+        11,
+        12
       ],
       "pointsOptions": [
-        85
+        85,
+        100,
+        190,
+        205
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -594,10 +624,12 @@
       "name": "Vyper",
       "role": "Fast Attack",
       "sizeOptions": [
-        1
+        1,
+        2
       ],
       "pointsOptions": [
-        65
+        75,
+        150
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -610,10 +642,12 @@
       "name": "War Walker",
       "role": "Heavy Support",
       "sizeOptions": [
-        1
+        1,
+        2
       ],
       "pointsOptions": [
-        85
+        85,
+        170
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -641,10 +675,12 @@
       "name": "Warlock Conclave",
       "role": "HQ",
       "sizeOptions": [
-        2
+        2,
+        4
       ],
       "pointsOptions": [
-        55
+        55,
+        130
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -656,10 +692,12 @@
       "name": "Warlock Skyrunners",
       "role": "HQ",
       "sizeOptions": [
-        1
+        1,
+        2
       ],
       "pointsOptions": [
-        45
+        45,
+        90
       ],
       "isEpicHero": false,
       "isCharacter": true,
@@ -672,10 +710,12 @@
       "name": "Warp Spiders",
       "role": "Fast Attack",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        105
+        105,
+        190
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -704,10 +744,12 @@
       "name": "Windriders",
       "role": "Fast Attack",
       "sizeOptions": [
-        3
+        3,
+        6
       ],
       "pointsOptions": [
-        80
+        80,
+        160
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -792,6 +834,306 @@
       "keywords": [
         "monster",
         "walker"
+      ]
+    },
+    {
+      "name": "Corsair Skyreavers",
+      "role": "Elites",
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        75,
+        150
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Crimson Hunter",
+      "role": "Flyer",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        160
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "fly",
+        "aircraft"
+      ]
+    },
+    {
+      "name": "Death Jester",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        90
+      ],
+      "isEpicHero": false,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Fire Prism",
+      "role": "Heavy Support",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        150
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "vehicle"
+      ]
+    },
+    {
+      "name": "Kharseth",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        95
+      ],
+      "isEpicHero": true,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Lhykhis",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        135
+      ],
+      "isEpicHero": true,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Prince Yriel",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        95
+      ],
+      "isEpicHero": true,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Starfang",
+      "role": "Fast Attack",
+      "sizeOptions": [
+        1,
+        2
+      ],
+      "pointsOptions": [
+        75,
+        150
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "fly"
+      ]
+    },
+    {
+      "name": "The Visarch",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        90
+      ],
+      "isEpicHero": true,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "The Yncarne",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        260
+      ],
+      "isEpicHero": true,
+      "isCharacter": true,
+      "keywords": [
+        "infantry",
+        "daemon"
+      ]
+    },
+    {
+      "name": "Ynnari Archon",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        85
+      ],
+      "isEpicHero": false,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Ynnari Incubi",
+      "role": "Elites",
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        85,
+        170
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Ynnari Kabalite Warriors",
+      "role": "Battleline",
+      "sizeOptions": [
+        10
+      ],
+      "pointsOptions": [
+        110
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Ynnari Raider",
+      "role": "Dedicated Transport",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        80
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "fly"
+      ]
+    },
+    {
+      "name": "Ynnari Reavers",
+      "role": "Fast Attack",
+      "sizeOptions": [
+        3,
+        3
+      ],
+      "pointsOptions": [
+        65,
+        120
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "mounted",
+        "fly"
+      ]
+    },
+    {
+      "name": "Ynnari Succubus",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        45
+      ],
+      "isEpicHero": false,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Ynnari Venom",
+      "role": "Dedicated Transport",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        70
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "vehicle",
+        "fly"
+      ]
+    },
+    {
+      "name": "Ynnari Wyches",
+      "role": "Battleline",
+      "sizeOptions": [
+        10
+      ],
+      "pointsOptions": [
+        90
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Yvraine",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        100
+      ],
+      "isEpicHero": true,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
       ]
     }
   ]

@@ -22,10 +22,12 @@
       "name": "Cronos",
       "role": "Heavy Support",
       "sizeOptions": [
-        1
+        1,
+        2
       ],
       "pointsOptions": [
-        55
+        55,
+        110
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -83,10 +85,12 @@
       "name": "Hellions",
       "role": "Fast Attack",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        85
+        85,
+        170
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -99,10 +103,12 @@
       "name": "Incubi",
       "role": "Elites",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        90
+        90,
+        180
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -225,10 +231,12 @@
       "name": "Reavers",
       "role": "Fast Attack",
       "sizeOptions": [
-        3
+        3,
+        6
       ],
       "pointsOptions": [
-        70
+        70,
+        140
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -288,10 +296,12 @@
       "name": "Talos",
       "role": "Heavy Support",
       "sizeOptions": [
-        1
+        1,
+        2
       ],
       "pointsOptions": [
-        80
+        80,
+        160
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -307,7 +317,7 @@
         1
       ],
       "pointsOptions": [
-        80
+        70
       ],
       "isEpicHero": false,
       "isCharacter": false,

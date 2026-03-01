@@ -1,7 +1,7 @@
 {
   "faction": "Blood Angels",
   "version": "1.2",
-  "lastUpdated": "2026-02-27",
+  "lastUpdated": "2026-02-28",
   "units": [
     {
       "name": "Astorath the Grim",
@@ -63,23 +63,6 @@
       "keywords": [
         "infantry",
         "fly"
-      ]
-    },
-    {
-      "name": "Death Company",
-      "role": "Elites",
-      "sizeOptions": [
-        5,
-        10
-      ],
-      "pointsOptions": [
-        90,
-        180
-      ],
-      "isEpicHero": false,
-      "isCharacter": false,
-      "keywords": [
-        "infantry"
       ]
     },
     {
@@ -1868,6 +1851,119 @@
       "isCharacter": false,
       "keywords": [
         "vehicle"
+      ]
+    },
+    {
+      "name": "Blood Angels Captain",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        80
+      ],
+      "isEpicHero": false,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Chief Librarian Mephiston",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        120
+      ],
+      "isEpicHero": true,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Death Company Captain",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        70
+      ],
+      "isEpicHero": false,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Death Company Captain with Jump Pack",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        75
+      ],
+      "isEpicHero": false,
+      "isCharacter": true,
+      "keywords": [
+        "infantry",
+        "fly"
+      ]
+    },
+    {
+      "name": "Death Company Marines",
+      "role": "Elites",
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        85,
+        160
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Death Company Marines with Bolt Rifles",
+      "role": "Elites",
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        85,
+        160
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Death Company Marines with Jump Packs",
+      "role": "Elites",
+      "sizeOptions": [
+        5,
+        10
+      ],
+      "pointsOptions": [
+        120,
+        230
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry",
+        "fly"
       ]
     }
   ]

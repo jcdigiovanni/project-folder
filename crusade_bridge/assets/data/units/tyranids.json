@@ -1,16 +1,18 @@
 {
   "faction": "Tyranids",
   "version": "1.1",
-  "lastUpdated": "2026-02-27",
+  "lastUpdated": "2026-02-28",
   "units": [
     {
       "name": "Barbgaunts",
       "role": "Troops",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        55
+        55,
+        110
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -74,7 +76,7 @@
         1
       ],
       "pointsOptions": [
-        170
+        140
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -86,10 +88,12 @@
       "name": "Gargoyles",
       "role": "Fast Attack",
       "sizeOptions": [
-        10
+        10,
+        20
       ],
       "pointsOptions": [
-        80
+        85,
+        170
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -106,8 +110,8 @@
         10
       ],
       "pointsOptions": [
-        85,
-        170
+        75,
+        140
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -149,10 +153,12 @@
       "name": "Hive Guard",
       "role": "Heavy Support",
       "sizeOptions": [
-        3
+        3,
+        6
       ],
       "pointsOptions": [
-        90
+        90,
+        180
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -167,7 +173,7 @@
         1
       ],
       "pointsOptions": [
-        210
+        195
       ],
       "isEpicHero": false,
       "isCharacter": true,
@@ -182,7 +188,7 @@
         1
       ],
       "pointsOptions": [
-        235
+        170
       ],
       "isEpicHero": false,
       "isCharacter": true,
@@ -245,7 +251,7 @@
         1
       ],
       "pointsOptions": [
-        145
+        135
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -257,10 +263,12 @@
       "name": "Neurogaunts",
       "role": "Troops",
       "sizeOptions": [
-        11
+        11,
+        22
       ],
       "pointsOptions": [
-        45
+        45,
+        90
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -291,7 +299,7 @@
         1
       ],
       "pointsOptions": [
-        275
+        260
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -306,7 +314,7 @@
         1
       ],
       "pointsOptions": [
-        140
+        150
       ],
       "isEpicHero": true,
       "isCharacter": true,
@@ -321,7 +329,7 @@
         1
       ],
       "pointsOptions": [
-        95
+        110
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -333,10 +341,14 @@
       "name": "Pyrovore",
       "role": "Heavy Support",
       "sizeOptions": [
-        1
+        1,
+        2,
+        3
       ],
       "pointsOptions": [
-        30
+        40,
+        70,
+        105
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -348,10 +360,14 @@
       "name": "Ripper Swarms",
       "role": "Troops",
       "sizeOptions": [
+        1,
+        2,
         3
       ],
       "pointsOptions": [
-        30
+        25,
+        40,
+        50
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -366,7 +382,7 @@
         1
       ],
       "pointsOptions": [
-        145
+        125
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -382,8 +398,8 @@
         20
       ],
       "pointsOptions": [
-        70,
-        140
+        60,
+        120
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -398,7 +414,7 @@
         1
       ],
       "pointsOptions": [
-        210
+        160
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -413,7 +429,7 @@
         1
       ],
       "pointsOptions": [
-        180
+        150
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -428,7 +444,7 @@
         1
       ],
       "pointsOptions": [
-        170
+        140
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -443,25 +459,10 @@
         1
       ],
       "pointsOptions": [
-        80
-      ],
-      "isEpicHero": false,
-      "isCharacter": true,
-      "keywords": [
-        "infantry"
-      ]
-    },
-    {
-      "name": "Tyranid Warriors",
-      "role": "Elites",
-      "sizeOptions": [
-        3
-      ],
-      "pointsOptions": [
         65
       ],
       "isEpicHero": false,
-      "isCharacter": false,
+      "isCharacter": true,
       "keywords": [
         "infantry"
       ]
@@ -473,7 +474,7 @@
         1
       ],
       "pointsOptions": [
-        190
+        200
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -485,10 +486,12 @@
       "name": "Von Ryan's Leapers",
       "role": "Elites",
       "sizeOptions": [
-        3
+        3,
+        6
       ],
       "pointsOptions": [
-        75
+        70,
+        140
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -500,16 +503,293 @@
       "name": "Zoanthropes",
       "role": "Heavy Support",
       "sizeOptions": [
-        3
+        3,
+        6
       ],
       "pointsOptions": [
-        100
+        100,
+        200
       ],
       "isEpicHero": false,
       "isCharacter": false,
       "keywords": [
         "infantry",
         "fly"
+      ]
+    },
+    {
+      "name": "Carnifex",
+      "role": "Heavy Support",
+      "sizeOptions": [
+        1,
+        2
+      ],
+      "pointsOptions": [
+        90,
+        180
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "monster"
+      ]
+    },
+    {
+      "name": "Harpy",
+      "role": "Flyer",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        215
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "monster",
+        "fly"
+      ]
+    },
+    {
+      "name": "Hive Crone",
+      "role": "Flyer",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        200
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "monster",
+        "fly"
+      ]
+    },
+    {
+      "name": "Hyperadapted Raveners",
+      "role": "Elites",
+      "sizeOptions": [
+        5
+      ],
+      "pointsOptions": [
+        165
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Mucolid Spores",
+      "role": "Fast Attack",
+      "sizeOptions": [
+        1,
+        2
+      ],
+      "pointsOptions": [
+        30,
+        60
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "beast",
+        "fly"
+      ]
+    },
+    {
+      "name": "Neurolictor",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        70
+      ],
+      "isEpicHero": false,
+      "isCharacter": true,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Norn Assimilator",
+      "role": "Heavy Support",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        275
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "monster"
+      ]
+    },
+    {
+      "name": "Parasite of Mortrex",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        80
+      ],
+      "isEpicHero": true,
+      "isCharacter": true,
+      "keywords": [
+        "infantry",
+        "fly"
+      ]
+    },
+    {
+      "name": "Raveners",
+      "role": "Fast Attack",
+      "sizeOptions": [
+        5
+      ],
+      "pointsOptions": [
+        125
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Spore Mines",
+      "role": "Fast Attack",
+      "sizeOptions": [
+        3,
+        6
+      ],
+      "pointsOptions": [
+        55,
+        110
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "beast",
+        "fly"
+      ]
+    },
+    {
+      "name": "Sporocyst",
+      "role": "Heavy Support",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        145
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "monster"
+      ]
+    },
+    {
+      "name": "The Swarmlord",
+      "role": "Character",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        220
+      ],
+      "isEpicHero": true,
+      "isCharacter": true,
+      "keywords": [
+        "monster"
+      ]
+    },
+    {
+      "name": "Tyranid Warriors with Melee Bio-weapons",
+      "role": "Battleline",
+      "sizeOptions": [
+        3,
+        6
+      ],
+      "pointsOptions": [
+        75,
+        150
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Tyranid Warriors with Ranged Bio-weapons",
+      "role": "Battleline",
+      "sizeOptions": [
+        3,
+        6
+      ],
+      "pointsOptions": [
+        65,
+        130
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Tyrannocyte",
+      "role": "Dedicated Transport",
+      "sizeOptions": [
+        1
+      ],
+      "pointsOptions": [
+        105
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "monster",
+        "fly"
+      ]
+    },
+    {
+      "name": "Tyrant Guard",
+      "role": "Elites",
+      "sizeOptions": [
+        3,
+        6
+      ],
+      "pointsOptions": [
+        80,
+        160
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
+      ]
+    },
+    {
+      "name": "Venomthropes",
+      "role": "Elites",
+      "sizeOptions": [
+        3,
+        6
+      ],
+      "pointsOptions": [
+        70,
+        140
+      ],
+      "isEpicHero": false,
+      "isCharacter": false,
+      "keywords": [
+        "infantry"
       ]
     }
   ]

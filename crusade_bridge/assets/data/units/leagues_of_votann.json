@@ -19,7 +19,7 @@
       ]
     },
     {
-      "name": "Brökhyr Iron-master",
+      "name": "Brokhyr Iron-master",
       "role": "HQ",
       "sizeOptions": [
         5
@@ -34,13 +34,15 @@
       ]
     },
     {
-      "name": "Brökhyr Thunderkyn",
+      "name": "Brokhyr Thunderkyn",
       "role": "Heavy Support",
       "sizeOptions": [
-        3
+        3,
+        6
       ],
       "pointsOptions": [
-        80
+        80,
+        160
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -67,10 +69,12 @@
       "name": "Cthonian Beserks",
       "role": "Elites",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        100
+        100,
+        200
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -112,10 +116,12 @@
       "name": "Einhyr Hearthguard",
       "role": "Elites",
       "sizeOptions": [
-        5
+        5,
+        10
       ],
       "pointsOptions": [
-        135
+        135,
+        270
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -172,10 +178,12 @@
       "name": "Hernkyn Pioneers",
       "role": "Fast Attack",
       "sizeOptions": [
-        3
+        3,
+        6
       ],
       "pointsOptions": [
-        80
+        80,
+        160
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -203,10 +211,12 @@
       "name": "Ironkin Steeljacks with Heavy Volkanite Disintegrators",
       "role": "Elites",
       "sizeOptions": [
-        3
+        3,
+        6
       ],
       "pointsOptions": [
-        85
+        85,
+        170
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -218,10 +228,12 @@
       "name": "Ironkin Steeljacks with Melee Weapons",
       "role": "Elites",
       "sizeOptions": [
-        3
+        3,
+        6
       ],
       "pointsOptions": [
-        85
+        85,
+        170
       ],
       "isEpicHero": false,
       "isCharacter": false,
@@ -230,7 +242,7 @@
       ]
     },
     {
-      "name": "Kähl",
+      "name": "Kahl",
       "role": "HQ",
       "sizeOptions": [
         1
@@ -264,10 +276,12 @@
       "name": "Kapricus Defenders",
       "role": "Elites",
       "sizeOptions": [
-        1
+        1,
+        2
       ],
       "pointsOptions": [
-        70
+        70,
+        140
       ],
       "isEpicHero": false,
       "isCharacter": false,
