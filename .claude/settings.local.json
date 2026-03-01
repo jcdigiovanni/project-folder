@@ -39,7 +39,16 @@
       "Bash(D:/Flutter/flutter/bin/dart run add_keywords_batch2.dart)",
       "Bash(D:/Flutter/flutter/bin/dart run add_keywords_batch3.dart)",
       "Bash(D:/Flutter/flutter/bin/dart run add_keywords_batch4.dart)",
-      "Bash(D:/Flutter/flutter/bin/dart run add_keywords_batch5.dart)"
+      "Bash(D:/Flutter/flutter/bin/dart run add_keywords_batch5.dart)",
+      "Bash(\"/c/Users/johnc/AppData/Local/Programs/Python/Python313/python.exe\" --version)",
+      "Bash(\"/c/Users/johnc/AppData/Local/Programs/Python/Python312/python.exe\" --version)",
+      "Bash(\"/c/Users/johnc/AppData/Local/Programs/Python/Python311/python.exe\" --version)",
+      "Bash(py --version)",
+      "Bash(python3.12 --version)",
+      "Bash(py update_mfm.py)",
+      "Bash(py update_mfm.py --dry-run)",
+      "WebFetch(domain:www.newrecruit.eu)",
+      "WebFetch(domain:www.40k.app)"
     ]
   }
 }
